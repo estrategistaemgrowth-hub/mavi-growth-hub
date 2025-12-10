@@ -4,6 +4,17 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
+import Sobre from "./pages/Sobre";
+import Servicos from "./pages/Servicos";
+import Cases from "./pages/Cases";
+import HubRSCRM from "./pages/HubRSCRM";
+import Contato from "./pages/Contato";
+import ServicoEcommerce from "./pages/servicos/Ecommerce";
+import ServicoPerformance from "./pages/servicos/Performance";
+import ServicoRedesSociais from "./pages/servicos/RedesSociais";
+import ServicoMarketplaces from "./pages/servicos/Marketplaces";
+import ServicoSites from "./pages/servicos/Sites";
+import ServicoAutomacao from "./pages/servicos/Automacao";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -16,7 +27,17 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+          <Route path="/sobre" element={<Sobre />} />
+          <Route path="/servicos" element={<Servicos />} />
+          <Route path="/servicos/ecommerce" element={<ServicoEcommerce />} />
+          <Route path="/servicos/performance" element={<ServicoPerformance />} />
+          <Route path="/servicos/redes-sociais" element={<ServicoRedesSociais />} />
+          <Route path="/servicos/marketplaces" element={<ServicoMarketplaces />} />
+          <Route path="/servicos/sites" element={<ServicoSites />} />
+          <Route path="/servicos/automacao" element={<ServicoAutomacao />} />
+          <Route path="/cases" element={<Cases />} />
+          <Route path="/hubrs-crm" element={<HubRSCRM />} />
+          <Route path="/contato" element={<Contato />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
