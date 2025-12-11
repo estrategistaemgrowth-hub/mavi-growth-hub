@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Phone, Mail, MapPin, Instagram, Facebook, Linkedin } from "lucide-react";
+import logoMavi from "@/assets/logo-mavi-branca.png";
 
 const quickLinks = [
   { name: "Início", href: "/" },
@@ -26,9 +27,11 @@ export function Footer() {
           {/* Logo & About */}
           <div className="space-y-6">
             <Link to="/" className="inline-block">
-              <span className="text-3xl font-bold">
-                MAVI<span className="text-primary">.</span>
-              </span>
+              <img 
+                src={logoMavi} 
+                alt="MAVI Marketing Digital" 
+                className="h-12 w-auto"
+              />
             </Link>
             <p className="text-mavi-white/70 leading-relaxed">
               Agência especializada em marketing de performance, e-commerce e automação. 
