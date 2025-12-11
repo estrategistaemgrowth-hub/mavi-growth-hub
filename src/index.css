@@ -15,7 +15,7 @@
     --popover: 0 0% 100%;
     --popover-foreground: 0 0% 0%;
 
-    --primary: 330 100% 40%;
+    --primary: 336 100% 45%;
     --primary-foreground: 0 0% 100%;
 
     --secondary: 0 0% 96%;
@@ -24,7 +24,7 @@
     --muted: 0 0% 96%;
     --muted-foreground: 0 0% 45%;
 
-    --accent: 330 100% 40%;
+    --accent: 336 100% 45%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84% 60%;
@@ -32,14 +32,14 @@
 
     --border: 0 0% 90%;
     --input: 0 0% 90%;
-    --ring: 330 100% 40%;
+    --ring: 336 100% 45%;
 
     --radius: 0.5rem;
 
     /* Custom MAVI colors */
-    --mavi-magenta: 330 100% 40%;
-    --mavi-magenta-light: 330 100% 50%;
-    --mavi-magenta-dark: 330 100% 30%;
+    --mavi-magenta: 336 100% 45%;
+    --mavi-magenta-light: 336 100% 55%;
+    --mavi-magenta-dark: 336 100% 35%;
     --mavi-black: 0 0% 0%;
     --mavi-white: 0 0% 100%;
     --mavi-gray: 0 0% 96%;
@@ -54,8 +54,8 @@
     --shadow-sm: 0 2px 8px -2px hsl(0 0% 0% / 0.1);
     --shadow-md: 0 4px 16px -4px hsl(0 0% 0% / 0.15);
     --shadow-lg: 0 8px 32px -8px hsl(0 0% 0% / 0.2);
-    --shadow-magenta: 0 4px 24px -4px hsl(330 100% 40% / 0.4);
-    --shadow-magenta-lg: 0 8px 40px -8px hsl(330 100% 40% / 0.5);
+    --shadow-magenta: 0 4px 24px -4px hsl(336 100% 45% / 0.4);
+    --shadow-magenta-lg: 0 8px 40px -8px hsl(336 100% 45% / 0.5);
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
@@ -77,7 +77,7 @@
     --popover: 0 0% 8%;
     --popover-foreground: 0 0% 98%;
 
-    --primary: 330 100% 45%;
+    --primary: 336 100% 50%;
     --primary-foreground: 0 0% 100%;
 
     --secondary: 0 0% 15%;
@@ -86,7 +86,7 @@
     --muted: 0 0% 15%;
     --muted-foreground: 0 0% 65%;
 
-    --accent: 330 100% 45%;
+    --accent: 336 100% 50%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 62% 30%;
@@ -94,7 +94,7 @@
 
     --border: 0 0% 20%;
     --input: 0 0% 20%;
-    --ring: 330 100% 45%;
+    --ring: 336 100% 50%;
   }
 }
 
