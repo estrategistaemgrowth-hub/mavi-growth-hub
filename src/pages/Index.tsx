@@ -58,7 +58,7 @@ const services = [
     href: "/servicos/automacao",
   },
   {
-    title: "CRM HubRS",
+    title: "CRM HUBRS",
     description: "CRM desenvolvido pela MAVI para centralizar contatos, automatizar WhatsApp, usar IA no atendimento e conectar campanhas direto no funil.",
     icon: MessageSquare,
     href: "/hubrs-crm",
@@ -97,7 +97,7 @@ const testimonials = [
     company: "TechStore",
   },
   {
-    quote: "O HubRS CRM mudou completamente nosso atendimento. Antes perdíamos leads no WhatsApp, agora cada contato vira oportunidade rastreada.",
+    quote: "O HUBRS CRM mudou completamente nosso atendimento. Antes perdíamos leads no WhatsApp, agora cada contato vira oportunidade rastreada.",
     author: "Ana Rodrigues",
     role: "Diretora Comercial",
     company: "Bella Moda",
@@ -163,8 +163,8 @@ export default function Index() {
             </div>
             
             <div className="hidden lg:block animate-fade-in-right animation-delay-300">
-              <div className="relative">
-                <div className="bg-gradient-to-br from-mavi-gray-dark to-mavi-black rounded-2xl p-6 border border-mavi-white/10">
+              <div className="relative animate-[float_6s_ease-in-out_infinite]">
+                <div className="bg-gradient-to-br from-mavi-gray-dark to-mavi-black rounded-2xl p-6 border border-mavi-white/10 hover:border-primary/30 transition-colors">
                   <div className="flex items-center gap-2 mb-4">
                     <div className="w-3 h-3 rounded-full bg-red-500" />
                     <div className="w-3 h-3 rounded-full bg-yellow-500" />

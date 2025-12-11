@@ -12,7 +12,7 @@ const services = [
   { name: "Marketplaces & ERP", href: "/servicos/marketplaces" },
   { name: "Sites e Landing Pages", href: "/servicos/sites" },
   { name: "Automação & IA", href: "/servicos/automacao" },
-  { name: "CRM HubRS", href: "/hubrs-crm" },
+  { name: "CRM HUBRS", href: "/hubrs-crm" },
 ];
 
 const navItems = [
@@ -20,7 +20,7 @@ const navItems = [
   { name: "Sobre a MAVI", href: "/sobre" },
   { name: "Serviços", href: "/servicos", hasDropdown: true },
   { name: "Cases & Clientes", href: "/cases" },
-  { name: "CRM HubRS", href: "/hubrs-crm", highlight: true },
+  { name: "CRM HUBRS", href: "/hubrs-crm", highlight: true },
   { name: "Contato", href: "/contato" },
 ];
 
@@ -101,7 +101,7 @@ export function Header() {
                               to={service.href}
                               className={cn(
                                 "block px-4 py-2 text-sm text-foreground hover:bg-muted hover:text-primary transition-colors",
-                                service.name === "CRM HubRS" && "text-primary font-medium"
+                                service.name === "CRM HUBRS" && "text-primary font-medium"
                               )}
                             >
                               {service.name}
@@ -179,7 +179,7 @@ export function Header() {
                               to={service.href}
                               className={cn(
                                 "block px-4 py-2 text-sm text-muted-foreground hover:text-primary",
-                                service.name === "CRM HubRS" && "text-primary font-medium"
+                                service.name === "CRM HUBRS" && "text-primary font-medium"
                               )}
                             >
                               {service.name}

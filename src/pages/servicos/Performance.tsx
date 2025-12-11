@@ -17,7 +17,7 @@ const features = [
   "Funis estruturados: topo, meio e fundo",
   "Foco em métricas reais: ROAS, CAC, ticket médio",
   "Rotina de otimização diária",
-  "Conexão com CRM HubRS para qualificação de leads",
+  "Conexão com CRM HUBRS para qualificação de leads",
 ];
 
 export default function ServicoPerformance() {
@@ -81,7 +81,7 @@ export default function ServicoPerformance() {
               </Button>
               <Button asChild variant="outline">
                 <Link to="/hubrs-crm">
-                  Conhecer o CRM HubRS
+                  Conhecer o CRM HUBRS
                   <ArrowRight className="w-4 h-4" />
                 </Link>
               </Button>

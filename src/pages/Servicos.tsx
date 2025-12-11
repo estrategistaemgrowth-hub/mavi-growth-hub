@@ -40,7 +40,7 @@ const services = [
       "Funis estruturados (topo, meio, fundo)",
       "Foco em métricas como ROAS, CAC, ticket médio",
       "Rotina de otimização diária",
-      "Conexão com CRM HubRS",
+      "Conexão com CRM HUBRS",
     ],
   },
   {
@@ -102,7 +102,7 @@ const services = [
   {
     id: "hubrs",
     icon: MessageSquare,
-    title: "CRM HubRS",
+    title: "CRM HUBRS",
     description: "CRM desenvolvido pela MAVI para centralizar contatos, automatizar WhatsApp, usar IA no atendimento e conectar campanhas direto no funil.",
     href: "/hubrs-crm",
     benefits: [

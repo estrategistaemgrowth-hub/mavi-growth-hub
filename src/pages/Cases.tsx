@@ -8,7 +8,7 @@ const cases = [
   {
     title: "TechStore - E-commerce de Eletrônicos",
     challenge: "Loja virtual nova, sem tráfego qualificado e operação desorganizada sem CRM.",
-    strategy: "Implementação de loja Tray + campanhas Meta Ads full funnel + HubRS CRM para gestão de leads.",
+    strategy: "Implementação de loja Tray + campanhas Meta Ads full funnel + HUBRS CRM para gestão de leads.",
     results: [
       "+320% de faturamento em 6 meses",
       "ROAS de 8.7x nas campanhas",
@@ -18,7 +18,7 @@ const cases = [
   {
     title: "Bella Moda - Moda Feminina",
     challenge: "Alto volume de mensagens no WhatsApp sem controle, perdendo vendas por falta de follow-up.",
-    strategy: "HubRS CRM com automação de WhatsApp + IA para qualificação + integração com Meta Ads.",
+    strategy: "HUBRS CRM com automação de WhatsApp + IA para qualificação + integração com Meta Ads.",
     results: [
       "+180% em conversões de WhatsApp",
       "Tempo de resposta: de 4h para 5min",
@@ -161,7 +161,7 @@ export default function Cases() {
             </Button>
             <Button asChild variant="outline" size="lg">
               <Link to="/hubrs-crm">
-                Conhecer o HubRS CRM
+                Conhecer o HUBRS CRM
                 <ArrowRight className="w-4 h-4" />
               </Link>
             </Button>
