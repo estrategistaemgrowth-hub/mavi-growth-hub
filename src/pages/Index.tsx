@@ -135,12 +135,12 @@ export default function Index() {
               <p className="text-lg md:text-xl text-mavi-white/70 mb-8 leading-relaxed">
                 Agência especializada em performance para e-commerces, marketplaces e negócios que querem crescer com dados, tecnologia, IA e estratégias de verdade.
               </p>
-              <div className="flex flex-col sm:flex-row gap-4">
+              <div className="flex flex-col sm:flex-row gap-4 relative z-20">
                 <Button asChild variant="hero" size="xl">
                   <Link to="/contato">Quero um diagnóstico gratuito</Link>
                 </Button>
                 <Button asChild variant="heroOutline" size="xl">
-                  <Link to="/hubrs-crm">Conhecer o CRM HubRS</Link>
+                  <Link to="/hubrs-crm">Conhecer o CRM HUBRS</Link>
                 </Button>
               </div>
               
@@ -194,7 +194,7 @@ export default function Index() {
                       <div className="flex items-center gap-3">
                         <MessageSquare className="w-8 h-8 text-primary" />
                         <div>
-                          <p className="text-mavi-white font-medium">HubRS CRM</p>
+                          <p className="text-mavi-white font-medium">HUBRS CRM</p>
                           <p className="text-mavi-white/60 text-sm">12 leads qualificados hoje</p>
                         </div>
                       </div>
@@ -340,7 +340,7 @@ export default function Index() {
               <Link to="/contato">Quero uma consultoria gratuita</Link>
             </Button>
             <Button asChild variant="heroOutline" size="xl">
-              <Link to="/hubrs-crm">Quero conhecer o HubRS CRM</Link>
+              <Link to="/hubrs-crm">Quero conhecer o HUBRS CRM</Link>
             </Button>
           </div>
         </div>
