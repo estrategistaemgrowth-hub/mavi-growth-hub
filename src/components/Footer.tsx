@@ -7,7 +7,7 @@ const quickLinks = [
   { name: "Sobre a MAVI", href: "/sobre" },
   { name: "Serviços", href: "/servicos" },
   { name: "Cases & Clientes", href: "/cases" },
-  { name: "CRM HubRS", href: "/hubrs-crm" },
+  { name: "CRM HUBRS", href: "/hubrs-crm" },
   { name: "Contato", href: "/contato" },
 ];
 
@@ -16,7 +16,7 @@ const services = [
   { name: "Marketing de Performance", href: "/servicos/performance" },
   { name: "Redes Sociais e Conteúdo", href: "/servicos/redes-sociais" },
   { name: "Marketplaces & ERP", href: "/servicos/marketplaces" },
-  { name: "CRM HubRS", href: "/hubrs-crm" },
+  { name: "CRM HUBRS", href: "/hubrs-crm" },
 ];
 
 export function Footer() {

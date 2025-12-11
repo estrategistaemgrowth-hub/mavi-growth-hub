@@ -119,7 +119,7 @@ export default function HubRSCRM() {
                 <span className="text-sm font-medium">Solução oficial MAVI</span>
               </div>
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-mavi-white leading-tight mb-6">
-                HubRS CRM – o CRM que automatiza seu WhatsApp e vende com{" "}
+                HUBRS CRM – o CRM que automatiza seu WhatsApp e vende com{" "}
                 <span className="text-primary">IA</span>.
               </h1>
               <p className="text-lg md:text-xl text-mavi-white/70 mb-8 leading-relaxed">
@@ -128,10 +128,10 @@ export default function HubRSCRM() {
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <Button asChild variant="hero" size="xl">
-                  <Link to="/contato?interesse=hubrs">Quero testar o HubRS CRM</Link>
+                  <Link to="/contato?interesse=hubrs">Quero testar o HUBRS CRM</Link>
                 </Button>
                 <Button asChild variant="heroOutline" size="xl">
-                  <a href="https://wa.me/554733072030?text=Quero%20uma%20demonstração%20do%20HubRS%20CRM" target="_blank" rel="noopener noreferrer">
+                  <a href="https://wa.me/554733072030?text=Quero%20uma%20demonstração%20do%20HUBRS%20CRM" target="_blank" rel="noopener noreferrer">
                     Solicitar demonstração
                   </a>
                 </Button>
@@ -149,7 +149,7 @@ export default function HubRSCRM() {
                       <MessageSquare className="w-6 h-6 text-primary-foreground" />
                     </div>
                     <div>
-                      <h3 className="text-xl font-bold text-mavi-white">HubRS CRM</h3>
+                      <h3 className="text-xl font-bold text-mavi-white">HUBRS CRM</h3>
                       <p className="text-mavi-white/60 text-sm">Painel de vendas</p>
                     </div>
                   </div>
@@ -200,11 +200,11 @@ export default function HubRSCRM() {
       <Section>
         <div className="max-w-3xl mx-auto text-center">
           <SectionHeader
-            title="O que é o HubRS CRM"
+            title="O que é o HUBRS CRM"
             subtitle="Um CRM desenvolvido pela MAVI, focado em empresas que querem organizar o funil de vendas e automatizar o atendimento via WhatsApp com IA."
           />
           <p className="text-muted-foreground leading-relaxed">
-            O HubRS ajuda a qualificar leads automaticamente, agilizar respostas, agendar conversas 
+            O HUBRS ajuda a qualificar leads automaticamente, agilizar respostas, agendar conversas 
             e acompanhar tudo em um funil visual (Kanban). É a ferramenta que transforma seu WhatsApp 
             em uma máquina de vendas organizada.
           </p>
@@ -236,7 +236,7 @@ export default function HubRSCRM() {
       {/* Para quem é */}
       <Section>
         <SectionHeader
-          title="Para quem é o HubRS CRM"
+          title="Para quem é o HUBRS CRM"
           subtitle="Ideal para negócios que usam WhatsApp como canal de vendas."
         />
         <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-6">
@@ -296,8 +296,8 @@ export default function HubRSCRM() {
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <div>
             <SectionHeader
-              title="Benefícios do HubRS CRM"
-              subtitle="Por que empresas estão migrando para o HubRS."
+              title="Benefícios do HUBRS CRM"
+              subtitle="Por que empresas estão migrando para o HUBRS."
               centered={false}
             />
             <div className="grid sm:grid-cols-2 gap-4">
@@ -314,7 +314,7 @@ export default function HubRSCRM() {
               <p className="text-6xl font-bold text-primary mb-2">3x</p>
               <p className="text-xl text-foreground font-medium mb-4">Mais conversões</p>
               <p className="text-muted-foreground">
-                Média de aumento nas vendas dos clientes que usam o HubRS CRM com automação de WhatsApp.
+                Média de aumento nas vendas dos clientes que usam o HUBRS CRM com automação de WhatsApp.
               </p>
             </div>
           </div>
@@ -380,14 +380,14 @@ export default function HubRSCRM() {
             Quer transformar seu atendimento em uma máquina de vendas?
           </h2>
           <p className="text-lg text-mavi-white/70 mb-8">
-            Comece a usar o HubRS CRM hoje mesmo ou agende uma demonstração com nosso time.
+            Comece a usar o HUBRS CRM hoje mesmo ou agende uma demonstração com nosso time.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button asChild variant="hero" size="xl">
-              <Link to="/contato?interesse=hubrs">Começar teste do HubRS CRM</Link>
+              <Link to="/contato?interesse=hubrs">Começar teste do HUBRS CRM</Link>
             </Button>
             <Button asChild variant="heroOutline" size="xl">
-              <a href="https://wa.me/554733072030?text=Quero%20falar%20sobre%20o%20HubRS%20CRM" target="_blank" rel="noopener noreferrer">
+              <a href="https://wa.me/554733072030?text=Quero%20falar%20sobre%20o%20HUBRS%20CRM" target="_blank" rel="noopener noreferrer">
                 Falar com o time da MAVI
               </a>
             </Button>
