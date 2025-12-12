@@ -6,7 +6,7 @@ import { TrendingUp, ArrowRight, CheckCircle2, Award } from "lucide-react";
 
 const cases = [
   {
-    title: "TechStore - E-commerce de Eletrônicos",
+    title: "E-commerce de Eletrônicos",
     challenge: "Loja virtual nova, sem tráfego qualificado e operação desorganizada sem CRM.",
     strategy: "Implementação de loja Tray + campanhas Meta Ads full funnel + HUBRS CRM para gestão de leads.",
     results: [
@@ -16,7 +16,7 @@ const cases = [
     ],
   },
   {
-    title: "Bella Moda - Moda Feminina",
+    title: "Moda Feminina",
     challenge: "Alto volume de mensagens no WhatsApp sem controle, perdendo vendas por falta de follow-up.",
     strategy: "HUBRS CRM com automação de WhatsApp + IA para qualificação + integração com Meta Ads.",
     results: [
@@ -26,7 +26,7 @@ const cases = [
     ],
   },
   {
-    title: "Fit Suplementos - Marketplaces",
+    title: "Suplementos e Marketplaces",
     challenge: "Operação em múltiplos marketplaces sem padronização e sem clareza sobre rentabilidade por canal.",
     strategy: "Gestão integrada de marketplaces + ERP + dashboard de performance por canal.",
     results: [
