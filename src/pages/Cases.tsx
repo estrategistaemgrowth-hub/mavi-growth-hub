@@ -37,11 +37,6 @@ const cases = [
   },
 ];
 
-const clients = [
-  "TechStore", "Bella Moda", "Fit Suplementos", "Casa Verde", "Pet Shop Online",
-  "Moda Kids", "Auto Peças SC", "Farma Bem", "Eletro Sul", "Sports BR",
-  "Decor House", "Natural Food", "Tech Parts", "Fashion Plus", "Home & Co"
-];
 
 export default function Cases() {
   return (
@@ -61,23 +56,6 @@ export default function Cases() {
         </div>
       </section>
 
-      {/* Clients Grid */}
-      <Section variant="gray">
-        <SectionHeader
-          title="Nossos Clientes"
-          subtitle="Empresas de diversos segmentos que crescem com a MAVI."
-        />
-        <div className="grid grid-cols-3 md:grid-cols-5 gap-4">
-          {clients.map((client) => (
-            <div
-              key={client}
-              className="bg-card rounded-lg p-4 text-center border border-border hover:border-primary/30 transition-colors"
-            >
-              <span className="text-sm font-medium text-foreground">{client}</span>
-            </div>
-          ))}
-        </div>
-      </Section>
 
       {/* Cases */}
       <Section>
