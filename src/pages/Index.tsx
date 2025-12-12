@@ -152,7 +152,7 @@ export default function Index() {
               <p className="text-lg md:text-xl text-mavi-white/70 mb-8 leading-relaxed">
                 Agência especializada em performance para e-commerces, marketplaces e negócios que querem crescer com dados, tecnologia, IA e estratégias de verdade.
               </p>
-              <div className="flex flex-col sm:flex-row gap-4 relative z-20">
+              <div className="flex flex-col sm:flex-row gap-4 relative z-30">
                 <Button asChild variant="hero" size="xl">
                   <Link to="/contato">Quero um diagnóstico gratuito</Link>
                 </Button>
@@ -179,9 +179,9 @@ export default function Index() {
               </div>
             </div>
             
-            <div className="hidden lg:block animate-fade-in-right animation-delay-300">
+            <div className="hidden lg:block animate-fade-in-right animation-delay-300 relative z-10">
               <div className="relative animate-[float_6s_ease-in-out_infinite]">
-                <div className="bg-gradient-to-br from-mavi-gray-dark to-mavi-black rounded-2xl p-6 border border-mavi-white/10 hover:border-primary/30 transition-colors">
+                <div className="bg-gradient-to-br from-mavi-gray-dark to-mavi-black rounded-2xl p-6 border border-mavi-white/10 hover:border-primary/30 transition-colors pointer-events-none">
                   <div className="flex items-center gap-2 mb-4">
                     <div className="w-3 h-3 rounded-full bg-red-500" />
                     <div className="w-3 h-3 rounded-full bg-yellow-500" />
