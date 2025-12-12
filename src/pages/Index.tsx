@@ -143,8 +143,8 @@ export default function Index() {
         </div>
         
         <div className="container-mavi relative z-10 pt-20">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div className="animate-fade-in-up">
+          <div className="grid xl:grid-cols-[1fr,400px] gap-16 items-center">
+            <div className="animate-fade-in-up max-w-2xl">
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-mavi-white leading-tight mb-6">
                 Estratégias de marketing e vendas que impulsionam negócios a{" "}
                 <span className="text-primary">novos patamares</span>.
@@ -179,7 +179,7 @@ export default function Index() {
               </div>
             </div>
             
-            <div className="hidden lg:block animate-fade-in-right animation-delay-300 relative z-10">
+            <div className="hidden xl:block animate-fade-in-right animation-delay-300 relative z-0">
               <div className="relative animate-[float_6s_ease-in-out_infinite]">
                 <div className="bg-gradient-to-br from-mavi-gray-dark to-mavi-black rounded-2xl p-6 border border-mavi-white/10 hover:border-primary/30 transition-colors pointer-events-none">
                   <div className="flex items-center gap-2 mb-4">
