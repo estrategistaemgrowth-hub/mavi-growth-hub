@@ -146,8 +146,8 @@ export default function Index() {
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="animate-fade-in-up">
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-mavi-white leading-tight mb-6">
-                Fazemos o que seu tempo não consegue fazer pelo seu{" "}
-                <span className="text-primary">e-commerce</span>.
+                Estratégias de marketing e vendas que impulsionam negócios a{" "}
+                <span className="text-primary">novos patamares</span>.
               </h1>
               <p className="text-lg md:text-xl text-mavi-white/70 mb-8 leading-relaxed">
                 Agência especializada em performance para e-commerces, marketplaces e negócios que querem crescer com dados, tecnologia, IA e estratégias de verdade.
