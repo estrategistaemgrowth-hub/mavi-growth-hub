@@ -102,21 +102,21 @@ const differentials = [
 const testimonials = [
   {
     quote: "A MAVI transformou nossa operação de e-commerce. Em 6 meses, triplicamos o faturamento com a combinação de tráfego pago e organização do CRM.",
-    author: "Carlos Silva",
+    author: "Carlos S.",
     role: "CEO",
-    company: "TechStore",
+    company: "E-commerce de Tecnologia",
   },
   {
     quote: "O HUBRS CRM mudou completamente nosso atendimento. Antes perdíamos leads no WhatsApp, agora cada contato vira oportunidade rastreada.",
-    author: "Ana Rodrigues",
+    author: "Ana R.",
     role: "Diretora Comercial",
-    company: "Bella Moda",
+    company: "Loja de Moda Feminina",
   },
   {
     quote: "Finalmente uma agência que entende de resultado de verdade. A metodologia da MAVI nos deu clareza sobre onde investir e como crescer.",
-    author: "Pedro Mendes",
+    author: "Pedro M.",
     role: "Fundador",
-    company: "Fit Suplementos",
+    company: "E-commerce de Suplementos",
   },
 ];
 
@@ -227,49 +227,49 @@ export default function Index() {
       {/* O que é a MAVI */}
       <Section variant="gray">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
-          <div>
+          <div className="animate-fade-in-up">
             <SectionHeader
               title="O que é a MAVI"
               subtitle="Somos uma agência de marketing digital focada em uma única coisa: fazer seu negócio vender mais."
               centered={false}
             />
-            <div className="space-y-4">
+            <div className="space-y-4 stagger-children">
               {[
                 "Estratégias criadas a partir de dados",
                 "Time especialista em performance",
                 "CRM e automação integrados para vender mais",
                 "Parcerias com as principais plataformas do mercado",
               ].map((item, index) => (
-                <div key={index} className="flex items-center gap-3">
+                <div key={index} className="flex items-center gap-3 hover-lift">
                   <CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0" />
                   <span className="text-foreground">{item}</span>
                 </div>
               ))}
             </div>
-            <Button asChild className="mt-8">
+            <Button asChild className="mt-8 btn-glow hover:scale-105 transition-transform">
               <Link to="/sobre">
                 Conheça nossa história
                 <ArrowRight className="w-4 h-4" />
               </Link>
             </Button>
           </div>
-          <div className="grid grid-cols-2 gap-4">
-            <div className="bg-card rounded-xl p-6 border border-border">
+          <div className="grid grid-cols-2 gap-4 stagger-children">
+            <div className="bg-card rounded-xl p-6 border border-border hover-lift hover:border-primary/50 transition-all duration-300">
               <BarChart3 className="w-10 h-10 text-primary mb-4" />
               <p className="text-3xl font-bold text-foreground">+5</p>
               <p className="text-muted-foreground">Anos de experiência</p>
             </div>
-            <div className="bg-card rounded-xl p-6 border border-border">
+            <div className="bg-card rounded-xl p-6 border border-border hover-lift hover:border-primary/50 transition-all duration-300">
               <Users className="w-10 h-10 text-primary mb-4" />
               <p className="text-3xl font-bold text-foreground">+500</p>
               <p className="text-muted-foreground">Clientes atendidos</p>
             </div>
-            <div className="bg-card rounded-xl p-6 border border-border">
+            <div className="bg-card rounded-xl p-6 border border-border hover-lift hover:border-primary/50 transition-all duration-300">
               <TrendingUp className="w-10 h-10 text-primary mb-4" />
               <p className="text-3xl font-bold text-foreground">127%</p>
               <p className="text-muted-foreground">Crescimento médio</p>
             </div>
-            <div className="bg-card rounded-xl p-6 border border-border">
+            <div className="bg-card rounded-xl p-6 border border-border hover-lift hover:border-primary/50 transition-all duration-300">
               <Target className="w-10 h-10 text-primary mb-4" />
               <p className="text-3xl font-bold text-foreground">8.4x</p>
               <p className="text-muted-foreground">ROAS médio</p>
@@ -284,7 +284,7 @@ export default function Index() {
           title="Soluções para o seu negócio"
           subtitle="Do planejamento à execução, oferecemos tudo que seu e-commerce precisa para escalar."
         />
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 stagger-children">
           {services.map((service) => (
             <ServiceCard key={service.title} {...service} />
           ))}
@@ -298,13 +298,13 @@ export default function Index() {
           subtitle="Não somos apenas mais uma agência. Somos parceiros estratégicos do seu crescimento."
           light
         />
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 stagger-children">
           {differentials.map((item) => (
             <div
               key={item.title}
-              className="p-6 rounded-xl bg-mavi-white/5 border border-mavi-white/10 hover:border-primary/50 transition-colors"
+              className="p-6 rounded-xl bg-mavi-white/5 border border-mavi-white/10 hover:border-primary/50 hover:bg-mavi-white/10 transition-all duration-300 hover:-translate-y-2 group"
             >
-              <item.icon className="w-10 h-10 text-primary mb-4" />
+              <item.icon className="w-10 h-10 text-primary mb-4 group-hover:scale-110 transition-transform" />
               <h3 className="text-lg font-semibold text-mavi-white mb-2">{item.title}</h3>
               <p className="text-mavi-white/60 text-sm">{item.description}</p>
             </div>
@@ -318,11 +318,11 @@ export default function Index() {
           title="Clientes & Parceiros"
           subtitle="De pequenos negócios a operações com múltiplos dígitos mensais: nosso foco é sempre resultado."
         />
-        <div className="flex flex-wrap justify-center items-center gap-8 md:gap-12">
+        <div className="flex flex-wrap justify-center items-center gap-8 md:gap-12 stagger-children">
           {clientLogos.map((client) => (
             <div
               key={client.name}
-              className="grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300"
+              className="grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-500 hover:scale-110"
             >
               <img 
                 src={client.logo} 
@@ -340,7 +340,7 @@ export default function Index() {
           title="O que dizem nossos clientes"
           subtitle="Resultados reais de quem confiou na MAVI para crescer."
         />
-        <div className="grid md:grid-cols-3 gap-6">
+        <div className="grid md:grid-cols-3 gap-6 stagger-children">
           {testimonials.map((testimonial, index) => (
             <TestimonialCard key={index} {...testimonial} />
           ))}
@@ -349,7 +349,7 @@ export default function Index() {
 
       {/* CTA Final */}
       <Section variant="dark">
-        <div className="text-center max-w-3xl mx-auto">
+        <div className="text-center max-w-3xl mx-auto animate-fade-in-up">
           <h2 className="text-3xl md:text-4xl font-bold text-mavi-white mb-6">
             Pronto para destravar as vendas do seu negócio?
           </h2>
@@ -357,10 +357,10 @@ export default function Index() {
             Agende uma consultoria gratuita e descubra como podemos acelerar seu crescimento.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button asChild variant="hero" size="xl">
+            <Button asChild variant="hero" size="xl" className="hover:scale-105 transition-transform animate-glow">
               <Link to="/contato">Quero uma consultoria gratuita</Link>
             </Button>
-            <Button asChild variant="heroOutline" size="xl">
+            <Button asChild variant="heroOutline" size="xl" className="hover:scale-105 transition-transform">
               <Link to="/hubrs-crm">Quero conhecer o HUBRS CRM</Link>
             </Button>
           </div>

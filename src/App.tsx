@@ -15,6 +15,8 @@ import ServicoRedesSociais from "./pages/servicos/RedesSociais";
 import ServicoMarketplaces from "./pages/servicos/Marketplaces";
 import ServicoSites from "./pages/servicos/Sites";
 import ServicoAutomacao from "./pages/servicos/Automacao";
+import PoliticaPrivacidade from "./pages/PoliticaPrivacidade";
+import TermosUso from "./pages/TermosUso";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -38,6 +40,8 @@ const App = () => (
           <Route path="/cases" element={<Cases />} />
           <Route path="/hubrs-crm" element={<HubRSCRM />} />
           <Route path="/contato" element={<Contato />} />
+          <Route path="/privacidade" element={<PoliticaPrivacidade />} />
+          <Route path="/termos" element={<TermosUso />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
