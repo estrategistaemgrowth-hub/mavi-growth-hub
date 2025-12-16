@@ -77,7 +77,7 @@ export default function Contato() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          access_key: "YOUR_ACCESS_KEY_HERE", // Substitua pela sua chave do Web3Forms
+          access_key: "94cfc9f9-612f-44f3-91a6-801326c23c96", // Substitua pela sua chave do Web3Forms
           to: "robson@agenciamavi.com.br",
           from_name: "MAVI Website",
           subject: `Novo Lead: ${formData.nome} - ${formData.empresa || "Sem empresa"}`,
