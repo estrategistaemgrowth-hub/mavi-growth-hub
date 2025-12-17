@@ -139,10 +139,10 @@ export default function HubRSCRM() {
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <Button asChild variant="hero" size="xl">
-                  <Link to="/contato?interesse=hubrs">Quero testar o HUBRS CRM</Link>
+                  <a href="#planos">Quero testar o HUBRS CRM</a>
                 </Button>
                 <Button asChild variant="heroOutline" size="xl">
-                  <a href="https://wa.me/554733072030?text=Quero%20uma%20demonstração%20do%20HUBRS%20CRM" target="_blank" rel="noopener noreferrer">
+                  <a href="#planos">
                     Solicitar demonstração
                   </a>
                 </Button>
@@ -333,7 +333,7 @@ export default function HubRSCRM() {
       </Section>
 
       {/* Planos */}
-      <Section variant="gray">
+      <Section variant="gray" id="planos">
         <SectionHeader
           title="Planos e condições"
           subtitle="Escolha o plano ideal para o tamanho do seu negócio."
@@ -405,7 +405,7 @@ export default function HubRSCRM() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button asChild variant="hero" size="xl">
-              <Link to="/contato?interesse=hubrs">Começar teste do HUBRS CRM</Link>
+              <a href="#planos">Começar teste do HUBRS CRM</a>
             </Button>
             <Button asChild variant="heroOutline" size="xl">
               <a href="https://wa.me/554733072030?text=Quero%20falar%20sobre%20o%20HUBRS%20CRM" target="_blank" rel="noopener noreferrer">

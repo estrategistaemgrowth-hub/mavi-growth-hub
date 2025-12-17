@@ -1,0 +1,57 @@
+import { cn } from "@/lib/utils";
+
+// Client logos
+import logoLumistore from "@/assets/clients/lumi-store.png";
+import logoNuvemshop from "@/assets/clients/nuvemshop.png";
+import logoTray from "@/assets/clients/tray.png";
+import logoBling from "@/assets/clients/bling.png";
+import logoProolhar from "@/assets/clients/pro-olhar.png";
+import logoRdstation from "@/assets/clients/rd-station.png";
+import logoItaivan from "@/assets/clients/itaivan.png";
+import logoAstron from "@/assets/clients/astron-members.png";
+import logoImunizadora from "@/assets/clients/imunizadora-jaragua.png";
+
+const clientLogos = [
+  { name: "Lumi Store", logo: logoLumistore },
+  { name: "Nuvemshop", logo: logoNuvemshop },
+  { name: "Tray", logo: logoTray },
+  { name: "Bling", logo: logoBling },
+  { name: "Pro Olhar", logo: logoProolhar },
+  { name: "RD Station", logo: logoRdstation },
+  { name: "Itaivan", logo: logoItaivan },
+  { name: "Astron Members", logo: logoAstron },
+  { name: "Imunizadora Jaraguá", logo: logoImunizadora },
+];
+
+interface LogoCarouselProps {
+  className?: string;
+}
+
+export function LogoCarousel({ className }: LogoCarouselProps) {
+  // Duplicate logos for seamless infinite scroll
+  const duplicatedLogos = [...clientLogos, ...clientLogos];
+
+  return (
+    <div className={cn("relative overflow-hidden", className)}>
+      {/* Gradient overlays for fade effect */}
+      <div className="absolute left-0 top-0 bottom-0 w-20 md:w-32 bg-gradient-to-r from-mavi-gray to-transparent z-10" />
+      <div className="absolute right-0 top-0 bottom-0 w-20 md:w-32 bg-gradient-to-l from-mavi-gray to-transparent z-10" />
+      
+      {/* Scrolling container */}
+      <div className="flex animate-scroll">
+        {duplicatedLogos.map((client, index) => (
+          <div
+            key={`${client.name}-${index}`}
+            className="flex-shrink-0 mx-6 md:mx-10 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-500"
+          >
+            <img
+              src={client.logo}
+              alt={client.name}
+              className="h-10 md:h-14 w-auto object-contain max-w-[140px] md:max-w-[180px]"
+            />
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
