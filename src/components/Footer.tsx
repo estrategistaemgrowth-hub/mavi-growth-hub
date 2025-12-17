@@ -146,10 +146,10 @@ export function Footer() {
         {/* Partner Seals */}
         <div className="border-t border-mavi-white/10 mt-12 pt-8">
           <div className="flex flex-wrap items-center justify-center gap-4 mb-8">
-            <img src={seloMeta} alt="Meta Business Partner" className="h-8 w-auto object-contain" />
-            <img src={seloGoogle} alt="Google Premier Partner 2025" className="h-8 w-auto object-contain" />
-            <img src={seloRD} alt="RD Station Partners Silver 2025" className="h-8 w-auto object-contain" />
-            <img src={seloTray} alt="Parceiro Diamante Tray" className="h-8 w-auto object-contain" />
+            <img src={seloMeta} alt="Meta Business Partner" className="h-12 w-auto object-contain" />
+            <img src={seloGoogle} alt="Google Premier Partner 2025" className="h-12 w-auto object-contain" />
+            <img src={seloRD} alt="RD Station Partners Silver 2025" className="h-12 w-auto object-contain" />
+            <img src={seloTray} alt="Parceiro Diamante Tray" className="h-12 w-auto object-contain" />
           </div>
         </div>
 
