@@ -20,6 +20,10 @@ const services = [
 ];
 
 export function Footer() {
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
     <footer className="bg-mavi-black text-mavi-white">
       <div className="container-mavi py-16">
@@ -73,6 +77,7 @@ export function Footer() {
                 <li key={link.name}>
                   <Link
                     to={link.href}
+                    onClick={scrollToTop}
                     className="text-mavi-white/70 hover:text-primary transition-colors"
                   >
                     {link.name}
@@ -90,6 +95,7 @@ export function Footer() {
                 <li key={service.name}>
                   <Link
                     to={service.href}
+                    onClick={scrollToTop}
                     className="text-mavi-white/70 hover:text-primary transition-colors"
                   >
                     {service.name}
