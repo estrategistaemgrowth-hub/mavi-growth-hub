@@ -142,7 +142,7 @@ export function Footer() {
         {/* Bottom */}
         <div className="border-t border-mavi-white/10 mt-12 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-mavi-white/50 text-sm">
-            © {new Date().getFullYear()} MAVI Marketing Digital. Todos os direitos reservados.
+            © {new Date().getFullYear()} MAVI Marketing Digital. Todos os direitos reservados. CNPJ 49.657.693/0001-89
           </p>
           <div className="flex gap-6 text-sm">
             <Link to="/privacidade" className="text-mavi-white/50 hover:text-primary transition-colors">
