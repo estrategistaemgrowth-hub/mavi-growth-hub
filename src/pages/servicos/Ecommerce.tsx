@@ -24,7 +24,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import seloDiamanteTray from "@/assets/selo-diamante-tray.svg";
+
 
 const problems = [
   { icon: Clock, title: "Loja demorando para sair do papel?", description: "Projetos que se arrastam sem previsão de lançamento." },
@@ -220,11 +220,6 @@ export default function ServicoEcommerce() {
           <div className="bg-gradient-to-br from-primary/10 to-primary/5 rounded-2xl p-8 border border-primary/20">
             <div className="flex items-start justify-between gap-4 mb-6">
               <ShoppingCart className="w-16 h-16 text-primary" />
-              <img 
-                src={seloDiamanteTray} 
-                alt="Selo Parceiro Diamante Tray" 
-                className="w-24 h-24 md:w-28 md:h-28"
-              />
             </div>
             <h3 className="text-2xl font-bold text-foreground mb-2">Especialistas em Tray</h3>
             <p className="text-sm text-primary font-medium mb-4">Parceiro Diamante Tray</p>
