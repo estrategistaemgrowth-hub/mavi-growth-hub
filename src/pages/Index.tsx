@@ -4,7 +4,7 @@ import { Layout } from "@/components/Layout";
 import { Section, SectionHeader } from "@/components/Section";
 import { ServiceCard } from "@/components/ServiceCard";
 import { TestimonialCard } from "@/components/TestimonialCard";
-import { FeatureCard } from "@/components/FeatureCard";
+import { LogoCarousel } from "@/components/LogoCarousel";
 import {
   ShoppingCart,
   TrendingUp,
@@ -19,16 +19,6 @@ import {
   CheckCircle2,
   ArrowRight,
 } from "lucide-react";
-
-// Client logos
-import logoLumistore from "@/assets/clients/lumistore.webp";
-import logoAliexpress from "@/assets/clients/aliexpress.png";
-import logoTray from "@/assets/clients/tray.png";
-import logoBling from "@/assets/clients/bling.png";
-import logoProolhar from "@/assets/clients/proolhar.webp";
-import logoCzulo from "@/assets/clients/czulo.svg";
-import logoRdstation from "@/assets/clients/rdstation.svg";
-import logoItaivan from "@/assets/clients/itaivan.jpg";
 
 const services = [
   {
@@ -120,16 +110,6 @@ const testimonials = [
   },
 ];
 
-const clientLogos = [
-  { name: "Lumistore", logo: logoLumistore },
-  { name: "Aliexpress", logo: logoAliexpress },
-  { name: "Tray", logo: logoTray },
-  { name: "Bling", logo: logoBling },
-  { name: "Pro Olhar", logo: logoProolhar },
-  { name: "Czulo", logo: logoCzulo },
-  { name: "RD Station", logo: logoRdstation },
-  { name: "Itaivan", logo: logoItaivan },
-];
 
 export default function Index() {
   return (
@@ -318,20 +298,7 @@ export default function Index() {
           title="Clientes & Parceiros"
           subtitle="De pequenos negócios a operações com múltiplos dígitos mensais: nosso foco é sempre resultado."
         />
-        <div className="flex flex-wrap justify-center items-center gap-8 md:gap-12 stagger-children">
-          {clientLogos.map((client) => (
-            <div
-              key={client.name}
-              className="grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-500 hover:scale-110"
-            >
-              <img 
-                src={client.logo} 
-                alt={client.name} 
-                className="h-10 md:h-12 w-auto object-contain"
-              />
-            </div>
-          ))}
-        </div>
+        <LogoCarousel />
       </Section>
 
       {/* Depoimentos */}
