@@ -72,37 +72,45 @@ const benefits = [
 const plans = [
   {
     name: "Basic",
-    description: "Para quem está começando a organizar as vendas",
+    price: "R$49",
+    priceDetail: "/mês por usuário",
+    description: "Ideal para iniciantes. Foque no essencial do CRM.",
     features: [
-      "CRM básico com funil Kanban",
-      "Até 1.000 contatos",
-      "Integração WhatsApp",
-      "Suporte por e-mail",
+      "Contatos ilimitados",
+      "Funil de Vendas Kanban",
+      "Tarefas e responsáveis",
+      "Cadastro de Produtos",
+      "Suporte via chat",
     ],
   },
   {
     name: "Plus",
-    description: "Para times que querem automatizar o atendimento",
+    price: "R$97",
+    priceDetail: "/mês por usuário",
+    description: "Tudo do Basic + WhatsApp para vendas e suporte ágeis.",
     features: [
-      "Tudo do Basic",
-      "Até 5.000 contatos",
-      "Automação de WhatsApp",
-      "Integração Meta Ads",
-      "Suporte prioritário",
+      "Tudo do plano Basic",
+      "Integração WhatsApp",
+      "Captura de leads Meta Ads",
+      "Webhooks e API básica",
+      "Relatórios",
+      "Suporte via chat",
     ],
     highlight: true,
   },
   {
     name: "Premium",
-    description: "Para operações que precisam de IA avançada",
+    price: "R$147",
+    priceDetail: "/mês (47/usuário + 99,90 IA/mês)",
+    description: "O pacote completo com IA para automação e crescimento acelerado.",
     features: [
-      "Tudo do Plus",
-      "Contatos ilimitados",
-      "IA para qualificação",
+      "Tudo do plano Plus",
+      "Agente de Chat IA",
       "Transcrição de áudios",
-      "Base de conhecimento",
-      "Gerente de conta dedicado",
+      "Base de conhecimento IA",
+      "Escalonamento humano automático",
     ],
+    note: "Custo adicional por conversas: 0–100 incluso; 101–200: R$159,90; 201–300: R$199,90; >300: R$0,55/conversa",
   },
 ];
 
@@ -331,46 +339,56 @@ export default function HubRSCRM() {
           {plans.map((plan) => (
             <div
               key={plan.name}
-              className={`rounded-2xl p-6 ${
+              className={`rounded-2xl p-6 flex flex-col ${
                 plan.highlight
                   ? "bg-primary text-primary-foreground ring-4 ring-primary/30"
                   : "bg-card border border-border"
               }`}
             >
               {plan.highlight && (
-                <span className="inline-block px-3 py-1 text-xs font-medium bg-primary-foreground text-primary rounded-full mb-4">
+                <span className="inline-block px-3 py-1 text-xs font-medium bg-primary-foreground text-primary rounded-full mb-4 w-fit">
                   Mais popular
                 </span>
               )}
               <h3 className={`text-2xl font-bold mb-2 ${plan.highlight ? "text-primary-foreground" : "text-foreground"}`}>
                 {plan.name}
               </h3>
-              <p className={`text-sm mb-6 ${plan.highlight ? "text-primary-foreground/80" : "text-muted-foreground"}`}>
+              <p className={`text-sm mb-4 ${plan.highlight ? "text-primary-foreground/80" : "text-muted-foreground"}`}>
                 {plan.description}
               </p>
-              <ul className="space-y-3 mb-8">
+              <div className="mb-6">
+                <span className={`text-3xl font-bold ${plan.highlight ? "text-primary-foreground" : "text-foreground"}`}>
+                  {plan.price}
+                </span>
+                <span className={`text-sm ${plan.highlight ? "text-primary-foreground/70" : "text-muted-foreground"}`}>
+                  {plan.priceDetail}
+                </span>
+              </div>
+              <ul className="space-y-3 mb-6 flex-grow">
                 {plan.features.map((feature, i) => (
-                  <li key={i} className="flex items-center gap-2">
-                    <CheckCircle2 className={`w-4 h-4 flex-shrink-0 ${plan.highlight ? "text-primary-foreground" : "text-primary"}`} />
+                  <li key={i} className="flex items-start gap-2">
+                    <CheckCircle2 className={`w-4 h-4 flex-shrink-0 mt-0.5 ${plan.highlight ? "text-primary-foreground" : "text-primary"}`} />
                     <span className={`text-sm ${plan.highlight ? "text-primary-foreground/90" : "text-foreground"}`}>
                       {feature}
                     </span>
                   </li>
                 ))}
               </ul>
+              {plan.note && (
+                <p className={`text-xs mb-4 p-3 rounded-lg ${plan.highlight ? "bg-primary-foreground/10 text-primary-foreground/70" : "bg-muted text-muted-foreground"}`}>
+                  *{plan.note}
+                </p>
+              )}
               <Button
                 asChild
                 variant={plan.highlight ? "heroOutline" : "outline"}
-                className="w-full"
+                className="w-full mt-auto"
               >
                 <Link to="/contato?interesse=hubrs">Falar com consultor</Link>
               </Button>
             </div>
           ))}
         </div>
-        <p className="text-center text-muted-foreground text-sm mt-8">
-          Valores e condições especiais disponíveis. Entre em contato para saber mais.
-        </p>
       </Section>
 
       {/* CTA Final */}
