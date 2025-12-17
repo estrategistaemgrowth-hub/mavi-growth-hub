@@ -26,15 +26,24 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
-      <BrowserRouter basename="/mavi-growth-hub">
+      <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/sobre" element={<Sobre />} />
           <Route path="/servicos" element={<Servicos />} />
           <Route path="/servicos/ecommerce" element={<ServicoEcommerce />} />
-          <Route path="/servicos/performance" element={<ServicoPerformance />} />
-          <Route path="/servicos/redes-sociais" element={<ServicoRedesSociais />} />
-          <Route path="/servicos/marketplaces" element={<ServicoMarketplaces />} />
+          <Route
+            path="/servicos/performance"
+            element={<ServicoPerformance />}
+          />
+          <Route
+            path="/servicos/redes-sociais"
+            element={<ServicoRedesSociais />}
+          />
+          <Route
+            path="/servicos/marketplaces"
+            element={<ServicoMarketplaces />}
+          />
           <Route path="/servicos/sites" element={<ServicoSites />} />
           <Route path="/servicos/automacao" element={<ServicoAutomacao />} />
           <Route path="/cases" element={<Cases />} />
