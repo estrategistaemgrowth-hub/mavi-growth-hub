@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Layout } from "@/components/Layout";
 import { Section, SectionHeader } from "@/components/Section";
+import { AnimatedCounter } from "@/components/AnimatedCounter";
 import { 
   ShoppingCart, 
   CheckCircle2, 
@@ -131,7 +132,7 @@ export default function ServicoEcommerce() {
               conversão e integração completa com todo o ecossistema de vendas.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 animate-fade-in-up animation-delay-300">
-              <Button asChild variant="hero" size="xl">
+              <Button asChild variant="hero" size="xl" className="animate-glow-pulse">
                 <Link to="/contato">Quero criar minha loja</Link>
               </Button>
               <Button asChild variant="heroOutline" size="lg">
@@ -149,12 +150,28 @@ export default function ServicoEcommerce() {
       <section className="py-8 bg-primary">
         <div className="container-mavi">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {stats.map((stat, index) => (
-              <div key={index} className="text-center">
-                <p className="text-3xl md:text-4xl font-bold text-primary-foreground">{stat.value}</p>
-                <p className="text-primary-foreground/80 text-sm">{stat.label}</p>
-              </div>
-            ))}
+            <div className="text-center">
+              <p className="text-3xl md:text-4xl font-bold text-primary-foreground">
+                <AnimatedCounter end={200} prefix="+" duration={2000} />
+              </p>
+              <p className="text-primary-foreground/80 text-sm">Lojas criadas</p>
+            </div>
+            <div className="text-center">
+              <p className="text-3xl md:text-4xl font-bold text-primary-foreground">30 dias</p>
+              <p className="text-primary-foreground/80 text-sm">Tempo médio de lançamento</p>
+            </div>
+            <div className="text-center">
+              <p className="text-3xl md:text-4xl font-bold text-primary-foreground">
+                <AnimatedCounter end={45} prefix="+" suffix="%" duration={2000} />
+              </p>
+              <p className="text-primary-foreground/80 text-sm">Conversão média</p>
+            </div>
+            <div className="text-center">
+              <p className="text-3xl md:text-4xl font-bold text-primary-foreground">
+                <AnimatedCounter end={5} suffix="+" duration={1500} />
+              </p>
+              <p className="text-primary-foreground/80 text-sm">Anos de experiência Tray</p>
+            </div>
           </div>
         </div>
       </section>
@@ -167,8 +184,8 @@ export default function ServicoEcommerce() {
         />
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {problems.map((problem, index) => (
-            <div key={index} className="p-6 rounded-xl bg-destructive/5 border border-destructive/20 hover:border-destructive/40 transition-colors">
-              <problem.icon className="w-10 h-10 text-destructive mb-4" />
+            <div key={index} className="group p-6 rounded-xl bg-destructive/5 border border-destructive/20 hover:border-destructive/40 transition-all duration-300 hover:-translate-y-2">
+              <problem.icon className="w-10 h-10 text-destructive mb-4 transition-all duration-300 group-hover:scale-110 group-hover:drop-shadow-[0_0_8px_hsl(0_84%_60%/0.5)]" />
               <h3 className="text-lg font-semibold text-foreground mb-2">{problem.title}</h3>
               <p className="text-muted-foreground text-sm">{problem.description}</p>
             </div>
@@ -200,9 +217,9 @@ export default function ServicoEcommerce() {
           <div className="space-y-4">
             <h3 className="text-2xl font-bold text-foreground mb-6">Benefícios para o seu negócio</h3>
             {benefits.map((benefit, index) => (
-              <div key={index} className="flex gap-4 p-4 rounded-xl bg-card border border-border hover:border-primary/30 transition-colors">
-                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
-                  <benefit.icon className="w-6 h-6 text-primary" />
+              <div key={index} className="group flex gap-4 p-4 rounded-xl bg-card border border-border card-glow cursor-default">
+                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0 transition-all duration-300 group-hover:bg-primary/20 group-hover:animate-pulse-glow">
+                  <benefit.icon className="w-6 h-6 text-primary transition-transform duration-300 group-hover:scale-110" />
                 </div>
                 <div>
                   <h4 className="font-semibold text-foreground mb-1">{benefit.title}</h4>
@@ -296,23 +313,23 @@ export default function ServicoEcommerce() {
           subtitle="Sua loja conectada a tudo que você precisa para operar."
         />
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          <div className="p-6 rounded-xl bg-card border border-border text-center">
-            <CreditCard className="w-12 h-12 text-primary mx-auto mb-4" />
+          <div className="group p-6 rounded-xl bg-card border border-border text-center card-glow cursor-default">
+            <CreditCard className="w-12 h-12 text-primary mx-auto mb-4 transition-all duration-300 group-hover:scale-110 group-hover:drop-shadow-[0_0_12px_hsl(336_100%_45%/0.5)]" />
             <h4 className="font-semibold text-foreground mb-2">Pagamentos</h4>
             <p className="text-sm text-muted-foreground">PagSeguro, Mercado Pago, Pix, Cartões</p>
           </div>
-          <div className="p-6 rounded-xl bg-card border border-border text-center">
-            <Truck className="w-12 h-12 text-primary mx-auto mb-4" />
+          <div className="group p-6 rounded-xl bg-card border border-border text-center card-glow cursor-default">
+            <Truck className="w-12 h-12 text-primary mx-auto mb-4 transition-all duration-300 group-hover:scale-110 group-hover:drop-shadow-[0_0_12px_hsl(336_100%_45%/0.5)]" />
             <h4 className="font-semibold text-foreground mb-2">Logística</h4>
             <p className="text-sm text-muted-foreground">Correios, Melhor Envio, Jadlog, Sedex</p>
           </div>
-          <div className="p-6 rounded-xl bg-card border border-border text-center">
-            <Package className="w-12 h-12 text-primary mx-auto mb-4" />
+          <div className="group p-6 rounded-xl bg-card border border-border text-center card-glow cursor-default">
+            <Package className="w-12 h-12 text-primary mx-auto mb-4 transition-all duration-300 group-hover:scale-110 group-hover:drop-shadow-[0_0_12px_hsl(336_100%_45%/0.5)]" />
             <h4 className="font-semibold text-foreground mb-2">ERP</h4>
             <p className="text-sm text-muted-foreground">Bling, Tiny, Omie, Conta Azul</p>
           </div>
-          <div className="p-6 rounded-xl bg-card border border-border text-center">
-            <Layers className="w-12 h-12 text-primary mx-auto mb-4" />
+          <div className="group p-6 rounded-xl bg-card border border-border text-center card-glow cursor-default">
+            <Layers className="w-12 h-12 text-primary mx-auto mb-4 transition-all duration-300 group-hover:scale-110 group-hover:drop-shadow-[0_0_12px_hsl(336_100%_45%/0.5)]" />
             <h4 className="font-semibold text-foreground mb-2">Marketplaces</h4>
             <p className="text-sm text-muted-foreground">Mercado Livre, Magalu, Amazon, Shopee</p>
           </div>

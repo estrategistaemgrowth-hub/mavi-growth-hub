@@ -5,6 +5,7 @@ import { Section, SectionHeader } from "@/components/Section";
 import { ServiceCard } from "@/components/ServiceCard";
 import { TestimonialCard } from "@/components/TestimonialCard";
 import { LogoCarousel } from "@/components/LogoCarousel";
+import { AnimatedCounter } from "@/components/AnimatedCounter";
 import {
   ShoppingCart,
   TrendingUp,
@@ -133,7 +134,7 @@ export default function Index() {
                 Agência especializada em performance para e-commerces, marketplaces e negócios que querem crescer com dados, tecnologia, IA e estratégias de verdade.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 relative z-30">
-                <Button asChild variant="hero" size="xl">
+                <Button asChild variant="hero" size="xl" className="animate-glow-pulse">
                   <Link to="/contato">Quero um diagnóstico gratuito</Link>
                 </Button>
                 <Button asChild variant="heroOutline" size="xl">
@@ -143,17 +144,23 @@ export default function Index() {
               
               <div className="mt-12 flex items-center gap-8">
                 <div>
-                  <p className="text-3xl font-bold text-primary">+5</p>
+                  <p className="text-3xl font-bold text-primary">
+                    <AnimatedCounter end={5} prefix="+" duration={1500} />
+                  </p>
                   <p className="text-sm text-mavi-white/60">Anos de mercado</p>
                 </div>
                 <div className="w-px h-12 bg-mavi-white/20" />
                 <div>
-                  <p className="text-3xl font-bold text-primary">+500</p>
+                  <p className="text-3xl font-bold text-primary">
+                    <AnimatedCounter end={500} prefix="+" duration={2000} />
+                  </p>
                   <p className="text-sm text-mavi-white/60">Clientes atendidos</p>
                 </div>
                 <div className="w-px h-12 bg-mavi-white/20" />
                 <div>
-                  <p className="text-3xl font-bold text-primary">R$50M+</p>
+                  <p className="text-3xl font-bold text-primary">
+                    R$<AnimatedCounter end={50} duration={2000} />M+
+                  </p>
                   <p className="text-sm text-mavi-white/60">Em vendas geradas</p>
                 </div>
               </div>
@@ -234,23 +241,29 @@ export default function Index() {
             </Button>
           </div>
           <div className="grid grid-cols-2 gap-4 stagger-children">
-            <div className="bg-card rounded-xl p-6 border border-border hover-lift hover:border-primary/50 transition-all duration-300">
-              <BarChart3 className="w-10 h-10 text-primary mb-4" />
-              <p className="text-3xl font-bold text-foreground">+5</p>
+            <div className="group bg-card rounded-xl p-6 border border-border card-glow cursor-default">
+              <BarChart3 className="w-10 h-10 text-primary mb-4 transition-all duration-300 group-hover:scale-110 group-hover:drop-shadow-[0_0_12px_hsl(336_100%_45%/0.5)]" />
+              <p className="text-3xl font-bold text-foreground">
+                <AnimatedCounter end={5} prefix="+" duration={1500} />
+              </p>
               <p className="text-muted-foreground">Anos de experiência</p>
             </div>
-            <div className="bg-card rounded-xl p-6 border border-border hover-lift hover:border-primary/50 transition-all duration-300">
-              <Users className="w-10 h-10 text-primary mb-4" />
-              <p className="text-3xl font-bold text-foreground">+500</p>
+            <div className="group bg-card rounded-xl p-6 border border-border card-glow cursor-default">
+              <Users className="w-10 h-10 text-primary mb-4 transition-all duration-300 group-hover:scale-110 group-hover:drop-shadow-[0_0_12px_hsl(336_100%_45%/0.5)]" />
+              <p className="text-3xl font-bold text-foreground">
+                <AnimatedCounter end={500} prefix="+" duration={2000} />
+              </p>
               <p className="text-muted-foreground">Clientes atendidos</p>
             </div>
-            <div className="bg-card rounded-xl p-6 border border-border hover-lift hover:border-primary/50 transition-all duration-300">
-              <TrendingUp className="w-10 h-10 text-primary mb-4" />
-              <p className="text-3xl font-bold text-foreground">127%</p>
+            <div className="group bg-card rounded-xl p-6 border border-border card-glow cursor-default">
+              <TrendingUp className="w-10 h-10 text-primary mb-4 transition-all duration-300 group-hover:scale-110 group-hover:drop-shadow-[0_0_12px_hsl(336_100%_45%/0.5)]" />
+              <p className="text-3xl font-bold text-foreground">
+                <AnimatedCounter end={127} suffix="%" duration={2000} />
+              </p>
               <p className="text-muted-foreground">Crescimento médio</p>
             </div>
-            <div className="bg-card rounded-xl p-6 border border-border hover-lift hover:border-primary/50 transition-all duration-300">
-              <Target className="w-10 h-10 text-primary mb-4" />
+            <div className="group bg-card rounded-xl p-6 border border-border card-glow cursor-default">
+              <Target className="w-10 h-10 text-primary mb-4 transition-all duration-300 group-hover:scale-110 group-hover:drop-shadow-[0_0_12px_hsl(336_100%_45%/0.5)]" />
               <p className="text-3xl font-bold text-foreground">8.4x</p>
               <p className="text-muted-foreground">ROAS médio</p>
             </div>
@@ -282,9 +295,9 @@ export default function Index() {
           {differentials.map((item) => (
             <div
               key={item.title}
-              className="p-6 rounded-xl bg-mavi-white/5 border border-mavi-white/10 hover:border-primary/50 hover:bg-mavi-white/10 transition-all duration-300 hover:-translate-y-2 group"
+              className="group p-6 rounded-xl bg-mavi-white/5 border border-mavi-white/10 hover:border-primary/50 hover:bg-mavi-white/10 transition-all duration-300 hover:-translate-y-2"
             >
-              <item.icon className="w-10 h-10 text-primary mb-4 group-hover:scale-110 transition-transform" />
+              <item.icon className="w-10 h-10 text-primary mb-4 transition-all duration-300 group-hover:scale-110 group-hover:drop-shadow-[0_0_12px_hsl(336_100%_45%/0.5)]" />
               <h3 className="text-lg font-semibold text-mavi-white mb-2">{item.title}</h3>
               <p className="text-mavi-white/60 text-sm">{item.description}</p>
             </div>
@@ -324,7 +337,7 @@ export default function Index() {
             Agende uma consultoria gratuita e descubra como podemos acelerar seu crescimento.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button asChild variant="hero" size="xl" className="hover:scale-105 transition-transform animate-glow">
+            <Button asChild variant="hero" size="xl" className="hover:scale-105 transition-transform animate-glow-pulse">
               <Link to="/contato">Quero uma consultoria gratuita</Link>
             </Button>
             <Button asChild variant="heroOutline" size="xl" className="hover:scale-105 transition-transform">

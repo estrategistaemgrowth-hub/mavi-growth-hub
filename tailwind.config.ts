@@ -108,6 +108,45 @@ export default {
           "0%": { transform: "translateX(0)" },
           "100%": { transform: "translateX(-50%)" },
         },
+        "icon-bounce": {
+          "0%, 100%": { transform: "scale(1) rotate(0deg)" },
+          "25%": { transform: "scale(1.1) rotate(-5deg)" },
+          "50%": { transform: "scale(1.15) rotate(0deg)" },
+          "75%": { transform: "scale(1.1) rotate(5deg)" },
+        },
+        "icon-pulse": {
+          "0%, 100%": { transform: "scale(1)", opacity: "1" },
+          "50%": { transform: "scale(1.1)", opacity: "0.8" },
+        },
+        "glow-pulse": {
+          "0%, 100%": { 
+            boxShadow: "0 0 5px hsl(336 100% 45% / 0.3), 0 0 20px hsl(336 100% 45% / 0.2)" 
+          },
+          "50%": { 
+            boxShadow: "0 0 20px hsl(336 100% 45% / 0.5), 0 0 40px hsl(336 100% 45% / 0.3)" 
+          },
+        },
+        "shimmer-slide": {
+          "0%": { backgroundPosition: "-200% 0" },
+          "100%": { backgroundPosition: "200% 0" },
+        },
+        "border-glow": {
+          "0%, 100%": { borderColor: "hsl(336 100% 45% / 0.3)" },
+          "50%": { borderColor: "hsl(336 100% 45% / 0.8)" },
+        },
+        "gradient-shift": {
+          "0%": { backgroundPosition: "0% 50%" },
+          "50%": { backgroundPosition: "100% 50%" },
+          "100%": { backgroundPosition: "0% 50%" },
+        },
+        "wiggle": {
+          "0%, 100%": { transform: "rotate(-3deg)" },
+          "50%": { transform: "rotate(3deg)" },
+        },
+        "slide-in-bottom": {
+          "0%": { transform: "translateY(50px)", opacity: "0" },
+          "100%": { transform: "translateY(0)", opacity: "1" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -115,6 +154,14 @@ export default {
         "pulse-glow": "pulse-glow 2s ease-in-out infinite",
         "float": "float 6s ease-in-out infinite",
         "scroll": "scroll 25s linear infinite",
+        "icon-bounce": "icon-bounce 0.6s ease-in-out",
+        "icon-pulse": "icon-pulse 2s ease-in-out infinite",
+        "glow-pulse": "glow-pulse 2s ease-in-out infinite",
+        "shimmer-slide": "shimmer-slide 3s linear infinite",
+        "border-glow": "border-glow 2s ease-in-out infinite",
+        "gradient-shift": "gradient-shift 5s ease infinite",
+        "wiggle": "wiggle 0.5s ease-in-out",
+        "slide-in-bottom": "slide-in-bottom 0.5s ease-out",
       },
     },
   },
