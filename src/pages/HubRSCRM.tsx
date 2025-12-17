@@ -82,6 +82,7 @@ const plans = [
       "Cadastro de Produtos",
       "Suporte via chat",
     ],
+    trialLink: "http://crm.hubrs.com.br/enrollment/new?product=Hubrs+CRM+-+Basic",
   },
   {
     name: "Plus",
@@ -97,6 +98,7 @@ const plans = [
       "Suporte via chat",
     ],
     highlight: true,
+    trialLink: "http://crm.hubrs.com.br/enrollment/new?product=Hubrs+Plus",
   },
   {
     name: "Premium",
@@ -111,6 +113,7 @@ const plans = [
       "Escalonamento humano automático",
     ],
     note: "Custo adicional por conversas: 0–100 incluso; 101–200: R$159,90; 201–300: R$199,90; >300: R$0,55/conversa",
+    trialLink: "http://crm.hubrs.com.br/enrollment/new?product=Hubrs+Premium",
   },
 ];
 
@@ -384,7 +387,7 @@ export default function HubRSCRM() {
                 variant={plan.highlight ? "heroOutline" : "outline"}
                 className="w-full mt-auto"
               >
-                <Link to="/contato?interesse=hubrs">Falar com consultor</Link>
+                <a href={plan.trialLink} target="_blank" rel="noopener noreferrer">Testar Grátis por 7 Dias</a>
               </Button>
             </div>
           ))}
