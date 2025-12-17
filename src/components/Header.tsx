@@ -3,7 +3,8 @@ import { Link, useLocation } from "react-router-dom";
 import { Menu, X, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import logoMavi from "@/assets/logo-mavi-branca.png";
+import logoMaviBranca from "@/assets/logo-mavi-branca.png";
+import logoMaviColorida from "@/assets/logo-mavi-colorida.png";
 
 const services = [
   { name: "E-commerce e Lojas Virtuais", href: "/servicos/ecommerce" },
@@ -57,9 +58,9 @@ export function Header() {
           {/* Logo */}
           <Link to="/" className="flex items-center">
             <img 
-              src={logoMavi} 
+              src={isScrolled ? logoMaviColorida : logoMaviBranca} 
               alt="MAVI Marketing Digital" 
-              className="h-10 w-auto"
+              className="h-10 w-auto transition-opacity duration-300"
             />
           </Link>
 
