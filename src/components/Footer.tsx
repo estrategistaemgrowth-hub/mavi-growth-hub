@@ -1,6 +1,10 @@
 import { Link } from "react-router-dom";
 import { Phone, Mail, MapPin, Instagram, Facebook, Linkedin } from "lucide-react";
 import logoMavi from "@/assets/logo-mavi-branca.png";
+import seloMeta from "@/assets/selos/meta-partner.webp";
+import seloGoogle from "@/assets/selos/google-premier-partner.png";
+import seloRD from "@/assets/selos/rd-station-partner.webp";
+import seloTray from "@/assets/selos/tray-diamante.png";
 
 const quickLinks = [
   { name: "Início", href: "/" },
@@ -139,8 +143,18 @@ export function Footer() {
           </div>
         </div>
 
+        {/* Partner Seals */}
+        <div className="border-t border-mavi-white/10 mt-12 pt-8">
+          <div className="flex flex-wrap items-center justify-center gap-4 mb-8">
+            <img src={seloMeta} alt="Meta Business Partner" className="h-8 w-auto object-contain" />
+            <img src={seloGoogle} alt="Google Premier Partner 2025" className="h-8 w-auto object-contain" />
+            <img src={seloRD} alt="RD Station Partners Silver 2025" className="h-8 w-auto object-contain" />
+            <img src={seloTray} alt="Parceiro Diamante Tray" className="h-8 w-auto object-contain" />
+          </div>
+        </div>
+
         {/* Bottom */}
-        <div className="border-t border-mavi-white/10 mt-12 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
+        <div className="border-t border-mavi-white/10 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-mavi-white/50 text-sm">
             © {new Date().getFullYear()} MAVI Marketing Digital. Todos os direitos reservados. CNPJ 49.657.693/0001-89
           </p>
