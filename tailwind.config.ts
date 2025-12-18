@@ -147,6 +147,10 @@ export default {
           "0%": { transform: "translateY(50px)", opacity: "0" },
           "100%": { transform: "translateY(0)", opacity: "1" },
         },
+        "whatsapp-pulse": {
+          "0%, 100%": { boxShadow: "0 0 0 0 rgba(37, 211, 102, 0.7)" },
+          "50%": { boxShadow: "0 0 0 15px rgba(37, 211, 102, 0)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -162,6 +166,7 @@ export default {
         "gradient-shift": "gradient-shift 5s ease infinite",
         "wiggle": "wiggle 0.5s ease-in-out",
         "slide-in-bottom": "slide-in-bottom 0.5s ease-out",
+        "whatsapp-pulse": "whatsapp-pulse 2s ease-in-out infinite",
       },
     },
   },

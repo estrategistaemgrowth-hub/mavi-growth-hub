@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Layout } from "@/components/Layout";
 import { Section, SectionHeader } from "@/components/Section";
+import { AnimatedCounter } from "@/components/AnimatedCounter";
 import { 
   Bot, 
   CheckCircle2, 
@@ -58,10 +59,10 @@ const automations = [
 ];
 
 const stats = [
-  { value: "-70%", label: "Tempo de resposta" },
-  { value: "+40%", label: "Taxa de conversão" },
-  { value: "24/7", label: "Atendimento ativo" },
-  { value: "0", label: "Leads perdidos" },
+  { end: 70, prefix: "-", suffix: "%", label: "Tempo de resposta" },
+  { end: 40, prefix: "+", suffix: "%", label: "Taxa de conversão" },
+  { end: 24, prefix: "", suffix: "/7", label: "Atendimento ativo" },
+  { end: 0, prefix: "", suffix: "", label: "Leads perdidos", isZero: true },
 ];
 
 const faqs = [
@@ -130,7 +131,16 @@ export default function ServicoAutomacao() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {stats.map((stat, index) => (
               <div key={index} className="text-center">
-                <p className="text-3xl md:text-4xl font-bold text-primary-foreground">{stat.value}</p>
+                {stat.isZero ? (
+                  <p className="text-3xl md:text-4xl font-bold text-primary-foreground">0</p>
+                ) : (
+                  <AnimatedCounter 
+                    end={stat.end}
+                    prefix={stat.prefix}
+                    suffix={stat.suffix}
+                    className="text-3xl md:text-4xl font-bold text-primary-foreground" 
+                  />
+                )}
                 <p className="text-primary-foreground/80 text-sm">{stat.label}</p>
               </div>
             ))}
@@ -146,8 +156,8 @@ export default function ServicoAutomacao() {
         />
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {problems.map((problem, index) => (
-            <div key={index} className="p-6 rounded-xl bg-destructive/5 border border-destructive/20 hover:border-destructive/40 transition-colors">
-              <problem.icon className="w-10 h-10 text-destructive mb-4" />
+            <div key={index} className="p-6 rounded-xl bg-destructive/5 border border-destructive/20 hover:border-destructive/40 transition-colors card-glow">
+              <problem.icon className="w-10 h-10 text-destructive mb-4 icon-hover" />
               <h3 className="text-lg font-semibold text-foreground mb-2">{problem.title}</h3>
               <p className="text-muted-foreground text-sm">{problem.description}</p>
             </div>
@@ -163,9 +173,9 @@ export default function ServicoAutomacao() {
         />
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {automations.map((automation, index) => (
-            <div key={index} className="bg-card rounded-xl p-6 border border-border hover:border-primary/30 transition-colors text-center">
-              <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
-                <automation.icon className="w-8 h-8 text-primary" />
+            <div key={index} className="bg-card rounded-xl p-6 border border-border hover:border-primary/30 transition-colors text-center card-glow">
+              <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4 icon-hover-glow">
+                <automation.icon className="w-8 h-8 text-primary icon-hover" />
               </div>
               <h3 className="text-lg font-semibold text-foreground mb-2">{automation.title}</h3>
               <p className="text-sm text-muted-foreground">{automation.description}</p>
@@ -198,9 +208,9 @@ export default function ServicoAutomacao() {
           <div className="space-y-4">
             <h3 className="text-2xl font-bold text-foreground mb-6">Benefícios para o seu negócio</h3>
             {benefits.map((benefit, index) => (
-              <div key={index} className="flex gap-4 p-4 rounded-xl bg-card border border-border hover:border-primary/30 transition-colors">
+              <div key={index} className="flex gap-4 p-4 rounded-xl bg-card border border-border hover:border-primary/30 transition-colors card-glow">
                 <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
-                  <benefit.icon className="w-6 h-6 text-primary" />
+                  <benefit.icon className="w-6 h-6 text-primary icon-hover" />
                 </div>
                 <div>
                   <h4 className="font-semibold text-foreground mb-1">{benefit.title}</h4>

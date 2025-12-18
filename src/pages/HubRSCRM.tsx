@@ -232,10 +232,10 @@ export default function HubRSCRM() {
           {features.map((feature) => (
             <div
               key={feature.title}
-              className="bg-card rounded-xl p-6 border border-border hover:border-primary/30 transition-all hover:shadow-md"
+              className="bg-card rounded-xl p-6 border border-border hover:border-primary/30 transition-all hover:shadow-md card-glow"
             >
-              <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
-                <feature.icon className="w-6 h-6 text-primary" />
+              <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4 icon-hover-glow">
+                <feature.icon className="w-6 h-6 text-primary icon-hover" />
               </div>
               <h3 className="text-lg font-semibold text-foreground mb-2">{feature.title}</h3>
               <p className="text-sm text-muted-foreground leading-relaxed">{feature.description}</p>
@@ -254,10 +254,10 @@ export default function HubRSCRM() {
           {audiences.map((audience) => (
             <div
               key={audience.name}
-              className="text-center p-6 rounded-xl bg-mavi-gray border border-border hover:border-primary/30 transition-colors"
+              className="text-center p-6 rounded-xl bg-mavi-gray border border-border hover:border-primary/30 transition-colors card-glow"
             >
-              <div className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
-                <audience.icon className="w-7 h-7 text-primary" />
+              <div className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4 icon-hover-glow">
+                <audience.icon className="w-7 h-7 text-primary icon-hover" />
               </div>
               <h3 className="font-semibold text-foreground mb-1">{audience.name}</h3>
               <p className="text-sm text-muted-foreground">{audience.description}</p>

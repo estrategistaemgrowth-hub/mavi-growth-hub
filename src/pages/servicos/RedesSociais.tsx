@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Layout } from "@/components/Layout";
 import { Section, SectionHeader } from "@/components/Section";
+import { AnimatedCounter } from "@/components/AnimatedCounter";
 import { 
   Users, 
   CheckCircle2, 
@@ -59,10 +60,10 @@ const deliverables = [
 ];
 
 const stats = [
-  { value: "+150%", label: "Engajamento médio" },
-  { value: "+80", label: "Contas gerenciadas" },
-  { value: "3x", label: "Mais alcance orgânico" },
-  { value: "24h", label: "Tempo de resposta" },
+  { end: 150, prefix: "+", suffix: "%", label: "Engajamento médio" },
+  { end: 80, prefix: "+", suffix: "", label: "Contas gerenciadas" },
+  { end: 3, prefix: "", suffix: "x", label: "Mais alcance orgânico" },
+  { end: 24, prefix: "", suffix: "h", label: "Tempo de resposta" },
 ];
 
 const faqs = [
@@ -131,7 +132,12 @@ export default function ServicoRedesSociais() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {stats.map((stat, index) => (
               <div key={index} className="text-center">
-                <p className="text-3xl md:text-4xl font-bold text-primary-foreground">{stat.value}</p>
+                <AnimatedCounter 
+                  end={stat.end}
+                  prefix={stat.prefix}
+                  suffix={stat.suffix}
+                  className="text-3xl md:text-4xl font-bold text-primary-foreground" 
+                />
                 <p className="text-primary-foreground/80 text-sm">{stat.label}</p>
               </div>
             ))}
@@ -147,8 +153,8 @@ export default function ServicoRedesSociais() {
         />
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {problems.map((problem, index) => (
-            <div key={index} className="p-6 rounded-xl bg-destructive/5 border border-destructive/20 hover:border-destructive/40 transition-colors">
-              <problem.icon className="w-10 h-10 text-destructive mb-4" />
+            <div key={index} className="p-6 rounded-xl bg-destructive/5 border border-destructive/20 hover:border-destructive/40 transition-colors card-glow">
+              <problem.icon className="w-10 h-10 text-destructive mb-4 icon-hover" />
               <h3 className="text-lg font-semibold text-foreground mb-2">{problem.title}</h3>
               <p className="text-muted-foreground text-sm">{problem.description}</p>
             </div>
@@ -180,9 +186,9 @@ export default function ServicoRedesSociais() {
           <div className="space-y-4">
             <h3 className="text-2xl font-bold text-foreground mb-6">Benefícios para o seu negócio</h3>
             {benefits.map((benefit, index) => (
-              <div key={index} className="flex gap-4 p-4 rounded-xl bg-card border border-border hover:border-primary/30 transition-colors">
+              <div key={index} className="flex gap-4 p-4 rounded-xl bg-card border border-border hover:border-primary/30 transition-colors card-glow">
                 <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
-                  <benefit.icon className="w-6 h-6 text-primary" />
+                  <benefit.icon className="w-6 h-6 text-primary icon-hover" />
                 </div>
                 <div>
                   <h4 className="font-semibold text-foreground mb-1">{benefit.title}</h4>
