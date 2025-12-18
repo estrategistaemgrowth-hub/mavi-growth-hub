@@ -135,8 +135,8 @@ export function Header() {
           {/* CTA Buttons */}
           <div className="hidden lg:flex items-center gap-3">
             <Button asChild variant={isScrolled ? "outline" : "heroOutline"} size="sm">
-              <a href="https://crm.hubrs.com.br/pt/users/sign_in" target="_blank" rel="noopener noreferrer">
-                Login HubRS
+            <a href="https://crm.hubrs.com.br/pt/users/sign_in" target="_blank" rel="noopener noreferrer">
+                Hubrs CRM
               </a>
             </Button>
             <Button asChild variant={isScrolled ? "default" : "hero"} size="sm">
@@ -210,7 +210,7 @@ export function Header() {
               <div className="pt-4 px-4 space-y-2">
                 <Button asChild variant="outline" className="w-full">
                   <a href="https://crm.hubrs.com.br/pt/users/sign_in" target="_blank" rel="noopener noreferrer">
-                    Login HubRS
+                    Hubrs CRM
                   </a>
                 </Button>
                 <Button asChild className="w-full">
