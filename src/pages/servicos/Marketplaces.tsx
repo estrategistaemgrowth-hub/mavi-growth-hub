@@ -2,15 +2,15 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Layout } from "@/components/Layout";
 import { Section, SectionHeader } from "@/components/Section";
+import { AnimatedCounter } from "@/components/AnimatedCounter";
 import { 
-  Store, 
+  Store,
   CheckCircle2,
   ArrowRight,
   AlertCircle,
   Package,
   TrendingUp,
   Settings,
-  BarChart3,
   Layers,
   RefreshCw,
   Target,
@@ -23,6 +23,14 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+
+// Marketplace logos
+import mercadoLivreLogo from "@/assets/marketplaces/mercado-livre.png";
+import amazonLogo from "@/assets/marketplaces/amazon.png";
+import shopeeLogo from "@/assets/marketplaces/shopee.png";
+import magaluLogo from "@/assets/marketplaces/magalu.png";
+import americanasLogo from "@/assets/marketplaces/americanas.png";
+import viaVarejoLogo from "@/assets/marketplaces/via-varejo.png";
 
 const problems = [
   { icon: AlertCircle, title: "Vendas travadas nos marketplaces?", description: "Anúncios mal otimizados que não aparecem nas buscas." },
@@ -50,12 +58,12 @@ const benefits = [
 ];
 
 const marketplaces = [
-  { name: "Mercado Livre", description: "Líder da América Latina" },
-  { name: "Amazon", description: "Maior do mundo" },
-  { name: "Shopee", description: "Crescimento explosivo" },
-  { name: "Magazine Luiza", description: "Varejo tradicional" },
-  { name: "Americanas", description: "Multi-categoria" },
-  { name: "Via Varejo", description: "Casas Bahia e Ponto" },
+  { name: "Mercado Livre", description: "Líder da América Latina", logo: mercadoLivreLogo },
+  { name: "Amazon", description: "Maior do mundo", logo: amazonLogo },
+  { name: "Shopee", description: "Crescimento explosivo", logo: shopeeLogo },
+  { name: "Magazine Luiza", description: "Varejo tradicional", logo: magaluLogo },
+  { name: "Americanas", description: "Multi-categoria", logo: americanasLogo },
+  { name: "Via Varejo", description: "Casas Bahia e Ponto", logo: viaVarejoLogo },
 ];
 
 const process = [
@@ -66,10 +74,10 @@ const process = [
 ];
 
 const stats = [
-  { value: "+120", label: "Contas gerenciadas" },
-  { value: "6", label: "Marketplaces atendidos" },
-  { value: "+40%", label: "Crescimento médio" },
-  { value: "R$10M+", label: "GMV gerenciado/mês" },
+  { end: 120, prefix: "+", suffix: "", label: "Contas gerenciadas" },
+  { end: 6, prefix: "", suffix: "", label: "Marketplaces atendidos" },
+  { end: 40, prefix: "+", suffix: "%", label: "Crescimento médio" },
+  { end: 10, prefix: "R$", suffix: "M+", label: "GMV gerenciado/mês" },
 ];
 
 const faqs = [
@@ -138,7 +146,12 @@ export default function ServicoMarketplaces() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {stats.map((stat, index) => (
               <div key={index} className="text-center">
-                <p className="text-3xl md:text-4xl font-bold text-primary-foreground">{stat.value}</p>
+                <AnimatedCounter 
+                  end={stat.end}
+                  prefix={stat.prefix}
+                  suffix={stat.suffix}
+                  className="text-3xl md:text-4xl font-bold text-primary-foreground" 
+                />
                 <p className="text-primary-foreground/80 text-sm">{stat.label}</p>
               </div>
             ))}
@@ -154,8 +167,8 @@ export default function ServicoMarketplaces() {
         />
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {problems.map((problem, index) => (
-            <div key={index} className="p-6 rounded-xl bg-destructive/5 border border-destructive/20 hover:border-destructive/40 transition-colors">
-              <problem.icon className="w-10 h-10 text-destructive mb-4" />
+            <div key={index} className="p-6 rounded-xl bg-destructive/5 border border-destructive/20 hover:border-destructive/40 transition-colors card-glow">
+              <problem.icon className="w-10 h-10 text-destructive mb-4 icon-hover" />
               <h3 className="text-lg font-semibold text-foreground mb-2">{problem.title}</h3>
               <p className="text-muted-foreground text-sm">{problem.description}</p>
             </div>
@@ -171,8 +184,12 @@ export default function ServicoMarketplaces() {
         />
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {marketplaces.map((mp, index) => (
-            <div key={index} className="bg-card rounded-xl p-6 border border-border hover:border-primary/30 transition-colors text-center">
-              <Store className="w-12 h-12 text-primary mx-auto mb-4" />
+            <div key={index} className="bg-card rounded-xl p-6 border border-border hover:border-primary/30 transition-colors text-center card-glow">
+              <img 
+                src={mp.logo} 
+                alt={mp.name} 
+                className="h-12 object-contain mx-auto mb-4 icon-hover"
+              />
               <h3 className="text-lg font-semibold text-foreground mb-1">{mp.name}</h3>
               <p className="text-sm text-muted-foreground">{mp.description}</p>
             </div>
@@ -190,8 +207,8 @@ export default function ServicoMarketplaces() {
           {process.map((step, index) => (
             <div key={index} className="relative">
               <div className="text-center">
-                <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4 relative">
-                  <step.icon className="w-8 h-8 text-primary" />
+                <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4 relative icon-hover-glow">
+                  <step.icon className="w-8 h-8 text-primary icon-hover" />
                   <span className="absolute -top-2 -right-2 w-6 h-6 rounded-full bg-primary text-primary-foreground text-sm font-bold flex items-center justify-center">
                     {index + 1}
                   </span>
@@ -232,9 +249,9 @@ export default function ServicoMarketplaces() {
           <div className="space-y-4">
             <h3 className="text-2xl font-bold text-mavi-white mb-6">Benefícios para o seu negócio</h3>
             {benefits.map((benefit, index) => (
-              <div key={index} className="flex gap-4 p-4 rounded-xl bg-mavi-white/5 border border-mavi-white/10 hover:border-primary/30 transition-colors">
+              <div key={index} className="flex gap-4 p-4 rounded-xl bg-mavi-white/5 border border-mavi-white/10 hover:border-primary/30 transition-colors card-glow">
                 <div className="w-12 h-12 rounded-lg bg-primary/20 flex items-center justify-center flex-shrink-0">
-                  <benefit.icon className="w-6 h-6 text-primary" />
+                  <benefit.icon className="w-6 h-6 text-primary icon-hover" />
                 </div>
                 <div>
                   <h4 className="font-semibold text-mavi-white mb-1">{benefit.title}</h4>
