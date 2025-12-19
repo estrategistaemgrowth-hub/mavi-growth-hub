@@ -128,7 +128,7 @@ export function Footer() {
                 <Mail className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
                 <a
                   href="mailto:agenciamavi@agenciamavi.com.br"
-                  className="text-mavi-white/70 hover:text-primary transition-colors break-all"
+                  className="text-mavi-white/70 hover:text-primary transition-colors whitespace-nowrap"
                 >
                   agenciamavi@agenciamavi.com.br
                 </a>
