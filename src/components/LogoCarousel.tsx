@@ -10,6 +10,13 @@ import logoRdstation from "@/assets/clients/rd-station.png";
 import logoItaivan from "@/assets/clients/itaivan.png";
 import logoAstron from "@/assets/clients/astron-members.png";
 import logoImunizadora from "@/assets/clients/imunizadora-jaragua.png";
+import logoBolicheJaragua from "@/assets/clients/boliche-jaragua.png";
+import logoSuperTreis from "@/assets/clients/super-treis.png";
+import logoNordestinaMoveis from "@/assets/clients/nordestina-moveis.png";
+import logoMagazineTicTac from "@/assets/clients/magazine-tic-tac.png";
+import logoPullaBulla from "@/assets/clients/pulla-bulla.png";
+import logoPedalaAi from "@/assets/clients/pedala-ai.png";
+import logoImobiliariaPradi from "@/assets/clients/imobiliaria-pradi.png";
 
 const clientLogos = [
   { name: "Lumi Store", logo: logoLumistore },
@@ -21,6 +28,13 @@ const clientLogos = [
   { name: "Itaivan", logo: logoItaivan },
   { name: "Astron Members", logo: logoAstron },
   { name: "Imunizadora Jaraguá", logo: logoImunizadora },
+  { name: "Boliche Jaraguá", logo: logoBolicheJaragua },
+  { name: "Super Treis", logo: logoSuperTreis },
+  { name: "Nordestina Móveis", logo: logoNordestinaMoveis },
+  { name: "Magazine Tic Tac", logo: logoMagazineTicTac },
+  { name: "Pulla Bulla", logo: logoPullaBulla },
+  { name: "Pedala Aí", logo: logoPedalaAi },
+  { name: "Imobiliária Pradi", logo: logoImobiliariaPradi },
 ];
 
 interface LogoCarouselProps {
