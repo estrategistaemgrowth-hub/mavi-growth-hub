@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 
-// Client logos
+// Client logos - First row (8 logos)
 import logoLumistore from "@/assets/clients/lumi-store.png";
 import logoNuvemshop from "@/assets/clients/nuvemshop.png";
 import logoTray from "@/assets/clients/tray.png";
@@ -9,6 +9,8 @@ import logoProolhar from "@/assets/clients/pro-olhar.png";
 import logoRdstation from "@/assets/clients/rd-station.png";
 import logoItaivan from "@/assets/clients/itaivan.png";
 import logoAstron from "@/assets/clients/astron-members.png";
+
+// Client logos - Second row (8 logos)
 import logoImunizadora from "@/assets/clients/imunizadora-jaragua.png";
 import logoBolicheJaragua from "@/assets/clients/boliche-jaragua.png";
 import logoSuperTreis from "@/assets/clients/super-treis.png";
@@ -18,7 +20,7 @@ import logoPullaBulla from "@/assets/clients/pulla-bulla.png";
 import logoPedalaAi from "@/assets/clients/pedala-ai.png";
 import logoImobiliariaPradi from "@/assets/clients/imobiliaria-pradi.png";
 
-const clientLogos = [
+const firstRowLogos = [
   { name: "Lumi Store", logo: logoLumistore },
   { name: "Nuvemshop", logo: logoNuvemshop },
   { name: "Tray", logo: logoTray },
@@ -27,6 +29,9 @@ const clientLogos = [
   { name: "RD Station", logo: logoRdstation },
   { name: "Itaivan", logo: logoItaivan },
   { name: "Astron Members", logo: logoAstron },
+];
+
+const secondRowLogos = [
   { name: "Imunizadora Jaraguá", logo: logoImunizadora },
   { name: "Boliche Jaraguá", logo: logoBolicheJaragua },
   { name: "Super Treis", logo: logoSuperTreis },
@@ -41,18 +46,26 @@ interface LogoCarouselProps {
   className?: string;
 }
 
-export function LogoCarousel({ className }: LogoCarouselProps) {
-  // Duplicate logos for seamless infinite scroll
-  const duplicatedLogos = [...clientLogos, ...clientLogos];
+function LogoRow({ 
+  logos, 
+  reverse = false 
+}: { 
+  logos: typeof firstRowLogos; 
+  reverse?: boolean;
+}) {
+  const duplicatedLogos = [...logos, ...logos];
 
   return (
-    <div className={cn("relative overflow-hidden", className)}>
+    <div className="relative overflow-hidden">
       {/* Gradient overlays for fade effect */}
       <div className="absolute left-0 top-0 bottom-0 w-20 md:w-32 bg-gradient-to-r from-mavi-gray to-transparent z-10" />
       <div className="absolute right-0 top-0 bottom-0 w-20 md:w-32 bg-gradient-to-l from-mavi-gray to-transparent z-10" />
       
       {/* Scrolling container */}
-      <div className="flex animate-scroll">
+      <div className={cn(
+        "flex",
+        reverse ? "animate-scroll-reverse" : "animate-scroll"
+      )}>
         {duplicatedLogos.map((client, index) => (
           <div
             key={`${client.name}-${index}`}
@@ -66,6 +79,15 @@ export function LogoCarousel({ className }: LogoCarouselProps) {
           </div>
         ))}
       </div>
+    </div>
+  );
+}
+
+export function LogoCarousel({ className }: LogoCarouselProps) {
+  return (
+    <div className={cn("flex flex-col gap-8", className)}>
+      <LogoRow logos={firstRowLogos} />
+      <LogoRow logos={secondRowLogos} reverse />
     </div>
   );
 }

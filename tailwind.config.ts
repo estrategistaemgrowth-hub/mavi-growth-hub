@@ -108,6 +108,10 @@ export default {
           "0%": { transform: "translateX(0)" },
           "100%": { transform: "translateX(-50%)" },
         },
+        "scroll-reverse": {
+          "0%": { transform: "translateX(-50%)" },
+          "100%": { transform: "translateX(0)" },
+        },
         "icon-bounce": {
           "0%, 100%": { transform: "scale(1) rotate(0deg)" },
           "25%": { transform: "scale(1.1) rotate(-5deg)" },
@@ -158,6 +162,7 @@ export default {
         "pulse-glow": "pulse-glow 2s ease-in-out infinite",
         "float": "float 6s ease-in-out infinite",
         "scroll": "scroll 35s linear infinite",
+        "scroll-reverse": "scroll-reverse 35s linear infinite",
         "icon-bounce": "icon-bounce 0.6s ease-in-out",
         "icon-pulse": "icon-pulse 2s ease-in-out infinite",
         "glow-pulse": "glow-pulse 2s ease-in-out infinite",
