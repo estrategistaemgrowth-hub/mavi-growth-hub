@@ -157,7 +157,7 @@ export default {
         "accordion-up": "accordion-up 0.2s ease-out",
         "pulse-glow": "pulse-glow 2s ease-in-out infinite",
         "float": "float 6s ease-in-out infinite",
-        "scroll": "scroll 40s linear infinite",
+        "scroll": "scroll 20s linear infinite",
         "icon-bounce": "icon-bounce 0.6s ease-in-out",
         "icon-pulse": "icon-pulse 2s ease-in-out infinite",
         "glow-pulse": "glow-pulse 2s ease-in-out infinite",
