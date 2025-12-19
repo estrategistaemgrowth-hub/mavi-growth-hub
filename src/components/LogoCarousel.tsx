@@ -50,21 +50,18 @@ export function LogoCarousel({ className }: LogoCarouselProps) {
       {/* Gradient overlays for fade effect */}
       <div className="absolute left-0 top-0 bottom-0 w-20 md:w-32 bg-gradient-to-r from-mavi-gray to-transparent z-10" />
       <div className="absolute right-0 top-0 bottom-0 w-20 md:w-32 bg-gradient-to-l from-mavi-gray to-transparent z-10" />
-
+      
       {/* Scrolling container */}
-      <div className="flex w-max items-center gap-10 animate-scroll will-change-transform">
+      <div className="flex animate-scroll">
         {duplicatedLogos.map((client, index) => (
           <div
             key={`${client.name}-${index}`}
-            className="flex h-16 md:h-20 min-w-[180px] md:min-w-[220px] items-center justify-center rounded-lg border border-border/60 bg-card/60 px-6 shadow-sm transition-colors duration-300 hover:bg-card hover:border-primary/30"
+            className="flex-shrink-0 mx-6 md:mx-10 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-500"
           >
             <img
               src={client.logo}
-              alt={`Logo ${client.name}`}
-              loading="lazy"
-              decoding="async"
-              className="h-10 md:h-14 w-auto max-w-[160px] md:max-w-[190px] object-contain"
-              draggable={false}
+              alt={client.name}
+              className="h-10 md:h-14 w-auto object-contain max-w-[140px] md:max-w-[180px]"
             />
           </div>
         ))}
