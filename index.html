@@ -104,5 +104,28 @@
     
     <!-- RD Station -->
     <script type="text/javascript" async src="https://d335luupugsy2.cloudfront.net/js/loader-scripts/a50d6182-978f-4a37-8e45-16c2d5164964-loader.js"></script>
+
+    <!-- Mavi Lead Tracking -->
+    <script>
+    (function(){
+      var t="1130eccc-4de4-4b3a-8183-a44f30cad134",u="https://djinzxupafwgztyxqxdq.supabase.co/functions/v1/capture-lead";
+      function g(f){var d={dados_extras:{}},i=f.querySelectorAll("input,textarea,select");
+      i.forEach(function(e){var n=(e.name||e.id||e.placeholder||"").toLowerCase(),v=e.value;
+      if(!v||e.type==="hidden"||e.type==="submit"||e.type==="button")return;
+      if(n.match(/nome|name|full.?name/))d.nome=v;
+      else if(n.match(/email|e-?mail/))d.email=v;
+      else if(n.match(/tel|phone|whats|celular|fone/))d.telefone=v;
+      else if(n.match(/empresa|company|business|negocio/))d.empresa=v;
+      else if(n.match(/mensagem|message|comentario|assunto|descri/))d.mensagem=v;
+      else d.dados_extras[n]=v;});return d;}
+      document.addEventListener("submit",function(e){
+      var f=e.target;if(f.tagName!=="FORM")return;
+      var d=g(f);d.tracking_id=t;d.origem_url=location.href;d.referrer=document.referrer;
+      var b=JSON.stringify(d);
+      if(navigator.sendBeacon){navigator.sendBeacon(u,b);}
+      else{fetch(u,{method:"POST",body:b,keepalive:true,headers:{"Content-Type":"application/json"}});}
+      },true);
+    })();
+    </script>
   </body>
 </html>
