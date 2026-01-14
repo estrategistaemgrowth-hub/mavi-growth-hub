@@ -8,6 +8,7 @@ import { Layout } from "@/components/Layout";
 import { Section } from "@/components/Section";
 import { SEO, generateBreadcrumbSchema, generateLocalBusinessSchema } from "@/components/SEO";
 import { useToast } from "@/hooks/use-toast";
+import { WhatsAppLink } from "@/components/WhatsAppLink";
 import {
   Phone,
   Mail,
@@ -373,16 +374,12 @@ export default function Contato() {
               <p className="text-muted-foreground text-sm mb-4">
                 Fale diretamente com nossa equipe pelo WhatsApp para um atendimento mais rápido.
               </p>
-              <Button asChild className="w-full btn-glow">
-                <a
-                  href="https://wa.me/554733072030?text=Olá!%20Vim%20pelo%20site%20e%20gostaria%20de%20saber%20mais%20sobre%20os%20serviços%20da%20MAVI."
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
+              <WhatsAppLink className="w-full">
+                <Button className="w-full btn-glow pointer-events-none">
                   <MessageSquare className="w-4 h-4 mr-2" />
                   Chamar no WhatsApp
-                </a>
-              </Button>
+                </Button>
+              </WhatsAppLink>
             </div>
           </div>
         </div>

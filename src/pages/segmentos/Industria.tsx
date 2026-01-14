@@ -3,6 +3,7 @@ import { Layout } from "@/components/Layout";
 import { Section, SectionHeader } from "@/components/Section";
 import { Button } from "@/components/ui/button";
 import { SEO, generateBreadcrumbSchema, generateFAQSchema } from "@/components/SEO";
+import { WhatsAppLink } from "@/components/WhatsAppLink";
 import {
   Accordion,
   AccordionContent,
@@ -227,15 +228,11 @@ const SegmentoIndustria = () => {
                 <Button asChild variant="hero" size="lg">
                   <Link to="/contato">Solicitar proposta</Link>
                 </Button>
-                <Button asChild variant="heroOutline" size="lg">
-                  <a
-                    href="https://wa.me/554733072030?text=Olá! Tenho uma indústria e gostaria de saber mais sobre os serviços da MAVI."
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
+                <WhatsAppLink className="inline-flex">
+                  <Button variant="heroOutline" size="lg" className="pointer-events-none">
                     Falar no WhatsApp
-                  </a>
-                </Button>
+                  </Button>
+                </WhatsAppLink>
               </div>
             </div>
 
@@ -490,15 +487,10 @@ const SegmentoIndustria = () => {
                 Fale conosco agora
               </h3>
               <div className="space-y-4">
-                <a
-                  href="https://wa.me/554733072030?text=Olá! Tenho uma indústria e gostaria de saber mais sobre os serviços da MAVI."
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-3 text-mavi-white/80 hover:text-primary transition-colors"
-                >
+                <WhatsAppLink className="flex items-center gap-3 text-mavi-white/80 hover:text-primary transition-colors cursor-pointer">
                   <Phone className="w-5 h-5" />
                   (47) 3307-2030
-                </a>
+                </WhatsAppLink>
                 <a
                   href="mailto:agenciamavi@agenciamavi.com.br"
                   className="flex items-center gap-3 text-mavi-white/80 hover:text-primary transition-colors"
