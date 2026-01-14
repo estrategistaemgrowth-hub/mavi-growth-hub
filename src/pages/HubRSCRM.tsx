@@ -1,9 +1,11 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Layout } from "@/components/Layout";
 import { Section, SectionHeader } from "@/components/Section";
 import { SEO, generateBreadcrumbSchema, generateFAQSchema } from "@/components/SEO";
 import { AnimatedSection, AnimatedChildren } from "@/components/AnimatedSection";
+import { LeadCaptureDialog } from "@/components/LeadCaptureDialog";
 import {
   Accordion,
   AccordionContent,
@@ -109,8 +111,8 @@ const plans = [
   },
   {
     name: "Premium",
-    price: "R$147",
-    priceDetail: "/mês (47/usuário + 99,90 IA/mês)",
+    price: "R$179,90",
+    priceDetail: "/mês por usuário",
     description: "O pacote completo com IA para automação e crescimento acelerado.",
     features: [
       "Tudo do plano Plus",
@@ -152,6 +154,14 @@ const faqs = [
 ];
 
 export default function HubRSCRM() {
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [selectedPlan, setSelectedPlan] = useState<{ name: string; trialLink: string }>({ name: "", trialLink: "" });
+
+  const handleOpenTrialDialog = (planName: string, trialLink: string) => {
+    setSelectedPlan({ name: planName, trialLink });
+    setDialogOpen(true);
+  };
+
   const breadcrumbSchema = generateBreadcrumbSchema([
     { name: "Início", url: "/" },
     { name: "CRM HUBRS", url: "/hubrs-crm" },
@@ -443,11 +453,11 @@ export default function HubRSCRM() {
                 </p>
               )}
               <Button
-                asChild
                 variant={plan.highlight ? "heroOutline" : "outline"}
                 className="w-full mt-auto"
+                onClick={() => handleOpenTrialDialog(plan.name, plan.trialLink)}
               >
-                <a href={plan.trialLink} target="_blank" rel="noopener noreferrer">Testar Grátis por 7 Dias</a>
+                Testar Grátis por 7 Dias
               </Button>
             </div>
           ))}
@@ -503,6 +513,13 @@ export default function HubRSCRM() {
           </div>
         </AnimatedSection>
       </Section>
+
+      <LeadCaptureDialog
+        open={dialogOpen}
+        onOpenChange={setDialogOpen}
+        planName={selectedPlan.name}
+        trialLink={selectedPlan.trialLink}
+      />
     </Layout>
   );
 }
