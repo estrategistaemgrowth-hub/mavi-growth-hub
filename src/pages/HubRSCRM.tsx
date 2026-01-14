@@ -111,7 +111,7 @@ const plans = [
   },
   {
     name: "Premium",
-    price: "R$179,90",
+    price: "R$179",
     priceDetail: "/mês por usuário",
     description: "O pacote completo com IA para automação e crescimento acelerado.",
     features: [
