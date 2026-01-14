@@ -6,6 +6,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Layout } from "@/components/Layout";
 import { Section } from "@/components/Section";
+import { SEO, generateBreadcrumbSchema } from "@/components/SEO";
 import { useToast } from "@/hooks/use-toast";
 import {
   Phone,
@@ -122,9 +123,19 @@ export default function Contato() {
     }
   };
 
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: "Início", url: "/" },
+    { name: "Contato", url: "/contato" },
+  ]);
+
   return (
     <Layout>
-      {/* Hero */}
+      <SEO
+        title="Contato - Fale com a MAVI Marketing Digital"
+        description="Solicite um diagnóstico gratuito. Especialistas em e-commerce, imobiliárias e indústrias prontos para ajudar seu negócio crescer."
+        canonical="/contato"
+        schemaMarkup={breadcrumbSchema}
+      />
       <section className="pt-32 pb-16 bg-mavi-black relative overflow-hidden">
         <div className="absolute inset-0">
           <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl animate-pulse" />

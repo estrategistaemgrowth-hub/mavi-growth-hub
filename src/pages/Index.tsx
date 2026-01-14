@@ -6,6 +6,7 @@ import { ServiceCard } from "@/components/ServiceCard";
 import { TestimonialCard } from "@/components/TestimonialCard";
 import { LogoCarousel } from "@/components/LogoCarousel";
 import { AnimatedCounter } from "@/components/AnimatedCounter";
+import { SEO } from "@/components/SEO";
 import {
   ShoppingCart,
   TrendingUp,
@@ -115,6 +116,11 @@ const testimonials = [
 export default function Index() {
   return (
     <Layout>
+      <SEO
+        title="Agência de Performance para E-commerce, Imobiliárias e Indústrias"
+        description="Agência especializada em marketing digital para e-commerces, imobiliárias e indústrias. Tráfego pago, CRM, automação e resultados reais. Conheça a MAVI."
+        canonical="/"
+      />
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center bg-mavi-black overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-mavi-black via-mavi-black to-primary/20" />

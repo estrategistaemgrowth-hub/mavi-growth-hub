@@ -16,10 +16,17 @@ const services = [
   { name: "CRM HUBRS", href: "/hubrs-crm" },
 ];
 
+const segmentsList = [
+  { name: "E-commerce e Varejo", href: "/servicos/ecommerce" },
+  { name: "Imobiliárias e Corretoras", href: "/segmentos/imobiliarias" },
+  { name: "Indústria e B2B", href: "/segmentos/industria" },
+];
+
 const navItems = [
   { name: "Início", href: "/" },
   { name: "Sobre a MAVI", href: "/sobre" },
-  { name: "Serviços", href: "/servicos", hasDropdown: true },
+  { name: "Serviços", href: "/servicos", hasDropdown: true, dropdownType: "services" as const },
+  { name: "Segmentos", href: "/segmentos", hasDropdown: true, dropdownType: "segments" as const },
   { name: "Cases & Clientes", href: "/cases" },
   { name: "CRM HUBRS", href: "/hubrs-crm", highlight: true },
   { name: "Contato", href: "/contato" },
@@ -28,7 +35,8 @@ const navItems = [
 export function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isServicesOpen, setIsServicesOpen] = useState(false);
+  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  const [mobileActiveDropdown, setMobileActiveDropdown] = useState<string | null>(null);
   const location = useLocation();
 
   useEffect(() => {
@@ -41,8 +49,21 @@ export function Header() {
 
   useEffect(() => {
     setIsMobileMenuOpen(false);
-    setIsServicesOpen(false);
+    setActiveDropdown(null);
+    setMobileActiveDropdown(null);
   }, [location]);
+
+  const getDropdownItems = (type: string) => {
+    if (type === "services") return services;
+    if (type === "segments") return segmentsList;
+    return [];
+  };
+
+  const getDropdownLink = (type: string) => {
+    if (type === "services") return { href: "/servicos", label: "Ver todos os serviços" };
+    if (type === "segments") return { href: "/segmentos", label: "Ver todos os segmentos" };
+    return { href: "/", label: "" };
+  };
 
   return (
     <header
@@ -71,8 +92,8 @@ export function Header() {
                 {item.hasDropdown ? (
                   <div
                     className="relative"
-                    onMouseEnter={() => setIsServicesOpen(true)}
-                    onMouseLeave={() => setIsServicesOpen(false)}
+                    onMouseEnter={() => setActiveDropdown(item.dropdownType || null)}
+                    onMouseLeave={() => setActiveDropdown(null)}
                   >
                     <button
                       className={cn(
@@ -80,32 +101,33 @@ export function Header() {
                         isScrolled
                           ? "text-foreground hover:text-primary"
                           : "text-mavi-white/90 hover:text-mavi-white",
-                        location.pathname.startsWith("/servicos") && "text-primary"
+                        (item.dropdownType === "services" && location.pathname.startsWith("/servicos")) && "text-primary",
+                        (item.dropdownType === "segments" && location.pathname.startsWith("/segmentos")) && "text-primary"
                       )}
                     >
                       {item.name}
                       <ChevronDown className="w-4 h-4" />
                     </button>
-                    {isServicesOpen && (
+                    {activeDropdown === item.dropdownType && (
                       <div className="absolute top-full left-0 pt-2">
                         <div className="bg-card rounded-lg shadow-lg border border-border py-2 min-w-[240px]">
                           <Link
-                            to="/servicos"
+                            to={getDropdownLink(item.dropdownType || "").href}
                             className="block px-4 py-2 text-sm text-foreground hover:bg-muted hover:text-primary transition-colors"
                           >
-                            Ver todos os serviços
+                            {getDropdownLink(item.dropdownType || "").label}
                           </Link>
                           <div className="border-t border-border my-2" />
-                          {services.map((service) => (
+                          {getDropdownItems(item.dropdownType || "").map((dropdownItem) => (
                             <Link
-                              key={service.name}
-                              to={service.href}
+                              key={dropdownItem.name}
+                              to={dropdownItem.href}
                               className={cn(
                                 "block px-4 py-2 text-sm text-foreground hover:bg-muted hover:text-primary transition-colors",
-                                service.name === "CRM HUBRS" && "text-primary font-medium"
+                                dropdownItem.name === "CRM HUBRS" && "text-primary font-medium"
                               )}
                             >
-                              {service.name}
+                              {dropdownItem.name}
                             </Link>
                           ))}
                         </div>
@@ -165,30 +187,35 @@ export function Header() {
                   {item.hasDropdown ? (
                     <div>
                       <button
-                        onClick={() => setIsServicesOpen(!isServicesOpen)}
+                        onClick={() => setMobileActiveDropdown(
+                          mobileActiveDropdown === item.dropdownType ? null : (item.dropdownType || null)
+                        )}
                         className="flex items-center justify-between w-full px-4 py-3 text-foreground hover:bg-muted rounded-md"
                       >
                         <span>{item.name}</span>
-                        <ChevronDown className={cn("w-4 h-4 transition-transform", isServicesOpen && "rotate-180")} />
+                        <ChevronDown className={cn(
+                          "w-4 h-4 transition-transform", 
+                          mobileActiveDropdown === item.dropdownType && "rotate-180"
+                        )} />
                       </button>
-                      {isServicesOpen && (
+                      {mobileActiveDropdown === item.dropdownType && (
                         <div className="pl-4 space-y-1 mt-1">
                           <Link
-                            to="/servicos"
+                            to={getDropdownLink(item.dropdownType || "").href}
                             className="block px-4 py-2 text-sm text-muted-foreground hover:text-primary"
                           >
-                            Ver todos
+                            {getDropdownLink(item.dropdownType || "").label}
                           </Link>
-                          {services.map((service) => (
+                          {getDropdownItems(item.dropdownType || "").map((dropdownItem) => (
                             <Link
-                              key={service.name}
-                              to={service.href}
+                              key={dropdownItem.name}
+                              to={dropdownItem.href}
                               className={cn(
                                 "block px-4 py-2 text-sm text-muted-foreground hover:text-primary",
-                                service.name === "CRM HUBRS" && "text-primary font-medium"
+                                dropdownItem.name === "CRM HUBRS" && "text-primary font-medium"
                               )}
                             >
-                              {service.name}
+                              {dropdownItem.name}
                             </Link>
                           ))}
                         </div>

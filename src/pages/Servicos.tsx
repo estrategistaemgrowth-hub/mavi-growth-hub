@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Layout } from "@/components/Layout";
 import { Section, SectionHeader } from "@/components/Section";
+import { SEO, generateBreadcrumbSchema } from "@/components/SEO";
 import {
   ShoppingCart,
   TrendingUp,
@@ -117,8 +118,19 @@ const services = [
 ];
 
 export default function Servicos() {
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: "Início", url: "/" },
+    { name: "Serviços", url: "/servicos" },
+  ]);
+
   return (
     <Layout>
+      <SEO
+        title="Serviços de Marketing Digital - E-commerce, Performance, CRM e Automação"
+        description="Soluções completas de marketing digital: lojas virtuais, tráfego pago, redes sociais, marketplaces, sites e CRM com IA. Conheça nossos serviços."
+        canonical="/servicos"
+        schemaMarkup={breadcrumbSchema}
+      />
       {/* Hero */}
       <section className="pt-32 pb-16 bg-mavi-black">
         <div className="container-mavi">
