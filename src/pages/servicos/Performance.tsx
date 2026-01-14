@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Layout } from "@/components/Layout";
 import { Section, SectionHeader } from "@/components/Section";
 import { AnimatedCounter } from "@/components/AnimatedCounter";
+import { SEO, generateBreadcrumbSchema, generateFAQSchema, generateServiceSchema } from "@/components/SEO";
 import { 
   TrendingUp, 
   CheckCircle2, 
@@ -89,8 +90,34 @@ const faqs = [
 ];
 
 export default function ServicoPerformance() {
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: "Início", url: "/" },
+    { name: "Serviços", url: "/servicos" },
+    { name: "Marketing de Performance", url: "/servicos/performance" },
+  ]);
+
+  const faqSchema = generateFAQSchema(faqs);
+
+  const serviceSchema = generateServiceSchema({
+    name: "Marketing de Performance - Google Ads e Meta Ads",
+    description: "Gestão de tráfego pago com foco em resultados. Campanhas otimizadas para maximizar ROAS em Meta Ads e Google Ads.",
+    url: "/servicos/performance",
+  });
+
+  const combinedSchema = {
+    "@context": "https://schema.org",
+    "@graph": [breadcrumbSchema, faqSchema, serviceSchema],
+  };
+
   return (
     <Layout>
+      <SEO
+        title="Marketing de Performance - Google Ads e Meta Ads"
+        description="Gestão de tráfego pago com foco em resultados. Campanhas otimizadas para maximizar ROAS. ROAS médio de 8.4x. Agende diagnóstico gratuito."
+        canonical="/servicos/performance"
+        schemaMarkup={combinedSchema}
+      />
+
       {/* Hero Section */}
       <section className="pt-32 pb-20 bg-mavi-black relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-mavi-black via-mavi-black to-primary/20" />

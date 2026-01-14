@@ -19,6 +19,7 @@ import ServicoAutomacao from "./pages/servicos/Automacao";
 import Segmentos from "./pages/Segmentos";
 import SegmentoImobiliarias from "./pages/segmentos/Imobiliarias";
 import SegmentoIndustria from "./pages/segmentos/Industria";
+import SegmentoSaudeEstetica from "./pages/segmentos/SaudeEstetica";
 import PoliticaPrivacidade from "./pages/PoliticaPrivacidade";
 import TermosUso from "./pages/TermosUso";
 import NotFound from "./pages/NotFound";
@@ -54,6 +55,7 @@ const App = () => (
           <Route path="/segmentos" element={<Segmentos />} />
           <Route path="/segmentos/imobiliarias" element={<SegmentoImobiliarias />} />
           <Route path="/segmentos/industria" element={<SegmentoIndustria />} />
+          <Route path="/segmentos/saude-estetica" element={<SegmentoSaudeEstetica />} />
           <Route path="/cases" element={<Cases />} />
           <Route path="/hubrs-crm" element={<HubRSCRM />} />
           <Route path="/contato" element={<Contato />} />

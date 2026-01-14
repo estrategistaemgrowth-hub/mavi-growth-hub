@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Layout } from "@/components/Layout";
 import { Section, SectionHeader } from "@/components/Section";
 import { AnimatedCounter } from "@/components/AnimatedCounter";
+import { SEO, generateBreadcrumbSchema, generateFAQSchema, generateServiceSchema } from "@/components/SEO";
 import { 
   Users, 
   CheckCircle2, 
@@ -90,8 +91,34 @@ const faqs = [
 ];
 
 export default function ServicoRedesSociais() {
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: "Início", url: "/" },
+    { name: "Serviços", url: "/servicos" },
+    { name: "Redes Sociais e Conteúdo", url: "/servicos/redes-sociais" },
+  ]);
+
+  const faqSchema = generateFAQSchema(faqs);
+
+  const serviceSchema = generateServiceSchema({
+    name: "Gestão de Redes Sociais - Conteúdo Estratégico",
+    description: "Gestão de Instagram e Facebook com foco em conversão. Calendário editorial, criativos profissionais e integração com tráfego pago.",
+    url: "/servicos/redes-sociais",
+  });
+
+  const combinedSchema = {
+    "@context": "https://schema.org",
+    "@graph": [breadcrumbSchema, faqSchema, serviceSchema],
+  };
+
   return (
     <Layout>
+      <SEO
+        title="Gestão de Redes Sociais - Conteúdo Estratégico"
+        description="Gestão de Instagram e Facebook com foco em conversão. Posts, stories, Reels e integração com tráfego pago. Solicite proposta."
+        canonical="/servicos/redes-sociais"
+        schemaMarkup={combinedSchema}
+      />
+
       {/* Hero Section */}
       <section className="pt-32 pb-20 bg-mavi-black relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-mavi-black via-mavi-black to-primary/20" />

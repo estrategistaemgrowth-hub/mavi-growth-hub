@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Layout } from "@/components/Layout";
 import { Section, SectionHeader } from "@/components/Section";
 import { AnimatedCounter } from "@/components/AnimatedCounter";
+import { SEO, generateBreadcrumbSchema, generateFAQSchema, generateServiceSchema } from "@/components/SEO";
 import { 
   ShoppingCart, 
   CheckCircle2, 
@@ -110,8 +111,34 @@ const faqs = [
 ];
 
 export default function ServicoEcommerce() {
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: "Início", url: "/" },
+    { name: "Serviços", url: "/servicos" },
+    { name: "E-commerce e Lojas Virtuais", url: "/servicos/ecommerce" },
+  ]);
+
+  const faqSchema = generateFAQSchema(faqs);
+
+  const serviceSchema = generateServiceSchema({
+    name: "Criação de Lojas Virtuais e E-commerce",
+    description: "Implantação de lojas virtuais na plataforma Tray com foco em conversão, integração completa com ERP e marketplaces.",
+    url: "/servicos/ecommerce",
+  });
+
+  const combinedSchema = {
+    "@context": "https://schema.org",
+    "@graph": [breadcrumbSchema, faqSchema, serviceSchema],
+  };
+
   return (
     <Layout>
+      <SEO
+        title="Criação de Lojas Virtuais e E-commerce | Especialistas Tray"
+        description="Implantação de lojas virtuais na plataforma Tray. Integração com ERP, marketplaces e meios de pagamento. Lojas prontas em até 30 dias. Solicite proposta."
+        canonical="/servicos/ecommerce"
+        schemaMarkup={combinedSchema}
+      />
+
       {/* Hero Section */}
       <section className="pt-32 pb-20 bg-mavi-black relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-mavi-black via-mavi-black to-primary/20" />

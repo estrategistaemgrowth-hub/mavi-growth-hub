@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Layout } from "@/components/Layout";
 import { Section, SectionHeader } from "@/components/Section";
 import { AnimatedCounter } from "@/components/AnimatedCounter";
+import { SEO, generateBreadcrumbSchema, generateFAQSchema, generateServiceSchema } from "@/components/SEO";
 import { 
   Globe, 
   CheckCircle2,
@@ -110,8 +111,34 @@ const faqs = [
 ];
 
 export default function ServicoSites() {
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: "Início", url: "/" },
+    { name: "Serviços", url: "/servicos" },
+    { name: "Sites e Landing Pages", url: "/servicos/sites" },
+  ]);
+
+  const faqSchema = generateFAQSchema(faqs);
+
+  const serviceSchema = generateServiceSchema({
+    name: "Criação de Sites e Landing Pages de Alta Conversão",
+    description: "Sites institucionais e landing pages focados em conversão. SEO configurado, design responsivo e otimização para campanhas de mídia paga.",
+    url: "/servicos/sites",
+  });
+
+  const combinedSchema = {
+    "@context": "https://schema.org",
+    "@graph": [breadcrumbSchema, faqSchema, serviceSchema],
+  };
+
   return (
     <Layout>
+      <SEO
+        title="Criação de Sites e Landing Pages de Alta Conversão"
+        description="Sites institucionais e landing pages focados em conversão. SEO configurado, design responsivo e prazo de 15 dias. Solicite orçamento."
+        canonical="/servicos/sites"
+        schemaMarkup={combinedSchema}
+      />
+
       {/* Hero Section */}
       <section className="pt-32 pb-20 bg-mavi-black relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-mavi-black via-mavi-black to-primary/20" />

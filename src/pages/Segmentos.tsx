@@ -63,17 +63,17 @@ const segments = [
   },
   {
     icon: Stethoscope,
-    title: "Saúde e Clínicas",
+    title: "Saúde e Estética",
     description:
-      "Marketing médico ético, agendamento online e gestão de relacionamento com pacientes para clínicas e profissionais de saúde.",
+      "Marketing para clínicas de estética, salões, spas e consultórios. Geração de leads, automação de agendamentos e fidelização de clientes.",
     benefits: [
-      "Sites com agendamento online",
-      "Google Meu Negócio otimizado",
-      "Campanhas de captação local",
-      "CRM para pacientes",
+      "Campanhas por procedimento",
+      "Automação de confirmação de agenda",
+      "CRM para pacientes e clientes",
+      "Landing pages de conversão",
     ],
-    href: "/contato",
-    cta: "Fale com especialista",
+    href: "/segmentos/saude-estetica",
+    cta: "Ver soluções para Saúde e Estética",
     featured: false,
   },
   {

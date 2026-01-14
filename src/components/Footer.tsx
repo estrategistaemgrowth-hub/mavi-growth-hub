@@ -28,6 +28,7 @@ const segmentsLinks = [
   { name: "E-commerce e Varejo", href: "/servicos/ecommerce" },
   { name: "Imobiliárias", href: "/segmentos/imobiliarias" },
   { name: "Indústria e B2B", href: "/segmentos/industria" },
+  { name: "Saúde e Estética", href: "/segmentos/saude-estetica" },
 ];
 
 export function Footer() {
