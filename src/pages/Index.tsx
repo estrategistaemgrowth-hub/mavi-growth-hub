@@ -6,7 +6,7 @@ import { ServiceCard } from "@/components/ServiceCard";
 import { TestimonialCard } from "@/components/TestimonialCard";
 import { LogoCarousel } from "@/components/LogoCarousel";
 import { AnimatedCounter } from "@/components/AnimatedCounter";
-import { SEO } from "@/components/SEO";
+import { SEO, generateBreadcrumbSchema, generateLocalBusinessSchema } from "@/components/SEO";
 import {
   ShoppingCart,
   TrendingUp,
@@ -99,27 +99,39 @@ const testimonials = [
     company: "E-commerce de Tecnologia",
   },
   {
-    quote: "O HUBRS CRM mudou completamente nosso atendimento. Antes perdíamos leads no WhatsApp, agora cada contato vira oportunidade rastreada.",
-    author: "Ana R.",
-    role: "Diretora Comercial",
-    company: "Loja de Moda Feminina",
+    quote: "Com a estratégia de captação da MAVI, aumentamos em 200% o volume de leads qualificados para nossos imóveis. O CRM HUBRS organizou todo nosso funil de vendas.",
+    author: "Renata M.",
+    role: "Diretora de Vendas",
+    company: "Imobiliária Regional",
   },
   {
-    quote: "Finalmente uma agência que entende de resultado de verdade. A metodologia da MAVI nos deu clareza sobre onde investir e como crescer.",
-    author: "Pedro M.",
-    role: "Fundador",
-    company: "E-commerce de Suplementos",
+    quote: "A automação de agendamentos reduziu nosso no-show em 65%. Hoje temos a agenda cheia e pacientes que realmente comparecem às consultas.",
+    author: "Dra. Fernanda L.",
+    role: "Proprietária",
+    company: "Clínica de Estética",
   },
 ];
 
 
 export default function Index() {
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: "Início", url: "/" },
+  ]);
+
+  const localBusinessSchema = generateLocalBusinessSchema();
+
+  const combinedSchema = {
+    "@context": "https://schema.org",
+    "@graph": [breadcrumbSchema, localBusinessSchema],
+  };
+
   return (
     <Layout>
       <SEO
         title="Agência de Performance para E-commerce, Imobiliárias e Indústrias"
-        description="Agência especializada em marketing digital para e-commerces, imobiliárias e indústrias. Tráfego pago, CRM, automação e resultados reais. Conheça a MAVI."
+        description="Agência especializada em marketing digital para e-commerces, imobiliárias, clínicas e indústrias. Tráfego pago, CRM, automação e resultados reais. Conheça a MAVI."
         canonical="/"
+        schemaMarkup={combinedSchema}
       />
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center bg-mavi-black overflow-hidden">
@@ -137,7 +149,7 @@ export default function Index() {
                 <span className="text-primary">novos patamares</span>.
               </h1>
               <p className="text-lg md:text-xl text-mavi-white/70 mb-8 leading-relaxed">
-                Agência especializada em performance para e-commerces, marketplaces e negócios que querem crescer com dados, tecnologia, IA e estratégias de verdade.
+                Agência especializada em performance para e-commerces, imobiliárias, clínicas, indústrias e negócios que querem crescer com dados, tecnologia, IA e estratégias de verdade.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 relative z-30">
                 <Button asChild variant="hero" size="xl" className="animate-glow-pulse">

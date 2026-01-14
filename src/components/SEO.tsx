@@ -111,3 +111,42 @@ export function generateServiceSchema(service: {
     },
   };
 }
+
+// LocalBusiness Schema Generator (for local SEO)
+export function generateLocalBusinessSchema() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "MarketingAgency",
+    "name": "MAVI Marketing Digital",
+    "image": "https://www.agenciamavi.com.br/og-image.png",
+    "url": "https://www.agenciamavi.com.br",
+    "telephone": "+55-47-3307-2030",
+    "email": "agenciamavi@agenciamavi.com.br",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Jaraguá do Sul",
+      "addressLocality": "Jaraguá do Sul",
+      "addressRegion": "SC",
+      "postalCode": "89250-000",
+      "addressCountry": "BR"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": -26.4853,
+      "longitude": -49.0689
+    },
+    "sameAs": [
+      "https://www.instagram.com/agenciamavi",
+      "https://www.facebook.com/agenciamavi"
+    ],
+    "priceRange": "$$",
+    "openingHoursSpecification": [
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+        "opens": "08:00",
+        "closes": "18:00"
+      }
+    ]
+  };
+}
