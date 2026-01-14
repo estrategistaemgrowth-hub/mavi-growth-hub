@@ -20,6 +20,7 @@ const segmentsList = [
   { name: "E-commerce e Varejo", href: "/servicos/ecommerce" },
   { name: "Imobiliárias e Corretoras", href: "/segmentos/imobiliarias" },
   { name: "Indústria e B2B", href: "/segmentos/industria" },
+  { name: "Saúde e Estética", href: "/segmentos/saude-estetica" },
 ];
 
 const navItems = [
