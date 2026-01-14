@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Layout } from "@/components/Layout";
 import { Section, SectionHeader } from "@/components/Section";
 import { SEO, generateBreadcrumbSchema, generateFAQSchema } from "@/components/SEO";
+import { AnimatedSection, AnimatedChildren } from "@/components/AnimatedSection";
 import {
   Accordion,
   AccordionContent,
@@ -17,7 +18,6 @@ import {
   Mic,
   Bell,
   CheckCircle2,
-  ArrowRight,
   Zap,
   ShoppingCart,
   Stethoscope,
@@ -176,7 +176,7 @@ export default function HubRSCRM() {
       <section className="pt-32 pb-20 bg-mavi-black overflow-hidden">
         <div className="container-mavi">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div className="animate-fade-in-up">
+            <AnimatedSection animation="fadeInUp">
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/20 text-primary mb-6">
                 <MessageSquare className="w-4 h-4" />
                 <span className="text-sm font-medium">Solução oficial MAVI</span>
@@ -190,7 +190,7 @@ export default function HubRSCRM() {
                 Meta Ads direto no funil de vendas. Um CRM pensado para escalar suas vendas sem perder o controle.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
-                <Button asChild variant="hero" size="xl">
+                <Button asChild variant="hero" size="xl" className="btn-glow">
                   <a href="#planos">Quero testar o HUBRS CRM</a>
                 </Button>
                 <Button asChild variant="heroOutline" size="xl">
@@ -202,9 +202,9 @@ export default function HubRSCRM() {
               <p className="text-mavi-white/50 text-sm mt-4">
                 Teste grátis disponível. Sem cartão de crédito.
               </p>
-            </div>
+            </AnimatedSection>
             
-            <div className="hidden lg:block animate-fade-in-right animation-delay-300">
+            <AnimatedSection animation="fadeInRight" delay={300} className="hidden lg:block">
               <div className="relative">
                 <div className="bg-gradient-to-br from-primary/20 to-mavi-black rounded-2xl p-6 border border-primary/30">
                   <div className="flex items-center gap-4 mb-6">
@@ -254,14 +254,14 @@ export default function HubRSCRM() {
                   </div>
                 </div>
               </div>
-            </div>
+            </AnimatedSection>
           </div>
         </div>
       </section>
 
       {/* O que é */}
       <Section>
-        <div className="max-w-3xl mx-auto text-center">
+        <AnimatedSection className="max-w-3xl mx-auto text-center">
           <SectionHeader
             title="O que é o HUBRS CRM"
             subtitle="Um CRM desenvolvido pela MAVI, focado em empresas que querem organizar o funil de vendas e automatizar o atendimento via WhatsApp com IA."
@@ -271,61 +271,67 @@ export default function HubRSCRM() {
             e acompanhar tudo em um funil visual (Kanban). É a ferramenta que transforma seu WhatsApp 
             em uma máquina de vendas organizada.
           </p>
-        </div>
+        </AnimatedSection>
       </Section>
 
       {/* Funcionalidades */}
       <Section variant="gray">
-        <SectionHeader
-          title="Principais funcionalidades"
-          subtitle="Tudo que você precisa para vender mais e atender melhor."
-        />
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <AnimatedSection>
+          <SectionHeader
+            title="Principais funcionalidades"
+            subtitle="Tudo que você precisa para vender mais e atender melhor."
+          />
+        </AnimatedSection>
+        <AnimatedChildren className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {features.map((feature) => (
             <div
               key={feature.title}
-              className="bg-card rounded-xl p-6 border border-border hover:border-primary/30 transition-all hover:shadow-md card-glow"
+              className="bg-card rounded-xl p-6 border border-border hover:border-primary/30 transition-all duration-300 card-glow"
             >
-              <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4 icon-hover-glow">
+              <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
                 <feature.icon className="w-6 h-6 text-primary icon-hover" />
               </div>
               <h3 className="text-lg font-semibold text-foreground mb-2">{feature.title}</h3>
               <p className="text-sm text-muted-foreground leading-relaxed">{feature.description}</p>
             </div>
           ))}
-        </div>
+        </AnimatedChildren>
       </Section>
 
       {/* Para quem é */}
       <Section>
-        <SectionHeader
-          title="Para quem é o HUBRS CRM"
-          subtitle="Ideal para negócios que usam WhatsApp como canal de vendas."
-        />
-        <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-6">
+        <AnimatedSection>
+          <SectionHeader
+            title="Para quem é o HUBRS CRM"
+            subtitle="Ideal para negócios que usam WhatsApp como canal de vendas."
+          />
+        </AnimatedSection>
+        <AnimatedChildren className="grid sm:grid-cols-2 lg:grid-cols-5 gap-6">
           {audiences.map((audience) => (
             <div
               key={audience.name}
-              className="text-center p-6 rounded-xl bg-mavi-gray border border-border hover:border-primary/30 transition-colors card-glow"
+              className="text-center p-6 rounded-xl bg-mavi-gray border border-border hover:border-primary/30 transition-all duration-300 card-glow"
             >
-              <div className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4 icon-hover-glow">
+              <div className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
                 <audience.icon className="w-7 h-7 text-primary icon-hover" />
               </div>
               <h3 className="font-semibold text-foreground mb-1">{audience.name}</h3>
               <p className="text-sm text-muted-foreground">{audience.description}</p>
             </div>
           ))}
-        </div>
+        </AnimatedChildren>
       </Section>
 
       {/* Como funciona */}
       <Section variant="dark">
-        <SectionHeader
-          title="Como funciona na prática"
-          subtitle="3 passos simples para transformar seu atendimento."
-          light
-        />
-        <div className="grid md:grid-cols-3 gap-8">
+        <AnimatedSection>
+          <SectionHeader
+            title="Como funciona na prática"
+            subtitle="3 passos simples para transformar seu atendimento."
+            light
+          />
+        </AnimatedSection>
+        <AnimatedChildren className="grid md:grid-cols-3 gap-8">
           {[
             {
               step: "1",
@@ -351,13 +357,13 @@ export default function HubRSCRM() {
               <p className="text-mavi-white/70">{item.description}</p>
             </div>
           ))}
-        </div>
+        </AnimatedChildren>
       </Section>
 
       {/* Benefícios */}
       <Section>
         <div className="grid lg:grid-cols-2 gap-12 items-center">
-          <div>
+          <AnimatedSection animation="fadeInLeft">
             <SectionHeader
               title="Benefícios do HUBRS CRM"
               subtitle="Por que empresas estão migrando para o HUBRS."
@@ -371,8 +377,8 @@ export default function HubRSCRM() {
                 </div>
               ))}
             </div>
-          </div>
-          <div className="bg-primary/5 rounded-2xl p-8 border border-primary/20">
+          </AnimatedSection>
+          <AnimatedSection animation="fadeInRight" delay={200} className="bg-primary/5 rounded-2xl p-8 border border-primary/20">
             <div className="text-center">
               <p className="text-6xl font-bold text-primary mb-2">3x</p>
               <p className="text-xl text-foreground font-medium mb-4">Mais conversões</p>
@@ -380,17 +386,19 @@ export default function HubRSCRM() {
                 Média de aumento nas vendas dos clientes que usam o HUBRS CRM com automação de WhatsApp.
               </p>
             </div>
-          </div>
+          </AnimatedSection>
         </div>
       </Section>
 
       {/* Planos */}
       <Section variant="gray" id="planos">
-        <SectionHeader
-          title="Planos e condições"
-          subtitle="Escolha o plano ideal para o tamanho do seu negócio."
-        />
-        <div className="grid md:grid-cols-3 gap-6">
+        <AnimatedSection>
+          <SectionHeader
+            title="Planos e condições"
+            subtitle="Escolha o plano ideal para o tamanho do seu negócio."
+          />
+        </AnimatedSection>
+        <AnimatedChildren className="grid md:grid-cols-3 gap-6">
           {plans.map((plan) => (
             <div
               key={plan.name}
@@ -443,16 +451,18 @@ export default function HubRSCRM() {
               </Button>
             </div>
           ))}
-        </div>
+        </AnimatedChildren>
       </Section>
 
       {/* FAQ Section */}
       <Section>
-        <SectionHeader
-          title="Perguntas Frequentes"
-          subtitle="Tire suas dúvidas sobre o HUBRS CRM."
-        />
-        <div className="max-w-3xl mx-auto">
+        <AnimatedSection>
+          <SectionHeader
+            title="Perguntas Frequentes"
+            subtitle="Tire suas dúvidas sobre o HUBRS CRM."
+          />
+        </AnimatedSection>
+        <AnimatedSection delay={200} className="max-w-3xl mx-auto">
           <Accordion type="single" collapsible className="space-y-4">
             {faqs.map((faq, index) => (
               <AccordionItem
@@ -469,12 +479,12 @@ export default function HubRSCRM() {
               </AccordionItem>
             ))}
           </Accordion>
-        </div>
+        </AnimatedSection>
       </Section>
 
       {/* CTA Final */}
       <Section variant="dark">
-        <div className="text-center max-w-3xl mx-auto">
+        <AnimatedSection className="text-center max-w-3xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-bold text-mavi-white mb-6">
             Quer transformar seu atendimento em uma máquina de vendas?
           </h2>
@@ -482,7 +492,7 @@ export default function HubRSCRM() {
             Comece a usar o HUBRS CRM hoje mesmo ou agende uma demonstração com nosso time.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button asChild variant="hero" size="xl">
+            <Button asChild variant="hero" size="xl" className="btn-glow">
               <a href="#planos">Começar teste do HUBRS CRM</a>
             </Button>
             <Button asChild variant="heroOutline" size="xl">
@@ -491,7 +501,7 @@ export default function HubRSCRM() {
               </a>
             </Button>
           </div>
-        </div>
+        </AnimatedSection>
       </Section>
     </Layout>
   );
