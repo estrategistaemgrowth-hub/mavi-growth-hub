@@ -167,7 +167,7 @@ const Segmentos = () => {
       <Section>
         <SectionHeader
           title="Encontre a solução ideal para o seu negócio"
-          description="Conheça as estratégias que desenvolvemos para cada tipo de empresa"
+          subtitle="Conheça as estratégias que desenvolvemos para cada tipo de empresa"
         />
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">

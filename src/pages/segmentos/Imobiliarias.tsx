@@ -272,7 +272,7 @@ const SegmentoImobiliarias = () => {
       <Section>
         <SectionHeader
           title="Sua imobiliária enfrenta esses desafios?"
-          description="Problemas comuns que resolvemos para nossos clientes do setor imobiliário"
+          subtitle="Problemas comuns que resolvemos para nossos clientes do setor imobiliário"
         />
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -299,7 +299,7 @@ const SegmentoImobiliarias = () => {
       <Section variant="muted">
         <SectionHeader
           title="Nossas soluções para Imobiliárias"
-          description="Estratégias completas para gerar leads, organizar vendas e aumentar conversões"
+          subtitle="Estratégias completas para gerar leads, organizar vendas e aumentar conversões"
         />
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -370,7 +370,7 @@ const SegmentoImobiliarias = () => {
       <Section variant="muted">
         <SectionHeader
           title="Como trabalhamos"
-          description="Nosso processo para gerar resultados consistentes para imobiliárias"
+          subtitle="Nosso processo para gerar resultados consistentes para imobiliárias"
         />
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -397,7 +397,7 @@ const SegmentoImobiliarias = () => {
       <Section>
         <SectionHeader
           title="Perguntas Frequentes"
-          description="Tire suas dúvidas sobre marketing digital para imobiliárias"
+          subtitle="Tire suas dúvidas sobre marketing digital para imobiliárias"
         />
 
         <div className="max-w-3xl mx-auto">

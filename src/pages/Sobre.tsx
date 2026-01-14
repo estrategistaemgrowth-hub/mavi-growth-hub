@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Layout } from "@/components/Layout";
 import { Section, SectionHeader } from "@/components/Section";
+import { SEO, generateBreadcrumbSchema } from "@/components/SEO";
 import {
   Target,
   TrendingUp,
@@ -71,8 +72,19 @@ const workStyle = [
 ];
 
 export default function Sobre() {
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: "Início", url: "/" },
+    { name: "Sobre", url: "/sobre" },
+  ]);
+
   return (
     <Layout>
+      <SEO
+        title="Sobre a MAVI - Agência de Marketing Digital em Jaraguá do Sul SC"
+        description="Conheça a MAVI Marketing Digital. +5 anos de experiência, +500 clientes atendidos. Especialistas em performance e e-commerce em Jaraguá do Sul."
+        canonical="/sobre"
+        schemaMarkup={breadcrumbSchema}
+      />
       {/* Hero */}
       <section className="pt-32 pb-16 bg-mavi-black">
         <div className="container-mavi">

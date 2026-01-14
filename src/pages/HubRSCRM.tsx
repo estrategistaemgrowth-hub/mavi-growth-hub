@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Layout } from "@/components/Layout";
 import { Section, SectionHeader } from "@/components/Section";
+import { SEO, generateBreadcrumbSchema } from "@/components/SEO";
 import {
   MessageSquare,
   Kanban,
@@ -118,8 +119,19 @@ const plans = [
 ];
 
 export default function HubRSCRM() {
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: "Início", url: "/" },
+    { name: "CRM HUBRS", url: "/hubrs-crm" },
+  ]);
+
   return (
     <Layout>
+      <SEO
+        title="HUBRS CRM - CRM com Automação de WhatsApp e IA para Vendas"
+        description="CRM desenvolvido pela MAVI com automação de WhatsApp, IA para atendimento e integração com Meta Ads. Teste grátis por 7 dias."
+        canonical="/hubrs-crm"
+        schemaMarkup={breadcrumbSchema}
+      />
       {/* Hero */}
       <section className="pt-32 pb-20 bg-mavi-black overflow-hidden">
         <div className="container-mavi">

@@ -1,14 +1,21 @@
 import { Layout } from "@/components/Layout";
 import { Section } from "@/components/Section";
-import { Helmet } from "react-helmet-async";
+import { SEO, generateBreadcrumbSchema } from "@/components/SEO";
 
 export default function PoliticaPrivacidade() {
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: "Início", url: "/" },
+    { name: "Política de Privacidade", url: "/privacidade" },
+  ]);
+
   return (
     <Layout>
-      <Helmet>
-        <title>Política de Privacidade | MAVI Marketing Digital</title>
-        <meta name="description" content="Política de Privacidade da MAVI Marketing Digital. Saiba como coletamos, usamos e protegemos seus dados pessoais." />
-      </Helmet>
+      <SEO
+        title="Política de Privacidade"
+        description="Política de Privacidade da MAVI Marketing Digital. Saiba como coletamos, usamos e protegemos seus dados pessoais."
+        canonical="/privacidade"
+        schemaMarkup={breadcrumbSchema}
+      />
 
       {/* Hero */}
       <section className="pt-32 pb-16 bg-mavi-black">

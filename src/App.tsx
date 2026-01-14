@@ -16,6 +16,9 @@ import ServicoRedesSociais from "./pages/servicos/RedesSociais";
 import ServicoMarketplaces from "./pages/servicos/Marketplaces";
 import ServicoSites from "./pages/servicos/Sites";
 import ServicoAutomacao from "./pages/servicos/Automacao";
+import Segmentos from "./pages/Segmentos";
+import SegmentoImobiliarias from "./pages/segmentos/Imobiliarias";
+import SegmentoIndustria from "./pages/segmentos/Industria";
 import PoliticaPrivacidade from "./pages/PoliticaPrivacidade";
 import TermosUso from "./pages/TermosUso";
 import NotFound from "./pages/NotFound";
@@ -48,6 +51,9 @@ const App = () => (
           />
           <Route path="/servicos/sites" element={<ServicoSites />} />
           <Route path="/servicos/automacao" element={<ServicoAutomacao />} />
+          <Route path="/segmentos" element={<Segmentos />} />
+          <Route path="/segmentos/imobiliarias" element={<SegmentoImobiliarias />} />
+          <Route path="/segmentos/industria" element={<SegmentoIndustria />} />
           <Route path="/cases" element={<Cases />} />
           <Route path="/hubrs-crm" element={<HubRSCRM />} />
           <Route path="/contato" element={<Contato />} />

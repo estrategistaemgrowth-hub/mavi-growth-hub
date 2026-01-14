@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Layout } from "@/components/Layout";
 import { Section, SectionHeader } from "@/components/Section";
+import { SEO, generateBreadcrumbSchema } from "@/components/SEO";
 import { TrendingUp, ArrowRight, CheckCircle2, Award } from "lucide-react";
 
 const cases = [
@@ -39,8 +40,19 @@ const cases = [
 
 
 export default function Cases() {
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: "Início", url: "/" },
+    { name: "Cases", url: "/cases" },
+  ]);
+
   return (
     <Layout>
+      <SEO
+        title="Cases de Sucesso - Resultados Reais de Clientes MAVI"
+        description="Veja resultados reais de e-commerces, imobiliárias e indústrias que cresceram com a MAVI. +R$50M em vendas geradas. Conheça nossos cases."
+        canonical="/cases"
+        schemaMarkup={breadcrumbSchema}
+      />
       {/* Hero */}
       <section className="pt-32 pb-16 bg-mavi-black">
         <div className="container-mavi">

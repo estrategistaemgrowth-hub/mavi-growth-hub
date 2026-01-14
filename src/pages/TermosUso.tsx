@@ -1,14 +1,21 @@
 import { Layout } from "@/components/Layout";
 import { Section } from "@/components/Section";
-import { Helmet } from "react-helmet-async";
+import { SEO, generateBreadcrumbSchema } from "@/components/SEO";
 
 export default function TermosUso() {
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: "Início", url: "/" },
+    { name: "Termos de Uso", url: "/termos" },
+  ]);
+
   return (
     <Layout>
-      <Helmet>
-        <title>Termos de Uso | MAVI Marketing Digital</title>
-        <meta name="description" content="Termos de Uso da MAVI Marketing Digital. Conheça as condições para utilização de nossos serviços e plataformas." />
-      </Helmet>
+      <SEO
+        title="Termos de Uso"
+        description="Termos de Uso da MAVI Marketing Digital. Conheça as condições para utilização de nossos serviços e plataformas."
+        canonical="/termos"
+        schemaMarkup={breadcrumbSchema}
+      />
 
       {/* Hero */}
       <section className="pt-32 pb-16 bg-mavi-black">

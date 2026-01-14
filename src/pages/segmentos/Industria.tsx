@@ -294,7 +294,7 @@ const SegmentoIndustria = () => {
       <Section>
         <SectionHeader
           title="Sua indústria enfrenta esses desafios?"
-          description="Problemas comuns que resolvemos para indústrias e empresas B2B"
+          subtitle="Problemas comuns que resolvemos para indústrias e empresas B2B"
         />
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -321,7 +321,7 @@ const SegmentoIndustria = () => {
       <Section variant="muted">
         <SectionHeader
           title="Nossas soluções para Indústrias"
-          description="Estratégias digitais para gerar credibilidade e novos negócios"
+          subtitle="Estratégias digitais para gerar credibilidade e novos negócios"
         />
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -346,7 +346,7 @@ const SegmentoIndustria = () => {
       <Section>
         <SectionHeader
           title="Para quem é"
-          description="Tipos de indústrias e empresas B2B que atendemos"
+          subtitle="Tipos de indústrias e empresas B2B que atendemos"
         />
 
         <div className="grid md:grid-cols-3 gap-8">
@@ -417,7 +417,7 @@ const SegmentoIndustria = () => {
       <Section>
         <SectionHeader
           title="Como trabalhamos"
-          description="Nosso processo para gerar resultados para indústrias"
+          subtitle="Nosso processo para gerar resultados para indústrias"
         />
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -444,7 +444,7 @@ const SegmentoIndustria = () => {
       <Section variant="muted">
         <SectionHeader
           title="Perguntas Frequentes"
-          description="Tire suas dúvidas sobre marketing digital para indústrias"
+          subtitle="Tire suas dúvidas sobre marketing digital para indústrias"
         />
 
         <div className="max-w-3xl mx-auto">
