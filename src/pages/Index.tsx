@@ -6,6 +6,7 @@ import { ServiceCard } from "@/components/ServiceCard";
 import { TestimonialCard } from "@/components/TestimonialCard";
 import { LogoCarousel } from "@/components/LogoCarousel";
 import { AnimatedCounter } from "@/components/AnimatedCounter";
+import { AnimatedSection, AnimatedChildren } from "@/components/AnimatedSection";
 import { SEO, generateBreadcrumbSchema, generateLocalBusinessSchema } from "@/components/SEO";
 import {
   ShoppingCart,
@@ -143,7 +144,7 @@ export default function Index() {
         
         <div className="container-mavi relative z-10 pt-20">
           <div className="grid xl:grid-cols-[1fr,400px] gap-16 items-center">
-            <div className="animate-fade-in-up max-w-2xl">
+            <AnimatedSection animation="fadeInUp" className="max-w-2xl">
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-mavi-white leading-tight mb-6">
                 Estratégias de marketing e vendas que impulsionam negócios a{" "}
                 <span className="text-primary">novos patamares</span>.
@@ -152,7 +153,7 @@ export default function Index() {
                 Agência especializada em performance para e-commerces, imobiliárias, clínicas, indústrias e negócios que querem crescer com dados, tecnologia, IA e estratégias de verdade.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 relative z-30">
-                <Button asChild variant="hero" size="xl" className="animate-glow-pulse">
+                <Button asChild variant="hero" size="xl" className="btn-glow">
                   <Link to="/contato">Quero um diagnóstico gratuito</Link>
                 </Button>
                 <Button asChild variant="heroOutline" size="xl">
@@ -182,10 +183,10 @@ export default function Index() {
                   <p className="text-sm text-mavi-white/60">Em vendas geradas</p>
                 </div>
               </div>
-            </div>
+            </AnimatedSection>
             
-            <div className="hidden xl:block animate-fade-in-right animation-delay-300 relative z-0">
-              <div className="relative animate-[float_6s_ease-in-out_infinite]">
+            <AnimatedSection animation="fadeInRight" delay={300} className="hidden xl:block relative z-0">
+              <div className="relative animate-float">
                 <div className="bg-gradient-to-br from-mavi-gray-dark to-mavi-black rounded-2xl p-6 border border-mavi-white/10 hover:border-primary/30 transition-colors pointer-events-none">
                   <div className="flex items-center gap-2 mb-4">
                     <div className="w-3 h-3 rounded-full bg-red-500" />
@@ -224,7 +225,7 @@ export default function Index() {
                   </div>
                 </div>
               </div>
-            </div>
+            </AnimatedSection>
           </div>
         </div>
       </section>
@@ -232,13 +233,13 @@ export default function Index() {
       {/* O que é a MAVI */}
       <Section variant="gray">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
-          <div className="animate-fade-in-up">
+          <AnimatedSection animation="fadeInUp">
             <SectionHeader
               title="O que é a MAVI"
               subtitle="Somos uma agência de marketing digital focada em uma única coisa: fazer seu negócio vender mais."
               centered={false}
             />
-            <div className="space-y-4 stagger-children">
+            <div className="space-y-4">
               {[
                 "Estratégias criadas a partir de dados",
                 "Time especialista em performance",
@@ -251,103 +252,111 @@ export default function Index() {
                 </div>
               ))}
             </div>
-            <Button asChild className="mt-8 btn-glow hover:scale-105 transition-transform">
+            <Button asChild className="mt-8 btn-glow">
               <Link to="/sobre">
                 Conheça nossa história
                 <ArrowRight className="w-4 h-4" />
               </Link>
             </Button>
-          </div>
-          <div className="grid grid-cols-2 gap-4 stagger-children">
+          </AnimatedSection>
+          <AnimatedChildren className="grid grid-cols-2 gap-4">
             <div className="group bg-card rounded-xl p-6 border border-border card-glow cursor-default">
-              <BarChart3 className="w-10 h-10 text-primary mb-4 transition-all duration-300 group-hover:scale-110 group-hover:drop-shadow-[0_0_12px_hsl(336_100%_45%/0.5)]" />
+              <BarChart3 className="w-10 h-10 text-primary mb-4 icon-hover" />
               <p className="text-3xl font-bold text-foreground">
                 <AnimatedCounter end={5} prefix="+" duration={1500} />
               </p>
               <p className="text-muted-foreground">Anos de experiência</p>
             </div>
             <div className="group bg-card rounded-xl p-6 border border-border card-glow cursor-default">
-              <Users className="w-10 h-10 text-primary mb-4 transition-all duration-300 group-hover:scale-110 group-hover:drop-shadow-[0_0_12px_hsl(336_100%_45%/0.5)]" />
+              <Users className="w-10 h-10 text-primary mb-4 icon-hover" />
               <p className="text-3xl font-bold text-foreground">
                 <AnimatedCounter end={500} prefix="+" duration={2000} />
               </p>
               <p className="text-muted-foreground">Clientes atendidos</p>
             </div>
             <div className="group bg-card rounded-xl p-6 border border-border card-glow cursor-default">
-              <TrendingUp className="w-10 h-10 text-primary mb-4 transition-all duration-300 group-hover:scale-110 group-hover:drop-shadow-[0_0_12px_hsl(336_100%_45%/0.5)]" />
+              <TrendingUp className="w-10 h-10 text-primary mb-4 icon-hover" />
               <p className="text-3xl font-bold text-foreground">
                 <AnimatedCounter end={127} suffix="%" duration={2000} />
               </p>
               <p className="text-muted-foreground">Crescimento médio</p>
             </div>
             <div className="group bg-card rounded-xl p-6 border border-border card-glow cursor-default">
-              <Target className="w-10 h-10 text-primary mb-4 transition-all duration-300 group-hover:scale-110 group-hover:drop-shadow-[0_0_12px_hsl(336_100%_45%/0.5)]" />
+              <Target className="w-10 h-10 text-primary mb-4 icon-hover" />
               <p className="text-3xl font-bold text-foreground">8.4x</p>
               <p className="text-muted-foreground">ROAS médio</p>
             </div>
-          </div>
+          </AnimatedChildren>
         </div>
       </Section>
 
       {/* Soluções */}
       <Section>
-        <SectionHeader
-          title="Soluções para o seu negócio"
-          subtitle="Do planejamento à execução, oferecemos tudo que seu e-commerce precisa para escalar."
-        />
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 stagger-children">
+        <AnimatedSection>
+          <SectionHeader
+            title="Soluções para o seu negócio"
+            subtitle="Do planejamento à execução, oferecemos tudo que seu e-commerce precisa para escalar."
+          />
+        </AnimatedSection>
+        <AnimatedChildren className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {services.map((service) => (
             <ServiceCard key={service.title} {...service} />
           ))}
-        </div>
+        </AnimatedChildren>
       </Section>
 
       {/* Por que a MAVI */}
       <Section variant="dark">
-        <SectionHeader
-          title="Por que escolher a MAVI?"
-          subtitle="Não somos apenas mais uma agência. Somos parceiros estratégicos do seu crescimento."
-          light
-        />
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 stagger-children">
+        <AnimatedSection>
+          <SectionHeader
+            title="Por que escolher a MAVI?"
+            subtitle="Não somos apenas mais uma agência. Somos parceiros estratégicos do seu crescimento."
+            light
+          />
+        </AnimatedSection>
+        <AnimatedChildren className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {differentials.map((item) => (
             <div
               key={item.title}
-              className="group p-6 rounded-xl bg-mavi-white/5 border border-mavi-white/10 hover:border-primary/50 hover:bg-mavi-white/10 transition-all duration-300 hover:-translate-y-2"
+              className="group p-6 rounded-xl bg-mavi-white/5 border border-mavi-white/10 hover:border-primary/50 hover:bg-mavi-white/10 transition-all duration-300 hover:-translate-y-1"
             >
-              <item.icon className="w-10 h-10 text-primary mb-4 transition-all duration-300 group-hover:scale-110 group-hover:drop-shadow-[0_0_12px_hsl(336_100%_45%/0.5)]" />
+              <item.icon className="w-10 h-10 text-primary mb-4 icon-hover" />
               <h3 className="text-lg font-semibold text-mavi-white mb-2">{item.title}</h3>
               <p className="text-mavi-white/60 text-sm">{item.description}</p>
             </div>
           ))}
-        </div>
+        </AnimatedChildren>
       </Section>
 
       {/* Clientes & Parceiros */}
       <Section variant="gray">
-        <SectionHeader
-          title="Clientes & Parceiros"
-          subtitle="De pequenos negócios a operações com múltiplos dígitos mensais: nosso foco é sempre resultado."
-        />
+        <AnimatedSection>
+          <SectionHeader
+            title="Clientes & Parceiros"
+            subtitle="De pequenos negócios a operações com múltiplos dígitos mensais: nosso foco é sempre resultado."
+          />
+        </AnimatedSection>
         <LogoCarousel />
       </Section>
 
       {/* Depoimentos */}
       <Section>
-        <SectionHeader
-          title="O que dizem nossos clientes"
-          subtitle="Resultados reais de quem confiou na MAVI para crescer."
-        />
-        <div className="grid md:grid-cols-3 gap-6 stagger-children">
+        <AnimatedSection>
+          <SectionHeader
+            title="O que dizem nossos clientes"
+            subtitle="Resultados reais de quem confiou na MAVI para crescer."
+          />
+        </AnimatedSection>
+        <AnimatedChildren className="grid md:grid-cols-3 gap-6">
           {testimonials.map((testimonial, index) => (
             <TestimonialCard key={index} {...testimonial} />
           ))}
-        </div>
+        </AnimatedChildren>
       </Section>
 
       {/* CTA Final */}
       <Section variant="dark">
-        <div className="text-center max-w-3xl mx-auto animate-fade-in-up">
+        <AnimatedSection className="text-center max-w-3xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-bold text-mavi-white mb-6">
             Pronto para destravar as vendas do seu negócio?
           </h2>
@@ -355,14 +364,14 @@ export default function Index() {
             Agende uma consultoria gratuita e descubra como podemos acelerar seu crescimento.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button asChild variant="hero" size="xl" className="hover:scale-105 transition-transform animate-glow-pulse">
+            <Button asChild variant="hero" size="xl" className="btn-glow">
               <Link to="/contato">Quero uma consultoria gratuita</Link>
             </Button>
-            <Button asChild variant="heroOutline" size="xl" className="hover:scale-105 transition-transform">
+            <Button asChild variant="heroOutline" size="xl">
               <Link to="/hubrs-crm">Quero conhecer o HUBRS CRM</Link>
             </Button>
           </div>
-        </div>
+        </AnimatedSection>
       </Section>
     </Layout>
   );

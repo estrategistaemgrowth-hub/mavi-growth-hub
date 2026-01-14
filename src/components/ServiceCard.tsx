@@ -15,11 +15,11 @@ export function ServiceCard({ title, description, icon: Icon, href, highlight }:
     <Link
       to={href}
       className={cn(
-        "group block p-6 rounded-xl border transition-all duration-300",
-        "hover:shadow-lg hover:-translate-y-2",
+        "group block p-6 rounded-xl border transition-all duration-300 will-change-transform",
+        "hover:shadow-lg hover:-translate-y-1",
         highlight
-          ? "bg-primary text-primary-foreground border-primary hover:shadow-[0_0_30px_hsl(336_100%_45%/0.4)]"
-          : "bg-card text-card-foreground border-border hover:border-primary/50 hover:shadow-[0_0_20px_hsl(336_100%_45%/0.15)]"
+          ? "bg-primary text-primary-foreground border-primary hover:shadow-[0_0_25px_hsl(336_100%_45%/0.35)]"
+          : "bg-card text-card-foreground border-border hover:border-primary/40 hover:shadow-[0_0_20px_hsl(336_100%_45%/0.12)]"
       )}
     >
       <div
@@ -33,8 +33,8 @@ export function ServiceCard({ title, description, icon: Icon, href, highlight }:
         <Icon className={cn(
           "w-6 h-6 transition-all duration-300 group-hover:scale-110",
           highlight 
-            ? "text-primary-foreground group-hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.5)]" 
-            : "text-primary group-hover:drop-shadow-[0_0_8px_hsl(336_100%_45%/0.5)]"
+            ? "text-primary-foreground group-hover:drop-shadow-[0_0_6px_rgba(255,255,255,0.4)]" 
+            : "text-primary group-hover:drop-shadow-[0_0_6px_hsl(336_100%_45%/0.4)]"
         )} />
       </div>
       <h3 className={cn("text-lg font-semibold mb-2", highlight && "text-primary-foreground")}>
@@ -47,11 +47,11 @@ export function ServiceCard({ title, description, icon: Icon, href, highlight }:
         className={cn(
           "inline-flex items-center gap-2 text-sm font-medium",
           highlight ? "text-primary-foreground" : "text-primary",
-          "group-hover:gap-3 transition-all"
+          "group-hover:gap-3 transition-all duration-300"
         )}
       >
         Ver detalhes
-        <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
+        <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5" />
       </span>
     </Link>
   );
