@@ -295,7 +295,7 @@ export default function Index() {
         <AnimatedSection>
           <SectionHeader
             title="Soluções para o seu negócio"
-            subtitle="Do planejamento à execução, oferecemos tudo que seu e-commerce precisa para escalar."
+            subtitle="Do planejamento à execução, oferecemos tudo que seu negócio precisa para escalar no digital."
           />
         </AnimatedSection>
         <AnimatedChildren className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
