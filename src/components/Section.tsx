@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils";
 interface SectionProps {
   children: React.ReactNode;
   className?: string;
-  variant?: "default" | "dark" | "gray";
+  variant?: "default" | "dark" | "gray" | "muted";
   id?: string;
 }
 
@@ -15,6 +15,7 @@ export function Section({ children, className, variant = "default", id }: Sectio
         "py-16 md:py-24",
         variant === "dark" && "bg-mavi-black text-mavi-white",
         variant === "gray" && "bg-mavi-gray",
+        variant === "muted" && "bg-muted",
         variant === "default" && "bg-background",
         className
       )}
