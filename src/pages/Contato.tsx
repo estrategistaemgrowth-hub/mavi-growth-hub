@@ -6,7 +6,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Layout } from "@/components/Layout";
 import { Section } from "@/components/Section";
-import { SEO, generateBreadcrumbSchema } from "@/components/SEO";
+import { SEO, generateBreadcrumbSchema, generateLocalBusinessSchema } from "@/components/SEO";
 import { useToast } from "@/hooks/use-toast";
 import {
   Phone,
@@ -128,13 +128,20 @@ export default function Contato() {
     { name: "Contato", url: "/contato" },
   ]);
 
+  const localBusinessSchema = generateLocalBusinessSchema();
+
+  const combinedSchema = {
+    "@context": "https://schema.org",
+    "@graph": [breadcrumbSchema, localBusinessSchema],
+  };
+
   return (
     <Layout>
       <SEO
         title="Contato - Fale com a MAVI Marketing Digital"
-        description="Solicite um diagnóstico gratuito. Especialistas em e-commerce, imobiliárias e indústrias prontos para ajudar seu negócio crescer."
+        description="Solicite um diagnóstico gratuito. Especialistas em e-commerce, imobiliárias, clínicas e indústrias prontos para ajudar seu negócio crescer."
         canonical="/contato"
-        schemaMarkup={breadcrumbSchema}
+        schemaMarkup={combinedSchema}
       />
       <section className="pt-32 pb-16 bg-mavi-black relative overflow-hidden">
         <div className="absolute inset-0">

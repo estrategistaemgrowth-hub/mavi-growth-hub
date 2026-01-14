@@ -2,7 +2,13 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Layout } from "@/components/Layout";
 import { Section, SectionHeader } from "@/components/Section";
-import { SEO, generateBreadcrumbSchema } from "@/components/SEO";
+import { SEO, generateBreadcrumbSchema, generateFAQSchema } from "@/components/SEO";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import {
   MessageSquare,
   Kanban,
@@ -118,19 +124,53 @@ const plans = [
   },
 ];
 
+const faqs = [
+  {
+    question: "O HUBRS CRM tem período de teste grátis?",
+    answer: "Sim! Oferecemos 7 dias de teste gratuito em todos os planos, sem necessidade de cartão de crédito. Você pode testar todas as funcionalidades antes de decidir.",
+  },
+  {
+    question: "Posso migrar meus contatos de outro CRM?",
+    answer: "Sim, oferecemos suporte completo para importação de contatos via planilha (Excel/CSV) ou integração direta com outras plataformas. Nossa equipe auxilia em todo o processo.",
+  },
+  {
+    question: "A IA de atendimento funciona 24 horas?",
+    answer: "Sim! O agente de IA responde automaticamente 24/7, qualificando leads, respondendo dúvidas frequentes e encaminhando contatos quentes para o time comercial no momento certo.",
+  },
+  {
+    question: "Quantos usuários posso ter no meu plano?",
+    answer: "Não há limite de usuários. O custo é calculado por usuário ativo, conforme o plano escolhido (R$47-49/usuário/mês), permitindo escalar conforme sua equipe cresce.",
+  },
+  {
+    question: "O HUBRS funciona com WhatsApp Business API?",
+    answer: "Sim, integramos com a API oficial do WhatsApp Business para automações robustas e atendimento em escala. Também funciona com WhatsApp Web para operações menores.",
+  },
+  {
+    question: "Como funciona a integração com Meta Ads?",
+    answer: "Conectamos suas campanhas de Facebook e Instagram Ads diretamente ao CRM. Cada lead gerado pelos anúncios entra automaticamente no funil, com rastreamento completo de origem e conversão.",
+  },
+];
+
 export default function HubRSCRM() {
   const breadcrumbSchema = generateBreadcrumbSchema([
     { name: "Início", url: "/" },
     { name: "CRM HUBRS", url: "/hubrs-crm" },
   ]);
 
+  const faqSchema = generateFAQSchema(faqs);
+
+  const combinedSchema = {
+    "@context": "https://schema.org",
+    "@graph": [breadcrumbSchema, faqSchema],
+  };
+
   return (
     <Layout>
       <SEO
         title="HUBRS CRM - CRM com Automação de WhatsApp e IA para Vendas"
-        description="CRM desenvolvido pela MAVI com automação de WhatsApp, IA para atendimento e integração com Meta Ads. Teste grátis por 7 dias."
+        description="CRM desenvolvido pela MAVI com automação de WhatsApp, IA para atendimento 24/7 e integração com Meta Ads. Teste grátis por 7 dias."
         canonical="/hubrs-crm"
-        schemaMarkup={breadcrumbSchema}
+        schemaMarkup={combinedSchema}
       />
       {/* Hero */}
       <section className="pt-32 pb-20 bg-mavi-black overflow-hidden">
@@ -403,6 +443,32 @@ export default function HubRSCRM() {
               </Button>
             </div>
           ))}
+        </div>
+      </Section>
+
+      {/* FAQ Section */}
+      <Section>
+        <SectionHeader
+          title="Perguntas Frequentes"
+          subtitle="Tire suas dúvidas sobre o HUBRS CRM."
+        />
+        <div className="max-w-3xl mx-auto">
+          <Accordion type="single" collapsible className="space-y-4">
+            {faqs.map((faq, index) => (
+              <AccordionItem
+                key={index}
+                value={`item-${index}`}
+                className="bg-card border border-border rounded-xl px-6 data-[state=open]:border-primary/30"
+              >
+                <AccordionTrigger className="text-left hover:no-underline py-4">
+                  <span className="text-foreground font-medium">{faq.question}</span>
+                </AccordionTrigger>
+                <AccordionContent className="text-muted-foreground pb-4">
+                  {faq.answer}
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
         </div>
       </Section>
 

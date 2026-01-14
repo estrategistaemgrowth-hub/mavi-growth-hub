@@ -2,8 +2,14 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Layout } from "@/components/Layout";
 import { Section, SectionHeader } from "@/components/Section";
-import { SEO, generateBreadcrumbSchema } from "@/components/SEO";
-import { TrendingUp, ArrowRight, CheckCircle2, Award } from "lucide-react";
+import { SEO, generateBreadcrumbSchema, generateFAQSchema } from "@/components/SEO";
+import { TrendingUp, ArrowRight, Award } from "lucide-react";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
 const cases = [
   {
@@ -36,6 +42,49 @@ const cases = [
       "4 novos canais ativados",
     ],
   },
+  {
+    title: "Imobiliária Regional",
+    challenge: "Leads chegando por múltiplos canais sem controle, corretores perdendo oportunidades de follow-up.",
+    strategy: "HUBRS CRM integrado com portais imobiliários + automação de WhatsApp + landing pages otimizadas.",
+    results: [
+      "+200% de leads qualificados",
+      "Ciclo de venda reduzido em 40%",
+      "Zero lead sem resposta",
+    ],
+  },
+  {
+    title: "Clínica de Estética",
+    challenge: "Alta taxa de no-show em agendamentos e dificuldade em fidelizar pacientes para tratamentos contínuos.",
+    strategy: "Automação de lembretes via WhatsApp + campanhas de reativação + CRM para acompanhamento de procedimentos.",
+    results: [
+      "-65% de no-show",
+      "+85% em retorno de pacientes",
+      "Agenda sempre cheia",
+    ],
+  },
+];
+
+const faqs = [
+  {
+    question: "Quanto tempo leva para ver resultados nas campanhas?",
+    answer: "Os primeiros resultados aparecem em 30-60 dias, com crescimento consistente a partir do terceiro mês de trabalho contínuo. Cada negócio tem seu ritmo, mas trabalhamos com metas claras desde o início.",
+  },
+  {
+    question: "Vocês trabalham com empresas de qualquer tamanho?",
+    answer: "Sim! Atendemos desde pequenos e-commerces e negócios locais até operações com faturamento de múltiplos dígitos mensais, adaptando as estratégias conforme o porte e os objetivos.",
+  },
+  {
+    question: "Como é calculado o ROAS apresentado nos cases?",
+    answer: "O ROAS (Return on Ad Spend) é calculado dividindo o faturamento atribuído às campanhas pelo investimento em mídia, rastreado via pixels de conversão, UTMs e integração com os sistemas de vendas do cliente.",
+  },
+  {
+    question: "Posso ver cases específicos do meu segmento?",
+    answer: "Entre em contato conosco! Temos cases em diversos segmentos como e-commerce, imobiliárias, clínicas, indústrias e serviços que podemos compartilhar de forma personalizada durante nossa conversa inicial.",
+  },
+  {
+    question: "Como funciona a consultoria gratuita?",
+    answer: "Na consultoria gratuita, analisamos sua operação atual, identificamos oportunidades de melhoria e apresentamos um plano de ação personalizado. Sem compromisso, você recebe insights valiosos para seu negócio.",
+  },
 ];
 
 
@@ -45,13 +94,20 @@ export default function Cases() {
     { name: "Cases", url: "/cases" },
   ]);
 
+  const faqSchema = generateFAQSchema(faqs);
+
+  const combinedSchema = {
+    "@context": "https://schema.org",
+    "@graph": [breadcrumbSchema, faqSchema],
+  };
+
   return (
     <Layout>
       <SEO
         title="Cases de Sucesso - Resultados Reais de Clientes MAVI"
-        description="Veja resultados reais de e-commerces, imobiliárias e indústrias que cresceram com a MAVI. +R$50M em vendas geradas. Conheça nossos cases."
+        description="Veja resultados reais de e-commerces, imobiliárias, clínicas e indústrias que cresceram com a MAVI. +R$50M em vendas geradas. Conheça nossos cases."
         canonical="/cases"
-        schemaMarkup={breadcrumbSchema}
+        schemaMarkup={combinedSchema}
       />
       {/* Hero */}
       <section className="pt-32 pb-16 bg-mavi-black">
@@ -73,7 +129,7 @@ export default function Cases() {
       <Section>
         <SectionHeader
           title="Cases de Sucesso"
-          subtitle="Conheça algumas histórias de crescimento que ajudamos a construir."
+          subtitle="Conheça algumas histórias de crescimento que ajudamos a construir em diversos segmentos."
         />
         <div className="space-y-8">
           {cases.map((caseItem, index) => (
@@ -136,8 +192,34 @@ export default function Cases() {
         </div>
       </Section>
 
-      {/* CTA */}
+      {/* FAQ Section */}
       <Section>
+        <SectionHeader
+          title="Perguntas Frequentes"
+          subtitle="Tire suas dúvidas sobre nossos cases e metodologia de trabalho."
+        />
+        <div className="max-w-3xl mx-auto">
+          <Accordion type="single" collapsible className="space-y-4">
+            {faqs.map((faq, index) => (
+              <AccordionItem
+                key={index}
+                value={`item-${index}`}
+                className="bg-card border border-border rounded-xl px-6 data-[state=open]:border-primary/30"
+              >
+                <AccordionTrigger className="text-left hover:no-underline py-4">
+                  <span className="text-foreground font-medium">{faq.question}</span>
+                </AccordionTrigger>
+                <AccordionContent className="text-muted-foreground pb-4">
+                  {faq.answer}
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
+        </div>
+      </Section>
+
+      {/* CTA */}
+      <Section variant="gray">
         <div className="text-center max-w-2xl mx-auto">
           <h2 className="text-3xl font-bold text-foreground mb-4">
             Quer ser nosso próximo case de sucesso?
