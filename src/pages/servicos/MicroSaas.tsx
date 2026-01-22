@@ -7,15 +7,20 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { AnimatedSection } from "@/components/AnimatedSection";
 import { 
   Cpu, CheckCircle2, ArrowRight, Zap, Brain, RefreshCw, Shield, 
-  Users, Target, Workflow, MessageSquare, BarChart, FileText
+  Users, Target, Workflow, MessageSquare, BarChart, FileText,
+  ClipboardList, UserCheck, LayoutDashboard, Ticket, Globe, 
+  Lightbulb, Settings, Puzzle, Wrench, Building2
 } from "lucide-react";
 
 const examples = [
-  { icon: Users, title: "Painel de leads", description: "Com roteamento automático" },
-  { icon: Brain, title: "Gestão de tarefas", description: "Organização e ações automáticas" },
-  { icon: BarChart, title: "Dashboard de performance", description: "Com alertas inteligentes" },
-  { icon: FileText, title: "Portal do cliente", description: "Histórico e status em tempo real" },
-  { icon: MessageSquare, title: "Fluxo de suporte", description: "Base de conhecimento integrada" },
+  { icon: Users, title: "Gestão de clientes", description: "CRM personalizado com histórico, interações e automações" },
+  { icon: ClipboardList, title: "Gestão de tarefas", description: "Organização de atividades com fluxos e responsáveis" },
+  { icon: LayoutDashboard, title: "Dashboards personalizados", description: "Métricas e KPIs integrados via API com seus sistemas" },
+  { icon: Ticket, title: "Gestão de tickets", description: "Controle de chamados, SLA e atendimento ao cliente" },
+  { icon: Globe, title: "Portal do cliente", description: "Área exclusiva com histórico, documentos e status em tempo real" },
+  { icon: Wrench, title: "Gestão de serviços", description: "Controle operacional de ordens de serviço e equipes" },
+  { icon: UserCheck, title: "Painel de leads", description: "Captação e roteamento automático de oportunidades" },
+  { icon: Lightbulb, title: "Sua ideia", description: "Criamos o sistema que você imagina pro seu negócio" },
 ];
 
 const devMethodCards = [
@@ -27,13 +32,14 @@ const devMethodCards = [
 ];
 
 const deliverables = [
-  "Mapeamento do processo",
-  "Protótipo navegável",
-  "Login e perfis/permissões",
-  "Painel admin e relatórios",
-  "Integrações (API/webhook)",
-  "Automações configuradas",
-  "Deploy + documentação + treinamento",
+  "Mapeamento do processo e fluxos do seu negócio",
+  "Protótipo navegável para validação",
+  "Login com perfis e permissões personalizadas",
+  "Painel admin com relatórios sob medida",
+  "Integrações com seus sistemas via API/webhook",
+  "Automações configuradas conforme sua operação",
+  "Deploy + documentação + treinamento da equipe",
+  "Suporte e evolução contínua (opcional)",
 ];
 
 const process = [
@@ -49,6 +55,10 @@ const targetAudience = [
   { icon: MessageSquare, text: "Muito WhatsApp e pouca rastreabilidade" },
   { icon: BarChart, text: "Necessidade de painel e padronização" },
   { icon: Zap, text: "Quer lançar SaaS de nicho com MVP rápido" },
+  { icon: Settings, text: "Precisa de automações para escalar a operação" },
+  { icon: Puzzle, text: "Quer um sistema que se encaixe no negócio, não o contrário" },
+  { icon: Building2, text: "Sistemas padrões do mercado não atendem sua realidade" },
+  { icon: Lightbulb, text: "Tem uma ideia de produto digital e quer validar rápido" },
 ];
 
 const faqs = [
@@ -67,6 +77,10 @@ const faqs = [
   {
     question: "Como vocês usam IA no desenvolvimento?",
     answer: "Usamos IA internamente para acelerar o desenvolvimento, melhorar a personalização e garantir qualidade. Isso significa entregas mais rápidas e sistemas mais bem adaptados ao seu negócio."
+  },
+  {
+    question: "Os entregáveis são fixos ou posso personalizar?",
+    answer: "Tudo é personalizado de acordo com a sua necessidade. A lista de entregáveis é uma base, mas ajustamos conforme o projeto."
   },
   {
     question: "Fica seguro e dentro da LGPD?",
@@ -146,15 +160,15 @@ export default function ServicoMicroSaas() {
         <AnimatedSection animation="fadeInUp">
           <SectionHeader
             title="O que é um Micro SaaS (na prática)"
-            subtitle="Sistemas leves, focados e feitos sob medida pra resolver problemas específicos do seu negócio"
+            subtitle="Criamos a ideia do processo que você imagina pro seu negócio. Veja alguns exemplos:"
           />
         </AnimatedSection>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
           {examples.map((example, index) => (
             <AnimatedSection 
               key={index} 
               animation="fadeInUp" 
-              delay={(index % 3) * 100 as 0 | 100 | 200}
+              delay={(index % 4) * 100 as 0 | 100 | 200 | 300}
             >
               <div className="bg-mavi-white border border-mavi-gray-light/20 rounded-xl p-6 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group h-full">
                 <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/20 group-hover:scale-110 transition-all duration-300">
@@ -163,7 +177,7 @@ export default function ServicoMicroSaas() {
                 <h3 className="text-lg font-semibold text-mavi-black mb-2">
                   {example.title}
                 </h3>
-                <p className="text-muted-foreground">{example.description}</p>
+                <p className="text-muted-foreground text-sm">{example.description}</p>
               </div>
             </AnimatedSection>
           ))}
@@ -205,7 +219,7 @@ export default function ServicoMicroSaas() {
           <AnimatedSection animation="fadeInLeft">
             <div>
               <h2 className="text-3xl font-bold text-foreground mb-4">O que você recebe (entregáveis)</h2>
-              <p className="text-muted-foreground mb-6">Do mapeamento ao deploy, tudo pronto pra rodar</p>
+              <p className="text-muted-foreground mb-6">Tudo personalizado de acordo com a sua necessidade. Esta é uma base que ajustamos conforme o projeto:</p>
               <ul className="space-y-4">
                 {deliverables.map((item, index) => (
                   <li key={index} className="flex items-start gap-3 group">
