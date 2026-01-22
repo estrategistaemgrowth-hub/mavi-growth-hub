@@ -16,6 +16,7 @@ import ServicoRedesSociais from "./pages/servicos/RedesSociais";
 import ServicoMarketplaces from "./pages/servicos/Marketplaces";
 import ServicoSites from "./pages/servicos/Sites";
 import ServicoAutomacao from "./pages/servicos/Automacao";
+import ServicoMicroSaas from "./pages/servicos/MicroSaas";
 import Segmentos from "./pages/Segmentos";
 import SegmentoImobiliarias from "./pages/segmentos/Imobiliarias";
 import SegmentoIndustria from "./pages/segmentos/Industria";
@@ -52,6 +53,7 @@ const App = () => (
           />
           <Route path="/servicos/sites" element={<ServicoSites />} />
           <Route path="/servicos/automacao" element={<ServicoAutomacao />} />
+          <Route path="/servicos/micro-saas" element={<ServicoMicroSaas />} />
           <Route path="/segmentos" element={<Segmentos />} />
           <Route path="/segmentos/imobiliarias" element={<SegmentoImobiliarias />} />
           <Route path="/segmentos/industria" element={<SegmentoIndustria />} />

@@ -13,6 +13,7 @@ const services = [
   { name: "Marketplaces & ERP", href: "/servicos/marketplaces" },
   { name: "Sites e Landing Pages", href: "/servicos/sites" },
   { name: "Automação & IA", href: "/servicos/automacao" },
+  { name: "Micro SaaS com IA", href: "/servicos/micro-saas" },
   { name: "CRM HUBRS", href: "/hubrs-crm" },
 ];
 
