@@ -118,16 +118,25 @@ export function generateLocalBusinessSchema() {
     "@context": "https://schema.org",
     "@type": "MarketingAgency",
     "name": "MAVI Marketing Digital",
+    "legalName": "MAVI Marketing Digital LTDA",
     "image": "https://www.agenciamavi.com.br/og-image.png",
+    "logo": "https://www.agenciamavi.com.br/og-image.png",
     "url": "https://www.agenciamavi.com.br",
     "telephone": "+55-47-3307-2030",
     "email": "agenciamavi@agenciamavi.com.br",
+    "description": "Agência de marketing digital especializada em e-commerce, performance, automação e CRM. Atendemos empresas de todo o Brasil com foco em resultados mensuráveis.",
+    "foundingDate": "2020",
+    "numberOfEmployees": {
+      "@type": "QuantitativeValue",
+      "minValue": 10,
+      "maxValue": 50
+    },
     "address": {
       "@type": "PostalAddress",
-      "streetAddress": "Jaraguá do Sul",
+      "streetAddress": "Rua Expedicionário Holz, 550 - Sala 301",
       "addressLocality": "Jaraguá do Sul",
       "addressRegion": "SC",
-      "postalCode": "89250-000",
+      "postalCode": "89251-400",
       "addressCountry": "BR"
     },
     "geo": {
@@ -135,11 +144,73 @@ export function generateLocalBusinessSchema() {
       "latitude": -26.4853,
       "longitude": -49.0689
     },
+    "areaServed": {
+      "@type": "Country",
+      "name": "Brasil"
+    },
+    "serviceArea": {
+      "@type": "GeoCircle",
+      "geoMidpoint": {
+        "@type": "GeoCoordinates",
+        "latitude": -26.4853,
+        "longitude": -49.0689
+      },
+      "geoRadius": "5000 km"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Serviços de Marketing Digital",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "E-commerce",
+            "url": "https://www.agenciamavi.com.br/servicos/ecommerce"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Marketing de Performance",
+            "url": "https://www.agenciamavi.com.br/servicos/performance"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "CRM HUBRS",
+            "url": "https://www.agenciamavi.com.br/hubrs-crm"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Automação e IA",
+            "url": "https://www.agenciamavi.com.br/servicos/automacao"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Micro SaaS",
+            "url": "https://www.agenciamavi.com.br/servicos/micro-saas"
+          }
+        }
+      ]
+    },
     "sameAs": [
       "https://www.instagram.com/agenciamavi",
-      "https://www.facebook.com/agenciamavi"
+      "https://www.facebook.com/agenciamavi",
+      "https://www.linkedin.com/company/agenciamavi"
     ],
     "priceRange": "$$",
+    "currenciesAccepted": "BRL",
+    "paymentAccepted": "Pix, Transferência Bancária, Boleto, Cartão de Crédito",
     "openingHoursSpecification": [
       {
         "@type": "OpeningHoursSpecification",
@@ -147,6 +218,20 @@ export function generateLocalBusinessSchema() {
         "opens": "08:00",
         "closes": "18:00"
       }
-    ]
+    ],
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "telephone": "+55-47-3307-2030",
+      "contactType": "sales",
+      "email": "agenciamavi@agenciamavi.com.br",
+      "availableLanguage": ["Portuguese"]
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.9",
+      "reviewCount": "47",
+      "bestRating": "5",
+      "worstRating": "1"
+    }
   };
 }
