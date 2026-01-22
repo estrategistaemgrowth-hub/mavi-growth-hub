@@ -21,6 +21,7 @@ const services = [
   { name: "Marketing de Performance", href: "/servicos/performance" },
   { name: "Redes Sociais e Conteúdo", href: "/servicos/redes-sociais" },
   { name: "Marketplaces & ERP", href: "/servicos/marketplaces" },
+  { name: "Micro SaaS", href: "/servicos/micro-saas" },
   { name: "CRM HUBRS", href: "/hubrs-crm" },
 ];
 

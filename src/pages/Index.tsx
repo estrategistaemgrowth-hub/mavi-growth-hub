@@ -21,6 +21,7 @@ import {
   MessageSquare,
   CheckCircle2,
   ArrowRight,
+  Blocks,
 } from "lucide-react";
 
 const services = [
@@ -59,6 +60,12 @@ const services = [
     description: "Implantação de chatbots, fluxos automatizados e integrações com CRM para escalar vendas e suporte.",
     icon: Bot,
     href: "/servicos/automacao",
+  },
+  {
+    title: "Micro SaaS",
+    description: "Sistemas sob medida para automatizar processos: gestão de leads, tarefas, clientes e dashboards integrados via API.",
+    icon: Blocks,
+    href: "/servicos/micro-saas",
   },
   {
     title: "CRM HUBRS",
