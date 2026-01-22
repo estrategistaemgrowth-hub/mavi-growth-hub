@@ -139,17 +139,12 @@ export default function ServicoMicroSaas() {
               </p>
             </AnimatedSection>
             <AnimatedSection animation="fadeInUp" delay={300}>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button asChild size="xl" variant="hero" className="animate-pulse-glow">
-                  <Link to="/contato">
-                    Quero construir meu Micro SaaS
-                    <ArrowRight className="ml-2 w-5 h-5" />
-                  </Link>
-                </Button>
-                <Button asChild size="xl" variant="heroOutline">
-                  <Link to="/cases">Ver cases</Link>
-                </Button>
-              </div>
+              <Button asChild size="xl" variant="hero" className="animate-pulse-glow">
+                <Link to="/contato">
+                  Quero construir meu Micro SaaS
+                  <ArrowRight className="ml-2 w-5 h-5" />
+                </Link>
+              </Button>
             </AnimatedSection>
           </div>
         </div>
