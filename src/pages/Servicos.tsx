@@ -10,6 +10,7 @@ import {
   Store,
   Globe,
   Bot,
+  Cpu,
   MessageSquare,
   ArrowRight,
   CheckCircle2,
@@ -98,6 +99,20 @@ const services = [
       "Integrações com CRM",
       "Automação de atendimento",
       "Redução do trabalho manual",
+    ],
+  },
+  {
+    id: "micro-saas",
+    icon: Cpu,
+    title: "Micro SaaS com IA",
+    description: "Desenvolvemos sistemas personalizados com IA para reduzir custos, automatizar processos e entregar rápido com MVP em semanas.",
+    href: "/servicos/micro-saas",
+    benefits: [
+      "Sistema sob medida para seu processo",
+      "IA aplicada onde faz sentido",
+      "MVP funcional em semanas",
+      "Integrações com APIs e webhooks",
+      "Deploy + documentação + treinamento",
     ],
   },
   {
