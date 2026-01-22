@@ -58,6 +58,8 @@ export default {
           white: "hsl(var(--mavi-white))",
           gray: "hsl(var(--mavi-gray))",
           "gray-dark": "hsl(var(--mavi-gray-dark))",
+          "gray-light": "hsl(var(--mavi-gray-light))",
+          "text-gray": "hsl(var(--mavi-text-gray))",
         },
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",

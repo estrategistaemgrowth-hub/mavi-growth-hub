@@ -150,7 +150,7 @@ export default function ServicoMicroSaas() {
               <h3 className="text-lg font-semibold text-mavi-black mb-2">
                 {example.title}
               </h3>
-              <p className="text-mavi-gray">{example.description}</p>
+              <p className="text-muted-foreground">{example.description}</p>
             </div>
           ))}
         </div>
@@ -174,7 +174,7 @@ export default function ServicoMicroSaas() {
               <h3 className="text-lg font-semibold text-mavi-black mb-2">
                 {card.title}
               </h3>
-              <p className="text-mavi-gray">{card.description}</p>
+              <p className="text-muted-foreground">{card.description}</p>
             </div>
           ))}
         </div>
@@ -190,7 +190,7 @@ export default function ServicoMicroSaas() {
               {deliverables.map((item, index) => (
                 <li key={index} className="flex items-start gap-3">
                   <CheckCircle2 className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
-                  <span className="text-mavi-gray">{item}</span>
+                  <span className="text-muted-foreground">{item}</span>
                 </li>
               ))}
             </ul>
@@ -207,19 +207,19 @@ export default function ServicoMicroSaas() {
             <div className="grid grid-cols-2 gap-6">
               <div className="text-center">
                 <div className="text-4xl font-bold text-primary mb-2">100%</div>
-                <div className="text-sm text-mavi-gray">Sob medida</div>
+                <div className="text-sm text-muted-foreground">Sob medida</div>
               </div>
               <div className="text-center">
                 <div className="text-4xl font-bold text-primary mb-2">LGPD</div>
-                <div className="text-sm text-mavi-gray">Compliance</div>
+                <div className="text-sm text-muted-foreground">Compliance</div>
               </div>
               <div className="text-center">
                 <div className="text-4xl font-bold text-primary mb-2">API</div>
-                <div className="text-sm text-mavi-gray">Integrações</div>
+                <div className="text-sm text-muted-foreground">Integrações</div>
               </div>
               <div className="text-center">
                 <div className="text-4xl font-bold text-primary mb-2">IA</div>
-                <div className="text-sm text-mavi-gray">Quando faz sentido</div>
+                <div className="text-sm text-muted-foreground">Quando faz sentido</div>
               </div>
             </div>
           </div>
@@ -242,7 +242,7 @@ export default function ServicoMicroSaas() {
                 <h3 className="text-lg font-semibold text-mavi-black mb-2">
                   {item.title}
                 </h3>
-                <p className="text-sm text-mavi-gray">{item.description}</p>
+                <p className="text-sm text-muted-foreground">{item.description}</p>
               </div>
               {index < process.length - 1 && (
                 <div className="hidden lg:block absolute top-1/2 -right-3 transform -translate-y-1/2">
@@ -292,7 +292,7 @@ export default function ServicoMicroSaas() {
                 <AccordionTrigger className="text-left font-semibold text-mavi-black hover:no-underline py-5">
                   {faq.question}
                 </AccordionTrigger>
-                <AccordionContent className="text-mavi-gray pb-5">
+                <AccordionContent className="text-muted-foreground pb-5">
                   {faq.answer}
                 </AccordionContent>
               </AccordionItem>
