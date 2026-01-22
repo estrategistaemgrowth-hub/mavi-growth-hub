@@ -11,18 +11,18 @@ import {
 
 const examples = [
   { icon: Users, title: "Painel de leads", description: "Com roteamento automático" },
-  { icon: Brain, title: "Gestão de tarefas com IA", description: "Resumos e ações automáticas" },
+  { icon: Brain, title: "Gestão de tarefas", description: "Organização e ações automáticas" },
   { icon: BarChart, title: "Dashboard de performance", description: "Com alertas inteligentes" },
   { icon: FileText, title: "Portal do cliente", description: "Histórico e status em tempo real" },
-  { icon: MessageSquare, title: "Fluxo de suporte", description: "Base de conhecimento + IA" },
+  { icon: MessageSquare, title: "Fluxo de suporte", description: "Base de conhecimento integrada" },
 ];
 
-const iaCards = [
-  { icon: Target, title: "Triagem inteligente", description: "IA classifica e direciona demandas automaticamente" },
-  { icon: RefreshCw, title: "Automação de rotinas", description: "Processos repetitivos viram fluxos automáticos" },
-  { icon: FileText, title: "Resumo e registro", description: "IA gera resumos de reuniões e interações" },
-  { icon: Brain, title: "Assistente interno", description: "Chatbot treinado com dados do seu negócio" },
-  { icon: Shield, title: "Qualidade e consistência", description: "Validação e padronização por IA" },
+const devMethodCards = [
+  { icon: Zap, title: "Entregas rápidas", description: "IA acelera nosso processo de desenvolvimento, reduzindo prazos" },
+  { icon: Target, title: "Personalização precisa", description: "Usamos IA para entender melhor seu negócio e criar soluções sob medida" },
+  { icon: RefreshCw, title: "Iteração inteligente", description: "Análise automatizada de feedbacks para evoluir o produto mais rápido" },
+  { icon: Shield, title: "Qualidade garantida", description: "Testes e validações otimizados por IA para menos bugs" },
+  { icon: Brain, title: "Documentação automática", description: "IA gera documentação técnica e manuais de uso" },
 ];
 
 const deliverables = [
@@ -31,7 +31,7 @@ const deliverables = [
   "Login e perfis/permissões",
   "Painel admin e relatórios",
   "Integrações (API/webhook)",
-  "IA aplicada com regras",
+  "Automações configuradas",
   "Deploy + documentação + treinamento",
 ];
 
@@ -39,7 +39,7 @@ const process = [
   { step: "1", title: "Diagnóstico", description: "Entendemos seu processo atual e identificamos gargalos" },
   { step: "2", title: "MVP", description: "Desenvolvemos a versão mínima funcional em semanas" },
   { step: "3", title: "Iteração", description: "Ajustes e melhorias baseados no uso real" },
-  { step: "4", title: "Automação + IA", description: "Implementamos inteligência onde faz sentido" },
+  { step: "4", title: "Automação", description: "Implementamos fluxos automáticos onde faz sentido" },
   { step: "5", title: "Escala", description: "Sistema pronto para crescer com seu negócio" },
 ];
 
@@ -64,8 +64,8 @@ const faqs = [
     answer: "Sim. Integração é parte do jogo. A gente define o que entra via API, webhook ou automação."
   },
   {
-    question: "Vocês usam IA em tudo?",
-    answer: "Não. IA entra onde reduz custo, melhora velocidade e aumenta qualidade. Onde não faz sentido, a gente não inventa moda."
+    question: "Como vocês usam IA no desenvolvimento?",
+    answer: "Usamos IA internamente para acelerar o desenvolvimento, melhorar a personalização e garantir qualidade. Isso significa entregas mais rápidas e sistemas mais bem adaptados ao seu negócio."
   },
   {
     question: "Fica seguro e dentro da LGPD?",
@@ -77,14 +77,14 @@ export default function ServicoMicroSaas() {
   const breadcrumbSchema = generateBreadcrumbSchema([
     { name: "Início", url: "/" },
     { name: "Serviços", url: "/servicos" },
-    { name: "Micro SaaS com IA", url: "/servicos/micro-saas" },
+    { name: "Micro SaaS", url: "/servicos/micro-saas" },
   ]);
 
   const faqSchema = generateFAQSchema(faqs);
 
   const serviceSchema = generateServiceSchema({
-    name: "Desenvolvimento de Micro SaaS com IA (Sob Medida)",
-    description: "Criamos Micro SaaS sob medida com IA: painel, automações, integrações e deploy rápido para reduzir custos e escalar sua operação com segurança.",
+    name: "Desenvolvimento de Micro SaaS Sob Medida",
+    description: "Criamos Micro SaaS sob medida: painel, automações, integrações e deploy rápido. Usamos IA no desenvolvimento para entregar mais rápido e com mais qualidade.",
     url: "/servicos/micro-saas",
   });
 
@@ -96,8 +96,8 @@ export default function ServicoMicroSaas() {
   return (
     <Layout>
       <SEO
-        title="Desenvolvimento de Micro SaaS com IA (Sob Medida)"
-        description="Criamos Micro SaaS sob medida com IA: painel, automações, integrações e deploy rápido para reduzir custos e escalar sua operação com segurança."
+        title="Desenvolvimento de Micro SaaS Sob Medida"
+        description="Criamos Micro SaaS sob medida: painel, automações, integrações e deploy rápido. Usamos IA no desenvolvimento para entregar mais rápido e com mais qualidade."
         canonical="/servicos/micro-saas"
         schemaMarkup={combinedSchema}
       />
@@ -109,13 +109,13 @@ export default function ServicoMicroSaas() {
           <div className="max-w-4xl mx-auto text-center">
             <div className="inline-flex items-center gap-2 bg-primary/20 text-primary px-4 py-2 rounded-full text-sm font-medium mb-6">
               <Cpu className="w-4 h-4" />
-              Micro SaaS com IA
+              Micro SaaS Sob Medida
             </div>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-mavi-white mb-6 leading-tight">
-              Desenvolvimento de Micro SaaS com IA — do jeito do seu negócio
+              Desenvolvimento de Micro SaaS — do jeito do seu negócio
             </h1>
             <p className="text-xl text-mavi-gray-light mb-8 max-w-3xl mx-auto">
-              Chega de planilha eterna e processo manual. A gente transforma sua operação num sistema leve (Micro SaaS), com IA quando faz sentido, integrações e painel.
+              Chega de planilha eterna e processo manual. A gente transforma sua operação num sistema leve e sob medida, com integrações e painel personalizado. Usamos IA no nosso processo para entregar mais rápido e com mais qualidade.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button asChild size="xl" variant="hero">
@@ -156,14 +156,14 @@ export default function ServicoMicroSaas() {
         </div>
       </Section>
 
-      {/* Onde a IA entra */}
+      {/* Como usamos IA no desenvolvimento */}
       <Section variant="gray">
         <SectionHeader
-          title="Onde a IA entra (sem hype)"
-          subtitle="IA aplicada onde realmente faz diferença: reduz custo, acelera processos e aumenta qualidade"
+          title="Como usamos IA no desenvolvimento"
+          subtitle="IA é nossa ferramenta interna para entregar sistemas melhores e mais rápido"
         />
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {iaCards.map((card, index) => (
+          {devMethodCards.map((card, index) => (
             <div
               key={index}
               className="bg-mavi-white border border-mavi-gray-light/20 rounded-xl p-6 hover:shadow-lg transition-all duration-300 group"

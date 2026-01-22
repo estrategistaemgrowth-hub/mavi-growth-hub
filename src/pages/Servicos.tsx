@@ -104,12 +104,12 @@ const services = [
   {
     id: "micro-saas",
     icon: Cpu,
-    title: "Micro SaaS com IA",
-    description: "Desenvolvemos sistemas personalizados com IA para reduzir custos, automatizar processos e entregar rápido com MVP em semanas.",
+    title: "Micro SaaS Sob Medida",
+    description: "Desenvolvemos sistemas personalizados para sua operação. Usamos IA no desenvolvimento para entregar mais rápido, com mais qualidade e totalmente adaptado ao seu negócio.",
     href: "/servicos/micro-saas",
     benefits: [
       "Sistema sob medida para seu processo",
-      "IA aplicada onde faz sentido",
+      "Desenvolvimento acelerado com IA",
       "MVP funcional em semanas",
       "Integrações com APIs e webhooks",
       "Deploy + documentação + treinamento",
