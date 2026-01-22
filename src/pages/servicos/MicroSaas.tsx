@@ -269,7 +269,7 @@ export default function ServicoMicroSaas() {
               <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
                 <item.icon className="w-6 h-6 text-primary" />
               </div>
-              <p className="text-mavi-gray font-medium">{item.text}</p>
+              <p className="text-foreground font-medium">{item.text}</p>
             </div>
           ))}
         </div>
