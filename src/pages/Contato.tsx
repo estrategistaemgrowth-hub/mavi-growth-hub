@@ -26,6 +26,7 @@ const interestOptions = [
   "Marketplaces & ERP",
   "Sites e Landing Pages",
   "Automação & IA",
+  "Micro SaaS",
   "CRM HubRS",
   "Outros",
 ];
