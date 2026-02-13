@@ -70,6 +70,11 @@ export function LeadCaptureDialog({ open, onOpenChange, planName, trialLink }: L
       // Trigger custom event for tracking
       window.dispatchEvent(new CustomEvent("mavi-lead-capture", { detail: leadData }));
       
+      // Disparar conversão Google Ads
+      if (typeof window.gtag_report_conversion === 'function') {
+        window.gtag_report_conversion();
+      }
+      
       // Small delay for tracking, then redirect
       setTimeout(() => {
         window.open(trialLink, "_blank");

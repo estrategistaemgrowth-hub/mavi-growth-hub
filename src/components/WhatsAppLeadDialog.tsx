@@ -96,6 +96,11 @@ export function WhatsAppLeadDialog({ open, onOpenChange }: WhatsAppLeadDialogPro
 
     window.dispatchEvent(new CustomEvent("mavi-lead-capture", { detail: leadData }));
 
+    // Disparar conversão Google Ads
+    if (typeof window.gtag_report_conversion === 'function') {
+      window.gtag_report_conversion();
+    }
+
     // Build WhatsApp message
     const message = encodeURIComponent(
       `Olá! Meu nome é ${nome.trim()} e trabalho no segmento de ${segmentoFinal}. Gostaria de saber mais sobre os serviços da MAVI.`
