@@ -54,6 +54,15 @@
     })(window,document,'script','dataLayer','GTM-KTG2XP7');</script>
     <!-- End Google Tag Manager -->
 
+    <!-- Google Ads Conversion Tracking -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-743684226"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'AW-743684226');
+    </script>
+
     <!-- Structured Data -->
     <script type="application/ld+json">
     {
@@ -110,6 +119,24 @@
     
     <!-- RD Station -->
     <script type="text/javascript" async src="https://d335luupugsy2.cloudfront.net/js/loader-scripts/a50d6182-978f-4a37-8e45-16c2d5164964-loader.js"></script>
+
+    <!-- Google Ads Conversion Event -->
+    <script>
+    function gtag_report_conversion(url) {
+      var callback = function () {
+        if (typeof(url) != 'undefined') {
+          window.location = url;
+        }
+      };
+      gtag('event', 'conversion', {
+        'send_to': 'AW-743684226/GlzACMu-rJcbEILxzuIC',
+        'value': 1.0,
+        'currency': 'BRL',
+        'event_callback': callback
+      });
+      return false;
+    }
+    </script>
 
     <!-- Mavi Lead Tracking -->
     <script>

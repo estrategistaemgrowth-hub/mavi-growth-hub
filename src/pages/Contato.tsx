@@ -97,6 +97,11 @@ export default function Contato() {
       const result = await response.json();
 
       if (result.success) {
+        // Disparar conversão Google Ads
+        if (typeof window.gtag_report_conversion === 'function') {
+          window.gtag_report_conversion();
+        }
+
         toast({
           title: "Mensagem enviada com sucesso!",
           description: "Nossa equipe entrará em contato em breve.",
