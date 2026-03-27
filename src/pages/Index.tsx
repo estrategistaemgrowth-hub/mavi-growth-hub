@@ -7,7 +7,7 @@ import { TestimonialCard } from "@/components/TestimonialCard";
 import { LogoCarousel } from "@/components/LogoCarousel";
 import { AnimatedCounter } from "@/components/AnimatedCounter";
 import { AnimatedSection, AnimatedChildren } from "@/components/AnimatedSection";
-import { SEO, generateBreadcrumbSchema, generateLocalBusinessSchema } from "@/components/SEO";
+import { SEO, generateBreadcrumbSchema, generateLocalBusinessSchema, generateOrganizationSchema, generateWebSiteSchema } from "@/components/SEO";
 import {
   ShoppingCart,
   TrendingUp,
@@ -127,10 +127,12 @@ export default function Index() {
   ]);
 
   const localBusinessSchema = generateLocalBusinessSchema();
+  const organizationSchema = generateOrganizationSchema();
+  const webSiteSchema = generateWebSiteSchema();
 
   const combinedSchema = {
     "@context": "https://schema.org",
-    "@graph": [breadcrumbSchema, localBusinessSchema],
+    "@graph": [breadcrumbSchema, localBusinessSchema, organizationSchema, webSiteSchema],
   };
 
   return (
