@@ -232,6 +232,76 @@ export function generateLocalBusinessSchema() {
       "reviewCount": "47",
       "bestRating": "5",
       "worstRating": "1"
-    }
+    },
+    "knowsAbout": [
+      "Marketing Digital",
+      "E-commerce",
+      "Marketing de Performance",
+      "Google Ads",
+      "Meta Ads",
+      "Gestão de Redes Sociais",
+      "Automação de Marketing",
+      "Inteligência Artificial aplicada a Marketing",
+      "CRM",
+      "Marketplace",
+      "Mercado Livre",
+      "Tray E-commerce",
+      "Micro SaaS"
+    ],
+    "knowsLanguage": "pt-BR",
+    "slogan": "Estratégias de vendas que impulsionam negócios a novos patamares"
+  };
+}
+
+// Organization Schema for GEO (Generative Engine Optimization)
+export function generateOrganizationSchema() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "MAVI Marketing Digital",
+    "url": "https://www.agenciamavi.com.br",
+    "logo": "https://www.agenciamavi.com.br/og-image.png",
+    "description": "Agência de marketing digital especializada em e-commerce, performance, automação com IA e CRM. Atendemos empresas de todo o Brasil com foco em resultados mensuráveis.",
+    "foundingDate": "2020",
+    "founder": {
+      "@type": "Person",
+      "name": "MAVI Marketing Digital"
+    },
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "telephone": "+55-47-3307-2030",
+      "contactType": "sales",
+      "email": "agenciamavi@agenciamavi.com.br",
+      "availableLanguage": "Portuguese"
+    },
+    "sameAs": [
+      "https://www.instagram.com/agenciamavi",
+      "https://www.facebook.com/agenciamavi",
+      "https://www.linkedin.com/company/agenciamavi"
+    ],
+    "knowsAbout": [
+      "Marketing Digital",
+      "E-commerce",
+      "Marketing de Performance",
+      "Automação de Marketing",
+      "CRM",
+      "Inteligência Artificial"
+    ]
+  };
+}
+
+// WebSite Schema with SearchAction for GEO
+export function generateWebSiteSchema() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "MAVI Marketing Digital",
+    "url": "https://www.agenciamavi.com.br",
+    "description": "Agência de marketing digital especializada em e-commerce, performance, automação e CRM em Jaraguá do Sul, SC.",
+    "publisher": {
+      "@type": "Organization",
+      "name": "MAVI Marketing Digital"
+    },
+    "inLanguage": "pt-BR"
   };
 }
