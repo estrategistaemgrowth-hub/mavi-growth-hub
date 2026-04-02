@@ -58,6 +58,9 @@
     --mavi-gray-dark: 0 0% 20%;
     --mavi-gray-light: 0 0% 70%;
     --mavi-text-gray: 0 0% 40%;
+    --mavi-purple: 280 70% 55%;
+    --mavi-purple-light: 280 70% 65%;
+    --mavi-surface: 0 0% 4%;
 
     /* Gradients */
     --gradient-hero: linear-gradient(135deg, hsl(0 0% 0%) 0%, hsl(0 0% 10%) 100%);
@@ -145,7 +148,10 @@
   }
 
   .gradient-text {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/80;
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, hsl(336 100% 50%) 0%, hsl(310 100% 60%) 50%, hsl(336 100% 45%) 100%);
+    background-size: 200% auto;
+    animation: gradient-shift 4s ease infinite;
   }
 
   .card-hover {
@@ -205,6 +211,118 @@
 
   .card-lift:hover {
     @apply -translate-y-1 shadow-md;
+  }
+
+  /* =============================================
+     NOVOS ESTILOS DE DESIGN PREMIUM
+     ============================================= */
+
+  /* Glassmorphism card */
+  .glass-card {
+    @apply backdrop-blur-md border border-white/10;
+    background: rgba(255, 255, 255, 0.05);
+  }
+
+  .glass-card-dark {
+    @apply backdrop-blur-md border border-white/10;
+    background: rgba(0, 0, 0, 0.4);
+  }
+
+  /* Badge pill para destaque */
+  .badge-pill {
+    @apply inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-semibold
+           border border-primary/40 text-primary;
+    background: linear-gradient(135deg, hsl(336 100% 45% / 0.15), hsl(336 100% 45% / 0.05));
+  }
+
+  /* Gradient border no hover */
+  .gradient-border-card {
+    @apply relative overflow-hidden;
+  }
+
+  .gradient-border-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(135deg, hsl(336 100% 45% / 0), hsl(336 100% 45% / 0.5) 50%, hsl(336 100% 45% / 0));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+  }
+
+  .gradient-border-card:hover::before {
+    opacity: 1;
+  }
+
+  /* Dot grid mesh background */
+  .bg-mesh {
+    background-image:
+      radial-gradient(circle at 1px 1px, hsl(336 100% 45% / 0.06) 1px, transparent 0);
+    background-size: 28px 28px;
+  }
+
+  /* Accent bar abaixo de títulos de seção */
+  .section-accent-bar {
+    @apply w-10 h-0.5 bg-primary rounded-full;
+  }
+
+  /* Card de métrica com borda superior colorida */
+  .metric-card {
+    @apply bg-card rounded-xl p-6 border border-border transition-all duration-300;
+    border-top: 2px solid hsl(336 100% 45% / 0.5);
+  }
+
+  .metric-card:hover {
+    border-top-color: hsl(336 100% 45%);
+    @apply -translate-y-1;
+    box-shadow: 0 8px 30px -8px hsl(336 100% 45% / 0.2);
+  }
+
+  /* Ícone em container com fundo gradiente */
+  .icon-container {
+    @apply w-12 h-12 rounded-xl flex items-center justify-center;
+    background: linear-gradient(135deg, hsl(336 100% 45% / 0.15) 0%, hsl(336 100% 45% / 0.05) 100%);
+    border: 1px solid hsl(336 100% 45% / 0.2);
+    transition: all 0.3s ease;
+  }
+
+  .icon-container-lg {
+    @apply w-14 h-14 rounded-2xl flex items-center justify-center;
+    background: linear-gradient(135deg, hsl(336 100% 45% / 0.15) 0%, hsl(336 100% 45% / 0.05) 100%);
+    border: 1px solid hsl(336 100% 45% / 0.2);
+    transition: all 0.3s ease;
+  }
+
+  .group:hover .icon-container,
+  .group:hover .icon-container-lg {
+    background: linear-gradient(135deg, hsl(336 100% 45% / 0.25) 0%, hsl(336 100% 45% / 0.1) 100%);
+    border-color: hsl(336 100% 45% / 0.5);
+    box-shadow: 0 0 16px hsl(336 100% 45% / 0.2);
+  }
+
+  /* Número indicador estilizado */
+  .step-number {
+    @apply w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold;
+    background: linear-gradient(135deg, hsl(336 100% 45%), hsl(310 100% 55%));
+    color: white;
+  }
+
+  /* Stat box para o hero */
+  .stat-box {
+    @apply flex flex-col items-start px-5 py-3 rounded-xl;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+
+  /* Decoração de estrelas (testimonial) */
+  .star-rating {
+    @apply flex gap-0.5;
   }
 }
 

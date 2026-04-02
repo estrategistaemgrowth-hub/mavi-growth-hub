@@ -12,7 +12,7 @@ export function Section({ children, className, variant = "default", id }: Sectio
     <section
       id={id}
       className={cn(
-        "py-16 md:py-24",
+        "py-20 md:py-28",
         variant === "dark" && "bg-mavi-black text-mavi-white",
         variant === "gray" && "bg-mavi-gray",
         variant === "muted" && "bg-muted",
@@ -34,10 +34,16 @@ interface SectionHeaderProps {
 
 export function SectionHeader({ title, subtitle, centered = true, light = false }: SectionHeaderProps) {
   return (
-    <div className={cn("mb-12", centered && "text-center")}>
+    <div className={cn("mb-14", centered && "text-center")}>
+      {/* Accent bar */}
+      <div className={cn(
+        "section-accent-bar mb-4",
+        centered && "mx-auto"
+      )} />
+
       <h2
         className={cn(
-          "text-3xl md:text-4xl font-bold mb-4",
+          "text-3xl md:text-4xl lg:text-5xl font-bold mb-4 leading-tight tracking-tight",
           light ? "text-mavi-white" : "text-foreground"
         )}
       >
@@ -46,9 +52,9 @@ export function SectionHeader({ title, subtitle, centered = true, light = false 
       {subtitle && (
         <p
           className={cn(
-            "text-lg max-w-2xl",
+            "text-lg max-w-2xl leading-relaxed",
             centered && "mx-auto",
-            light ? "text-mavi-white/70" : "text-muted-foreground"
+            light ? "text-mavi-white/60" : "text-muted-foreground"
           )}
         >
           {subtitle}

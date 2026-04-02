@@ -22,6 +22,9 @@ import {
   CheckCircle2,
   ArrowRight,
   Blocks,
+  Star,
+  Sparkles,
+  Award,
 } from "lucide-react";
 
 const services = [
@@ -81,21 +84,25 @@ const differentials = [
     title: "Especialistas em e-commerce",
     description: "Conhecimento profundo em Tray, marketplaces e operações de venda online.",
     icon: ShoppingCart,
+    number: "01",
   },
   {
     title: "Metodologia de performance",
     description: "Processos validados para maximizar resultados com dados e análises constantes.",
     icon: Target,
+    number: "02",
   },
   {
     title: "Integração completa",
     description: "Loja, anúncios, CRM e atendimento trabalhando juntos de forma eficiente.",
     icon: Zap,
+    number: "03",
   },
   {
     title: "Linguagem de negócio",
     description: "Time que entende seus desafios e fala a língua do dono de negócio.",
     icon: MessageSquare,
+    number: "04",
   },
 ];
 
@@ -143,91 +150,157 @@ export default function Index() {
         canonical="/"
         schemaMarkup={combinedSchema}
       />
-      {/* Hero Section */}
+
+      {/* ============================================================
+          HERO SECTION — REDESENHADO
+          ============================================================ */}
       <section className="relative min-h-screen flex items-center bg-mavi-black overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-mavi-black via-mavi-black to-primary/20" />
-        <div className="absolute inset-0">
-          <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl" />
-          <div className="absolute bottom-1/4 left-1/4 w-64 h-64 bg-primary/5 rounded-full blur-2xl" />
-        </div>
-        
-        <div className="container-mavi relative z-10 pt-20">
-          <div className="grid xl:grid-cols-[1fr,400px] gap-16 items-center">
+
+        {/* Mesh dot grid */}
+        <div className="absolute inset-0 bg-mesh opacity-60" />
+
+        {/* Gradiente base */}
+        <div className="absolute inset-0 bg-gradient-to-br from-mavi-black via-[#0a0010] to-[#150010]" />
+
+        {/* Blob magenta — direita/topo */}
+        <div className="absolute -top-20 right-0 w-[600px] h-[600px] rounded-full opacity-20"
+          style={{ background: "radial-gradient(circle, hsl(336 100% 45%) 0%, transparent 70%)" }}
+        />
+        {/* Blob purple — esquerda/baixo */}
+        <div className="absolute bottom-0 -left-32 w-[500px] h-[500px] rounded-full opacity-10"
+          style={{ background: "radial-gradient(circle, hsl(280 70% 55%) 0%, transparent 70%)" }}
+        />
+        {/* Linha diagonal decorativa */}
+        <div className="absolute top-0 right-1/3 w-px h-full bg-gradient-to-b from-transparent via-primary/20 to-transparent" />
+
+        <div className="container-mavi relative z-10 pt-24 pb-16">
+          <div className="grid xl:grid-cols-[1fr,420px] gap-16 items-center">
+
+            {/* LADO ESQUERDO */}
             <AnimatedSection animation="fadeInUp" className="max-w-2xl">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-mavi-white leading-tight mb-6">
-                Estratégias de marketing e vendas que impulsionam negócios a{" "}
-                <span className="text-primary">novos patamares</span>.
+
+              {/* Badge topo */}
+              <div className="badge-pill mb-6 w-fit">
+                <Award className="w-4 h-4" />
+                Agência premiada · Google Premier Partner 2025
+              </div>
+
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-mavi-white leading-[1.1] mb-6 tracking-tight">
+                Estratégias que{" "}
+                <span className="gradient-text">impulsionam</span>{" "}
+                negócios a novos patamares.
               </h1>
-              <p className="text-lg md:text-xl text-mavi-white/70 mb-8 leading-relaxed">
-                Agência especializada em performance para e-commerces, imobiliárias, clínicas, indústrias e negócios que querem crescer com dados, tecnologia, IA e estratégias de verdade.
+
+              <p className="text-lg md:text-xl text-mavi-white/65 mb-10 leading-relaxed">
+                Performance para e-commerces, imobiliárias, clínicas e indústrias — com dados, tecnologia, IA e estratégias que geram resultado de verdade.
               </p>
+
               <div className="flex flex-col sm:flex-row gap-4 relative z-30">
-                <Button asChild variant="hero" size="xl" className="btn-glow">
-                  <Link to="/contato">Quero um diagnóstico gratuito</Link>
+                <Button asChild variant="hero" size="xl" className="btn-glow group">
+                  <Link to="/contato">
+                    Quero um diagnóstico gratuito
+                    <ArrowRight className="w-4 h-4 ml-1 transition-transform duration-300 group-hover:translate-x-1" />
+                  </Link>
                 </Button>
                 <Button asChild variant="heroOutline" size="xl">
                   <Link to="/hubrs-crm">Conhecer o CRM HUBRS</Link>
                 </Button>
               </div>
-              
-              <div className="mt-12 flex items-center gap-8">
-                <div>
-                  <p className="text-3xl font-bold text-primary">
+
+              {/* Stats */}
+              <div className="mt-14 flex items-center gap-3 flex-wrap">
+                <div className="stat-box">
+                  <p className="text-2xl font-bold text-primary">
                     <AnimatedCounter end={5} prefix="+" duration={1500} />
                   </p>
-                  <p className="text-sm text-mavi-white/60">Anos de mercado</p>
+                  <p className="text-xs text-mavi-white/50 mt-0.5">Anos de mercado</p>
                 </div>
-                <div className="w-px h-12 bg-mavi-white/20" />
-                <div>
-                  <p className="text-3xl font-bold text-primary">
+                <div className="w-px h-10 bg-mavi-white/10 hidden sm:block" />
+                <div className="stat-box">
+                  <p className="text-2xl font-bold text-primary">
                     <AnimatedCounter end={500} prefix="+" duration={2000} />
                   </p>
-                  <p className="text-sm text-mavi-white/60">Clientes atendidos</p>
+                  <p className="text-xs text-mavi-white/50 mt-0.5">Clientes atendidos</p>
                 </div>
-                <div className="w-px h-12 bg-mavi-white/20" />
-                <div>
-                  <p className="text-3xl font-bold text-primary">
+                <div className="w-px h-10 bg-mavi-white/10 hidden sm:block" />
+                <div className="stat-box">
+                  <p className="text-2xl font-bold text-primary">
                     R$<AnimatedCounter end={50} duration={2000} />M+
                   </p>
-                  <p className="text-sm text-mavi-white/60">Em vendas geradas</p>
+                  <p className="text-xs text-mavi-white/50 mt-0.5">Em vendas geradas</p>
+                </div>
+                <div className="w-px h-10 bg-mavi-white/10 hidden sm:block" />
+                <div className="stat-box">
+                  <p className="text-2xl font-bold text-primary">8.4x</p>
+                  <p className="text-xs text-mavi-white/50 mt-0.5">ROAS médio</p>
                 </div>
               </div>
             </AnimatedSection>
-            
+
+            {/* LADO DIREITO — Dashboard card */}
             <AnimatedSection animation="fadeInRight" delay={300} className="hidden xl:block relative z-0">
               <div className="relative animate-float">
-                <div className="bg-gradient-to-br from-mavi-gray-dark to-mavi-black rounded-2xl p-6 border border-mavi-white/10 hover:border-primary/30 transition-colors pointer-events-none">
-                  <div className="flex items-center gap-2 mb-4">
-                    <div className="w-3 h-3 rounded-full bg-red-500" />
-                    <div className="w-3 h-3 rounded-full bg-yellow-500" />
-                    <div className="w-3 h-3 rounded-full bg-green-500" />
+
+                {/* Glow atrás do card */}
+                <div className="absolute -inset-4 rounded-3xl opacity-30 blur-2xl"
+                  style={{ background: "radial-gradient(circle, hsl(336 100% 45%) 0%, transparent 70%)" }}
+                />
+
+                <div className="relative glass-card-dark rounded-2xl p-6 border border-white/10 hover:border-primary/30 transition-colors pointer-events-none">
+
+                  {/* Chrome bar */}
+                  <div className="flex items-center gap-2 mb-5">
+                    <div className="w-3 h-3 rounded-full bg-red-500/80" />
+                    <div className="w-3 h-3 rounded-full bg-yellow-500/80" />
+                    <div className="w-3 h-3 rounded-full bg-green-500/80" />
+                    <div className="flex-1 h-5 mx-2 rounded bg-white/5 flex items-center px-2">
+                      <div className="w-2 h-2 rounded-full bg-green-400 mr-1.5" />
+                      <span className="text-white/30 text-[10px]">dashboard.mavi.io</span>
+                    </div>
                   </div>
-                  <div className="space-y-4">
-                    <div className="bg-mavi-black/50 rounded-lg p-4">
+
+                  <div className="space-y-3">
+                    {/* Faturamento */}
+                    <div className="bg-white/5 rounded-xl p-4 border border-white/5">
                       <div className="flex items-center justify-between mb-2">
-                        <span className="text-mavi-white/60 text-sm">Faturamento Mensal</span>
-                        <span className="text-green-400 text-sm">+127%</span>
+                        <span className="text-white/60 text-xs font-medium">Faturamento Mensal</span>
+                        <span className="text-green-400 text-xs font-semibold bg-green-400/10 px-2 py-0.5 rounded-full">↑ +127%</span>
                       </div>
-                      <div className="h-2 bg-mavi-white/10 rounded-full overflow-hidden">
-                        <div className="h-full w-3/4 bg-gradient-to-r from-primary to-primary/60 rounded-full" />
-                      </div>
-                    </div>
-                    <div className="grid grid-cols-2 gap-4">
-                      <div className="bg-mavi-black/50 rounded-lg p-4">
-                        <p className="text-mavi-white/60 text-xs mb-1">ROAS</p>
-                        <p className="text-2xl font-bold text-mavi-white">8.4x</p>
-                      </div>
-                      <div className="bg-mavi-black/50 rounded-lg p-4">
-                        <p className="text-mavi-white/60 text-xs mb-1">Leads/dia</p>
-                        <p className="text-2xl font-bold text-mavi-white">47</p>
+                      <p className="text-white text-xl font-bold mb-2">R$ 248.500</p>
+                      <div className="h-1.5 bg-white/8 rounded-full overflow-hidden">
+                        <div className="h-full w-3/4 rounded-full animate-shimmer"
+                          style={{ background: "linear-gradient(90deg, hsl(336 100% 45%), hsl(310 100% 55%))" }}
+                        />
                       </div>
                     </div>
-                    <div className="bg-primary/10 border border-primary/30 rounded-lg p-4">
+
+                    {/* Métricas 2 colunas */}
+                    <div className="grid grid-cols-2 gap-3">
+                      <div className="bg-white/5 rounded-xl p-4 border border-white/5">
+                        <p className="text-white/50 text-xs mb-1">ROAS</p>
+                        <p className="text-2xl font-bold text-white">8.4x</p>
+                        <p className="text-green-400 text-xs mt-0.5">Meta: 5x ✓</p>
+                      </div>
+                      <div className="bg-white/5 rounded-xl p-4 border border-white/5">
+                        <p className="text-white/50 text-xs mb-1">Leads/dia</p>
+                        <p className="text-2xl font-bold text-white">47</p>
+                        <p className="text-green-400 text-xs mt-0.5">+22 vs ontem ↑</p>
+                      </div>
+                    </div>
+
+                    {/* CRM HUBRS */}
+                    <div className="rounded-xl p-4 border border-primary/30"
+                      style={{ background: "linear-gradient(135deg, hsl(336 100% 45% / 0.12), hsl(336 100% 45% / 0.05))" }}>
                       <div className="flex items-center gap-3">
-                        <MessageSquare className="w-8 h-8 text-primary" />
+                        <div className="w-9 h-9 rounded-lg bg-primary/20 flex items-center justify-center">
+                          <MessageSquare className="w-4 h-4 text-primary" />
+                        </div>
                         <div>
-                          <p className="text-mavi-white font-medium">HUBRS CRM</p>
-                          <p className="text-mavi-white/60 text-sm">12 leads qualificados hoje</p>
+                          <p className="text-white text-sm font-semibold">HUBRS CRM</p>
+                          <p className="text-white/50 text-xs">12 leads qualificados hoje</p>
+                        </div>
+                        <div className="ml-auto">
+                          <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
                         </div>
                       </div>
                     </div>
@@ -235,71 +308,79 @@ export default function Index() {
                 </div>
               </div>
             </AnimatedSection>
+
           </div>
         </div>
+
+        {/* Linha divisória inferior decorativa */}
+        <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
       </section>
 
-      {/* O que é a MAVI */}
+      {/* ============================================================
+          O QUE É A MAVI
+          ============================================================ */}
       <Section variant="gray">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+        <div className="grid lg:grid-cols-2 gap-16 items-center">
           <AnimatedSection animation="fadeInUp">
             <SectionHeader
               title="O que é a MAVI"
               subtitle="Somos uma agência de marketing digital focada em uma única coisa: fazer seu negócio vender mais."
               centered={false}
             />
-            <div className="space-y-4">
+            <div className="space-y-4 mb-8">
               {[
                 "Estratégias criadas a partir de dados",
                 "Time especialista em performance",
                 "CRM e automação integrados para vender mais",
                 "Parcerias com as principais plataformas do mercado",
               ].map((item, index) => (
-                <div key={index} className="flex items-center gap-3 hover-lift">
-                  <CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0" />
-                  <span className="text-foreground">{item}</span>
+                <div key={index} className="flex items-center gap-3 group">
+                  <div className="w-6 h-6 rounded-full bg-primary/10 border border-primary/30 flex items-center justify-center flex-shrink-0 transition-all duration-300 group-hover:bg-primary/20 group-hover:border-primary/60">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-primary" />
+                  </div>
+                  <span className="text-foreground font-medium">{item}</span>
                 </div>
               ))}
             </div>
-            <Button asChild className="mt-8 btn-glow">
+            <Button asChild className="btn-glow group">
               <Link to="/sobre">
                 Conheça nossa história
-                <ArrowRight className="w-4 h-4" />
+                <ArrowRight className="w-4 h-4 ml-1 transition-transform duration-300 group-hover:translate-x-1" />
               </Link>
             </Button>
           </AnimatedSection>
+
           <AnimatedChildren className="grid grid-cols-2 gap-4">
-            <div className="group bg-card rounded-xl p-6 border border-border card-glow cursor-default">
-              <BarChart3 className="w-10 h-10 text-primary mb-4 icon-hover" />
-              <p className="text-3xl font-bold text-foreground">
-                <AnimatedCounter end={5} prefix="+" duration={1500} />
-              </p>
-              <p className="text-muted-foreground">Anos de experiência</p>
-            </div>
-            <div className="group bg-card rounded-xl p-6 border border-border card-glow cursor-default">
-              <Users className="w-10 h-10 text-primary mb-4 icon-hover" />
-              <p className="text-3xl font-bold text-foreground">
-                <AnimatedCounter end={500} prefix="+" duration={2000} />
-              </p>
-              <p className="text-muted-foreground">Clientes atendidos</p>
-            </div>
-            <div className="group bg-card rounded-xl p-6 border border-border card-glow cursor-default">
-              <TrendingUp className="w-10 h-10 text-primary mb-4 icon-hover" />
-              <p className="text-3xl font-bold text-foreground">
-                <AnimatedCounter end={127} suffix="%" duration={2000} />
-              </p>
-              <p className="text-muted-foreground">Crescimento médio</p>
-            </div>
-            <div className="group bg-card rounded-xl p-6 border border-border card-glow cursor-default">
-              <Target className="w-10 h-10 text-primary mb-4 icon-hover" />
-              <p className="text-3xl font-bold text-foreground">8.4x</p>
-              <p className="text-muted-foreground">ROAS médio</p>
-            </div>
+            {[
+              { icon: BarChart3, value: 5, prefix: "+", label: "Anos de experiência", suffix: "" },
+              { icon: Users, value: 500, prefix: "+", label: "Clientes atendidos", suffix: "" },
+              { icon: TrendingUp, value: 127, prefix: "", label: "Crescimento médio", suffix: "%" },
+              { icon: Target, value: null, prefix: "", label: "ROAS médio", suffix: "", fixed: "8.4x" },
+            ].map((item, index) => (
+              <div key={index} className="group metric-card cursor-default">
+                <div className="icon-container mb-4">
+                  <item.icon className="w-5 h-5 text-primary" />
+                </div>
+                <p className="text-3xl font-bold text-foreground mb-1">
+                  {item.fixed ? item.fixed : (
+                    <AnimatedCounter
+                      end={item.value!}
+                      prefix={item.prefix}
+                      suffix={item.suffix}
+                      duration={1800}
+                    />
+                  )}
+                </p>
+                <p className="text-muted-foreground text-sm">{item.label}</p>
+              </div>
+            ))}
           </AnimatedChildren>
         </div>
       </Section>
 
-      {/* Soluções */}
+      {/* ============================================================
+          SOLUÇÕES
+          ============================================================ */}
       <Section>
         <AnimatedSection>
           <SectionHeader
@@ -307,37 +388,53 @@ export default function Index() {
             subtitle="Do planejamento à execução, oferecemos tudo que seu negócio precisa para escalar no digital."
           />
         </AnimatedSection>
-        <AnimatedChildren className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <AnimatedChildren className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
           {services.map((service) => (
             <ServiceCard key={service.title} {...service} />
           ))}
         </AnimatedChildren>
       </Section>
 
-      {/* Por que a MAVI */}
+      {/* ============================================================
+          POR QUE A MAVI — REDESENHADO
+          ============================================================ */}
       <Section variant="dark">
-        <AnimatedSection>
-          <SectionHeader
-            title="Por que escolher a MAVI?"
-            subtitle="Não somos apenas mais uma agência. Somos parceiros estratégicos do seu crescimento."
-            light
-          />
-        </AnimatedSection>
-        <AnimatedChildren className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {differentials.map((item) => (
-            <div
-              key={item.title}
-              className="group p-6 rounded-xl bg-mavi-white/5 border border-mavi-white/10 hover:border-primary/50 hover:bg-mavi-white/10 transition-all duration-300 hover:-translate-y-1"
-            >
-              <item.icon className="w-10 h-10 text-primary mb-4 icon-hover" />
-              <h3 className="text-lg font-semibold text-mavi-white mb-2">{item.title}</h3>
-              <p className="text-mavi-white/60 text-sm">{item.description}</p>
-            </div>
-          ))}
-        </AnimatedChildren>
+        {/* Fundo com mesh no dark */}
+        <div className="relative">
+          <div className="absolute inset-0 bg-mesh opacity-30 pointer-events-none" />
+
+          <AnimatedSection className="relative z-10">
+            <SectionHeader
+              title="Por que escolher a MAVI?"
+              subtitle="Não somos apenas mais uma agência. Somos parceiros estratégicos do seu crescimento."
+              light
+            />
+          </AnimatedSection>
+
+          <AnimatedChildren className="relative z-10 grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            {differentials.map((item) => (
+              <div
+                key={item.title}
+                className="group gradient-border-card p-6 rounded-2xl bg-white/4 border border-white/8 hover:bg-white/7 transition-all duration-300 hover:-translate-y-1"
+              >
+                {/* Número + ícone */}
+                <div className="flex items-start justify-between mb-5">
+                  <div className="icon-container-lg">
+                    <item.icon className="w-6 h-6 text-primary" />
+                  </div>
+                  <span className="text-white/15 font-black text-3xl leading-none">{item.number}</span>
+                </div>
+                <h3 className="text-base font-semibold text-mavi-white mb-2 leading-snug">{item.title}</h3>
+                <p className="text-mavi-white/55 text-sm leading-relaxed">{item.description}</p>
+              </div>
+            ))}
+          </AnimatedChildren>
+        </div>
       </Section>
 
-      {/* Clientes & Parceiros */}
+      {/* ============================================================
+          CLIENTES & PARCEIROS
+          ============================================================ */}
       <Section variant="gray">
         <AnimatedSection>
           <SectionHeader
@@ -348,7 +445,9 @@ export default function Index() {
         <LogoCarousel />
       </Section>
 
-      {/* Depoimentos */}
+      {/* ============================================================
+          DEPOIMENTOS — REDESENHADO
+          ============================================================ */}
       <Section>
         <AnimatedSection>
           <SectionHeader
@@ -363,24 +462,63 @@ export default function Index() {
         </AnimatedChildren>
       </Section>
 
-      {/* CTA Final */}
+      {/* ============================================================
+          CTA FINAL — REDESENHADO
+          ============================================================ */}
       <Section variant="dark">
-        <AnimatedSection className="text-center max-w-3xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-bold text-mavi-white mb-6">
-            Pronto para destravar as vendas do seu negócio?
-          </h2>
-          <p className="text-lg text-mavi-white/70 mb-8">
-            Agende uma consultoria gratuita e descubra como podemos acelerar seu crescimento.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button asChild variant="hero" size="xl" className="btn-glow">
-              <Link to="/contato">Quero uma consultoria gratuita</Link>
-            </Button>
-            <Button asChild variant="heroOutline" size="xl">
-              <Link to="/hubrs-crm">Quero conhecer o HUBRS CRM</Link>
-            </Button>
+        <div className="relative overflow-hidden rounded-3xl">
+          {/* Glow decorativo */}
+          <div className="absolute inset-0 pointer-events-none">
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-64 opacity-25 blur-3xl rounded-full"
+              style={{ background: "radial-gradient(circle, hsl(336 100% 45%), transparent)" }}
+            />
           </div>
-        </AnimatedSection>
+
+          <AnimatedSection className="relative z-10 text-center max-w-3xl mx-auto py-8">
+            {/* Ícone decorativo */}
+            <div className="flex items-center justify-center mb-6">
+              <div className="w-16 h-16 rounded-2xl flex items-center justify-center"
+                style={{ background: "linear-gradient(135deg, hsl(336 100% 45% / 0.2), hsl(336 100% 45% / 0.05))", border: "1px solid hsl(336 100% 45% / 0.3)" }}>
+                <Sparkles className="w-7 h-7 text-primary" />
+              </div>
+            </div>
+
+            <h2 className="text-3xl md:text-5xl font-bold text-mavi-white mb-5 leading-tight">
+              Pronto para destravar as{" "}
+              <span className="gradient-text">vendas</span>{" "}
+              do seu negócio?
+            </h2>
+            <p className="text-lg text-mavi-white/60 mb-10 max-w-xl mx-auto">
+              Agende uma consultoria gratuita e descubra como podemos acelerar seu crescimento com estratégia, dados e tecnologia.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button asChild variant="hero" size="xl" className="btn-glow group">
+                <Link to="/contato">
+                  Quero uma consultoria gratuita
+                  <ArrowRight className="w-4 h-4 ml-1 transition-transform duration-300 group-hover:translate-x-1" />
+                </Link>
+              </Button>
+              <Button asChild variant="heroOutline" size="xl">
+                <Link to="/hubrs-crm">Quero conhecer o HUBRS CRM</Link>
+              </Button>
+            </div>
+
+            {/* Social proof abaixo dos botões */}
+            <div className="flex items-center justify-center gap-2 mt-8">
+              <div className="flex -space-x-2">
+                {[1,2,3,4,5].map((i) => (
+                  <div key={i} className="w-8 h-8 rounded-full border-2 border-mavi-black bg-gradient-to-br from-primary/40 to-primary/10" />
+                ))}
+              </div>
+              <div className="flex items-center gap-1">
+                {[1,2,3,4,5].map((i) => (
+                  <Star key={i} className="w-3.5 h-3.5 fill-yellow-400 text-yellow-400" />
+                ))}
+              </div>
+              <span className="text-mavi-white/50 text-sm">+500 negócios transformados</span>
+            </div>
+          </AnimatedSection>
+        </div>
       </Section>
     </Layout>
   );

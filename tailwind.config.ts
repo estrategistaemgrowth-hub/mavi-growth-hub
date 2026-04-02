@@ -60,6 +60,9 @@ export default {
           "gray-dark": "hsl(var(--mavi-gray-dark))",
           "gray-light": "hsl(var(--mavi-gray-light))",
           "text-gray": "hsl(var(--mavi-text-gray))",
+          purple: "hsl(var(--mavi-purple))",
+          "purple-light": "hsl(var(--mavi-purple-light))",
+          surface: "hsl(var(--mavi-surface))",
         },
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
