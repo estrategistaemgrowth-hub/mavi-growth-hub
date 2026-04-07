@@ -7,7 +7,7 @@ import { TestimonialCard } from "@/components/TestimonialCard";
 import { LogoCarousel } from "@/components/LogoCarousel";
 import { AnimatedCounter } from "@/components/AnimatedCounter";
 import { AnimatedSection, AnimatedChildren } from "@/components/AnimatedSection";
-import { SEO, generateBreadcrumbSchema, generateLocalBusinessSchema, generateOrganizationSchema, generateWebSiteSchema } from "@/components/SEO";
+import { SEO, generateBreadcrumbSchema, generateLocalBusinessSchema, generateOrganizationSchema, generateWebSiteSchema, generateFAQSchema } from "@/components/SEO";
 import {
   ShoppingCart,
   TrendingUp,
@@ -128,6 +128,29 @@ const testimonials = [
 ];
 
 
+const homeFaqs = [
+  {
+    question: "O que é a MAVI Marketing Digital?",
+    answer: "A MAVI é uma agência de performance e growth marketing especializada em e-commerces, imobiliárias, clínicas e indústrias. Atuamos com tráfego pago, CRM, automação, redes sociais e desenvolvimento de Micro SaaS sob medida.",
+  },
+  {
+    question: "Onde a MAVI está localizada?",
+    answer: "Estamos em Jaraguá do Sul, SC, mas atendemos empresas em todo o Brasil de forma remota. Nosso foco é resultado, independente da localização.",
+  },
+  {
+    question: "Quanto custa contratar a MAVI?",
+    answer: "Os valores variam conforme o escopo do projeto. Oferecemos um diagnóstico gratuito onde analisamos seu negócio e apresentamos uma proposta personalizada sem compromisso.",
+  },
+  {
+    question: "A MAVI desenvolve Micro SaaS e sistemas próprios?",
+    answer: "Sim. Desenvolvemos sistemas sob medida para automatizar processos, mensurar dados de performance e substituir ferramentas genéricas por soluções 100% alinhadas ao seu negócio.",
+  },
+  {
+    question: "Qual o prazo para ver resultados com a MAVI?",
+    answer: "Resultados em tráfego pago aparecem nas primeiras semanas. Estratégias de growth marketing e SEO têm retorno mais expressivo a partir do 3º mês. Trabalhamos com metas claras desde o início.",
+  },
+];
+
 export default function Index() {
   const breadcrumbSchema = generateBreadcrumbSchema([
     { name: "Início", url: "/" },
@@ -136,10 +159,11 @@ export default function Index() {
   const localBusinessSchema = generateLocalBusinessSchema();
   const organizationSchema = generateOrganizationSchema();
   const webSiteSchema = generateWebSiteSchema();
+  const faqSchema = generateFAQSchema(homeFaqs);
 
   const combinedSchema = {
     "@context": "https://schema.org",
-    "@graph": [breadcrumbSchema, localBusinessSchema, organizationSchema, webSiteSchema],
+    "@graph": [breadcrumbSchema, localBusinessSchema, organizationSchema, webSiteSchema, faqSchema],
   };
 
   return (
@@ -570,6 +594,26 @@ export default function Index() {
         <AnimatedChildren className="grid md:grid-cols-3 gap-6">
           {testimonials.map((testimonial, index) => (
             <TestimonialCard key={index} {...testimonial} />
+          ))}
+        </AnimatedChildren>
+      </Section>
+
+      {/* ============================================================
+          FAQ HOME
+          ============================================================ */}
+      <Section variant="gray">
+        <AnimatedSection animation="fadeInUp">
+          <SectionHeader
+            title="Perguntas frequentes"
+            subtitle="Respostas rápidas sobre a MAVI e nossos serviços."
+          />
+        </AnimatedSection>
+        <AnimatedChildren className="grid md:grid-cols-2 gap-4 max-w-4xl mx-auto">
+          {homeFaqs.map((faq, index) => (
+            <div key={index} className="bg-card rounded-xl p-5 border border-border hover:border-primary/30 transition-colors card-shine">
+              <h3 className="font-semibold text-foreground mb-2 text-sm">{faq.question}</h3>
+              <p className="text-muted-foreground text-sm leading-relaxed">{faq.answer}</p>
+            </div>
           ))}
         </AnimatedChildren>
       </Section>

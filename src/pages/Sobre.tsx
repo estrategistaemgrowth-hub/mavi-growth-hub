@@ -2,7 +2,8 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Layout } from "@/components/Layout";
 import { Section, SectionHeader } from "@/components/Section";
-import { SEO, generateBreadcrumbSchema } from "@/components/SEO";
+import { SEO, generateBreadcrumbSchema, generateFAQSchema } from "@/components/SEO";
+import { AnimatedSection } from "@/components/AnimatedSection";
 import {
   Target,
   TrendingUp,
@@ -81,11 +82,58 @@ const workStyle = [
   },
 ];
 
+const faqs = [
+  {
+    question: "Quanto tempo a MAVI está no mercado?",
+    answer: "A MAVI foi fundada em 2019 em Jaraguá do Sul, SC. São mais de 5 anos de experiência em marketing digital, com foco em e-commerce, performance e growth marketing.",
+  },
+  {
+    question: "Quais segmentos a MAVI atende?",
+    answer: "Atendemos e-commerces, imobiliárias, indústrias, clínicas de saúde e estética, e negócios B2B. Nossa metodologia é adaptada para cada segmento com estratégias específicas de crescimento.",
+  },
+  {
+    question: "A MAVI desenvolve sistemas e Micro SaaS?",
+    answer: "Sim. A partir de 2026, a MAVI expandiu para desenvolvimento de Micro SaaS sob medida — sistemas personalizados para automatizar processos, mensurar dados de performance e eliminar dependência de softwares genéricos.",
+  },
+  {
+    question: "Como a MAVI usa inteligência artificial?",
+    answer: "Usamos IA em campanhas de performance, automação de atendimento via WhatsApp, desenvolvimento acelerado de sistemas e análise de dados. A tecnologia é aplicada para gerar mais resultado com menos tempo.",
+  },
+  {
+    question: "A MAVI trabalha com empresas de outros estados?",
+    answer: "Sim, atendemos empresas em todo o Brasil de forma remota. Nosso time está baseado em Jaraguá do Sul, SC, mas operamos com clientes em São Paulo, Rio de Janeiro, Paraná e outros estados.",
+  },
+];
+
 export default function Sobre() {
   const breadcrumbSchema = generateBreadcrumbSchema([
     { name: "Início", url: "/" },
     { name: "Sobre", url: "/sobre" },
   ]);
+
+  const faqSchema = generateFAQSchema(faqs);
+
+  const teamPersonSchema = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "MAVI Marketing Digital",
+    "url": "https://www.agenciamavi.com.br",
+    "employee": [
+      {
+        "@type": "Person",
+        "name": "Robson Fernandes",
+        "jobTitle": "Fundador e Estrategista de Growth",
+        "worksFor": { "@type": "Organization", "name": "MAVI Marketing Digital" },
+        "knowsAbout": ["Growth Marketing", "E-commerce", "Micro SaaS", "Tráfego Pago", "CRM"],
+        "url": "https://www.agenciamavi.com.br/sobre"
+      }
+    ]
+  };
+
+  const combinedSchema = {
+    "@context": "https://schema.org",
+    "@graph": [breadcrumbSchema, faqSchema, teamPersonSchema],
+  };
 
   return (
     <Layout>
@@ -93,7 +141,7 @@ export default function Sobre() {
         title="Sobre a MAVI - Agência de Marketing Digital em Jaraguá do Sul SC"
         description="Conheça a MAVI Marketing Digital. +5 anos de experiência, +500 clientes atendidos. Especialistas em performance e e-commerce em Jaraguá do Sul."
         canonical="/sobre"
-        schemaMarkup={breadcrumbSchema}
+        schemaMarkup={combinedSchema}
       />
       {/* Hero */}
       <section className="pt-32 pb-16 bg-mavi-black">
@@ -248,6 +296,26 @@ export default function Sobre() {
             </div>
           </div>
         </div>
+      </Section>
+
+      {/* FAQ Section */}
+      <Section variant="gray">
+        <AnimatedSection animation="fadeInUp">
+          <SectionHeader
+            title="Perguntas frequentes sobre a MAVI"
+            subtitle="Tire suas dúvidas sobre nossa história, metodologia e serviços."
+          />
+        </AnimatedSection>
+        <AnimatedSection delay={200} className="max-w-3xl mx-auto">
+          <div className="space-y-4">
+            {faqs.map((faq, index) => (
+              <div key={index} className="bg-card rounded-xl p-6 border border-border hover:border-primary/30 transition-colors">
+                <h3 className="font-semibold text-foreground mb-2">{faq.question}</h3>
+                <p className="text-muted-foreground text-sm leading-relaxed">{faq.answer}</p>
+              </div>
+            ))}
+          </div>
+        </AnimatedSection>
       </Section>
 
       {/* CTA */}

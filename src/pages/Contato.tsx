@@ -6,7 +6,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Layout } from "@/components/Layout";
 import { Section } from "@/components/Section";
-import { SEO, generateBreadcrumbSchema, generateLocalBusinessSchema } from "@/components/SEO";
+import { SEO, generateBreadcrumbSchema, generateLocalBusinessSchema, generateFAQSchema } from "@/components/SEO";
 import { useToast } from "@/hooks/use-toast";
 import { WhatsAppLink } from "@/components/WhatsAppLink";
 import {
@@ -38,6 +38,29 @@ const revenueOptions = [
   "R$ 50.000 a R$ 100.000/mês",
   "R$ 100.000 a R$ 500.000/mês",
   "Acima de R$ 500.000/mês",
+];
+
+const contatoFaqs = [
+  {
+    question: "Como funciona o diagnóstico gratuito?",
+    answer: "Você preenche o formulário ou nos chama no WhatsApp. Nosso time analisa seu negócio, entende seus objetivos e apresenta um plano estratégico sem custo e sem compromisso.",
+  },
+  {
+    question: "Qual o tempo de resposta da MAVI?",
+    answer: "Respondemos em até 2 horas em horário comercial (seg-sex, 8h-18h). Para urgências, o WhatsApp é o canal mais rápido.",
+  },
+  {
+    question: "Como a MAVI cobra pelos serviços?",
+    answer: "Trabalhamos com contratos mensais ou por projeto, dependendo do serviço. Os valores são apresentados após o diagnóstico gratuito, com total transparência sobre o que está incluído.",
+  },
+  {
+    question: "A MAVI assina contrato de confidencialidade?",
+    answer: "Sim. Tratamos os dados dos clientes com total sigilo e podemos assinar NDA conforme necessário.",
+  },
+  {
+    question: "Posso contratar um serviço específico ou precisa ser o pacote completo?",
+    answer: "Você pode contratar serviços avulsos (tráfego pago, e-commerce, Micro SaaS) ou o pacote completo de growth marketing. Montamos a proposta de acordo com sua necessidade.",
+  },
 ];
 
 export default function Contato() {
@@ -136,10 +159,11 @@ export default function Contato() {
   ]);
 
   const localBusinessSchema = generateLocalBusinessSchema();
+  const faqSchema = generateFAQSchema(contatoFaqs);
 
   const combinedSchema = {
     "@context": "https://schema.org",
-    "@graph": [breadcrumbSchema, localBusinessSchema],
+    "@graph": [breadcrumbSchema, localBusinessSchema, faqSchema],
   };
 
   return (

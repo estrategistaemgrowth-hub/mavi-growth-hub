@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Layout } from "@/components/Layout";
 import { Section, SectionHeader } from "@/components/Section";
-import { SEO, generateBreadcrumbSchema } from "@/components/SEO";
+import { SEO, generateBreadcrumbSchema, generateFAQSchema } from "@/components/SEO";
 import {
   ShoppingCart,
   TrendingUp,
@@ -132,11 +132,41 @@ const services = [
   },
 ];
 
+const servicosFaqs = [
+  {
+    question: "Quais serviços a MAVI oferece?",
+    answer: "Oferecemos: e-commerce e lojas virtuais (Tray), marketing de performance (Meta Ads, Google Ads), redes sociais, marketplaces e ERP, sites e landing pages, automação com IA, Micro SaaS sob medida e CRM HUBRS.",
+  },
+  {
+    question: "A MAVI trabalha com qual plataforma de e-commerce?",
+    answer: "Somos especialistas na plataforma Tray, mas também trabalhamos com VTEX, Shopify, WooCommerce e integrações com marketplaces como Mercado Livre, Magazine Luiza e Amazon.",
+  },
+  {
+    question: "O que é Micro SaaS e por que contratar?",
+    answer: "Micro SaaS é um sistema personalizado para o seu negócio: CRM próprio, painel de leads, dashboard de métricas, portal do cliente. Você para de pagar mensalidades por softwares genéricos e passa a ter uma ferramenta feita para sua operação.",
+  },
+  {
+    question: "Como funciona a gestão de tráfego pago?",
+    answer: "Gerenciamos campanhas no Meta Ads (Facebook e Instagram) e Google Ads com foco em ROAS. Fazemos análise diária, otimização de criativos, segmentação de público e relatórios transparentes de resultados.",
+  },
+  {
+    question: "A MAVI faz automação de WhatsApp?",
+    answer: "Sim. Implementamos chatbots e fluxos automatizados com IA para qualificar leads, responder dúvidas e encaminhar contatos quentes para o time comercial, 24 horas por dia.",
+  },
+];
+
 export default function Servicos() {
   const breadcrumbSchema = generateBreadcrumbSchema([
     { name: "Início", url: "/" },
     { name: "Serviços", url: "/servicos" },
   ]);
+
+  const faqSchema = generateFAQSchema(servicosFaqs);
+
+  const combinedSchema = {
+    "@context": "https://schema.org",
+    "@graph": [breadcrumbSchema, faqSchema],
+  };
 
   return (
     <Layout>
@@ -144,7 +174,7 @@ export default function Servicos() {
         title="Serviços de Marketing Digital - E-commerce, Performance, CRM e Automação"
         description="Soluções completas de marketing digital: lojas virtuais, tráfego pago, redes sociais, marketplaces, sites e CRM com IA. Conheça nossos serviços."
         canonical="/servicos"
-        schemaMarkup={breadcrumbSchema}
+        schemaMarkup={combinedSchema}
       />
       {/* Hero */}
       <section className="pt-32 pb-16 bg-mavi-black">
