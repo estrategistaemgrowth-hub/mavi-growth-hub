@@ -37,6 +37,16 @@ const timeline = [
     title: "Criação do HubRS CRM",
     description: "Lançamento do CRM próprio como extensão natural da metodologia, integrando vendas, WhatsApp e IA.",
   },
+  {
+    year: "2025",
+    title: "Foco em Growth Marketing",
+    description: "Expansão para estratégias completas de Growth Marketing: funis de aquisição, retenção, LTV e metodologias proprietárias para escalar negócios com previsibilidade.",
+  },
+  {
+    year: "2026",
+    title: "Micro SaaS para Performance",
+    description: "Desenvolvimento de sistemas sob medida para mensurar e automatizar dados de performance — dashboards, integrações e ferramentas próprias que transformam operação em vantagem competitiva.",
+  },
 ];
 
 const team = [
