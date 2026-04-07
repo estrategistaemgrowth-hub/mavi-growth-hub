@@ -66,16 +66,16 @@ const services = [
   },
   {
     title: "Micro SaaS",
-    description: "Sistemas sob medida para automatizar processos: gestão de leads, tarefas, clientes e dashboards integrados via API.",
+    description: "Pare de pagar forever por ferramentas genéricas. Tenha o sistema da sua empresa: painel, automações e integrações feitos sob medida pra sua operação.",
     icon: Blocks,
     href: "/servicos/micro-saas",
+    highlight: true,
   },
   {
     title: "CRM HUBRS",
     description: "CRM desenvolvido pela MAVI para centralizar contatos, automatizar WhatsApp, usar IA no atendimento e conectar campanhas direto no funil.",
     icon: MessageSquare,
     href: "/hubrs-crm",
-    highlight: true,
   },
 ];
 
@@ -203,7 +203,7 @@ export default function Index() {
                   </Link>
                 </Button>
                 <Button asChild variant="heroOutline" size="xl">
-                  <Link to="/hubrs-crm">Conhecer o CRM HUBRS</Link>
+                  <Link to="/servicos/micro-saas">Ter meu próprio sistema</Link>
                 </Button>
               </div>
 
@@ -288,16 +288,16 @@ export default function Index() {
                       </div>
                     </div>
 
-                    {/* CRM HUBRS */}
+                    {/* Micro SaaS */}
                     <div className="rounded-xl p-4 border border-primary/30"
                       style={{ background: "linear-gradient(135deg, hsl(336 100% 45% / 0.12), hsl(336 100% 45% / 0.05))" }}>
                       <div className="flex items-center gap-3">
                         <div className="w-9 h-9 rounded-lg bg-primary/20 flex items-center justify-center">
-                          <MessageSquare className="w-4 h-4 text-primary" />
+                          <Blocks className="w-4 h-4 text-primary" />
                         </div>
                         <div>
-                          <p className="text-white text-sm font-semibold">HUBRS CRM</p>
-                          <p className="text-white/50 text-xs">12 leads qualificados hoje</p>
+                          <p className="text-white text-sm font-semibold">Meu Sistema · MAVI</p>
+                          <p className="text-white/50 text-xs">100% seu · sem mensalidade de SaaS</p>
                         </div>
                         <div className="ml-auto">
                           <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
@@ -394,6 +394,118 @@ export default function Index() {
           ))}
         </AnimatedChildren>
       </Section>
+
+      {/* ============================================================
+          MICRO SAAS — SEÇÃO "NÃO SEJA REFÉM"
+          ============================================================ */}
+      <section className="relative py-20 overflow-hidden bg-mavi-black">
+        {/* Gradiente e mesh */}
+        <div className="absolute inset-0 bg-gradient-to-br from-[#0d0020] via-mavi-black to-[#0a0010]" />
+        <div className="absolute inset-0 bg-mesh opacity-30" />
+        {/* Blob decorativo */}
+        <div className="absolute top-1/2 right-0 -translate-y-1/2 w-[500px] h-[500px] rounded-full opacity-15 pointer-events-none"
+          style={{ background: "radial-gradient(circle, hsl(336 100% 45%) 0%, transparent 65%)" }} />
+
+        <div className="container-mavi relative z-10">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+
+            {/* Esquerda — copy */}
+            <AnimatedSection animation="fadeInUp">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/15 border border-primary/30 text-primary text-sm font-medium mb-6 w-fit">
+                <Blocks className="w-4 h-4" />
+                Micro SaaS sob medida
+              </div>
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-mavi-white leading-[1.1] mb-6 tracking-tight">
+                Pare de ser{" "}
+                <span className="gradient-text">refém</span>{" "}
+                de software genérico.
+              </h2>
+              <p className="text-lg text-mavi-white/65 mb-8 leading-relaxed">
+                Cada mensalidade de ferramenta que você paga é um pedaço do seu negócio que fica nas mãos de outra empresa. A MAVI cria o <strong className="text-mavi-white/90">sistema da sua empresa</strong> — com o seu processo, suas regras, sua marca — e você fica com o ativo.
+              </p>
+
+              {/* Pills de pain points */}
+              <div className="flex flex-wrap gap-3 mb-10">
+                {[
+                  "Planilha que não escala",
+                  "WhatsApp sem rastreabilidade",
+                  "SaaS caro e genérico",
+                  "Processo na cabeça das pessoas",
+                  "Integrações que não conversam",
+                ].map((pain) => (
+                  <span key={pain} className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-mavi-white/60 text-sm">
+                    <span className="w-1.5 h-1.5 rounded-full bg-primary/70 flex-shrink-0" />
+                    {pain}
+                  </span>
+                ))}
+              </div>
+
+              <div className="flex flex-col sm:flex-row gap-4">
+                <Button asChild variant="hero" size="xl" className="btn-glow group">
+                  <Link to="/servicos/micro-saas">
+                    Quero meu próprio sistema
+                    <ArrowRight className="w-4 h-4 ml-1 transition-transform duration-300 group-hover:translate-x-1" />
+                  </Link>
+                </Button>
+                <Button asChild variant="heroOutline" size="xl">
+                  <Link to="/contato">Falar com a MAVI</Link>
+                </Button>
+              </div>
+            </AnimatedSection>
+
+            {/* Direita — card visual */}
+            <AnimatedSection animation="fadeInRight" delay={200} className="hidden lg:block">
+              <div className="relative">
+                <div className="absolute -inset-4 rounded-3xl opacity-20 blur-2xl"
+                  style={{ background: "radial-gradient(circle, hsl(336 100% 45%) 0%, transparent 70%)" }} />
+
+                <div className="relative glass-card-dark rounded-2xl p-6 border border-white/10 hover:border-primary/30 transition-colors">
+                  {/* Topo */}
+                  <div className="flex items-center justify-between mb-5">
+                    <div className="flex items-center gap-2">
+                      <div className="w-8 h-8 rounded-lg bg-primary/20 flex items-center justify-center">
+                        <Blocks className="w-4 h-4 text-primary" />
+                      </div>
+                      <div>
+                        <p className="text-mavi-white text-sm font-semibold">Meu Sistema</p>
+                        <p className="text-mavi-white/40 text-xs">by MAVI · 100% seu</p>
+                      </div>
+                    </div>
+                    <span className="text-xs font-medium px-2.5 py-1 rounded-full bg-green-400/10 text-green-400 border border-green-400/20">
+                      Ativo ✓
+                    </span>
+                  </div>
+
+                  {/* Módulos */}
+                  <div className="space-y-3 mb-4">
+                    {[
+                      { label: "Painel de leads", value: "47 ativos", color: "bg-primary" },
+                      { label: "Ordens de serviço", value: "12 abertas", color: "bg-blue-500" },
+                      { label: "Portal do cliente", value: "98% uptime", color: "bg-green-500" },
+                    ].map((item) => (
+                      <div key={item.label} className="flex items-center justify-between bg-white/5 rounded-xl px-4 py-3 border border-white/5">
+                        <div className="flex items-center gap-2.5">
+                          <div className={`w-2 h-2 rounded-full ${item.color}`} />
+                          <span className="text-mavi-white/70 text-sm">{item.label}</span>
+                        </div>
+                        <span className="text-mavi-white text-sm font-semibold">{item.value}</span>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Rodapé */}
+                  <div className="rounded-xl p-4 border border-primary/20"
+                    style={{ background: "linear-gradient(135deg, hsl(336 100% 45% / 0.1), transparent)" }}>
+                    <p className="text-mavi-white/50 text-xs mb-1">Economia mensal vs SaaS</p>
+                    <p className="text-2xl font-bold text-primary">R$ 2.400<span className="text-sm font-normal text-mavi-white/40">/mês</span></p>
+                    <p className="text-mavi-white/40 text-xs mt-0.5">Que fica no seu caixa, não no de terceiros</p>
+                  </div>
+                </div>
+              </div>
+            </AnimatedSection>
+          </div>
+        </div>
+      </section>
 
       {/* ============================================================
           POR QUE A MAVI — REDESENHADO
@@ -499,7 +611,7 @@ export default function Index() {
                 </Link>
               </Button>
               <Button asChild variant="heroOutline" size="xl">
-                <Link to="/hubrs-crm">Quero conhecer o HUBRS CRM</Link>
+                <Link to="/servicos/micro-saas">Quero meu próprio sistema</Link>
               </Button>
             </div>
 

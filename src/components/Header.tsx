@@ -30,7 +30,7 @@ const navItems = [
   { name: "Serviços", href: "/servicos", hasDropdown: true, dropdownType: "services" as const },
   { name: "Segmentos", href: "/segmentos", hasDropdown: true, dropdownType: "segments" as const },
   { name: "Cases & Clientes", href: "/cases" },
-  { name: "CRM HUBRS", href: "/hubrs-crm", highlight: true },
+  { name: "Micro SaaS", href: "/servicos/micro-saas", highlight: true },
   { name: "Contato", href: "/contato" },
 ];
 
@@ -126,7 +126,7 @@ export function Header() {
                               to={dropdownItem.href}
                               className={cn(
                                 "block px-4 py-2 text-sm text-foreground hover:bg-muted hover:text-primary transition-colors",
-                                dropdownItem.name === "CRM HUBRS" && "text-primary font-medium"
+                                dropdownItem.name === "Micro SaaS" && "text-primary font-medium"
                               )}
                             >
                               {dropdownItem.name}
@@ -214,7 +214,7 @@ export function Header() {
                               to={dropdownItem.href}
                               className={cn(
                                 "block px-4 py-2 text-sm text-muted-foreground hover:text-primary",
-                                dropdownItem.name === "CRM HUBRS" && "text-primary font-medium"
+                                dropdownItem.name === "Micro SaaS" && "text-primary font-medium"
                               )}
                             >
                               {dropdownItem.name}
