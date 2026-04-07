@@ -11,7 +11,7 @@ export function TestimonialCard({ quote, author, role, company }: TestimonialCar
   const initials = author.split(" ").map((n) => n[0]).join("").slice(0, 2).toUpperCase();
 
   return (
-    <div className="group relative bg-card rounded-2xl p-7 border border-border hover:border-primary/30 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_8px_32px_hsl(336_100%_45%/0.1)] will-change-transform overflow-hidden">
+    <div className="group relative bg-card rounded-2xl p-7 border border-border hover:border-primary/30 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_8px_32px_hsl(336_100%_45%/0.1)] will-change-transform overflow-hidden card-shine">
 
       {/* Borda superior colorida */}
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />

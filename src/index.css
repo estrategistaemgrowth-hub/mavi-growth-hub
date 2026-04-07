@@ -149,9 +149,9 @@
 
   .gradient-text {
     @apply bg-clip-text text-transparent;
-    background-image: linear-gradient(135deg, hsl(336 100% 50%) 0%, hsl(310 100% 60%) 50%, hsl(336 100% 45%) 100%);
-    background-size: 200% auto;
-    animation: gradient-shift 4s ease infinite;
+    background-image: linear-gradient(135deg, hsl(336 100% 50%) 0%, hsl(310 100% 65%) 40%, hsl(280 100% 65%) 70%, hsl(336 100% 45%) 100%);
+    background-size: 300% auto;
+    animation: gradient-shift 6s ease infinite;
   }
 
   .card-hover {
@@ -233,6 +233,8 @@
     @apply inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-semibold
            border border-primary/40 text-primary;
     background: linear-gradient(135deg, hsl(336 100% 45% / 0.15), hsl(336 100% 45% / 0.05));
+    animation: badge-pulse 3s ease-in-out infinite;
+    box-shadow: 0 0 0 0 hsl(336 100% 45% / 0);
   }
 
   /* Gradient border no hover */
@@ -263,7 +265,8 @@
   /* Dot grid mesh background */
   .bg-mesh {
     background-image:
-      radial-gradient(circle at 1px 1px, hsl(336 100% 45% / 0.06) 1px, transparent 0);
+      radial-gradient(circle at 1px 1px, hsl(336 100% 45% / 0.07) 1px, transparent 0),
+      radial-gradient(circle at 14px 14px, hsl(280 100% 60% / 0.04) 1px, transparent 0);
     background-size: 28px 28px;
   }
 
@@ -301,9 +304,9 @@
 
   .group:hover .icon-container,
   .group:hover .icon-container-lg {
-    background: linear-gradient(135deg, hsl(336 100% 45% / 0.25) 0%, hsl(336 100% 45% / 0.1) 100%);
-    border-color: hsl(336 100% 45% / 0.5);
-    box-shadow: 0 0 16px hsl(336 100% 45% / 0.2);
+    background: linear-gradient(135deg, hsl(336 100% 45% / 0.3) 0%, hsl(336 100% 45% / 0.12) 100%);
+    border-color: hsl(336 100% 45% / 0.6);
+    box-shadow: 0 0 20px hsl(336 100% 45% / 0.35), 0 0 6px hsl(336 100% 45% / 0.2) inset;
   }
 
   /* Número indicador estilizado */
@@ -318,11 +321,116 @@
     @apply flex flex-col items-start px-5 py-3 rounded-xl;
     background: rgba(255,255,255,0.04);
     border: 1px solid rgba(255,255,255,0.08);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .stat-box:hover {
+    border-color: hsl(336 100% 45% / 0.35);
+    box-shadow: 0 4px 20px -4px hsl(336 100% 45% / 0.15);
   }
 
   /* Decoração de estrelas (testimonial) */
   .star-rating {
     @apply flex gap-0.5;
+  }
+
+  /* =============================================
+     PREMIUM DESIGN ENHANCEMENTS
+     ============================================= */
+
+  /* Card shine sweep effect */
+  .card-shine {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .card-shine::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -75%;
+    width: 50%;
+    height: 200%;
+    background: linear-gradient(
+      to right,
+      rgba(255,255,255,0) 0%,
+      rgba(255,255,255,0.06) 50%,
+      rgba(255,255,255,0) 100%
+    );
+    transform: skewX(-15deg);
+    transition: left 0.6s ease;
+    pointer-events: none;
+  }
+
+  .card-shine:hover::after {
+    left: 125%;
+  }
+
+  /* Noise texture para seções dark */
+  .noise-overlay {
+    position: relative;
+  }
+
+  .noise-overlay::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    background-size: 200px 200px;
+    opacity: 0.4;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Text glow magenta sutil */
+  .text-glow {
+    text-shadow:
+      0 0 20px hsl(336 100% 55% / 0.4),
+      0 0 40px hsl(336 100% 45% / 0.2);
+  }
+
+  /* Line accent com gradiente animado */
+  .line-accent {
+    height: 2px;
+    background: linear-gradient(90deg, transparent, hsl(336 100% 45%), hsl(310 100% 60%), transparent);
+    background-size: 200% auto;
+    animation: shimmer-slide 3s linear infinite;
+  }
+
+  /* Gradient border pulsando */
+  .animate-gradient-border {
+    position: relative;
+  }
+
+  .animate-gradient-border::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    background: linear-gradient(90deg,
+      hsl(336 100% 45%),
+      hsl(310 100% 60%),
+      hsl(280 100% 60%),
+      hsl(336 100% 45%)
+    );
+    background-size: 300% auto;
+    animation: shimmer-slide 4s linear infinite;
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  /* Section divider decorativo */
+  .section-divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, hsl(336 100% 45% / 0.3), transparent);
+  }
+
+  /* Text balance para títulos */
+  .text-balance {
+    text-wrap: balance;
   }
 }
 
@@ -364,7 +472,7 @@
   }
 
   .animate-blur-in {
-    animation: blurIn 0.5s ease-out forwards;
+    animation: blurIn 0.6s ease-out forwards;
   }
 
   .animate-glow {
@@ -438,6 +546,11 @@
   /* GPU acceleration hints */
   .will-change-transform {
     will-change: transform, opacity;
+  }
+
+  /* Animate count — animação para números */
+  .animate-count {
+    animation: countUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
   }
 }
 
@@ -603,5 +716,48 @@
   }
   75% {
     transform: scale(1.08) rotate(3deg);
+  }
+}
+
+@keyframes gradient-shift {
+  0% {
+    background-position: 0% center;
+  }
+  50% {
+    background-position: 100% center;
+  }
+  100% {
+    background-position: 0% center;
+  }
+}
+
+@keyframes shimmer-slide {
+  0% {
+    background-position: 200% center;
+  }
+  100% {
+    background-position: -200% center;
+  }
+}
+
+@keyframes badge-pulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 hsl(336 100% 45% / 0);
+    border-color: hsl(336 100% 45% / 0.4);
+  }
+  50% {
+    box-shadow: 0 0 12px 2px hsl(336 100% 45% / 0.18);
+    border-color: hsl(336 100% 45% / 0.7);
+  }
+}
+
+@keyframes countUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
   }
 }

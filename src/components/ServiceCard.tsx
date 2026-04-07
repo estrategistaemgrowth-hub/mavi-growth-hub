@@ -15,7 +15,7 @@ export function ServiceCard({ title, description, icon: Icon, href, highlight }:
     <Link
       to={href}
       className={cn(
-        "group block p-6 rounded-2xl border transition-all duration-300 will-change-transform relative overflow-hidden",
+        "group block p-6 rounded-2xl border transition-all duration-300 will-change-transform relative overflow-hidden card-shine",
         "hover:-translate-y-1.5",
         highlight
           ? "text-primary-foreground border-primary/60 hover:shadow-[0_0_32px_hsl(336_100%_45%/0.4)]"

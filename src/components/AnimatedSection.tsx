@@ -9,7 +9,9 @@ type AnimationType =
   | "fadeInRight" 
   | "scaleIn" 
   | "slideUp"
-  | "bounceIn";
+  | "bounceIn"
+  | "blurIn"
+  | "rotateIn";
 
 interface AnimatedSectionProps {
   children: ReactNode;
@@ -27,6 +29,8 @@ const animationClasses: Record<AnimationType, string> = {
   scaleIn: "animate-scale-in",
   slideUp: "animate-slide-up",
   bounceIn: "animate-bounce-in",
+  blurIn: "animate-blur-in",
+  rotateIn: "animate-rotate-in",
 };
 
 const delayClasses: Record<number, string> = {
