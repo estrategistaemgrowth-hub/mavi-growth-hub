@@ -42,7 +42,7 @@ export default function AdminBlog() {
       .order("created_at", { ascending: false });
 
     if (error) {
-      toast({ title: "Erro ao carregar posts", description: error.message, variant: "destructive" });
+      toast.error("Erro ao carregar posts", { description: error.message });
     } else {
       setPosts(data as unknown as BlogPost[]);
     }
@@ -54,9 +54,9 @@ export default function AdminBlog() {
 
     const { error } = await supabase.from("blog_posts").delete().eq("id", id);
     if (error) {
-      toast({ title: "Erro ao excluir", description: error.message, variant: "destructive" });
+      toast.error("Erro ao excluir", { description: error.message });
     } else {
-      toast({ title: "Post excluído com sucesso" });
+      toast.success("Post excluído com sucesso");
       fetchPosts();
     }
   };
