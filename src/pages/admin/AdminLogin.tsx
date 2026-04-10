@@ -20,11 +20,7 @@ export default function AdminLogin() {
     const { error } = await signIn(email, password);
 
     if (error) {
-      toast({
-        title: "Erro ao fazer login",
-        description: error.message,
-        variant: "destructive",
-      });
+      toast.error("Erro ao fazer login", { description: error.message });
     } else {
       navigate("/admin/blog");
     }
