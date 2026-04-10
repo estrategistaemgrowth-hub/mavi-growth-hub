@@ -37,6 +37,49 @@ export default function AdminBlogEditor() {
   const [categories, setCategories] = useState<Category[]>([]);
   const [saving, setSaving] = useState(false);
   const [newCategory, setNewCategory] = useState("");
+  const [aiLoading, setAiLoading] = useState<string | null>(null);
+  const [titleSuggestions, setTitleSuggestions] = useState<string[]>([]);
+  const [showSuggestions, setShowSuggestions] = useState(false);
+
+  const generateWithAI = async (type: "excerpt" | "meta_description" | "title_suggestions") => {
+    if (!content && !title) {
+      toast({ title: "Adicione conteúdo ou título primeiro", variant: "destructive" });
+      return;
+    }
+    setAiLoading(type);
+    try {
+      const { data, error } = await supabase.functions.invoke("blog-ai", {
+        body: { type, content, title },
+      });
+      if (error) throw error;
+      if (data?.error) throw new Error(data.error);
+
+      const result = data.result;
+      switch (type) {
+        case "excerpt":
+          setExcerpt(result);
+          toast({ title: "Resumo gerado com IA!" });
+          break;
+        case "meta_description":
+          setMetaDescription(result);
+          toast({ title: "Meta description gerada com IA!" });
+          break;
+        case "title_suggestions":
+          try {
+            const parsed = JSON.parse(result);
+            setTitleSuggestions(parsed.suggestions || []);
+          } catch {
+            const lines = result.split("\n").filter((l: string) => l.trim());
+            setTitleSuggestions(lines.slice(0, 3));
+          }
+          setShowSuggestions(true);
+          break;
+      }
+    } catch (e: any) {
+      toast({ title: "Erro ao gerar com IA", description: e.message, variant: "destructive" });
+    }
+    setAiLoading(null);
+  };
 
   useEffect(() => {
     if (!authLoading && (!user || !isAdmin)) {
