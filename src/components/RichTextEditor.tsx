@@ -102,6 +102,32 @@ export function RichTextEditor({ content, onChange, postTitle }: RichTextEditorP
     return editor.state.doc.textBetween(from, to, " ");
   };
 
+  const escapeHtml = (text: string) =>
+    text
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/\"/g, "&quot;")
+      .replace(/'/g, "&#39;");
+
+  const applyHeading = (level: 1 | 2 | 3) => {
+    const { from, to, empty } = editor.state.selection;
+
+    if (empty) {
+      editor.chain().focus().toggleHeading({ level }).run();
+      return;
+    }
+
+    const selectedText = getSelectedText().trim();
+    if (!selectedText) return;
+
+    editor
+      .chain()
+      .focus()
+      .insertContentAt({ from, to }, `<h${level}>${escapeHtml(selectedText)}</h${level}>`)
+      .run();
+  };
+
   const aiImprove = async (type: "improve_heading" | "improve_hook" | "improve_citation" | "generate_content") => {
     const selectedText = getSelectedText();
     if (type !== "generate_content" && !selectedText.trim()) {
@@ -194,13 +220,13 @@ export function RichTextEditor({ content, onChange, postTitle }: RichTextEditorP
         <ToolbarButton onClick={() => editor.chain().focus().toggleItalic().run()} isActive={editor.isActive("italic")} title="Itálico">
           <Italic className="h-4 w-4" />
         </ToolbarButton>
-        <ToolbarButton onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()} isActive={editor.isActive("heading", { level: 1 })} title="Título H1">
+        <ToolbarButton onClick={() => applyHeading(1)} isActive={editor.isActive("heading", { level: 1 })} title="Título H1">
           <Heading1 className="h-4 w-4" />
         </ToolbarButton>
-        <ToolbarButton onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()} isActive={editor.isActive("heading", { level: 2 })} title="Subtítulo H2">
+        <ToolbarButton onClick={() => applyHeading(2)} isActive={editor.isActive("heading", { level: 2 })} title="Subtítulo H2">
           <Heading2 className="h-4 w-4" />
         </ToolbarButton>
-        <ToolbarButton onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()} isActive={editor.isActive("heading", { level: 3 })} title="Subtítulo H3">
+        <ToolbarButton onClick={() => applyHeading(3)} isActive={editor.isActive("heading", { level: 3 })} title="Subtítulo H3">
           <Heading3 className="h-4 w-4" />
         </ToolbarButton>
         <ToolbarButton onClick={() => editor.chain().focus().toggleBulletList().run()} isActive={editor.isActive("bulletList")} title="Lista">
