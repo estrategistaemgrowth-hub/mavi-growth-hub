@@ -4,7 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { useToast } from "@/hooks/use-toast";
+import { toast } from "sonner";
 import { Plus, Edit, Trash2, LogOut, Eye } from "lucide-react";
 
 interface BlogPost {
@@ -23,7 +23,7 @@ export default function AdminBlog() {
   const [loading, setLoading] = useState(true);
   const { user, isAdmin, loading: authLoading, signOut } = useAuth();
   const navigate = useNavigate();
-  const { toast } = useToast();
+  
 
   useEffect(() => {
     if (!authLoading && (!user || !isAdmin)) {
@@ -42,7 +42,7 @@ export default function AdminBlog() {
       .order("created_at", { ascending: false });
 
     if (error) {
-      toast({ title: "Erro ao carregar posts", description: error.message, variant: "destructive" });
+      toast.error("Erro ao carregar posts", { description: error.message });
     } else {
       setPosts(data as unknown as BlogPost[]);
     }
@@ -54,9 +54,9 @@ export default function AdminBlog() {
 
     const { error } = await supabase.from("blog_posts").delete().eq("id", id);
     if (error) {
-      toast({ title: "Erro ao excluir", description: error.message, variant: "destructive" });
+      toast.error("Erro ao excluir", { description: error.message });
     } else {
-      toast({ title: "Post excluído com sucesso" });
+      toast.success("Post excluído com sucesso");
       fetchPosts();
     }
   };
