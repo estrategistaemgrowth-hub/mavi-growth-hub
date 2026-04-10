@@ -115,23 +115,106 @@ export function RichTextEditor({ content, onChange, postTitle }: RichTextEditorP
     }
   };
 
-  const importHtml = () => {
-    const raw = window.prompt("Cole o código HTML completo aqui:");
-    if (!raw?.trim()) return;
-
-    // Parse the HTML and extract only the body/article content
+  const parseAndCleanHtml = (raw: string): string => {
     const parser = new DOMParser();
     const doc = parser.parseFromString(raw, "text/html");
 
-    // Remove style, script, head, meta tags
-    doc.querySelectorAll("style, script, link, meta, head, noscript").forEach(el => el.remove());
+    // Remove non-content elements
+    doc.querySelectorAll("style, script, link, meta, head, noscript, nav, footer").forEach(el => el.remove());
 
-    // Try to find article or main content area
-    const article = doc.querySelector("article") || doc.querySelector("main") || doc.querySelector(".mavi-post-body") || doc.body;
+    // Find the best content container
+    const article = doc.querySelector("article") || doc.querySelector(".mavi-post-body") || doc.querySelector("main") || doc.body;
 
-    // Remove all class, style, and data attributes from all elements
+    // Convert custom MAVI components to semantic HTML before stripping classes
+    // .mavi-callout → blockquote
+    article.querySelectorAll(".mavi-callout").forEach(el => {
+      const bq = doc.createElement("blockquote");
+      bq.innerHTML = `<p>${el.textContent?.trim() || ""}</p>`;
+      el.replaceWith(bq);
+    });
+
+    // .mavi-layer-list → ol with clean text
+    article.querySelectorAll(".mavi-layer-list").forEach(el => {
+      const ol = doc.createElement("ol");
+      el.querySelectorAll("li").forEach(li => {
+        const newLi = doc.createElement("li");
+        // Get text from .mavi-layer-text or the whole li
+        const textEl = li.querySelector(".mavi-layer-text");
+        if (textEl) {
+          newLi.innerHTML = textEl.innerHTML;
+        } else {
+          // Remove number spans, keep text
+          const numEl = li.querySelector(".mavi-layer-num");
+          if (numEl) numEl.remove();
+          newLi.innerHTML = li.innerHTML;
+        }
+        ol.appendChild(newLi);
+      });
+      el.replaceWith(ol);
+    });
+
+    // .mavi-stat-block → paragraph with stats
+    article.querySelectorAll(".mavi-stat-block").forEach(el => {
+      const stats: string[] = [];
+      el.querySelectorAll(".mavi-stat").forEach(stat => {
+        const label = stat.querySelector(".mavi-stat-label")?.textContent?.trim() || "";
+        const value = stat.querySelector(".mavi-stat-value")?.textContent?.trim() || "";
+        const desc = stat.querySelector(".mavi-stat-desc")?.textContent?.trim() || "";
+        stats.push(`<strong>${value}</strong> ${label}${desc ? ` — ${desc}` : ""}`);
+      });
+      const p = doc.createElement("p");
+      p.innerHTML = stats.join(" | ");
+      el.replaceWith(p);
+    });
+
+    // .mavi-cta-box → blockquote with link
+    article.querySelectorAll(".mavi-cta-box").forEach(el => {
+      const h = el.querySelector("h3")?.textContent?.trim() || "";
+      const p = el.querySelector("p")?.textContent?.trim() || "";
+      const link = el.querySelector("a");
+      const href = link?.getAttribute("href") || "#";
+      const linkText = link?.textContent?.trim() || "";
+      const bq = doc.createElement("blockquote");
+      bq.innerHTML = `<p><strong>${h}</strong></p><p>${p}</p>${linkText ? `<p><a href="${href}">${linkText}</a></p>` : ""}`;
+      el.replaceWith(bq);
+    });
+
+    // .mavi-post-sources → h4 + ul
+    article.querySelectorAll(".mavi-post-sources").forEach(el => {
+      const title = el.querySelector("h4")?.textContent?.trim() || "Fontes";
+      const items: string[] = [];
+      el.querySelectorAll("li").forEach(li => {
+        items.push(`<li>${li.textContent?.trim() || ""}</li>`);
+      });
+      const wrapper = doc.createElement("div");
+      wrapper.innerHTML = `<h3>${title}</h3><ul>${items.join("")}</ul>`;
+      el.replaceWith(wrapper);
+    });
+
+    // .mavi-post-header content → extract intro paragraph
+    article.querySelectorAll(".mavi-post-header").forEach(el => {
+      const intro = el.querySelector(".mavi-post-intro");
+      if (intro) {
+        const p = doc.createElement("p");
+        p.innerHTML = `<em>${intro.textContent?.trim() || ""}</em>`;
+        el.replaceWith(p);
+      } else {
+        el.remove();
+      }
+    });
+
+    // .mavi-post-tag → remove (already in post metadata)
+    article.querySelectorAll(".mavi-post-tag").forEach(el => el.remove());
+
+    // .mavi-post-cover → img (keep)
+    article.querySelectorAll(".mavi-post-cover").forEach(el => {
+      el.removeAttribute("class");
+      el.removeAttribute("width");
+      el.removeAttribute("height");
+    });
+
+    // Now strip ALL remaining classes, styles, ids, data attrs
     article.querySelectorAll("*").forEach(el => {
-      // Keep only semantic tags, remove custom class/style/data attrs
       el.removeAttribute("class");
       el.removeAttribute("style");
       el.removeAttribute("id");
@@ -140,10 +223,9 @@ export function RichTextEditor({ content, onChange, postTitle }: RichTextEditorP
       });
     });
 
-    // Convert custom elements to semantic HTML
     let cleanHtml = article.innerHTML;
 
-    // Remove empty divs and spans, keep content
+    // Remove wrapper tags, keep content
     cleanHtml = cleanHtml
       .replace(/<div[^>]*>/gi, "")
       .replace(/<\/div>/gi, "")
@@ -153,38 +235,46 @@ export function RichTextEditor({ content, onChange, postTitle }: RichTextEditorP
       .replace(/<\/section>/gi, "")
       .replace(/<header[^>]*>/gi, "")
       .replace(/<\/header>/gi, "")
-      .replace(/<footer[^>]*>/gi, "")
-      .replace(/<\/footer>/gi, "")
-      .replace(/<nav[^>]*>/gi, "")
-      .replace(/<\/nav>/gi, "")
-      // Clean up excessive whitespace
+      // Remove HTML comments
+      .replace(/<!--[\s\S]*?-->/g, "")
+      // Clean excessive whitespace
       .replace(/\n\s*\n\s*\n/g, "\n\n")
       .trim();
 
-    // Wrap orphan text blocks in <p> tags
-    const tempDoc = parser.parseFromString(`<div>${cleanHtml}</div>`, "text/html");
-    const container = tempDoc.querySelector("div")!;
+    return cleanHtml;
+  };
 
-    // Process text nodes that are direct children
-    const nodes = Array.from(container.childNodes);
-    nodes.forEach(node => {
-      if (node.nodeType === Node.TEXT_NODE && node.textContent?.trim()) {
-        const p = tempDoc.createElement("p");
-        p.textContent = node.textContent.trim();
-        container.replaceChild(p, node);
-      }
-    });
+  const handleImportHtml = () => {
+    if (!importHtmlValue.trim()) {
+      toast.error("Cole o código HTML primeiro");
+      return;
+    }
 
-    const finalHtml = container.innerHTML.trim();
+    const cleanHtml = parseAndCleanHtml(importHtmlValue);
 
-    if (!finalHtml) {
+    if (!cleanHtml) {
       toast.error("Não foi possível extrair conteúdo do HTML");
       return;
     }
 
-    editor.commands.setContent(finalHtml);
+    editor.commands.setContent(cleanHtml);
     onChange(editor.getHTML());
+    setShowImportDialog(false);
+    setImportHtmlValue("");
     toast.success("HTML importado com sucesso!");
+  };
+
+  const handleImportFile = () => {
+    const input = document.createElement("input");
+    input.type = "file";
+    input.accept = ".html,.htm";
+    input.onchange = async () => {
+      const file = input.files?.[0];
+      if (!file) return;
+      const text = await file.text();
+      setImportHtmlValue(text);
+    };
+    input.click();
   };
 
   const getSelectedText = (): string => {
