@@ -46,20 +46,51 @@ serve(async (req) => {
 
       case "improve_heading":
         systemPrompt =
-          "Você é um especialista em copywriting e SEO para blogs. Melhore o título/subtítulo fornecido para que seja mais atraente, impactante e otimizado para SEO. Mantenha o sentido original. Responda APENAS com o texto melhorado, sem aspas, explicações ou formatação extra.";
+          "Você é um especialista em copywriting e SEO para blogs. Melhore o título/subtítulo fornecido para que seja mais atraente, impactante e otimizado para SEO. Mantenha o sentido original. Responda APENAS com o texto melhorado, sem aspas, explicações, tags HTML ou formatação extra.";
         userPrompt = `Melhore este título/subtítulo:\n\n"${selectedText}"\n\nContexto do artigo: ${title}`;
         break;
 
       case "improve_hook":
-        systemPrompt =
-          "Você é um especialista em copywriting persuasivo. Reescreva o trecho selecionado como um gancho (hook) poderoso que prenda a atenção do leitor. Use técnicas como perguntas retóricas, dados impactantes, ou storytelling. Responda APENAS com o texto melhorado em HTML simples (pode usar <strong>, <em>), sem aspas ou explicações.";
-        userPrompt = `Transforme este trecho em um gancho poderoso:\n\n"${selectedText}"\n\nContexto do artigo: ${title}`;
+        systemPrompt = `Você é um especialista em copywriting persuasivo e web design. Reescreva o trecho selecionado como um gancho (hook) poderoso que prenda a atenção do leitor. 
+
+REGRAS DE FORMATAÇÃO HTML:
+- Use tags HTML semânticas: <p>, <strong>, <em>, <h2>, <h3>, <ul>, <li>, <blockquote>
+- Para destaque visual, use <strong> para palavras-chave e <em> para ênfase sutil
+- Se o gancho tiver dados/números, destaque-os com <strong>
+- Quebre em parágrafos curtos (máx 2-3 frases por <p>)
+- Pode usar listas <ul><li> se fizer sentido
+- NÃO use classes CSS, estilos inline ou divs
+- NÃO use markdown, apenas HTML puro
+- Responda APENAS com o HTML, sem explicações`;
+        userPrompt = `Transforme este trecho em um gancho poderoso em HTML:\n\n"${selectedText}"\n\nContexto do artigo: ${title}`;
         break;
 
       case "improve_citation":
         systemPrompt =
-          "Você é um especialista em redação profissional. Transforme o trecho selecionado em uma citação de destaque (blockquote) com impacto. Reformule de forma elegante e memorável, como se fosse uma frase de efeito ou insight importante. Responda APENAS com o texto da citação, sem aspas ou explicações.";
+          "Você é um especialista em redação profissional. Transforme o trecho selecionado em uma citação de destaque (blockquote) com impacto. Reformule de forma elegante e memorável, como se fosse uma frase de efeito ou insight importante. Responda APENAS com o texto da citação sem tags HTML, sem aspas ou explicações. O texto será inserido automaticamente dentro de um blockquote.";
         userPrompt = `Transforme este trecho em uma citação de destaque:\n\n"${selectedText}"\n\nContexto do artigo: ${title}`;
+        break;
+
+      case "generate_content":
+        systemPrompt = `Você é um redator profissional de blogs sobre marketing digital, e-commerce e tecnologia. Gere o conteúdo completo de um artigo de blog em HTML semântico bem formatado.
+
+REGRAS DE FORMATAÇÃO HTML OBRIGATÓRIAS:
+- Estruture com <h2> para seções principais e <h3> para sub-seções
+- Use <p> para parágrafos (máx 3 frases cada)
+- Use <strong> para palavras-chave e termos importantes
+- Use <em> para ênfase sutil e termos técnicos
+- Use <ul> e <li> para listas de benefícios, passos ou exemplos
+- Use <ol> e <li> para listas numeradas/sequenciais
+- Use <blockquote><p>...</p></blockquote> para citações de destaque ou insights importantes (1-2 por artigo)
+- Inclua dados e estatísticas quando possível (com <strong>)
+- Mínimo de 800 palavras, ideal 1200+
+- Tom profissional mas acessível, em português brasileiro
+- NÃO use classes CSS, estilos inline, divs ou spans
+- NÃO inclua tag <h1> (o título já é definido separadamente)
+- NÃO use markdown, apenas HTML puro
+- Comece direto com o conteúdo (sem repetir o título)
+- Responda APENAS com o HTML do conteúdo, sem explicações`;
+        userPrompt = `Escreva um artigo completo de blog sobre:\n\nTema/Título: ${title}\n\nInstruções adicionais: ${selectedText || "Nenhuma instrução adicional"}`;
         break;
 
       default:
