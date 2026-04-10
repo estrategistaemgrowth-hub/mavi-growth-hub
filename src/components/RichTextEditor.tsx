@@ -103,9 +103,9 @@ export function RichTextEditor({ content, onChange, postTitle }: RichTextEditorP
     return editor.state.doc.textBetween(from, to, " ");
   };
 
-  const aiImprove = async (type: "improve_heading" | "improve_hook" | "improve_citation") => {
+  const aiImprove = async (type: "improve_heading" | "improve_hook" | "improve_citation" | "generate_content") => {
     const selectedText = getSelectedText();
-    if (!selectedText.trim()) {
+    if (type !== "generate_content" && !selectedText.trim()) {
       toast.error("Selecione um trecho de texto primeiro");
       return;
     }
@@ -126,38 +126,33 @@ export function RichTextEditor({ content, onChange, postTitle }: RichTextEditorP
       const result = data.result?.trim();
       if (!result) throw new Error("Nenhum resultado gerado");
 
-      // Replace selected text with AI result
-      const { from, to } = editor.state.selection;
-
-      if (type === "improve_citation") {
-        // Wrap in blockquote
-        editor
-          .chain()
-          .focus()
-          .deleteRange({ from, to })
-          .insertContent(`<blockquote><p>${result}</p></blockquote>`)
-          .run();
-      } else if (type === "improve_hook") {
-        editor
-          .chain()
-          .focus()
-          .deleteRange({ from, to })
-          .insertContent(result)
-          .run();
+      if (type === "generate_content") {
+        // Insert at cursor or append
+        editor.chain().focus().insertContent(result).run();
       } else {
-        // For headings, replace text content
-        editor
-          .chain()
-          .focus()
-          .deleteRange({ from, to })
-          .insertContent(result)
-          .run();
+        const { from, to } = editor.state.selection;
+        if (type === "improve_citation") {
+          editor
+            .chain()
+            .focus()
+            .deleteRange({ from, to })
+            .insertContent(`<blockquote><p>${result}</p></blockquote>`)
+            .run();
+        } else {
+          editor
+            .chain()
+            .focus()
+            .deleteRange({ from, to })
+            .insertContent(result)
+            .run();
+        }
       }
 
       const labels: Record<string, string> = {
         improve_heading: "Título melhorado com IA!",
         improve_hook: "Gancho criado com IA!",
         improve_citation: "Citação gerada com IA!",
+        generate_content: "Conteúdo gerado com IA!",
       };
       toast.success(labels[type]);
     } catch (e: any) {
