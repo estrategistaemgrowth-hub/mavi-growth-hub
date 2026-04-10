@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
-import Heading from "@tiptap/extension-heading";
 import Image from "@tiptap/extension-image";
 import Link from "@tiptap/extension-link";
 import { Button } from "@/components/ui/button";
@@ -47,10 +46,9 @@ export function RichTextEditor({ content, onChange, postTitle }: RichTextEditorP
   const editor = useEditor({
     extensions: [
       StarterKit.configure({
-        heading: false,
-      }),
-      Heading.configure({
-        levels: [1, 2, 3],
+        heading: {
+          levels: [1, 2, 3],
+        },
       }),
       Image,
       Link.configure({ openOnClick: false }),
