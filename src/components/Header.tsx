@@ -41,6 +41,9 @@ export function Header() {
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const [mobileActiveDropdown, setMobileActiveDropdown] = useState<string | null>(null);
   const location = useLocation();
+  
+  // Pages with light backgrounds need dark header text even when not scrolled
+  const isLightPage = location.pathname.startsWith("/blog") || location.pathname.startsWith("/admin");
 
   useEffect(() => {
     const handleScroll = () => {
