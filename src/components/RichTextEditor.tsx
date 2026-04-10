@@ -102,6 +102,32 @@ export function RichTextEditor({ content, onChange, postTitle }: RichTextEditorP
     return editor.state.doc.textBetween(from, to, " ");
   };
 
+  const escapeHtml = (text: string) =>
+    text
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/\"/g, "&quot;")
+      .replace(/'/g, "&#39;");
+
+  const applyHeading = (level: 1 | 2 | 3) => {
+    const { from, to, empty } = editor.state.selection;
+
+    if (empty) {
+      editor.chain().focus().toggleHeading({ level }).run();
+      return;
+    }
+
+    const selectedText = getSelectedText().trim();
+    if (!selectedText) return;
+
+    editor
+      .chain()
+      .focus()
+      .insertContentAt({ from, to }, `<h${level}>${escapeHtml(selectedText)}</h${level}>`)
+      .run();
+  };
+
   const aiImprove = async (type: "improve_heading" | "improve_hook" | "improve_citation" | "generate_content") => {
     const selectedText = getSelectedText();
     if (type !== "generate_content" && !selectedText.trim()) {
