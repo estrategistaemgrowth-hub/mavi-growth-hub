@@ -11,6 +11,7 @@ const quickLinks = [
   { name: "Sobre a MAVI", href: "/sobre" },
   { name: "Serviços", href: "/servicos" },
   { name: "Segmentos", href: "/segmentos" },
+  { name: "Blog", href: "/blog" },
   { name: "Cases & Clientes", href: "/cases" },
   { name: "CRM HUBRS", href: "/hubrs-crm" },
   { name: "Contato", href: "/contato" },

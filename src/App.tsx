@@ -18,6 +18,11 @@ import ServicoMarketplaces from "./pages/servicos/Marketplaces";
 import ServicoSites from "./pages/servicos/Sites";
 import ServicoAutomacao from "./pages/servicos/Automacao";
 import ServicoMicroSaas from "./pages/servicos/MicroSaas";
+import Blog from "./pages/Blog";
+import BlogPost from "./pages/BlogPost";
+import AdminLogin from "./pages/admin/AdminLogin";
+import AdminBlog from "./pages/admin/AdminBlog";
+import AdminBlogEditor from "./pages/admin/AdminBlogEditor";
 import Segmentos from "./pages/Segmentos";
 import SegmentoImobiliarias from "./pages/segmentos/Imobiliarias";
 import SegmentoIndustria from "./pages/segmentos/Industria";
@@ -60,6 +65,12 @@ const App = () => (
           <Route path="/segmentos/imobiliarias" element={<SegmentoImobiliarias />} />
           <Route path="/segmentos/industria" element={<SegmentoIndustria />} />
           <Route path="/segmentos/saude-estetica" element={<SegmentoSaudeEstetica />} />
+          <Route path="/blog" element={<Blog />} />
+          <Route path="/blog/:slug" element={<BlogPost />} />
+          <Route path="/admin/login" element={<AdminLogin />} />
+          <Route path="/admin/blog" element={<AdminBlog />} />
+          <Route path="/admin/blog/novo" element={<AdminBlogEditor />} />
+          <Route path="/admin/blog/editar/:id" element={<AdminBlogEditor />} />
           <Route path="/cases" element={<Cases />} />
           <Route path="/hubrs-crm" element={<HubRSCRM />} />
           <Route path="/contato" element={<Contato />} />

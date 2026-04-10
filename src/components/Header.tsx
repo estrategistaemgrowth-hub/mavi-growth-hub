@@ -29,6 +29,7 @@ const navItems = [
   { name: "Sobre a MAVI", href: "/sobre" },
   { name: "Serviços", href: "/servicos", hasDropdown: true, dropdownType: "services" as const },
   { name: "Segmentos", href: "/segmentos", hasDropdown: true, dropdownType: "segments" as const },
+  { name: "Blog", href: "/blog" },
   { name: "Cases & Clientes", href: "/cases" },
   { name: "Micro SaaS", href: "/servicos/micro-saas", highlight: true },
   { name: "Contato", href: "/contato" },
