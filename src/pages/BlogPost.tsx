@@ -116,11 +116,11 @@ export default function BlogPost() {
       <article className="pt-24 pb-16">
         {/* Hero */}
         {post.featured_image_url && (
-          <div className="w-full max-h-[480px] overflow-hidden">
+          <div className="w-full">
             <img
               src={post.featured_image_url}
               alt={post.title}
-              className="w-full h-full object-cover"
+              className="w-full h-auto object-contain"
             />
           </div>
         )}
