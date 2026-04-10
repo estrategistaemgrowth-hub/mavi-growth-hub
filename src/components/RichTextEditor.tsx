@@ -24,6 +24,7 @@ import {
   Zap,
   MessageSquareQuote,
   FileText,
+  FileCode,
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
@@ -108,6 +109,78 @@ export function RichTextEditor({ content, onChange, postTitle }: RichTextEditorP
     if (url) {
       editor.chain().focus().setLink({ href: url }).run();
     }
+  };
+
+  const importHtml = () => {
+    const raw = window.prompt("Cole o código HTML completo aqui:");
+    if (!raw?.trim()) return;
+
+    // Parse the HTML and extract only the body/article content
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(raw, "text/html");
+
+    // Remove style, script, head, meta tags
+    doc.querySelectorAll("style, script, link, meta, head, noscript").forEach(el => el.remove());
+
+    // Try to find article or main content area
+    const article = doc.querySelector("article") || doc.querySelector("main") || doc.querySelector(".mavi-post-body") || doc.body;
+
+    // Remove all class, style, and data attributes from all elements
+    article.querySelectorAll("*").forEach(el => {
+      // Keep only semantic tags, remove custom class/style/data attrs
+      el.removeAttribute("class");
+      el.removeAttribute("style");
+      el.removeAttribute("id");
+      Array.from(el.attributes).forEach(attr => {
+        if (attr.name.startsWith("data-")) el.removeAttribute(attr.name);
+      });
+    });
+
+    // Convert custom elements to semantic HTML
+    let cleanHtml = article.innerHTML;
+
+    // Remove empty divs and spans, keep content
+    cleanHtml = cleanHtml
+      .replace(/<div[^>]*>/gi, "")
+      .replace(/<\/div>/gi, "")
+      .replace(/<span[^>]*>/gi, "")
+      .replace(/<\/span>/gi, "")
+      .replace(/<section[^>]*>/gi, "")
+      .replace(/<\/section>/gi, "")
+      .replace(/<header[^>]*>/gi, "")
+      .replace(/<\/header>/gi, "")
+      .replace(/<footer[^>]*>/gi, "")
+      .replace(/<\/footer>/gi, "")
+      .replace(/<nav[^>]*>/gi, "")
+      .replace(/<\/nav>/gi, "")
+      // Clean up excessive whitespace
+      .replace(/\n\s*\n\s*\n/g, "\n\n")
+      .trim();
+
+    // Wrap orphan text blocks in <p> tags
+    const tempDoc = parser.parseFromString(`<div>${cleanHtml}</div>`, "text/html");
+    const container = tempDoc.querySelector("div")!;
+
+    // Process text nodes that are direct children
+    const nodes = Array.from(container.childNodes);
+    nodes.forEach(node => {
+      if (node.nodeType === Node.TEXT_NODE && node.textContent?.trim()) {
+        const p = tempDoc.createElement("p");
+        p.textContent = node.textContent.trim();
+        container.replaceChild(p, node);
+      }
+    });
+
+    const finalHtml = container.innerHTML.trim();
+
+    if (!finalHtml) {
+      toast.error("Não foi possível extrair conteúdo do HTML");
+      return;
+    }
+
+    editor.commands.setContent(finalHtml);
+    onChange(editor.getHTML());
+    toast.success("HTML importado com sucesso!");
   };
 
   const getSelectedText = (): string => {
