@@ -9,7 +9,8 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { RichTextEditor } from "@/components/RichTextEditor";
 import { useToast } from "@/hooks/use-toast";
-import { ArrowLeft, Save, ImageIcon } from "lucide-react";
+import { ArrowLeft, Save, ImageIcon, Sparkles, Loader2 } from "lucide-react";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 
 interface Category {
   id: string;
@@ -36,6 +37,49 @@ export default function AdminBlogEditor() {
   const [categories, setCategories] = useState<Category[]>([]);
   const [saving, setSaving] = useState(false);
   const [newCategory, setNewCategory] = useState("");
+  const [aiLoading, setAiLoading] = useState<string | null>(null);
+  const [titleSuggestions, setTitleSuggestions] = useState<string[]>([]);
+  const [showSuggestions, setShowSuggestions] = useState(false);
+
+  const generateWithAI = async (type: "excerpt" | "meta_description" | "title_suggestions") => {
+    if (!content && !title) {
+      toast({ title: "Adicione conteúdo ou título primeiro", variant: "destructive" });
+      return;
+    }
+    setAiLoading(type);
+    try {
+      const { data, error } = await supabase.functions.invoke("blog-ai", {
+        body: { type, content, title },
+      });
+      if (error) throw error;
+      if (data?.error) throw new Error(data.error);
+
+      const result = data.result;
+      switch (type) {
+        case "excerpt":
+          setExcerpt(result);
+          toast({ title: "Resumo gerado com IA!" });
+          break;
+        case "meta_description":
+          setMetaDescription(result);
+          toast({ title: "Meta description gerada com IA!" });
+          break;
+        case "title_suggestions":
+          try {
+            const parsed = JSON.parse(result);
+            setTitleSuggestions(parsed.suggestions || []);
+          } catch {
+            const lines = result.split("\n").filter((l: string) => l.trim());
+            setTitleSuggestions(lines.slice(0, 3));
+          }
+          setShowSuggestions(true);
+          break;
+      }
+    } catch (e: any) {
+      toast({ title: "Erro ao gerar com IA", description: e.message, variant: "destructive" });
+    }
+    setAiLoading(null);
+  };
 
   useEffect(() => {
     if (!authLoading && (!user || !isAdmin)) {
@@ -216,7 +260,20 @@ export default function AdminBlogEditor() {
         <div className="grid gap-6">
           {/* Title */}
           <div className="space-y-2">
-            <Label>Título</Label>
+            <div className="flex items-center justify-between">
+              <Label>Título</Label>
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                onClick={() => generateWithAI("title_suggestions")}
+                disabled={aiLoading === "title_suggestions"}
+                className="text-xs gap-1"
+              >
+                {aiLoading === "title_suggestions" ? <Loader2 className="w-3 h-3 animate-spin" /> : <Sparkles className="w-3 h-3" />}
+                Sugestões IA
+              </Button>
+            </div>
             <Input
               value={title}
               onChange={(e) => handleTitleChange(e.target.value)}
@@ -289,7 +346,20 @@ export default function AdminBlogEditor() {
 
           {/* Excerpt */}
           <div className="space-y-2">
-            <Label>Resumo (excerpt)</Label>
+            <div className="flex items-center justify-between">
+              <Label>Resumo (excerpt)</Label>
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                onClick={() => generateWithAI("excerpt")}
+                disabled={aiLoading === "excerpt"}
+                className="text-xs gap-1"
+              >
+                {aiLoading === "excerpt" ? <Loader2 className="w-3 h-3 animate-spin" /> : <Sparkles className="w-3 h-3" />}
+                Gerar com IA
+              </Button>
+            </div>
             <Textarea
               value={excerpt}
               onChange={(e) => setExcerpt(e.target.value)}
@@ -300,7 +370,20 @@ export default function AdminBlogEditor() {
 
           {/* Meta Description */}
           <div className="space-y-2">
-            <Label>Meta Description (SEO)</Label>
+            <div className="flex items-center justify-between">
+              <Label>Meta Description (SEO)</Label>
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                onClick={() => generateWithAI("meta_description")}
+                disabled={aiLoading === "meta_description"}
+                className="text-xs gap-1"
+              >
+                {aiLoading === "meta_description" ? <Loader2 className="w-3 h-3 animate-spin" /> : <Sparkles className="w-3 h-3" />}
+                Gerar com IA
+              </Button>
+            </div>
             <Textarea
               value={metaDescription}
               onChange={(e) => setMetaDescription(e.target.value)}
@@ -327,6 +410,30 @@ export default function AdminBlogEditor() {
           </div>
         </div>
       </main>
+
+      {/* Title Suggestions Dialog */}
+      <Dialog open={showSuggestions} onOpenChange={setShowSuggestions}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Sugestões de Título (IA)</DialogTitle>
+          </DialogHeader>
+          <div className="space-y-2">
+            {titleSuggestions.map((suggestion, i) => (
+              <Button
+                key={i}
+                variant="outline"
+                className="w-full text-left justify-start h-auto py-3 whitespace-normal"
+                onClick={() => {
+                  handleTitleChange(suggestion.replace(/^["'\d.\-)\s]+/, "").replace(/["']$/, ""));
+                  setShowSuggestions(false);
+                }}
+              >
+                {suggestion.replace(/^["'\d.\-)\s]+/, "").replace(/["']$/, "")}
+              </Button>
+            ))}
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
