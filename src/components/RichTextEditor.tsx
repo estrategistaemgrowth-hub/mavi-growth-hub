@@ -433,7 +433,7 @@ export function RichTextEditor({ content, onChange, postTitle }: RichTextEditorP
         <ToolbarButton onClick={() => editor.chain().focus().redo().run()} title="Refazer">
           <Redo className="h-4 w-4" />
         </ToolbarButton>
-        <ToolbarButton onClick={importHtml} title="Importar HTML">
+        <ToolbarButton onClick={() => setShowImportDialog(true)} title="Importar HTML">
           <FileCode className="h-4 w-4" />
         </ToolbarButton>
 
