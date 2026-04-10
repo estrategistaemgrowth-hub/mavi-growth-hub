@@ -55,9 +55,36 @@ serve(async (req) => {
     }
 
     if (req.method === "POST") {
+      const contentType = req.headers.get("content-type") || "";
+
+      // Image upload route
+      if (contentType.startsWith("image/") || contentType === "application/octet-stream") {
+        const fileName = req.headers.get("x-file-name") || `${Date.now()}.jpg`;
+        const filePath = `featured/${Date.now()}-${fileName}`;
+        const fileBuffer = await req.arrayBuffer();
+
+        const { error: uploadError } = await supabase.storage
+          .from("blog-images")
+          .upload(filePath, fileBuffer, {
+            contentType: contentType.startsWith("image/") ? contentType : "image/jpeg",
+            upsert: false,
+          });
+
+        if (uploadError) throw uploadError;
+
+        const { data: { publicUrl } } = supabase.storage
+          .from("blog-images")
+          .getPublicUrl(filePath);
+
+        return new Response(JSON.stringify({ success: true, url: publicUrl }), {
+          status: 201,
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
+        });
+      }
+
+      // Create post route (JSON)
       const body = await req.json();
 
-      // Validate required fields
       if (!body.title || !body.slug || !body.content) {
         return new Response(
           JSON.stringify({ error: "Missing required fields: title, slug, content" }),
