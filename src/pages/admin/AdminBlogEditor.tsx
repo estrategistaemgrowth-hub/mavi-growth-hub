@@ -260,7 +260,20 @@ export default function AdminBlogEditor() {
         <div className="grid gap-6">
           {/* Title */}
           <div className="space-y-2">
-            <Label>Título</Label>
+            <div className="flex items-center justify-between">
+              <Label>Título</Label>
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                onClick={() => generateWithAI("title_suggestions")}
+                disabled={aiLoading === "title_suggestions"}
+                className="text-xs gap-1"
+              >
+                {aiLoading === "title_suggestions" ? <Loader2 className="w-3 h-3 animate-spin" /> : <Sparkles className="w-3 h-3" />}
+                Sugestões IA
+              </Button>
+            </div>
             <Input
               value={title}
               onChange={(e) => handleTitleChange(e.target.value)}
