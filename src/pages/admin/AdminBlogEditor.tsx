@@ -410,6 +410,30 @@ export default function AdminBlogEditor() {
           </div>
         </div>
       </main>
+
+      {/* Title Suggestions Dialog */}
+      <Dialog open={showSuggestions} onOpenChange={setShowSuggestions}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Sugestões de Título (IA)</DialogTitle>
+          </DialogHeader>
+          <div className="space-y-2">
+            {titleSuggestions.map((suggestion, i) => (
+              <Button
+                key={i}
+                variant="outline"
+                className="w-full text-left justify-start h-auto py-3 whitespace-normal"
+                onClick={() => {
+                  handleTitleChange(suggestion.replace(/^["'\d.\-)\s]+/, "").replace(/["']$/, ""));
+                  setShowSuggestions(false);
+                }}
+              >
+                {suggestion.replace(/^["'\d.\-)\s]+/, "").replace(/["']$/, "")}
+              </Button>
+            ))}
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
