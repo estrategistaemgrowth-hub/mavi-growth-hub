@@ -346,7 +346,20 @@ export default function AdminBlogEditor() {
 
           {/* Excerpt */}
           <div className="space-y-2">
-            <Label>Resumo (excerpt)</Label>
+            <div className="flex items-center justify-between">
+              <Label>Resumo (excerpt)</Label>
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                onClick={() => generateWithAI("excerpt")}
+                disabled={aiLoading === "excerpt"}
+                className="text-xs gap-1"
+              >
+                {aiLoading === "excerpt" ? <Loader2 className="w-3 h-3 animate-spin" /> : <Sparkles className="w-3 h-3" />}
+                Gerar com IA
+              </Button>
+            </div>
             <Textarea
               value={excerpt}
               onChange={(e) => setExcerpt(e.target.value)}
@@ -357,7 +370,20 @@ export default function AdminBlogEditor() {
 
           {/* Meta Description */}
           <div className="space-y-2">
-            <Label>Meta Description (SEO)</Label>
+            <div className="flex items-center justify-between">
+              <Label>Meta Description (SEO)</Label>
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                onClick={() => generateWithAI("meta_description")}
+                disabled={aiLoading === "meta_description"}
+                className="text-xs gap-1"
+              >
+                {aiLoading === "meta_description" ? <Loader2 className="w-3 h-3 animate-spin" /> : <Sparkles className="w-3 h-3" />}
+                Gerar com IA
+              </Button>
+            </div>
             <Textarea
               value={metaDescription}
               onChange={(e) => setMetaDescription(e.target.value)}
