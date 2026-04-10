@@ -24,6 +24,7 @@ import {
   Type,
   Zap,
   MessageSquareQuote,
+  FileText,
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
@@ -272,6 +273,14 @@ export function RichTextEditor({ content, onChange, postTitle }: RichTextEditorP
               >
                 <MessageSquareQuote className="h-4 w-4" />
                 Gerar citação de destaque
+              </DropdownMenuItem>
+              <DropdownMenuItem
+                onClick={() => aiImprove("generate_content")}
+                disabled={isAiWorking}
+                className="gap-2"
+              >
+                <FileText className="h-4 w-4" />
+                Gerar conteúdo completo
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
