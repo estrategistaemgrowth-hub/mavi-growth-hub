@@ -193,7 +193,7 @@ export function RichTextEditor({ content, onChange, postTitle }: RichTextEditorP
 
   return (
     <div className="border border-border rounded-lg overflow-hidden">
-      <div className="flex flex-wrap items-center gap-1 p-2 border-b border-border bg-muted/50">
+      <div className="flex flex-wrap items-center gap-1 p-2 border-b border-border bg-muted/50 sticky top-0 z-10">
         <ToolbarButton onClick={() => editor.chain().focus().toggleBold().run()} isActive={editor.isActive("bold")} title="Negrito">
           <Bold className="h-4 w-4" />
         </ToolbarButton>
