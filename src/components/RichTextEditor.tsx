@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Image from "@tiptap/extension-image";
@@ -58,6 +58,19 @@ export function RichTextEditor({ content, onChange, postTitle }: RichTextEditorP
       onChange(editor.getHTML());
     },
   });
+
+  const hasSetInitialContent = useRef(false);
+
+  useEffect(() => {
+    if (editor && content && !hasSetInitialContent.current) {
+      // Only set content if editor was created with empty/different content
+      const currentContent = editor.getHTML();
+      if (currentContent === "<p></p>" || currentContent === "") {
+        editor.commands.setContent(content);
+        hasSetInitialContent.current = true;
+      }
+    }
+  }, [editor, content]);
 
   if (!editor) return null;
 
