@@ -46,7 +46,8 @@ interface RichTextEditorProps {
 
 export function RichTextEditor({ content, onChange, postTitle }: RichTextEditorProps) {
   const [aiLoading, setAiLoading] = useState<string | null>(null);
-
+  const [showImportDialog, setShowImportDialog] = useState(false);
+  const [importHtmlValue, setImportHtmlValue] = useState("");
   const editor = useEditor({
     extensions: [
       StarterKit.configure({
