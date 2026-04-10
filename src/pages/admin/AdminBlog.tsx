@@ -23,7 +23,7 @@ export default function AdminBlog() {
   const [loading, setLoading] = useState(true);
   const { user, isAdmin, loading: authLoading, signOut } = useAuth();
   const navigate = useNavigate();
-  const { toast } = useToast();
+  
 
   useEffect(() => {
     if (!authLoading && (!user || !isAdmin)) {
