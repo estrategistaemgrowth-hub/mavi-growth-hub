@@ -12,7 +12,7 @@ serve(async (req) => {
   }
 
   try {
-    const { type, content, title } = await req.json();
+    const { type, content, title, selectedText } = await req.json();
 
     const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
     if (!LOVABLE_API_KEY) {
@@ -44,6 +44,24 @@ serve(async (req) => {
         userPrompt = `Sugira títulos alternativos para o seguinte post:\n\nTítulo atual: ${title}\n\nConteúdo: ${content}`;
         break;
 
+      case "improve_heading":
+        systemPrompt =
+          "Você é um especialista em copywriting e SEO para blogs. Melhore o título/subtítulo fornecido para que seja mais atraente, impactante e otimizado para SEO. Mantenha o sentido original. Responda APENAS com o texto melhorado, sem aspas, explicações ou formatação extra.";
+        userPrompt = `Melhore este título/subtítulo:\n\n"${selectedText}"\n\nContexto do artigo: ${title}`;
+        break;
+
+      case "improve_hook":
+        systemPrompt =
+          "Você é um especialista em copywriting persuasivo. Reescreva o trecho selecionado como um gancho (hook) poderoso que prenda a atenção do leitor. Use técnicas como perguntas retóricas, dados impactantes, ou storytelling. Responda APENAS com o texto melhorado em HTML simples (pode usar <strong>, <em>), sem aspas ou explicações.";
+        userPrompt = `Transforme este trecho em um gancho poderoso:\n\n"${selectedText}"\n\nContexto do artigo: ${title}`;
+        break;
+
+      case "improve_citation":
+        systemPrompt =
+          "Você é um especialista em redação profissional. Transforme o trecho selecionado em uma citação de destaque (blockquote) com impacto. Reformule de forma elegante e memorável, como se fosse uma frase de efeito ou insight importante. Responda APENAS com o texto da citação, sem aspas ou explicações.";
+        userPrompt = `Transforme este trecho em uma citação de destaque:\n\n"${selectedText}"\n\nContexto do artigo: ${title}`;
+        break;
+
       default:
         return new Response(JSON.stringify({ error: "Invalid type" }), {
           status: 400,
@@ -51,7 +69,6 @@ serve(async (req) => {
         });
     }
 
-    // Truncate content to avoid token limits
     const truncatedContent = content?.substring(0, 3000) || "";
 
     const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {

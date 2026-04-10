@@ -8,7 +8,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { RichTextEditor } from "@/components/RichTextEditor";
-import { useToast } from "@/hooks/use-toast";
+import { toast } from "sonner";
 import { ArrowLeft, Save, ImageIcon, Sparkles, Loader2 } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 
@@ -23,7 +23,6 @@ export default function AdminBlogEditor() {
   const isEditing = !!id;
   const navigate = useNavigate();
   const { user, isAdmin, loading: authLoading } = useAuth();
-  const { toast } = useToast();
 
   const [title, setTitle] = useState("");
   const [slug, setSlug] = useState("");
@@ -43,7 +42,7 @@ export default function AdminBlogEditor() {
 
   const generateWithAI = async (type: "excerpt" | "meta_description" | "title_suggestions") => {
     if (!content && !title) {
-      toast({ title: "Adicione conteúdo ou título primeiro", variant: "destructive" });
+      toast.error("Adicione conteúdo ou título primeiro");
       return;
     }
     setAiLoading(type);
@@ -58,11 +57,11 @@ export default function AdminBlogEditor() {
       switch (type) {
         case "excerpt":
           setExcerpt(result);
-          toast({ title: "Resumo gerado com IA!" });
+          toast.success("Resumo gerado com IA!");
           break;
         case "meta_description":
           setMetaDescription(result);
-          toast({ title: "Meta description gerada com IA!" });
+          toast.success("Meta description gerada com IA!");
           break;
         case "title_suggestions":
           try {
@@ -76,7 +75,7 @@ export default function AdminBlogEditor() {
           break;
       }
     } catch (e: any) {
-      toast({ title: "Erro ao gerar com IA", description: e.message, variant: "destructive" });
+      toast.error("Erro ao gerar com IA", { description: e.message });
     }
     setAiLoading(null);
   };
@@ -105,7 +104,7 @@ export default function AdminBlogEditor() {
       .single();
 
     if (error || !data) {
-      toast({ title: "Post não encontrado", variant: "destructive" });
+      toast.error("Post não encontrado");
       navigate("/admin/blog");
       return;
     }
@@ -153,7 +152,7 @@ export default function AdminBlogEditor() {
         .upload(fileName, file);
 
       if (error) {
-        toast({ title: "Erro no upload", description: error.message, variant: "destructive" });
+        toast.error("Erro no upload", { description: error.message });
         return;
       }
 
@@ -162,7 +161,7 @@ export default function AdminBlogEditor() {
         .getPublicUrl(fileName);
 
       setFeaturedImageUrl(publicUrl);
-      toast({ title: "Imagem enviada com sucesso" });
+      toast.success("Imagem enviada com sucesso");
     };
     input.click();
   };
@@ -177,18 +176,18 @@ export default function AdminBlogEditor() {
       .single();
 
     if (error) {
-      toast({ title: "Erro ao criar categoria", description: error.message, variant: "destructive" });
+      toast.error("Erro ao criar categoria", { description: error.message });
     } else if (data) {
       setCategories([...categories, data]);
       setCategoryId(data.id);
       setNewCategory("");
-      toast({ title: "Categoria criada" });
+      toast.success("Categoria criada");
     }
   };
 
   const handleSave = async () => {
     if (!title.trim() || !slug.trim()) {
-      toast({ title: "Título e slug são obrigatórios", variant: "destructive" });
+      toast.error("Título e slug são obrigatórios");
       return;
     }
 
@@ -215,9 +214,9 @@ export default function AdminBlogEditor() {
     }
 
     if (error) {
-      toast({ title: "Erro ao salvar", description: error.message, variant: "destructive" });
+      toast.error("Erro ao salvar", { description: error.message });
     } else {
-      toast({ title: isEditing ? "Post atualizado!" : "Post criado!" });
+      toast.success(isEditing ? "Post atualizado!" : "Post criado!");
       navigate("/admin/blog");
     }
     setSaving(false);
@@ -406,7 +405,7 @@ export default function AdminBlogEditor() {
           {/* Content */}
           <div className="space-y-2">
             <Label>Conteúdo</Label>
-            <RichTextEditor content={content} onChange={setContent} />
+            <RichTextEditor content={content} onChange={setContent} postTitle={title} />
           </div>
         </div>
       </main>
