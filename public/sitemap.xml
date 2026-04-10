@@ -82,6 +82,14 @@
     <priority>0.9</priority>
   </url>
 
+  <!-- Blog -->
+  <url>
+    <loc>https://www.agenciamavi.com.br/blog</loc>
+    <lastmod>2026-04-10</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+
   <!-- Páginas de Segmentos -->
   <url>
     <loc>https://www.agenciamavi.com.br/segmentos</loc>
