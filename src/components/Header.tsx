@@ -85,7 +85,7 @@ export function Header() {
           {/* Logo */}
           <Link to="/" className="flex items-center">
             <img 
-              src={isScrolled ? logoMaviColorida : logoMaviBranca} 
+              src={isScrolled || isLightPage ? logoMaviColorida : logoMaviBranca} 
               alt="MAVI Marketing Digital" 
               className="h-10 w-auto transition-opacity duration-300"
             />
@@ -104,7 +104,7 @@ export function Header() {
                     <button
                       className={cn(
                         "flex items-center gap-1 px-4 py-2 text-sm font-medium transition-colors rounded-md",
-                        isScrolled
+                        isScrolled || isLightPage
                           ? "text-foreground hover:text-primary"
                           : "text-mavi-white/90 hover:text-mavi-white",
                         (item.dropdownType === "services" && location.pathname.startsWith("/servicos")) && "text-primary",
@@ -147,7 +147,7 @@ export function Header() {
                       "px-4 py-2 text-sm font-medium transition-colors rounded-md",
                       item.highlight
                         ? "text-primary hover:text-primary/80"
-                        : isScrolled
+                        : isScrolled || isLightPage
                           ? "text-foreground hover:text-primary"
                           : "text-mavi-white/90 hover:text-mavi-white",
                       location.pathname === item.href && !item.highlight && "text-primary"
@@ -162,12 +162,12 @@ export function Header() {
 
           {/* CTA Buttons */}
           <div className="hidden lg:flex items-center gap-3">
-            <Button asChild variant={isScrolled ? "outline" : "heroOutline"} size="sm">
+            <Button asChild variant={isScrolled || isLightPage ? "outline" : "heroOutline"} size="sm">
             <a href="https://crm.hubrs.com.br/pt/users/sign_in" target="_blank" rel="noopener noreferrer">
                 Login do CRM
               </a>
             </Button>
-            <Button asChild variant={isScrolled ? "default" : "hero"} size="sm">
+            <Button asChild variant={isScrolled || isLightPage ? "default" : "hero"} size="sm">
               <Link to="/contato">Diagnóstico Gratuito</Link>
             </Button>
           </div>
@@ -177,7 +177,7 @@ export function Header() {
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             className={cn(
               "lg:hidden p-2 rounded-md transition-colors",
-              isScrolled ? "text-foreground" : "text-mavi-white"
+              isScrolled || isLightPage ? "text-foreground" : "text-mavi-white"
             )}
           >
             {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
