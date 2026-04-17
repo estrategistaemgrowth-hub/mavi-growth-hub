@@ -63,22 +63,22 @@ const workStyle = [
   {
     icon: BarChart3,
     title: "Dados",
-    description: "Decisões baseadas em métricas reais, não em achismos.",
+    description: "ROAS, CAC e receita atribuída acompanhados semana a semana.",
   },
   {
     icon: Target,
     title: "Estratégia",
-    description: "Planejamento personalizado para cada negócio.",
+    description: "Funil desenhado pro seu ticket, ciclo de venda e margem.",
   },
   {
     icon: Rocket,
     title: "Execução",
-    description: "Implementação ágil com foco em resultados rápidos.",
+    description: "Campanha no ar em dias, não em meses. Otimização diária.",
   },
   {
     icon: MessageSquare,
     title: "Transparência",
-    description: "Comunicação direta e relatórios claros.",
+    description: "Você vê o número que importa. Sem maquiagem em relatório.",
   },
 ];
 
@@ -151,8 +151,7 @@ export default function Sobre() {
               Quem é a <span className="text-primary">MAVI</span> Marketing?
             </h1>
             <p className="text-xl text-mavi-white/70 leading-relaxed animate-fade-in-up animation-delay-200">
-              Somos uma agência de marketing digital nascida em Jaraguá do Sul, com um único objetivo: 
-              transformar dados em crescimento real para negócios que querem vender mais.
+              Agência de performance fundada em Jaraguá do Sul em 2019. Operamos mídia, CRM e automação para quem precisa de receita previsível, não de slide bonito.
             </p>
           </div>
         </div>
@@ -168,18 +167,13 @@ export default function Sobre() {
               centered={false}
             />
             <p className="text-muted-foreground leading-relaxed mb-6">
-              A MAVI nasceu da visão de que marketing digital deveria ser sobre resultados mensuráveis, 
-              não apenas métricas de vaidade. Ao longo de mais de 5 anos, construímos uma metodologia 
-              própria que combina estratégia, tecnologia e execução precisa.
+              Começamos em 2019 atendendo pequenas empresas locais. A pergunta sempre foi a mesma: quanto entrou de receita pra cada real investido em mídia?
             </p>
             <p className="text-muted-foreground leading-relaxed mb-6">
-              Nosso foco em e-commerce e performance nos levou a desenvolver soluções cada vez mais 
-              integradas, culminando na criação do HubRS CRM — nossa ferramenta própria para centralizar 
-              vendas, automatizar WhatsApp e usar IA para escalar atendimentos.
+              Em 2020 entramos pesado em e-commerce na Tray. Em 2024 lançamos o HubRS CRM porque planilha e WhatsApp solto não escalam. Hoje o CRM roda a operação de vendas dos clientes que atendemos.
             </p>
             <p className="text-muted-foreground leading-relaxed">
-              Hoje, somos parceiros de crescimento de mais de 500 clientes, desde pequenas lojas virtuais 
-              até operações que faturam múltiplos dígitos por mês.
+              Mais de 500 negócios passaram pela MAVI. De loja com R$10k/mês a operação com 7 dígitos mensais. O método é o mesmo: tráfego, CRM e automação amarrados na mesma métrica de receita.
             </p>
           </div>
           <div className="space-y-6">
@@ -251,11 +245,10 @@ export default function Sobre() {
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <div>
             <h2 className="text-3xl md:text-4xl font-bold text-mavi-white mb-6">
-              HubRS CRM: nossa extensão natural
+              HubRS CRM: o motor por trás da operação
             </h2>
             <p className="text-mavi-white/70 leading-relaxed mb-6">
-              O HubRS CRM nasceu da nossa necessidade de integrar todas as pontas do processo de vendas 
-              de nossos clientes. Mais do que uma ferramenta, é a materialização da metodologia MAVI.
+              Cansamos de ver lead bom morrer no WhatsApp do vendedor. Construímos o HubRS pra puxar o lead da campanha, qualificar com IA e empurrar pro funil até virar venda.
             </p>
             <div className="space-y-4 mb-8">
               {[

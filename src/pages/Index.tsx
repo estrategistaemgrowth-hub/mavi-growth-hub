@@ -343,15 +343,15 @@ export default function Index() {
           <AnimatedSection animation="fadeInUp">
             <SectionHeader
               title="O que é a MAVI"
-              subtitle="Somos uma agência de marketing digital focada em uma única coisa: fazer seu negócio vender mais."
+              subtitle="Agência de performance que opera tráfego, CRM e automação. Cobrada pela receita gerada, não pelo relatório enviado."
               centered={false}
             />
             <div className="space-y-4 mb-8">
               {[
-                "Estratégias criadas a partir de dados",
-                "Time especialista em performance",
-                "CRM e automação integrados para vender mais",
-                "Parcerias com as principais plataformas do mercado",
+                "Decisão por dado: ROAS, CAC e LTV semanais",
+                "Time dedicado a mídia paga e funil",
+                "CRM e automação ligados direto na campanha",
+                "Google Premier Partner, Meta Business e Tray Diamante",
               ].map((item, index) => (
                 <div key={index} className="flex items-center gap-3 group">
                   <div className="w-6 h-6 rounded-full bg-primary/10 border border-primary/30 flex items-center justify-center flex-shrink-0 transition-all duration-300 group-hover:bg-primary/20 group-hover:border-primary/60">
