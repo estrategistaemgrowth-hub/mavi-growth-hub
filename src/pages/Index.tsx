@@ -206,14 +206,12 @@ export default function Index() {
               </div>
 
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-mavi-white leading-[1.1] mb-6 tracking-tight">
-                Marketing digital que{" "}
-                <span className="gradient-text">faz caixa</span>.
-                <br className="hidden md:block" />
-                Não que faz slide bonito.
+                Tráfego, CRM e automação{" "}
+                <span className="gradient-text">pagos pelo seu ROAS</span>.
               </h1>
 
               <p className="text-lg md:text-xl text-mavi-white/65 mb-10 leading-relaxed">
-                Tráfego pago, CRM, automação e Micro SaaS para e-commerce, imobiliárias, clínicas e indústrias. A gente é cobrado pelo número no fim do mês, não pela quantidade de relatório.
+                Operamos tráfego, CRM e automação para e-commerce, imobiliárias, clínicas e indústrias. Métrica que importa: receita atribuída por real investido.
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 relative z-30">
