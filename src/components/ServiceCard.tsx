@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { ArrowRight, LucideIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useTilt } from "@/hooks/useTilt";
 
 interface ServiceCardProps {
   title: string;
@@ -11,31 +12,26 @@ interface ServiceCardProps {
 }
 
 export function ServiceCard({ title, description, icon: Icon, href, highlight }: ServiceCardProps) {
+  const tiltRef = useTilt<HTMLAnchorElement>(6);
+
   return (
     <Link
+      ref={tiltRef}
       to={href}
       className={cn(
-        "group block p-6 rounded-2xl border transition-all duration-300 will-change-transform relative overflow-hidden card-shine",
-        "hover:-translate-y-1.5",
+        "group block p-6 rounded-2xl border transition-shadow duration-300 will-change-transform relative overflow-hidden card-shine tilt-card",
         highlight
-          ? "text-primary-foreground border-primary/60 hover:shadow-[0_0_32px_hsl(336_100%_45%/0.4)]"
-          : "bg-card text-card-foreground border-border hover:border-primary/35 hover:shadow-[0_4px_24px_hsl(336_100%_45%/0.1)]"
+          ? "text-primary-foreground border-primary/60 hover:shadow-[0_0_40px_hsl(336_100%_45%/0.5)] tilt-card-light"
+          : "bg-card text-card-foreground border-border hover:border-primary/35 hover:shadow-[0_8px_32px_hsl(336_100%_45%/0.18)]"
       )}
       style={highlight ? {
         background: "linear-gradient(135deg, hsl(336 100% 45%) 0%, hsl(310 100% 50%) 100%)",
       } : undefined}
     >
-      {/* Gradiente hover sutil no fundo (não-highlight) */}
-      {!highlight && (
-        <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none rounded-2xl"
-          style={{ background: "linear-gradient(135deg, hsl(336 100% 45% / 0.03) 0%, transparent 60%)" }}
-        />
-      )}
-
       {/* Borda gradiente no hover */}
       {!highlight && (
         <div className="absolute top-0 left-0 right-0 h-px opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-t-2xl"
-          style={{ background: "linear-gradient(90deg, transparent, hsl(336 100% 45% / 0.5), transparent)" }}
+          style={{ background: "linear-gradient(90deg, transparent, hsl(336 100% 45% / 0.6), transparent)" }}
         />
       )}
 
@@ -44,14 +40,14 @@ export function ServiceCard({ title, description, icon: Icon, href, highlight }:
         <div className={cn(
           "w-12 h-12 rounded-xl flex items-center justify-center mb-5 transition-all duration-300",
           highlight
-            ? "bg-white/20 group-hover:bg-white/30"
-            : "icon-container group-hover:scale-105"
+            ? "bg-white/20 group-hover:bg-white/30 group-hover:scale-110"
+            : "icon-container group-hover:scale-110"
         )}>
           <Icon className={cn(
             "w-5 h-5 transition-all duration-300",
             highlight
-              ? "text-white group-hover:drop-shadow-[0_0_6px_rgba(255,255,255,0.5)]"
-              : "text-primary group-hover:drop-shadow-[0_0_8px_hsl(336_100%_45%/0.5)]"
+              ? "text-white group-hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.7)]"
+              : "text-primary group-hover:drop-shadow-[0_0_10px_hsl(336_100%_45%/0.7)]"
           )} />
         </div>
 

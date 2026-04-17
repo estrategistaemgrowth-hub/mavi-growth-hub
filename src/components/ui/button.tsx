@@ -5,7 +5,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-semibold ring-offset-background transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-semibold ring-offset-background transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 ripple-host",
   {
     variants: {
       variant: {
@@ -41,10 +41,46 @@ export interface ButtonProps
   asChild?: boolean;
 }
 
+/**
+ * Cria efeito ripple no clique. Funciona tanto com <button> quanto com <Slot> (asChild).
+ * Detecta prefers-reduced-motion para desabilitar.
+ */
+function spawnRipple(host: HTMLElement, e: React.MouseEvent) {
+  if (typeof window === "undefined") return;
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+  const rect = host.getBoundingClientRect();
+  const size = Math.max(rect.width, rect.height) * 1.2;
+  const dot = document.createElement("span");
+  dot.className = "ripple-dot";
+  dot.style.left = `${e.clientX - rect.left}px`;
+  dot.style.top = `${e.clientY - rect.top}px`;
+  dot.style.width = `${size}px`;
+  dot.style.height = `${size}px`;
+  host.appendChild(dot);
+  setTimeout(() => dot.remove(), 700);
+}
+
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, asChild = false, ...props }, ref) => {
+  ({ className, variant, size, asChild = false, onClick, onPointerDown, ...props }, ref) => {
     const Comp = asChild ? Slot : "button";
-    return <Comp className={cn(buttonVariants({ variant, size, className }))} ref={ref} {...props} />;
+
+    const handlePointerDown = (e: React.PointerEvent<HTMLButtonElement>) => {
+      const target = e.currentTarget;
+      // Para asChild (Slot), o Slot encaminha o handler ao filho real
+      spawnRipple(target as HTMLElement, e as unknown as React.MouseEvent);
+      onPointerDown?.(e);
+    };
+
+    return (
+      <Comp
+        className={cn(buttonVariants({ variant, size, className }))}
+        ref={ref}
+        onClick={onClick}
+        onPointerDown={handlePointerDown}
+        {...props}
+      />
+    );
   },
 );
 Button.displayName = "Button";

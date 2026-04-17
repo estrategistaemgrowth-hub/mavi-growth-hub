@@ -432,6 +432,89 @@
   .text-balance {
     text-wrap: balance;
   }
+
+  /* =============================================
+     TILT 3D + SPOTLIGHT INTERATIVO
+     ============================================= */
+  .tilt-card {
+    transform-style: preserve-3d;
+    transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: transform;
+  }
+
+  .tilt-card > * {
+    transform: translateZ(0);
+  }
+
+  .tilt-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: radial-gradient(
+      400px circle at var(--mx, 50%) var(--my, 50%),
+      hsl(336 100% 55% / 0.18),
+      transparent 45%
+    );
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .tilt-card:hover::before {
+    opacity: 1;
+  }
+
+  /* Variante para card highlight (magenta) — usa luz branca */
+  .tilt-card-light::before {
+    background: radial-gradient(
+      400px circle at var(--mx, 50%) var(--my, 50%),
+      rgba(255,255,255,0.25),
+      transparent 45%
+    );
+  }
+
+  /* =============================================
+     RIPPLE EFFECT (clique em botões)
+     ============================================= */
+  .ripple-host {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .ripple-dot {
+    position: absolute;
+    border-radius: 9999px;
+    background: rgba(255, 255, 255, 0.45);
+    transform: translate(-50%, -50%) scale(0);
+    pointer-events: none;
+    animation: ripple 0.65s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+
+  /* =============================================
+     COUNTER FLASH (ao terminar contagem)
+     ============================================= */
+  .counter-flash {
+    position: relative;
+    display: inline-block;
+  }
+
+  .counter-flash.is-done {
+    animation: counter-pop 0.55s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .counter-flash.is-done::after {
+    content: '';
+    position: absolute;
+    inset: -8px;
+    border-radius: 12px;
+    background: radial-gradient(circle, hsl(336 100% 55% / 0.4) 0%, transparent 70%);
+    animation: counter-glow 0.7s ease-out forwards;
+    pointer-events: none;
+    z-index: -1;
+  }
 }
 
 @layer utilities {
@@ -760,4 +843,29 @@
     opacity: 1;
     transform: translateY(0) scale(1);
   }
+}
+
+@keyframes ripple {
+  to {
+    transform: translate(-50%, -50%) scale(2.4);
+    opacity: 0;
+  }
+}
+
+@keyframes counter-pop {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.18); }
+  100% { transform: scale(1); }
+}
+
+@keyframes counter-glow {
+  0% { opacity: 0.9; transform: scale(0.8); }
+  100% { opacity: 0; transform: scale(1.4); }
+}
+
+/* Hero parallax orbs — seguem cursor com inércia */
+.hero-orb {
+  transform: translate3d(var(--orb-x, 0px), var(--orb-y, 0px), 0);
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
 }
