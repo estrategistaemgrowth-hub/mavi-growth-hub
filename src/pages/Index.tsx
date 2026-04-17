@@ -637,12 +637,12 @@ export default function Index() {
             </div>
 
             <h2 className="text-3xl md:text-5xl font-bold text-mavi-white mb-5 leading-tight">
-              Pronto para destravar as{" "}
-              <span className="gradient-text">vendas</span>{" "}
-              do seu negócio?
+              Quer ver o que{" "}
+              <span className="gradient-text">trava</span>{" "}
+              suas vendas hoje?
             </h2>
             <p className="text-lg text-mavi-white/60 mb-10 max-w-xl mx-auto">
-              Agende uma consultoria gratuita e descubra como podemos acelerar seu crescimento com estratégia, dados e tecnologia.
+              Sessão de 30 minutos, gratuita. A gente olha seu funil, aponta o gargalo e mostra o que mudaria. Sem proposta enfiada no fim.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button asChild variant="hero" size="xl" className="btn-glow group">
