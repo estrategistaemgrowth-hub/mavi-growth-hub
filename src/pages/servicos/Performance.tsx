@@ -130,12 +130,11 @@ export default function ServicoPerformance() {
               <span className="text-sm font-medium">Marketing de Performance</span>
             </div>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-mavi-white mb-6 animate-fade-in-up">
-              Transforme anúncios em{" "}
-              <span className="text-primary">vendas reais</span>
+              Mídia paga cobrada por{" "}
+              <span className="text-primary">ROAS</span>, não por impressão.
             </h1>
             <p className="text-xl text-mavi-white/70 leading-relaxed mb-8 animate-fade-in-up animation-delay-200">
-              Gestão de tráfego pago com foco obsessivo em resultados. Cada real investido 
-              é rastreado e otimizado para maximizar seu retorno sobre investimento.
+              Meta Ads e Google Ads operados em rotina diária. Rastreamento de receita por campanha, criativo e público. Você vê o número de venda atribuído ao real investido.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 animate-fade-in-up animation-delay-300">
               <Button asChild variant="hero" size="xl">
@@ -341,11 +340,10 @@ export default function ServicoPerformance() {
       <Section variant="dark">
         <div className="text-center max-w-3xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-bold text-mavi-white mb-4">
-            Quer escalar suas vendas com tráfego pago?
+            Quer ver quanto sua verba de mídia poderia render?
           </h2>
           <p className="text-lg text-mavi-white/70 mb-8">
-            Agende um diagnóstico gratuito e descubra o potencial de crescimento do seu negócio 
-            com campanhas de performance bem estruturadas.
+            Diagnóstico gratuito: a gente olha sua conta de Ads, seu funil e te diz onde está vazando dinheiro. Sem proposta de gaveta.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button asChild variant="hero" size="xl">

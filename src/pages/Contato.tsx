@@ -185,8 +185,7 @@ export default function Contato() {
               Fale com a <span className="text-primary">MAVI</span>
             </h1>
             <p className="text-xl text-mavi-white/70 leading-relaxed animate-fade-in-up animation-delay-200">
-              Nossa equipe entra em contato em horário comercial para entender seu momento 
-              e indicar o melhor caminho de crescimento.
+              Conta seu momento e a verba que você opera hoje. A gente responde em horário comercial com um diagnóstico, não com pitch.
             </p>
           </div>
         </div>
