@@ -7,6 +7,7 @@ import { TestimonialCard } from "@/components/TestimonialCard";
 import { LogoCarousel } from "@/components/LogoCarousel";
 import { AnimatedCounter } from "@/components/AnimatedCounter";
 import { AnimatedSection, AnimatedChildren } from "@/components/AnimatedSection";
+import { HeroOrbs } from "@/components/HeroOrbs";
 import { SEO, generateBreadcrumbSchema, generateLocalBusinessSchema, generateOrganizationSchema, generateWebSiteSchema, generateFAQSchema } from "@/components/SEO";
 import {
   ShoppingCart,
@@ -186,14 +187,9 @@ export default function Index() {
         {/* Gradiente base */}
         <div className="absolute inset-0 bg-gradient-to-br from-mavi-black via-[#0a0010] to-[#150010]" />
 
-        {/* Blob magenta — direita/topo */}
-        <div className="absolute -top-20 right-0 w-[600px] h-[600px] rounded-full opacity-20"
-          style={{ background: "radial-gradient(circle, hsl(336 100% 45%) 0%, transparent 70%)" }}
-        />
-        {/* Blob purple — esquerda/baixo */}
-        <div className="absolute bottom-0 -left-32 w-[500px] h-[500px] rounded-full opacity-10"
-          style={{ background: "radial-gradient(circle, hsl(280 70% 55%) 0%, transparent 70%)" }}
-        />
+        {/* Orbs reativos ao mouse (parallax) */}
+        <HeroOrbs />
+
         {/* Linha diagonal decorativa */}
         <div className="absolute top-0 right-1/3 w-px h-full bg-gradient-to-b from-transparent via-primary/20 to-transparent" />
 
