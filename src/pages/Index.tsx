@@ -170,8 +170,8 @@ export default function Index() {
   return (
     <Layout>
       <SEO
-        title="Agência de Performance para E-commerce, Imobiliárias e Indústrias"
-        description="Agência especializada em marketing digital para e-commerces, imobiliárias, clínicas e indústrias. Tráfego pago, CRM, automação e resultados reais. Conheça a MAVI."
+        title="MAVI · Performance para e-commerce, imobiliárias e indústrias"
+        description="MAVI faz tráfego pago, CRM, automação e Micro SaaS para e-commerce, imobiliárias, clínicas e indústrias. Sem promessa vazia. Resultado mensurável."
         canonical="/"
         schemaMarkup={combinedSchema}
       />
@@ -206,13 +206,14 @@ export default function Index() {
               </div>
 
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-mavi-white leading-[1.1] mb-6 tracking-tight">
-                Estratégias que{" "}
-                <span className="gradient-text">impulsionam</span>{" "}
-                negócios a novos patamares.
+                Marketing digital que{" "}
+                <span className="gradient-text">faz caixa</span>.
+                <br className="hidden md:block" />
+                Não que faz slide bonito.
               </h1>
 
               <p className="text-lg md:text-xl text-mavi-white/65 mb-10 leading-relaxed">
-                Performance para e-commerces, imobiliárias, clínicas e indústrias — com dados, tecnologia, IA e estratégias que geram resultado de verdade.
+                Tráfego pago, CRM, automação e Micro SaaS para e-commerce, imobiliárias, clínicas e indústrias. A gente é cobrado pelo número no fim do mês, não pela quantidade de relatório.
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 relative z-30">
