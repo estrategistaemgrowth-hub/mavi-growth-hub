@@ -291,7 +291,7 @@ const SegmentoIndustria = () => {
       <Section>
         <SectionHeader
           title="Sua indústria enfrenta esses desafios?"
-          subtitle="Problemas comuns que resolvemos para indústrias e empresas B2B"
+          subtitle="O que aparece com frequência em indústrias que chegam até nós"
         />
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -318,7 +318,7 @@ const SegmentoIndustria = () => {
       <Section variant="muted">
         <SectionHeader
           title="Nossas soluções para Indústrias"
-          subtitle="Estratégias digitais para gerar credibilidade e novos negócios"
+          subtitle="O que fazemos para resolver cada um desses problemas"
         />
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -375,8 +375,7 @@ const SegmentoIndustria = () => {
               O que sua indústria ganha com a MAVI
             </h2>
             <p className="text-muted-foreground text-lg mb-8">
-              Resultados que impactam diretamente nas vendas e no
-              posicionamento da sua empresa no mercado.
+              O que muda na prática quando trabalhamos juntos.
             </p>
 
             <ul className="space-y-4">
@@ -469,11 +468,10 @@ const SegmentoIndustria = () => {
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
               <h2 className="text-3xl md:text-4xl font-bold text-mavi-white mb-6">
-                Pronto para fortalecer a presença digital da sua indústria?
+                Quer aparecer quando um comprador pesquisa o que você faz?
               </h2>
               <p className="text-xl text-mavi-white/80 mb-8">
-                Agende uma consultoria gratuita e descubra como podemos ajudar
-                sua indústria a gerar mais negócios com marketing digital.
+                A gente analisa seu segmento e mostra o que faria em 30 minutos. Sem compromisso.
               </p>
               <div className="flex flex-wrap gap-4">
                 <Button asChild variant="hero" size="lg">

@@ -207,7 +207,7 @@ export default function ServicoEcommerce() {
       <Section>
         <SectionHeader
           title="Reconhece algum desses problemas?"
-          subtitle="Se você enfrenta alguma dessas situações, podemos ajudar."
+          subtitle="Se alguma dessas situações soa familiar, vale uma conversa."
         />
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {problems.map((problem, index) => (
@@ -226,7 +226,7 @@ export default function ServicoEcommerce() {
           <div>
             <SectionHeader
               title="O que entregamos"
-              subtitle="Implementação completa com foco em conversão e operação eficiente."
+              subtitle="O que está incluso no serviço."
               centered={false}
             />
             <div className="space-y-3 mb-8">
@@ -307,7 +307,7 @@ export default function ServicoEcommerce() {
       <Section variant="dark">
         <SectionHeader
           title="Cases de E-commerce"
-          subtitle="Resultados reais de lojas que implementamos."
+          subtitle="Lojas que lançamos e o problema que resolvemos em cada uma."
           light
         />
         <div className="grid md:grid-cols-3 gap-6">
@@ -393,11 +393,10 @@ export default function ServicoEcommerce() {
       <Section variant="dark">
         <div className="text-center max-w-3xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-bold text-mavi-white mb-4">
-            Pronto para lançar sua loja virtual?
+            Quer colocar sua loja no ar?
           </h2>
           <p className="text-lg text-mavi-white/70 mb-8">
-            Entre em contato e receba uma proposta personalizada para o seu projeto. 
-            Vamos colocar sua loja no ar em até 30 dias.
+            Na primeira conversa a gente define escopo, prazo e valor. Sem surpresa depois.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button asChild variant="hero" size="xl">

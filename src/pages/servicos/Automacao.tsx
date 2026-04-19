@@ -179,7 +179,7 @@ export default function ServicoAutomacao() {
       <Section>
         <SectionHeader
           title="Isso soa familiar?"
-          subtitle="Se você enfrenta algum desses problemas, podemos ajudar."
+          subtitle="Se algum soa familiar, vale uma conversa."
         />
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {problems.map((problem, index) => (
@@ -196,7 +196,7 @@ export default function ServicoAutomacao() {
       <Section variant="gray">
         <SectionHeader
           title="Tipos de automação"
-          subtitle="Soluções para cada necessidade do seu negócio."
+          subtitle="Quatro áreas onde automação costuma fazer mais diferença."
         />
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {automations.map((automation, index) => (
@@ -217,7 +217,7 @@ export default function ServicoAutomacao() {
           <div>
             <SectionHeader
               title="O que entregamos"
-              subtitle="Automação inteligente para atendimento e vendas."
+              subtitle="O que está incluso na prática."
               centered={false}
             />
             <div className="space-y-3 mb-8">
@@ -257,7 +257,7 @@ export default function ServicoAutomacao() {
               Integração nativa
             </span>
             <h2 className="text-3xl md:text-4xl font-bold text-mavi-white mb-6">
-              Potencialize com o HubRS CRM
+              HubRS CRM já inclui tudo isso
             </h2>
             <p className="text-mavi-white/70 mb-6 leading-relaxed">
               Todas as nossas automações se integram nativamente com o HubRS CRM, 
@@ -397,11 +397,10 @@ export default function ServicoAutomacao() {
       <Section variant="dark">
         <div className="text-center max-w-3xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-bold text-mavi-white mb-4">
-            Quer automatizar seu atendimento?
+            Quer ver como funcionaria no seu caso?
           </h2>
           <p className="text-lg text-mavi-white/70 mb-8">
-            Converse com nosso time e descubra como a automação com IA 
-            pode transformar seu negócio.
+            A gente analisa sua operação e mostra o que automatizaria primeiro. Sem compromisso.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button asChild variant="hero" size="xl">

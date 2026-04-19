@@ -270,7 +270,7 @@ const SegmentoSaudeEstetica = () => {
       <Section>
         <SectionHeader
           title="Sua clínica enfrenta esses desafios?"
-          subtitle="Problemas comuns que resolvemos para nossos clientes do setor de saúde e estética"
+          subtitle="Problemas que aparecem com frequência em clínicas e salões que chegam até nós"
         />
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -297,7 +297,7 @@ const SegmentoSaudeEstetica = () => {
       <Section variant="muted">
         <SectionHeader
           title="Nossas soluções para Saúde e Estética"
-          subtitle="Estratégias completas para atrair pacientes, organizar agendamentos e fidelizar clientes"
+          subtitle="O que fazemos para resolver cada um desses problemas"
         />
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -329,8 +329,7 @@ const SegmentoSaudeEstetica = () => {
               O que sua clínica ganha com a MAVI
             </h2>
             <p className="text-muted-foreground text-lg mb-8">
-              Resultados concretos que impactam diretamente nos agendamentos e
-              na organização da sua clínica ou salão.
+              O que muda na prática quando trabalhamos juntos.
             </p>
 
             <ul className="space-y-4">
@@ -426,8 +425,7 @@ const SegmentoSaudeEstetica = () => {
                 Pronto para lotar sua agenda?
               </h2>
               <p className="text-xl text-mavi-white/80 mb-8">
-                Agende uma consultoria gratuita e descubra como podemos ajudar
-                sua clínica ou salão a crescer com marketing digital.
+                A gente vê sua agenda, seu mercado e te diz o que mudaria. Gratuito, sem compromisso.
               </p>
               <div className="flex flex-wrap gap-4">
                 <Button asChild variant="hero" size="lg">

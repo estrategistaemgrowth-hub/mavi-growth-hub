@@ -269,7 +269,7 @@ const SegmentoImobiliarias = () => {
       <Section>
         <SectionHeader
           title="Sua imobiliária enfrenta esses desafios?"
-          subtitle="Problemas comuns que resolvemos para nossos clientes do setor imobiliário"
+          subtitle="Problemas que aparecem com frequência em imobiliárias que chegam até nós"
         />
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -296,7 +296,7 @@ const SegmentoImobiliarias = () => {
       <Section variant="muted">
         <SectionHeader
           title="Nossas soluções para Imobiliárias"
-          subtitle="Estratégias completas para gerar leads, organizar vendas e aumentar conversões"
+          subtitle="O que fazemos para resolver cada um desses problemas"
         />
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -328,8 +328,7 @@ const SegmentoImobiliarias = () => {
               O que sua imobiliária ganha com a MAVI
             </h2>
             <p className="text-muted-foreground text-lg mb-8">
-              Resultados concretos que impactam diretamente nas vendas e na
-              organização da sua imobiliária.
+              O que muda na prática quando trabalhamos juntos.
             </p>
 
             <ul className="space-y-4">
@@ -422,11 +421,10 @@ const SegmentoImobiliarias = () => {
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
               <h2 className="text-3xl md:text-4xl font-bold text-mavi-white mb-6">
-                Pronto para gerar mais leads para sua imobiliária?
+                Quer ver quanto custa um lead qualificado na sua região?
               </h2>
               <p className="text-xl text-mavi-white/80 mb-8">
-                Agende uma consultoria gratuita e descubra como podemos ajudar
-                sua imobiliária a crescer com marketing digital.
+                A gente analisa seu mercado e mostra o que faria. Gratuito, sem compromisso.
               </p>
               <div className="flex flex-wrap gap-4">
                 <Button asChild variant="hero" size="lg">

@@ -43,7 +43,7 @@ const revenueOptions = [
 const contatoFaqs = [
   {
     question: "Como funciona o diagnóstico gratuito?",
-    answer: "Você preenche o formulário ou nos chama no WhatsApp. Nosso time analisa seu negócio, entende seus objetivos e apresenta um plano estratégico sem custo e sem compromisso.",
+    answer: "Você preenche o formulário ou chama no WhatsApp. A gente analisa sua situação e diz o que faria — sem custo e sem compromisso.",
   },
   {
     question: "Qual o tempo de resposta da MAVI?",
@@ -51,7 +51,7 @@ const contatoFaqs = [
   },
   {
     question: "Como a MAVI cobra pelos serviços?",
-    answer: "Trabalhamos com contratos mensais ou por projeto, dependendo do serviço. Os valores são apresentados após o diagnóstico gratuito, com total transparência sobre o que está incluído.",
+    answer: "Contratos mensais ou por projeto, dependendo do serviço. Os valores só aparecem depois do diagnóstico — assim a gente já sabe o que faz sentido pro seu caso.",
   },
   {
     question: "A MAVI assina contrato de confidencialidade?",

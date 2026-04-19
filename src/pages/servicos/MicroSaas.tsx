@@ -155,7 +155,7 @@ export default function ServicoMicroSaas() {
         <AnimatedSection animation="fadeInUp">
           <SectionHeader
             title="O que é um Micro SaaS (na prática)"
-            subtitle="Criamos a ideia do processo que você imagina pro seu negócio. Veja alguns exemplos:"
+            subtitle="Veja alguns tipos de sistema que já criamos:"
           />
         </AnimatedSection>
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -184,7 +184,7 @@ export default function ServicoMicroSaas() {
         <AnimatedSection animation="fadeInUp">
           <SectionHeader
             title="Como usamos IA no desenvolvimento"
-            subtitle="IA é nossa ferramenta interna para entregar sistemas melhores e mais rápido"
+            subtitle="IA é uma ferramenta interna — usamos pra entregar mais rápido e com menos bugs"
           />
         </AnimatedSection>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">

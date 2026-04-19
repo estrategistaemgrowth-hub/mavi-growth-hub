@@ -131,9 +131,7 @@ const Segmentos = () => {
               segmento
             </h1>
             <p className="text-xl text-mavi-white/80 mb-8 max-w-2xl">
-              Cada negócio tem suas particularidades. Por isso, desenvolvemos
-              estratégias específicas para cada segmento, garantindo resultados
-              que fazem sentido para a sua realidade.
+              Não faz sentido aplicar a mesma estratégia de e-commerce numa imobiliária. Por isso cada segmento tem abordagem diferente — com métricas, canais e objetivos específicos.
             </p>
             <div className="flex flex-wrap gap-4">
               <Button asChild variant="hero" size="lg">
@@ -229,12 +227,10 @@ const Segmentos = () => {
               Por que a MAVI?
             </span>
             <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">
-              Expertise que transcende segmentos
+              Mais de 15 segmentos atendidos
             </h2>
             <p className="text-muted-foreground text-lg mb-8">
-              Com mais de 5 anos de experiência atendendo diversos tipos de
-              negócios, entendemos que cada segmento tem suas particularidades,
-              desafios e oportunidades únicas.
+              Com mais de 5 anos atendendo tipos de negócio bem diferentes, a gente aprendeu que o que funciona numa clínica raramente funciona numa loja virtual. Cada caso tem suas variáveis.
             </p>
 
             <div className="space-y-6">
@@ -311,8 +307,7 @@ const Segmentos = () => {
             Não encontrou seu segmento?
           </h2>
           <p className="text-xl text-mavi-white/80 mb-8 max-w-2xl mx-auto">
-            Atendemos diversos tipos de negócios. Entre em contato e vamos
-            conversar sobre como podemos ajudar sua empresa a crescer.
+            Atendemos tipos de negócio que não estão listados aqui. Manda mensagem e a gente avalia se faz sentido.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <Button asChild variant="hero" size="lg">

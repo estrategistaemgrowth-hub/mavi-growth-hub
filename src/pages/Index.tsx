@@ -89,7 +89,7 @@ const differentials = [
   },
   {
     title: "Metodologia de performance",
-    description: "Processos validados para maximizar resultados com dados e análises constantes.",
+    description: "Análise semanal de ROAS, CAC e LTV. Ajustes toda semana, não só no fim do mês.",
     icon: Target,
     number: "02",
   },
@@ -404,7 +404,7 @@ export default function Index() {
         <AnimatedSection>
           <SectionHeader
             title="Soluções para o seu negócio"
-            subtitle="Do planejamento à execução, oferecemos tudo que seu negócio precisa para escalar no digital."
+            subtitle="Tráfego pago, e-commerce, CRM, automação e sistemas sob medida. Tudo no mesmo time."
           />
         </AnimatedSection>
         <AnimatedChildren className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
@@ -537,7 +537,7 @@ export default function Index() {
           <AnimatedSection className="relative z-10">
             <SectionHeader
               title="Por que escolher a MAVI?"
-              subtitle="Não somos apenas mais uma agência. Somos parceiros estratégicos do seu crescimento."
+              subtitle="Fazemos o que prometemos e medimos o que entregamos."
               light
             />
           </AnimatedSection>
@@ -570,7 +570,7 @@ export default function Index() {
         <AnimatedSection>
           <SectionHeader
             title="Clientes & Parceiros"
-            subtitle="De pequenos negócios a operações com múltiplos dígitos mensais: nosso foco é sempre resultado."
+            subtitle="Pequenas lojas, clínicas, imobiliárias e indústrias. Todos chegam aqui pelo mesmo motivo: resultado."
           />
         </AnimatedSection>
         <LogoCarousel />

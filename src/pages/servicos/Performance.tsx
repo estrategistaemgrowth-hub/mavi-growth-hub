@@ -174,7 +174,7 @@ export default function ServicoPerformance() {
       <Section>
         <SectionHeader
           title="Isso soa familiar?"
-          subtitle="Se você enfrenta algum desses problemas, podemos ajudar."
+          subtitle="Se algum soa familiar, vale uma conversa."
         />
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {problems.map((problem, index) => (
@@ -220,7 +220,7 @@ export default function ServicoPerformance() {
           <div>
             <SectionHeader
               title="O que entregamos"
-              subtitle="Gestão completa de suas campanhas de mídia paga."
+              subtitle="O que entregamos mês a mês."
               centered={false}
             />
             <div className="space-y-3 mb-8">

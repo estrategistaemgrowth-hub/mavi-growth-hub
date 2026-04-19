@@ -277,9 +277,7 @@ export default function HubRSCRM() {
             subtitle="Um CRM desenvolvido pela MAVI, focado em empresas que querem organizar o funil de vendas e automatizar o atendimento via WhatsApp com IA."
           />
           <p className="text-muted-foreground leading-relaxed">
-            O HUBRS ajuda a qualificar leads automaticamente, agilizar respostas, agendar conversas 
-            e acompanhar tudo em um funil visual (Kanban). É a ferramenta que transforma seu WhatsApp 
-            em uma máquina de vendas organizada.
+            O HUBRS qualifica leads automaticamente, agiliza respostas e mantém tudo num funil visual. Quem usa WhatsApp para vender sabe o quanto é difícil controlar isso sem um sistema. O HUBRS resolve essa bagunça.
           </p>
         </AnimatedSection>
       </Section>
@@ -289,7 +287,7 @@ export default function HubRSCRM() {
         <AnimatedSection>
           <SectionHeader
             title="Principais funcionalidades"
-            subtitle="Tudo que você precisa para vender mais e atender melhor."
+            subtitle="As funções que mais fazem falta em quem vende pelo WhatsApp."
           />
         </AnimatedSection>
         <AnimatedChildren className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -376,7 +374,7 @@ export default function HubRSCRM() {
           <AnimatedSection animation="fadeInLeft">
             <SectionHeader
               title="Benefícios do HUBRS CRM"
-              subtitle="Por que empresas estão migrando para o HUBRS."
+              subtitle="O que muda na prática quando você começa a usar."
               centered={false}
             />
             <div className="grid sm:grid-cols-2 gap-4">
@@ -496,10 +494,10 @@ export default function HubRSCRM() {
       <Section variant="dark">
         <AnimatedSection className="text-center max-w-3xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-bold text-mavi-white mb-6">
-            Quer transformar seu atendimento em uma máquina de vendas?
+            Quer ver o HUBRS funcionando com a sua operação?
           </h2>
           <p className="text-lg text-mavi-white/70 mb-8">
-            Comece a usar o HUBRS CRM hoje mesmo ou agende uma demonstração com nosso time.
+            Teste por 7 dias ou chama a gente pra mostrar como funciona.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button asChild variant="hero" size="xl" className="btn-glow">

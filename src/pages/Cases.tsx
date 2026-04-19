@@ -83,7 +83,7 @@ const faqs = [
   },
   {
     question: "Como funciona a consultoria gratuita?",
-    answer: "Na consultoria gratuita, analisamos sua operação atual, identificamos oportunidades de melhoria e apresentamos um plano de ação personalizado. Sem compromisso, você recebe insights valiosos para seu negócio.",
+    answer: "Você explica sua situação. A gente analisa e diz o que faria, com ou sem você nos contratar.",
   },
 ];
 
@@ -129,7 +129,7 @@ export default function Cases() {
       <Section>
         <SectionHeader
           title="Cases de Sucesso"
-          subtitle="Conheça algumas histórias de crescimento que ajudamos a construir em diversos segmentos."
+          subtitle="Situações reais de clientes que chegaram com um problema específico. Veja o que fizemos."
         />
         <div className="space-y-8">
           {cases.map((caseItem, index) => (
@@ -222,10 +222,10 @@ export default function Cases() {
       <Section variant="gray">
         <div className="text-center max-w-2xl mx-auto">
           <h2 className="text-3xl font-bold text-foreground mb-4">
-            Quer ser nosso próximo case de sucesso?
+            Quer que a gente resolva um problema de verdade?
           </h2>
           <p className="text-muted-foreground mb-8">
-            Agende uma consultoria gratuita e descubra como podemos ajudar seu negócio a crescer.
+            30 minutos pelo WhatsApp. A gente vê sua situação e fala o que faria.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button asChild size="lg">

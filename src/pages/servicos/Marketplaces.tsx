@@ -190,7 +190,7 @@ export default function ServicoMarketplaces() {
       <Section>
         <SectionHeader
           title="Reconhece algum desses problemas?"
-          subtitle="Se você enfrenta alguma dessas situações, podemos ajudar."
+          subtitle="Se alguma dessas situações soa familiar, vale uma conversa."
         />
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {problems.map((problem, index) => (
@@ -257,7 +257,7 @@ export default function ServicoMarketplaces() {
           <div>
             <SectionHeader
               title="O que entregamos"
-              subtitle="Operação integrada para maximizar resultados."
+              subtitle="O que está incluso no serviço."
               centered={false}
               light
             />
@@ -301,8 +301,7 @@ export default function ServicoMarketplaces() {
               Seu ERP conectado a todos os canais
             </h2>
             <p className="text-muted-foreground mb-6 leading-relaxed">
-              Configuramos integrações robustas entre seu ERP e todos os marketplaces, 
-              garantindo sincronização automática de estoque, pedidos, preços e notas fiscais.
+              Configuramos as integrações entre seu ERP e os marketplaces. Estoque, pedidos, preços e notas fiscais sincronizam automaticamente — sem precisar atualizar nada na mão.
             </p>
             <div className="grid grid-cols-2 gap-4 mb-8">
               {["Bling", "Tiny", "Omie", "Conta Azul"].map((erp) => (
@@ -368,11 +367,10 @@ export default function ServicoMarketplaces() {
       <Section variant="dark">
         <div className="text-center max-w-3xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-bold text-mavi-white mb-4">
-            Quer expandir para marketplaces?
+            Quer entrar em mais canais?
           </h2>
           <p className="text-lg text-mavi-white/70 mb-8">
-            Converse com nosso time e descubra as melhores oportunidades 
-            para escalar suas vendas em múltiplos canais.
+            A gente analisa quais marketplaces fazem sentido pro seu produto e mostra como entrar.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button asChild variant="hero" size="xl">
