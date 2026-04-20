@@ -9,6 +9,7 @@ import { Section } from "@/components/Section";
 import { SEO, generateBreadcrumbSchema, generateLocalBusinessSchema, generateFAQSchema } from "@/components/SEO";
 import { useToast } from "@/hooks/use-toast";
 import { WhatsAppLink } from "@/components/WhatsAppLink";
+import { SplitText } from "@/components/SplitText";
 import {
   Phone,
   Mail,
@@ -181,9 +182,7 @@ export default function Contato() {
         </div>
         <div className="container-mavi relative z-10">
           <div className="max-w-3xl">
-            <h1 className="text-4xl md:text-5xl font-bold text-mavi-white mb-6 animate-fade-in-up">
-              Fale com a <span className="text-primary">MAVI</span>
-            </h1>
+            <h1 className="text-4xl md:text-5xl font-bold text-mavi-white mb-6"><SplitText stagger={45} duration={750}>Fale com a <span className="text-primary">MAVI</span></SplitText></h1>
             <p className="text-xl text-mavi-white/70 leading-relaxed animate-fade-in-up animation-delay-200">
               Conta seu momento e a verba que você opera hoje. A gente responde em horário comercial com um diagnóstico, não com pitch.
             </p>

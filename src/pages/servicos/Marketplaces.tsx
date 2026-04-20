@@ -4,6 +4,7 @@ import { Layout } from "@/components/Layout";
 import { Section, SectionHeader } from "@/components/Section";
 import { AnimatedCounter } from "@/components/AnimatedCounter";
 import { SEO, generateBreadcrumbSchema, generateFAQSchema, generateServiceSchema } from "@/components/SEO";
+import { SplitText } from "@/components/SplitText";
 import { 
   Store,
   CheckCircle2,
@@ -144,10 +145,8 @@ export default function ServicoMarketplaces() {
               <Store className="w-4 h-4" />
               <span className="text-sm font-medium">Marketplaces & ERP</span>
             </div>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-mavi-white mb-6 animate-fade-in-up">
-              Domine os{" "}
-              <span className="text-primary">marketplaces</span>
-            </h1>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-mavi-white mb-6"><SplitText stagger={45} duration={750}>Domine os{" "}
+              <span className="text-primary">marketplaces</span></SplitText></h1>
             <p className="text-xl text-mavi-white/70 leading-relaxed mb-8 animate-fade-in-up animation-delay-200">
               Gestão profissional de marketplaces com integração completa. Maximize suas vendas 
               em múltiplos canais com operação organizada e rentável.

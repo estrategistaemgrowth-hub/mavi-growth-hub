@@ -3,6 +3,7 @@ import { Layout } from "@/components/Layout";
 import { Section, SectionHeader } from "@/components/Section";
 import { Button } from "@/components/ui/button";
 import { SEO, generateBreadcrumbSchema } from "@/components/SEO";
+import { SplitText } from "@/components/SplitText";
 import {
   ShoppingCart,
   Building2,
@@ -125,11 +126,9 @@ const Segmentos = () => {
             <span className="inline-block px-4 py-2 bg-primary/20 text-primary rounded-full text-sm font-medium mb-6">
               Segmentos que Atendemos
             </span>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-mavi-white mb-6 leading-tight">
-              Soluções de marketing{" "}
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-mavi-white mb-6 leading-tight"><SplitText stagger={45} duration={750}>Soluções de marketing{" "}
               <span className="text-primary">personalizadas</span> para o seu
-              segmento
-            </h1>
+              segmento</SplitText></h1>
             <p className="text-xl text-mavi-white/80 mb-8 max-w-2xl">
               Cada negócio tem suas particularidades. Por isso, desenvolvemos
               estratégias específicas para cada segmento, garantindo resultados

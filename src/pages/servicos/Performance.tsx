@@ -4,6 +4,7 @@ import { Layout } from "@/components/Layout";
 import { Section, SectionHeader } from "@/components/Section";
 import { AnimatedCounter } from "@/components/AnimatedCounter";
 import { SEO, generateBreadcrumbSchema, generateFAQSchema, generateServiceSchema } from "@/components/SEO";
+import { SplitText } from "@/components/SplitText";
 import { 
   TrendingUp, 
   CheckCircle2, 
@@ -129,10 +130,8 @@ export default function ServicoPerformance() {
               <TrendingUp className="w-4 h-4" />
               <span className="text-sm font-medium">Marketing de Performance</span>
             </div>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-mavi-white mb-6 animate-fade-in-up">
-              Mídia paga cobrada por{" "}
-              <span className="text-primary">ROAS</span>, não por impressão.
-            </h1>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-mavi-white mb-6"><SplitText stagger={45} duration={750}>Mídia paga cobrada por{" "}
+              <span className="text-primary">ROAS</span>, não por impressão.</SplitText></h1>
             <p className="text-xl text-mavi-white/70 leading-relaxed mb-8 animate-fade-in-up animation-delay-200">
               Meta Ads e Google Ads operados em rotina diária. Rastreamento de receita por campanha, criativo e público. Você vê o número de venda atribuído ao real investido.
             </p>
