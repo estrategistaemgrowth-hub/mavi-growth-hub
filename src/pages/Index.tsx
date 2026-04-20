@@ -299,7 +299,7 @@ export default function Index() {
                         <span className="text-green-400 text-xs font-semibold bg-green-400/10 px-2 py-0.5 rounded-full">↑ +127%</span>
                       </div>
                       <p className="text-white text-xl font-bold mb-2">
-                        R$ <AnimatedCounter end={248500} duration={2400} />
+                        R$ <AnimatedCounter end={248500} duration={2400} thousandSeparator="." />
                       </p>
                       <div className="h-1.5 bg-white/8 rounded-full overflow-hidden">
                         <div className="h-full w-3/4 rounded-full animate-shimmer"
@@ -313,7 +313,7 @@ export default function Index() {
                       <div className="bg-white/5 rounded-xl p-4 border border-white/5">
                         <p className="text-white/50 text-xs mb-1">ROAS</p>
                         <p className="text-2xl font-bold text-white">
-                          <AnimatedCounter end={84} duration={1800} />
+                          <AnimatedCounter end={8.4} duration={1800} decimals={1} suffix="x" />
                         </p>
                         <p className="text-green-400 text-xs mt-0.5">Meta: 5x ✓</p>
                       </div>
