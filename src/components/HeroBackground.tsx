@@ -59,62 +59,61 @@ export function HeroBackground({
     };
   }, []);
 
-  const opacityScale = intensity === "subtle" ? 0.75 : 1;
+  const opacityScale = intensity === "subtle" ? 0.9 : 1;
+  const auroraOpacity = intensity === "subtle" ? 0.34 : 0.52;
+  const gridOpacity = intensity === "subtle" ? 0.22 : 0.34;
+  const orb1Opacity = intensity === "subtle" ? 0.24 : 0.38;
+  const orb2Opacity = intensity === "subtle" ? 0.16 : 0.24;
+  const pulseOpacity = intensity === "subtle" ? 0.12 : 0.18;
 
   return (
     <div
       ref={wrapRef}
-      className="absolute inset-0 pointer-events-none overflow-hidden"
+      className="absolute inset-0 pointer-events-none overflow-hidden hero-bg"
       aria-hidden="true"
     >
-      {/* Aurora — blob gradiente magenta-roxo se deformando */}
       <div
         ref={aurora}
         className="hero-aurora absolute top-1/2 left-1/2"
-        style={{ opacity: 0.35 * opacityScale }}
+        style={{ opacity: auroraOpacity * opacityScale }}
       />
 
-      {/* Grid tech */}
       {grid && (
         <div
           className="hero-grid absolute inset-0"
-          style={{ opacity: 0.4 * opacityScale }}
+          style={{ opacity: gridOpacity * opacityScale }}
         />
       )}
 
-      {/* Orb magenta — drift orgânico + parallax */}
       <div
         ref={orb1}
         className="hero-orb-anim hero-orb-1 absolute"
         style={{
           background:
             "radial-gradient(circle, hsl(336 100% 45%) 0%, transparent 70%)",
-          opacity: 0.28 * opacityScale,
+          opacity: orb1Opacity * opacityScale,
         }}
       />
 
-      {/* Orb roxo — drift contrário */}
       <div
         ref={orb2}
         className="hero-orb-anim hero-orb-2 absolute"
         style={{
           background:
             "radial-gradient(circle, hsl(280 70% 55%) 0%, transparent 70%)",
-          opacity: 0.18 * opacityScale,
+          opacity: orb2Opacity * opacityScale,
         }}
       />
 
-      {/* Orb central pulsando */}
       <div
         className="hero-orb-pulse absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
         style={{
           background:
             "radial-gradient(circle, hsl(310 100% 55%) 0%, transparent 70%)",
-          opacity: 0.12 * opacityScale,
+          opacity: pulseOpacity * opacityScale,
         }}
       />
 
-      {/* Beam / scan-line passando */}
       {beam && <div className="hero-beam absolute" style={{ opacity: opacityScale }} />}
     </div>
   );
