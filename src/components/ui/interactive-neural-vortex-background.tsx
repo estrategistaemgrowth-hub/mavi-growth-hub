@@ -16,9 +16,9 @@ interface NeuralVortexProps {
  */
 const InteractiveNeuralVortex = ({
   className = "",
-  colorA = [0.92, 0.0, 0.4], // magenta MAVI #ec0064
-  colorB = [0.45, 0.05, 0.55], // roxo profundo
-  colorC = [1.0, 0.2, 0.55], // magenta brilhante
+  colorA = [0.92, 0.0, 0.4],
+  colorB = [0.45, 0.05, 0.55],
+  colorC = [1.0, 0.2, 0.55],
 }: NeuralVortexProps) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const pointer = useRef({
@@ -28,6 +28,9 @@ const InteractiveNeuralVortex = ({
     tY: typeof window !== "undefined" ? window.innerHeight / 2 : 0,
   });
   const rafRef = useRef<number>(0);
+  // Mantém cores em ref pra não recriar o canvas WebGL a cada render do pai
+  const colorsRef = useRef({ a: colorA, b: colorB, c: colorC });
+  colorsRef.current = { a: colorA, b: colorB, c: colorC };
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -144,9 +147,12 @@ const InteractiveNeuralVortex = ({
     const uColorB = gl.getUniformLocation(program, "u_color_b");
     const uColorC = gl.getUniformLocation(program, "u_color_c");
 
-    gl.uniform3f(uColorA, colorA[0], colorA[1], colorA[2]);
-    gl.uniform3f(uColorB, colorB[0], colorB[1], colorB[2]);
-    gl.uniform3f(uColorC, colorC[0], colorC[1], colorC[2]);
+    const applyColors = () => {
+      gl.uniform3f(uColorA, colorsRef.current.a[0], colorsRef.current.a[1], colorsRef.current.a[2]);
+      gl.uniform3f(uColorB, colorsRef.current.b[0], colorsRef.current.b[1], colorsRef.current.b[2]);
+      gl.uniform3f(uColorC, colorsRef.current.c[0], colorsRef.current.c[1], colorsRef.current.c[2]);
+    };
+    applyColors();
 
     const resize = () => {
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -166,6 +172,7 @@ const InteractiveNeuralVortex = ({
     const render = () => {
       pointer.current.x += (pointer.current.tX - pointer.current.x) * 0.2;
       pointer.current.y += (pointer.current.tY - pointer.current.y) * 0.2;
+      applyColors();
       gl.uniform1f(uTime, performance.now());
       gl.uniform2f(
         uPointer,
@@ -178,7 +185,7 @@ const InteractiveNeuralVortex = ({
     };
     render();
 
-    const onMove = (e: PointerEvent) => {
+    const onMove = (e: PointerEvent | MouseEvent) => {
       pointer.current.tX = e.clientX;
       pointer.current.tY = e.clientY;
     };
@@ -188,19 +195,21 @@ const InteractiveNeuralVortex = ({
         pointer.current.tY = e.touches[0].clientY;
       }
     };
-    window.addEventListener("pointermove", onMove);
-    window.addEventListener("touchmove", onTouch, { passive: true });
+    document.addEventListener("pointermove", onMove, { passive: true });
+    document.addEventListener("mousemove", onMove, { passive: true });
+    document.addEventListener("touchmove", onTouch, { passive: true });
 
     return () => {
       window.removeEventListener("resize", resize);
-      window.removeEventListener("pointermove", onMove);
-      window.removeEventListener("touchmove", onTouch);
+      document.removeEventListener("pointermove", onMove);
+      document.removeEventListener("mousemove", onMove);
+      document.removeEventListener("touchmove", onTouch);
       cancelAnimationFrame(rafRef.current);
       gl.deleteProgram(program);
       gl.deleteShader(vs);
       gl.deleteShader(fs);
     };
-  }, [colorA, colorB, colorC]);
+  }, []);
 
   return (
     <canvas
