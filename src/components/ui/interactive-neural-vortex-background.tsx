@@ -202,6 +202,7 @@ const InteractiveNeuralVortex = ({
 
     return () => {
       window.removeEventListener("resize", resize);
+      ro.disconnect();
       document.removeEventListener("pointermove", onMove);
       document.removeEventListener("mousemove", onMove);
       document.removeEventListener("touchmove", onTouch);
