@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import HeroWave from "@/components/ui/dynamic-wave-canvas-background";
+import InteractiveNeuralVortex from "@/components/ui/interactive-neural-vortex-background";
 import { TubesCursor } from "@/components/ui/tubes-cursor";
 
 interface HeroBackgroundProps {
@@ -74,11 +74,12 @@ export function HeroBackground({
       className="absolute inset-0 pointer-events-none overflow-hidden hero-bg"
       aria-hidden="true"
     >
-      {/* Onda dinâmica magenta — substitui as partículas */}
-      <HeroWave
-        tint={{ r: 1.5, g: 0.12, b: 0.6 }}
-        intensity={intensity === "subtle" ? 0.75 : 1}
-        className="opacity-80 mix-blend-screen"
+      {/* Vórtice neural interativo (WebGL) — magenta + roxo MAVI, reage ao cursor */}
+      <InteractiveNeuralVortex
+        colorA={[0.92, 0.0, 0.4]}
+        colorB={[0.45, 0.05, 0.55]}
+        colorC={[1.0, 0.2, 0.55]}
+        className={intensity === "subtle" ? "opacity-70" : "opacity-90"}
       />
 
       {/* Tubos 3D que seguem o cursor — magenta + ciano neon */}
