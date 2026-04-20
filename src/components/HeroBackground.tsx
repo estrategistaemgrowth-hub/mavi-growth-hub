@@ -73,6 +73,14 @@ export function HeroBackground({
       className="absolute inset-0 pointer-events-none overflow-hidden hero-bg"
       aria-hidden="true"
     >
+      {/* Partículas fluidas guiadas por noise (Perlin) — magenta MAVI */}
+      <FluidParticlesBackground
+        particleCount={intensity === "subtle" ? 700 : 1300}
+        particleColor="236, 0, 100"
+        trailColor="rgba(0, 0, 0, 0.06)"
+        className="opacity-70"
+      />
+
       <div
         ref={aurora}
         className="hero-aurora absolute top-1/2 left-1/2"
