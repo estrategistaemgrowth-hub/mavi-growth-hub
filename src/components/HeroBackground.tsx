@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { FluidParticlesBackground } from "@/components/ui/fluid-particles-background";
+import HeroWave from "@/components/ui/dynamic-wave-canvas-background";
 import { TubesCursor } from "@/components/ui/tubes-cursor";
 
 interface HeroBackgroundProps {
@@ -74,12 +74,11 @@ export function HeroBackground({
       className="absolute inset-0 pointer-events-none overflow-hidden hero-bg"
       aria-hidden="true"
     >
-      {/* Partículas fluidas guiadas por noise (Perlin) — magenta MAVI */}
-      <FluidParticlesBackground
-        particleCount={intensity === "subtle" ? 700 : 1300}
-        particleColor="236, 0, 100"
-        trailColor="rgba(0, 0, 0, 0.22)"
-        className="opacity-90"
+      {/* Onda dinâmica magenta — substitui as partículas */}
+      <HeroWave
+        tint={{ r: 1.5, g: 0.12, b: 0.6 }}
+        intensity={intensity === "subtle" ? 0.75 : 1}
+        className="opacity-80 mix-blend-screen"
       />
 
       {/* Tubos 3D que seguem o cursor — magenta + ciano neon */}
