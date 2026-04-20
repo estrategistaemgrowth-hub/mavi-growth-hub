@@ -9,17 +9,19 @@ interface HeroBackgroundProps {
   grid?: boolean;
   /** Mostrar scan-line passando */
   beam?: boolean;
+  /** Superfície do hero para ajustar blend/opacidade do fundo. */
+  tone?: "dark" | "light";
 }
 
 /**
- * Fundo animado para heros: combina orbs com drift orgânico, aurora gradiente,
- * grid tech sutil e scan-line magenta. Tudo CSS puro (60fps), com parallax
- * leve no cursor. Respeita prefers-reduced-motion.
+ * Fundo animado para heros: combina vortex WebGL, orbs, aurora, grid e beam.
+ * Ajusta blend/opacidade conforme o hero seja escuro ou claro.
  */
 export function HeroBackground({
   intensity = "medium",
   grid = true,
   beam = true,
+  tone = "dark",
 }: HeroBackgroundProps) {
   const wrapRef = useRef<HTMLDivElement>(null);
   const orb1 = useRef<HTMLDivElement>(null);
@@ -61,33 +63,82 @@ export function HeroBackground({
     };
   }, []);
 
-  const opacityScale = intensity === "subtle" ? 0.9 : 1;
-  const auroraOpacity = intensity === "subtle" ? 0.34 : 0.52;
-  const gridOpacity = intensity === "subtle" ? 0.22 : 0.34;
-  const orb1Opacity = intensity === "subtle" ? 0.24 : 0.38;
-  const orb2Opacity = intensity === "subtle" ? 0.16 : 0.24;
-  const pulseOpacity = intensity === "subtle" ? 0.12 : 0.18;
+  const isLight = tone === "light";
+  const opacityScale = intensity === "subtle" ? (isLight ? 0.72 : 0.9) : isLight ? 0.82 : 1;
+  const auroraOpacity = isLight
+    ? intensity === "subtle"
+      ? 0.16
+      : 0.22
+    : intensity === "subtle"
+      ? 0.34
+      : 0.52;
+  const gridOpacity = isLight
+    ? intensity === "subtle"
+      ? 0.08
+      : 0.12
+    : intensity === "subtle"
+      ? 0.22
+      : 0.34;
+  const orb1Opacity = isLight
+    ? intensity === "subtle"
+      ? 0.12
+      : 0.16
+    : intensity === "subtle"
+      ? 0.24
+      : 0.38;
+  const orb2Opacity = isLight
+    ? intensity === "subtle"
+      ? 0.08
+      : 0.12
+    : intensity === "subtle"
+      ? 0.16
+      : 0.24;
+  const pulseOpacity = isLight
+    ? intensity === "subtle"
+      ? 0.06
+      : 0.1
+    : intensity === "subtle"
+      ? 0.12
+      : 0.18;
+
+  const rootStyle = isLight
+    ? {
+        background:
+          "linear-gradient(90deg, hsl(var(--background)) 0%, hsl(var(--background)) 16%, hsl(var(--primary) / 0.10) 55%, hsl(var(--background)) 100%)",
+      }
+    : { background: "hsl(240 10% 3%)" };
+
+  const vortexClass = isLight
+    ? intensity === "subtle"
+      ? "opacity-35 mix-blend-multiply"
+      : "opacity-45 mix-blend-multiply"
+    : intensity === "subtle"
+      ? "opacity-70"
+      : "opacity-90";
+
+  const tubesClass = isLight
+    ? "opacity-18 mix-blend-multiply"
+    : "opacity-60 mix-blend-screen";
 
   return (
     <div
       ref={wrapRef}
-      className="absolute inset-0 pointer-events-none overflow-hidden hero-bg bg-[hsl(240_10%_3%)]"
+      className="absolute inset-0 pointer-events-none overflow-hidden hero-bg"
+      style={rootStyle}
       aria-hidden="true"
     >
-      {/* Vórtice neural interativo (WebGL) — magenta + roxo MAVI, reage ao cursor */}
       <InteractiveNeuralVortex
         colorA={[0.92, 0.0, 0.4]}
         colorB={[0.45, 0.05, 0.55]}
         colorC={[1.0, 0.2, 0.55]}
-        className={intensity === "subtle" ? "opacity-70" : "opacity-90"}
+        className={vortexClass}
       />
 
-      {/* Tubos 3D que seguem o cursor — magenta + ciano neon */}
       <TubesCursor
         initialColors={["#ec0064", "#00e5ff", "#7c3aed"]}
         lightColors={["#ec0064", "#00e5ff", "#ff3ea5", "#7c3aed"]}
         lightIntensity={220}
-        className="opacity-60 mix-blend-screen"
+        className={tubesClass}
       />
 
       <div
@@ -107,8 +158,7 @@ export function HeroBackground({
         ref={orb1}
         className="hero-orb-anim hero-orb-1 absolute"
         style={{
-          background:
-            "radial-gradient(circle, hsl(336 100% 45%) 0%, transparent 70%)",
+          background: "radial-gradient(circle, hsl(336 100% 45%) 0%, transparent 70%)",
           opacity: orb1Opacity * opacityScale,
         }}
       />
@@ -117,8 +167,7 @@ export function HeroBackground({
         ref={orb2}
         className="hero-orb-anim hero-orb-2 absolute"
         style={{
-          background:
-            "radial-gradient(circle, hsl(280 70% 55%) 0%, transparent 70%)",
+          background: "radial-gradient(circle, hsl(280 70% 55%) 0%, transparent 70%)",
           opacity: orb2Opacity * opacityScale,
         }}
       />
@@ -126,8 +175,7 @@ export function HeroBackground({
       <div
         className="hero-orb-pulse absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
         style={{
-          background:
-            "radial-gradient(circle, hsl(310 100% 55%) 0%, transparent 70%)",
+          background: "radial-gradient(circle, hsl(310 100% 55%) 0%, transparent 70%)",
           opacity: pulseOpacity * opacityScale,
         }}
       />
