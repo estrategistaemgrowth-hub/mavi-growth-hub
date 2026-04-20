@@ -1,5 +1,4 @@
 import { useEffect, useRef } from "react";
-import { EtherealShadow } from "@/components/ui/ethereal-shadow";
 
 interface HeroBackgroundProps {
   /** Intensidade do efeito. "subtle" para páginas internas, "medium" para home. */
@@ -73,14 +72,6 @@ export function HeroBackground({
       className="absolute inset-0 pointer-events-none overflow-hidden hero-bg"
       aria-hidden="true"
     >
-      {/* Ethereal Shadow — gradiente magenta com displacement + hue-rotate animado */}
-      <EtherealShadow
-        color="hsl(336 100% 50%)"
-        animation={{ scale: intensity === "subtle" ? 45 : 65, speed: 55 }}
-        noise={{ opacity: 0.18, scale: 1.4 }}
-        style={{ opacity: opacityScale }}
-      />
-
       <div
         ref={aurora}
         className="hero-aurora absolute top-1/2 left-1/2"
