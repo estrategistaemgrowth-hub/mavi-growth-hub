@@ -21,7 +21,12 @@ const InteractiveNeuralVortex = ({
   colorC = [1.0, 0.2, 0.55], // magenta brilhante
 }: NeuralVortexProps) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const pointer = useRef({ x: 0, y: 0, tX: 0, tY: 0 });
+  const pointer = useRef({
+    x: typeof window !== "undefined" ? window.innerWidth / 2 : 0,
+    y: typeof window !== "undefined" ? window.innerHeight / 2 : 0,
+    tX: typeof window !== "undefined" ? window.innerWidth / 2 : 0,
+    tY: typeof window !== "undefined" ? window.innerHeight / 2 : 0,
+  });
   const rafRef = useRef<number>(0);
 
   useEffect(() => {
@@ -81,7 +86,7 @@ const InteractiveNeuralVortex = ({
         vec2 pointer = vUv - u_pointer_position;
         pointer.x *= u_ratio;
         float p = clamp(length(pointer), 0., 1.);
-        p = .5 * pow(1. - p, 2.);
+        p = 2.0 * pow(1. - p, 2.);
         float t = .001 * u_time;
         float noise = neuro_shape(uv, t, p);
         noise = 1.2 * pow(noise, 3.);
