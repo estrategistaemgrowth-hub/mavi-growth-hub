@@ -71,7 +71,7 @@ export function HeroBackground({
   return (
     <div
       ref={wrapRef}
-      className="absolute inset-0 pointer-events-none overflow-hidden hero-bg"
+      className="absolute inset-0 pointer-events-none overflow-hidden hero-bg bg-[hsl(240_10%_3%)]"
       aria-hidden="true"
     >
       {/* Vórtice neural interativo (WebGL) — magenta + roxo MAVI, reage ao cursor */}
