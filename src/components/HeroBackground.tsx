@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import { FluidParticlesBackground } from "@/components/ui/fluid-particles-background";
+import { TubesCursor } from "@/components/ui/tubes-cursor";
 
 interface HeroBackgroundProps {
   /** Intensidade do efeito. "subtle" para páginas internas, "medium" para home. */
@@ -79,6 +80,14 @@ export function HeroBackground({
         particleColor="236, 0, 100"
         trailColor="rgba(0, 0, 0, 0.22)"
         className="opacity-90"
+      />
+
+      {/* Tubos 3D que seguem o cursor — magenta + ciano neon */}
+      <TubesCursor
+        initialColors={["#ec0064", "#00e5ff", "#7c3aed"]}
+        lightColors={["#ec0064", "#00e5ff", "#ff3ea5", "#7c3aed"]}
+        lightIntensity={220}
+        className="opacity-60 mix-blend-screen"
       />
 
       <div
