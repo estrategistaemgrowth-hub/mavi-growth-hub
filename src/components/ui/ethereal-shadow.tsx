@@ -108,9 +108,15 @@ export function EtherealShadow({
           style={{
             position: "absolute",
             inset: -displacementScale,
-            background: `radial-gradient(ellipse 60% 50% at 50% 50%, ${color}, transparent 70%)`,
+            background: `
+              radial-gradient(ellipse 90% 60% at 20% 30%, ${color}, transparent 65%),
+              radial-gradient(ellipse 80% 70% at 80% 70%, ${color}, transparent 70%),
+              radial-gradient(ellipse 100% 50% at 50% 100%, ${color}, transparent 75%)
+            `,
             backgroundSize: sizing === "fill" ? "cover" : "100% 100%",
             mixBlendMode: "screen",
+            opacity: 0.55,
+            filter: "blur(40px)",
           }}
         />
       </div>
