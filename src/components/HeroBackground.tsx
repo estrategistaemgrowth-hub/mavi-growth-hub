@@ -59,7 +59,7 @@ export function HeroBackground({
     };
   }, []);
 
-  const opacityScale = intensity === "subtle" ? 0.5 : 1;
+  const opacityScale = intensity === "subtle" ? 0.75 : 1;
 
   return (
     <div
