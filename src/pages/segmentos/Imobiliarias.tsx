@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { SEO, generateBreadcrumbSchema, generateFAQSchema } from "@/components/SEO";
 import { WhatsAppLink } from "@/components/WhatsAppLink";
 import { SplitText } from "@/components/SplitText";
+import { HeroBackground } from "@/components/HeroBackground";
 import {
   Accordion,
   AccordionContent,
@@ -184,6 +185,7 @@ const SegmentoImobiliarias = () => {
 
       {/* Hero Section */}
       <section className="relative min-h-[70vh] flex items-center pt-20 overflow-hidden">
+        <HeroBackground intensity="subtle" />
         <div className="absolute inset-0 bg-gradient-to-br from-mavi-black via-mavi-black to-primary/20" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(230,0,126,0.15),transparent_50%)]" />
 

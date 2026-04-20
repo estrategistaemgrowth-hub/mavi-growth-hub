@@ -7,6 +7,7 @@ import { SEO, generateBreadcrumbSchema, generateFAQSchema } from "@/components/S
 import { AnimatedSection, AnimatedChildren } from "@/components/AnimatedSection";
 import { LeadCaptureDialog } from "@/components/LeadCaptureDialog";
 import { SplitText } from "@/components/SplitText";
+import { HeroBackground } from "@/components/HeroBackground";
 import {
   Accordion,
   AccordionContent,
@@ -184,7 +185,8 @@ export default function HubRSCRM() {
         schemaMarkup={combinedSchema}
       />
       {/* Hero */}
-      <section className="pt-32 pb-20 bg-mavi-black overflow-hidden">
+      <section className="relative pt-32 pb-20 bg-mavi-black overflow-hidden">
+        <HeroBackground intensity="subtle" />
         <div className="container-mavi">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <AnimatedSection animation="fadeInUp">

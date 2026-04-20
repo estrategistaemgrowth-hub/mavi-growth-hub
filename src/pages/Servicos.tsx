@@ -4,6 +4,7 @@ import { Layout } from "@/components/Layout";
 import { Section, SectionHeader } from "@/components/Section";
 import { SEO, generateBreadcrumbSchema, generateFAQSchema } from "@/components/SEO";
 import { SplitText } from "@/components/SplitText";
+import { HeroBackground } from "@/components/HeroBackground";
 import {
   ShoppingCart,
   TrendingUp,
@@ -178,7 +179,8 @@ export default function Servicos() {
         schemaMarkup={combinedSchema}
       />
       {/* Hero */}
-      <section className="pt-32 pb-16 bg-mavi-black">
+      <section className="relative pt-32 pb-16 bg-mavi-black overflow-hidden">
+        <HeroBackground intensity="subtle" />
         <div className="container-mavi">
           <div className="max-w-3xl">
             <h1 className="text-4xl md:text-5xl font-bold text-mavi-white mb-6"><SplitText stagger={45} duration={750}>Nossos <span className="text-primary">Serviços</span></SplitText></h1>

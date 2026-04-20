@@ -5,6 +5,7 @@ import { Section, SectionHeader } from "@/components/Section";
 import { SEO, generateBreadcrumbSchema, generateFAQSchema } from "@/components/SEO";
 import { AnimatedSection } from "@/components/AnimatedSection";
 import { SplitText } from "@/components/SplitText";
+import { HeroBackground } from "@/components/HeroBackground";
 import {
   Target,
   TrendingUp,
@@ -145,7 +146,8 @@ export default function Sobre() {
         schemaMarkup={combinedSchema}
       />
       {/* Hero */}
-      <section className="pt-32 pb-16 bg-mavi-black">
+      <section className="relative pt-32 pb-16 bg-mavi-black overflow-hidden">
+        <HeroBackground intensity="subtle" />
         <div className="container-mavi">
           <div className="max-w-3xl">
             <h1 className="text-4xl md:text-5xl font-bold text-mavi-white mb-6"><SplitText stagger={45} duration={750}>Quem é a <span className="text-primary">MAVI</span> Marketing?</SplitText></h1>
