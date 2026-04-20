@@ -7,7 +7,7 @@ import { TestimonialCard } from "@/components/TestimonialCard";
 import { LogoCarousel } from "@/components/LogoCarousel";
 import { AnimatedCounter } from "@/components/AnimatedCounter";
 import { AnimatedSection, AnimatedChildren } from "@/components/AnimatedSection";
-import { HeroOrbs } from "@/components/HeroOrbs";
+import { HeroBackground } from "@/components/HeroBackground";
 import { TypewriterText } from "@/components/TypewriterText";
 import { SplitText } from "@/components/SplitText";
 import { SEO, generateBreadcrumbSchema, generateLocalBusinessSchema, generateOrganizationSchema, generateWebSiteSchema, generateFAQSchema } from "@/components/SEO";
@@ -189,8 +189,8 @@ export default function Index() {
         {/* Gradiente base */}
         <div className="absolute inset-0 bg-gradient-to-br from-mavi-black via-[#0a0010] to-[#150010]" />
 
-        {/* Orbs reativos ao mouse (parallax) */}
-        <HeroOrbs />
+        {/* Fundo animado: orbs orgânicos + aurora + grid + beam */}
+        <HeroBackground intensity="medium" />
 
         {/* Linha diagonal decorativa */}
         <div className="absolute top-0 right-1/3 w-px h-full bg-gradient-to-b from-transparent via-primary/20 to-transparent" />
