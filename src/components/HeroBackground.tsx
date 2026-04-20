@@ -77,8 +77,8 @@ export function HeroBackground({
       <FluidParticlesBackground
         particleCount={intensity === "subtle" ? 700 : 1300}
         particleColor="236, 0, 100"
-        trailColor="rgba(0, 0, 0, 0.06)"
-        className="opacity-70"
+        trailColor="rgba(0, 0, 0, 0.22)"
+        className="opacity-90"
       />
 
       <div
