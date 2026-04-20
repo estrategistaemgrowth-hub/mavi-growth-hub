@@ -4,6 +4,7 @@ import { Section, SectionHeader } from "@/components/Section";
 import { Button } from "@/components/ui/button";
 import { SEO, generateBreadcrumbSchema, generateFAQSchema } from "@/components/SEO";
 import { WhatsAppLink } from "@/components/WhatsAppLink";
+import { SplitText } from "@/components/SplitText";
 import {
   Accordion,
   AccordionContent,
@@ -194,10 +195,8 @@ const SegmentoSaudeEstetica = () => {
               <span className="inline-block px-4 py-2 bg-primary/20 text-primary rounded-full text-sm font-medium mb-6">
                 Marketing para Saúde e Estética
               </span>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-mavi-white mb-6 leading-tight">
-                Agenda cheia com{" "}
-                <span className="text-primary">pacientes qualificados</span>
-              </h1>
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-mavi-white mb-6 leading-tight"><SplitText stagger={45} duration={750}>Agenda cheia com{" "}
+                <span className="text-primary">pacientes qualificados</span></SplitText></h1>
               <p className="text-xl text-mavi-white/80 mb-8">
                 Estratégias de marketing digital que atraem pacientes reais
                 interessados nos seus procedimentos. Automação de confirmação

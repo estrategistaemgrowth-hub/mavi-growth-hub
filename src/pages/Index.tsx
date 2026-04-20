@@ -8,6 +8,8 @@ import { LogoCarousel } from "@/components/LogoCarousel";
 import { AnimatedCounter } from "@/components/AnimatedCounter";
 import { AnimatedSection, AnimatedChildren } from "@/components/AnimatedSection";
 import { HeroOrbs } from "@/components/HeroOrbs";
+import { TypewriterText } from "@/components/TypewriterText";
+import { SplitText } from "@/components/SplitText";
 import { SEO, generateBreadcrumbSchema, generateLocalBusinessSchema, generateOrganizationSchema, generateWebSiteSchema, generateFAQSchema } from "@/components/SEO";
 import {
   ShoppingCart,
@@ -206,12 +208,23 @@ export default function Index() {
               </div>
 
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-mavi-white leading-[1.1] mb-6 tracking-tight">
-                Tráfego, CRM e automação{" "}
-                <span className="gradient-text">pagos pelo seu ROAS</span>.
+                <TypewriterText
+                  text="Tráfego, CRM e automação "
+                  speed={32}
+                  childrenDelay={150}
+                >
+                  <span className="gradient-text">pagos pelo seu ROAS</span>.
+                </TypewriterText>
               </h1>
 
               <p className="text-lg md:text-xl text-mavi-white/65 mb-10 leading-relaxed">
-                Operamos tráfego, CRM e automação para e-commerce, imobiliárias, clínicas e indústrias. Métrica que importa: receita atribuída por real investido.
+                <SplitText
+                  delay={1800}
+                  stagger={35}
+                  duration={800}
+                >
+                  Operamos tráfego, CRM e automação para e-commerce, imobiliárias, clínicas e indústrias. Métrica que importa: receita atribuída por real investido.
+                </SplitText>
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 relative z-30">
@@ -285,7 +298,9 @@ export default function Index() {
                         <span className="text-white/60 text-xs font-medium">Faturamento Mensal</span>
                         <span className="text-green-400 text-xs font-semibold bg-green-400/10 px-2 py-0.5 rounded-full">↑ +127%</span>
                       </div>
-                      <p className="text-white text-xl font-bold mb-2">R$ 248.500</p>
+                      <p className="text-white text-xl font-bold mb-2">
+                        R$ <AnimatedCounter end={248500} duration={2400} thousandSeparator="." />
+                      </p>
                       <div className="h-1.5 bg-white/8 rounded-full overflow-hidden">
                         <div className="h-full w-3/4 rounded-full animate-shimmer"
                           style={{ background: "linear-gradient(90deg, hsl(336 100% 45%), hsl(310 100% 55%))" }}
@@ -297,12 +312,16 @@ export default function Index() {
                     <div className="grid grid-cols-2 gap-3">
                       <div className="bg-white/5 rounded-xl p-4 border border-white/5">
                         <p className="text-white/50 text-xs mb-1">ROAS</p>
-                        <p className="text-2xl font-bold text-white">8.4x</p>
+                        <p className="text-2xl font-bold text-white">
+                          <AnimatedCounter end={8.4} duration={1800} decimals={1} suffix="x" />
+                        </p>
                         <p className="text-green-400 text-xs mt-0.5">Meta: 5x ✓</p>
                       </div>
                       <div className="bg-white/5 rounded-xl p-4 border border-white/5">
                         <p className="text-white/50 text-xs mb-1">Leads/dia</p>
-                        <p className="text-2xl font-bold text-white">47</p>
+                        <p className="text-2xl font-bold text-white">
+                          <AnimatedCounter end={47} duration={1800} />
+                        </p>
                         <p className="text-green-400 text-xs mt-0.5">+22 vs ontem ↑</p>
                       </div>
                     </div>

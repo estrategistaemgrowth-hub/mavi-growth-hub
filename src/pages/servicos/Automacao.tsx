@@ -4,6 +4,7 @@ import { Layout } from "@/components/Layout";
 import { Section, SectionHeader } from "@/components/Section";
 import { AnimatedCounter } from "@/components/AnimatedCounter";
 import { SEO, generateBreadcrumbSchema, generateFAQSchema, generateServiceSchema } from "@/components/SEO";
+import { SplitText } from "@/components/SplitText";
 import { 
   Bot, 
   CheckCircle2, 
@@ -129,10 +130,8 @@ export default function ServicoAutomacao() {
               <Bot className="w-4 h-4" />
               <span className="text-sm font-medium">Automação & IA</span>
             </div>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-mavi-white mb-6 animate-fade-in-up">
-              Escale vendas com{" "}
-              <span className="text-primary">inteligência artificial</span>
-            </h1>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-mavi-white mb-6"><SplitText stagger={45} duration={750}>Escale vendas com{" "}
+              <span className="text-primary">inteligência artificial</span></SplitText></h1>
             <p className="text-xl text-mavi-white/70 leading-relaxed mb-8 animate-fade-in-up animation-delay-200">
               Implantamos chatbots, fluxos automatizados e integrações com CRM para escalar 
               suas vendas e suporte sem aumentar a equipe.
