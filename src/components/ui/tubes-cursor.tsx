@@ -7,9 +7,33 @@ type TubesCursorProps = {
   className?: string;
 };
 
+const SCRIPT_SRC =
+  "https://cdn.jsdelivr.net/npm/threejs-components@0.0.19/build/cursors/tubes1.min.js";
+
+function loadScript(src: string): Promise<any> {
+  return new Promise((resolve, reject) => {
+    const existing = document.querySelector(`script[data-src="${src}"]`) as HTMLScriptElement | null;
+    if (existing && (existing as any)._loaded) {
+      resolve((window as any).tubesCursor1 ?? (window as any).default);
+      return;
+    }
+    const s = existing ?? document.createElement("script");
+    s.src = src;
+    s.dataset.src = src;
+    s.async = true;
+    s.onload = () => {
+      (s as any)._loaded = true;
+      // a lib expõe window.tubesCursor1 (UMD)
+      resolve((window as any).tubesCursor1);
+    };
+    s.onerror = (e) => reject(e);
+    if (!existing) document.head.appendChild(s);
+  });
+}
+
 /**
- * Efeito 3D de tubos que seguem o cursor (WebGL via threejs-components).
- * Carregado dinamicamente do CDN. Respeita prefers-reduced-motion.
+ * Tubos 3D WebGL que seguem o cursor (lib threejs-components via CDN).
+ * Canvas fixo na viewport pra capturar o mouse em qualquer scroll.
  */
 export const TubesCursor = ({
   initialColors = ["#ec0064", "#00e5ff", "#7c3aed"],
@@ -25,24 +49,18 @@ export const TubesCursor = ({
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (reduced) return;
 
-    (async () => {
-      try {
-        const url = "https://cdn.jsdelivr.net/npm/threejs-components@0.0.19/build/cursors/tubes1.min.js";
-        const mod: any = await import(/* @vite-ignore */ url);
-        const TubesCursorCtor = mod.default ?? mod;
-        if (!canvasRef.current || destroyed) return;
-
-        const app = TubesCursorCtor(canvasRef.current, {
+    loadScript(SCRIPT_SRC)
+      .then((Ctor) => {
+        if (!Ctor || !canvasRef.current || destroyed) return;
+        const app = Ctor(canvasRef.current, {
           tubes: {
             colors: initialColors,
             lights: { intensity: lightIntensity, colors: lightColors },
           },
         });
         appRef.current = app;
-      } catch (err) {
-        console.warn("TubesCursor failed to load:", err);
-      }
-    })();
+      })
+      .catch((err) => console.warn("TubesCursor failed:", err));
 
     return () => {
       destroyed = true;
@@ -58,7 +76,8 @@ export const TubesCursor = ({
   return (
     <canvas
       ref={canvasRef}
-      className={`absolute inset-0 w-full h-full ${className}`}
+      className={`fixed inset-0 w-screen h-screen pointer-events-none ${className}`}
+      style={{ zIndex: 1 }}
       aria-hidden="true"
     />
   );
