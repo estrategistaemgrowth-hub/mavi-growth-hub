@@ -122,7 +122,7 @@ export function EtherealShadow({
           aria-hidden="true"
         >
           <defs>
-            <filter id={`${id}-filter}`} x="-20%" y="-20%" width="140%" height="140%">
+            <filter id={`${id}-filter`} x="-20%" y="-20%" width="140%" height="140%">
               <feTurbulence
                 type="fractalNoise"
                 baseFrequency="0.012"
