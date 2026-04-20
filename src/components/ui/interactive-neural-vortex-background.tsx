@@ -195,19 +195,21 @@ const InteractiveNeuralVortex = ({
         pointer.current.tY = e.touches[0].clientY;
       }
     };
-    window.addEventListener("pointermove", onMove);
-    window.addEventListener("touchmove", onTouch, { passive: true });
+    document.addEventListener("pointermove", onMove, { passive: true });
+    document.addEventListener("mousemove", onMove, { passive: true });
+    document.addEventListener("touchmove", onTouch, { passive: true });
 
     return () => {
       window.removeEventListener("resize", resize);
-      window.removeEventListener("pointermove", onMove);
-      window.removeEventListener("touchmove", onTouch);
+      document.removeEventListener("pointermove", onMove);
+      document.removeEventListener("mousemove", onMove);
+      document.removeEventListener("touchmove", onTouch);
       cancelAnimationFrame(rafRef.current);
       gl.deleteProgram(program);
       gl.deleteShader(vs);
       gl.deleteShader(fs);
     };
-  }, [colorA, colorB, colorC]);
+  }, []);
 
   return (
     <canvas
