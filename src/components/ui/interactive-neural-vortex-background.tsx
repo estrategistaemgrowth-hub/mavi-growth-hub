@@ -156,29 +156,30 @@ const InteractiveNeuralVortex = ({
 
     const resize = () => {
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      const parent = canvas.parentElement;
-      const w = parent?.offsetWidth || window.innerWidth;
-      const h = parent?.offsetHeight || window.innerHeight;
+      const rect = canvas.getBoundingClientRect();
+      const w = rect.width || window.innerWidth;
+      const h = rect.height || window.innerHeight;
       canvas.width = w * dpr;
       canvas.height = h * dpr;
-      canvas.style.width = w + "px";
-      canvas.style.height = h + "px";
       gl.viewport(0, 0, canvas.width, canvas.height);
       gl.uniform1f(uRatio, canvas.width / canvas.height);
     };
     resize();
     window.addEventListener("resize", resize);
+    const ro = new ResizeObserver(resize);
+    if (canvas.parentElement) ro.observe(canvas.parentElement);
 
     const render = () => {
       pointer.current.x += (pointer.current.tX - pointer.current.x) * 0.2;
       pointer.current.y += (pointer.current.tY - pointer.current.y) * 0.2;
       applyColors();
       gl.uniform1f(uTime, performance.now());
-      gl.uniform2f(
-        uPointer,
-        pointer.current.x / window.innerWidth,
-        1 - pointer.current.y / window.innerHeight
-      );
+      // Coordenadas relativas ao canvas (não à viewport) — o canvas pode estar
+      // posicionado dentro de um hero menor que window.innerHeight
+      const rect = canvas.getBoundingClientRect();
+      const px = (pointer.current.x - rect.left) / rect.width;
+      const py = 1 - (pointer.current.y - rect.top) / rect.height;
+      gl.uniform2f(uPointer, px, py);
       gl.uniform1f(uScroll, window.pageYOffset / (2 * window.innerHeight));
       gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
       if (!reduced) rafRef.current = requestAnimationFrame(render);
@@ -201,6 +202,7 @@ const InteractiveNeuralVortex = ({
 
     return () => {
       window.removeEventListener("resize", resize);
+      ro.disconnect();
       document.removeEventListener("pointermove", onMove);
       document.removeEventListener("mousemove", onMove);
       document.removeEventListener("touchmove", onTouch);
