@@ -21,7 +21,12 @@ const InteractiveNeuralVortex = ({
   colorC = [1.0, 0.2, 0.55], // magenta brilhante
 }: NeuralVortexProps) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const pointer = useRef({ x: 0, y: 0, tX: 0, tY: 0 });
+  const pointer = useRef({
+    x: typeof window !== "undefined" ? window.innerWidth / 2 : 0,
+    y: typeof window !== "undefined" ? window.innerHeight / 2 : 0,
+    tX: typeof window !== "undefined" ? window.innerWidth / 2 : 0,
+    tY: typeof window !== "undefined" ? window.innerHeight / 2 : 0,
+  });
   const rafRef = useRef<number>(0);
 
   useEffect(() => {
