@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import { FluidParticlesBackground } from "@/components/ui/fluid-particles-background";
+import { TubesCursor } from "@/components/ui/tubes-cursor";
 
 interface HeroBackgroundProps {
   /** Intensidade do efeito. "subtle" para páginas internas, "medium" para home. */
