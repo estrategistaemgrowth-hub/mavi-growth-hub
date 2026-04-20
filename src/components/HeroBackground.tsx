@@ -82,6 +82,14 @@ export function HeroBackground({
         className="opacity-90"
       />
 
+      {/* Tubos 3D que seguem o cursor — magenta + ciano neon */}
+      <TubesCursor
+        initialColors={["#ec0064", "#00e5ff", "#7c3aed"]}
+        lightColors={["#ec0064", "#00e5ff", "#ff3ea5", "#7c3aed"]}
+        lightIntensity={220}
+        className="opacity-60 mix-blend-screen"
+      />
+
       <div
         ref={aurora}
         className="hero-aurora absolute top-1/2 left-1/2"
