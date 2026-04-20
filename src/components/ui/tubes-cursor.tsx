@@ -27,11 +27,9 @@ export const TubesCursor = ({
 
     (async () => {
       try {
-        const mod = await import(
-          /* @vite-ignore */
-          "https://cdn.jsdelivr.net/npm/threejs-components@0.0.19/build/cursors/tubes1.min.js"
-        );
-        const TubesCursorCtor = (mod as any).default ?? mod;
+        const url = "https://cdn.jsdelivr.net/npm/threejs-components@0.0.19/build/cursors/tubes1.min.js";
+        const mod: any = await import(/* @vite-ignore */ url);
+        const TubesCursorCtor = mod.default ?? mod;
         if (!canvasRef.current || destroyed) return;
 
         const app = TubesCursorCtor(canvasRef.current, {
