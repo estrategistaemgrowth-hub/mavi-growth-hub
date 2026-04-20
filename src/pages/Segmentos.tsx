@@ -119,7 +119,7 @@ const Segmentos = () => {
 
       {/* Hero Section */}
       <section className="relative min-h-[60vh] flex items-center pt-20 overflow-hidden">
-        <HeroBackground intensity="subtle" />
+        <HeroBackground intensity="subtle" tone="light" />
 
         <div className="container-mavi relative z-10 py-20">
           <div className="max-w-4xl">
