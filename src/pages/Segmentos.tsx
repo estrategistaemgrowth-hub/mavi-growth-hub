@@ -120,8 +120,6 @@ const Segmentos = () => {
       {/* Hero Section */}
       <section className="relative min-h-[60vh] flex items-center pt-20 overflow-hidden">
         <HeroBackground intensity="subtle" />
-        <div className="absolute inset-0 bg-gradient-to-br from-mavi-black via-mavi-black to-primary/20" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(230,0,126,0.15),transparent_50%)]" />
 
         <div className="container-mavi relative z-10 py-20">
           <div className="max-w-4xl">
