@@ -108,17 +108,21 @@ export function HeroBackground({
       }
     : { background: "hsl(240 10% 3%)" };
 
+  // No modo escuro, mantemos o fundo realmente escuro: vortex bem sutil
+  // com mix-blend overlay para não "lavar" o preto com magenta.
   const vortexClass = isLight
     ? intensity === "subtle"
       ? "opacity-35 mix-blend-multiply"
       : "opacity-45 mix-blend-multiply"
     : intensity === "subtle"
-      ? "opacity-70"
-      : "opacity-90";
+      ? "opacity-25 mix-blend-overlay"
+      : "opacity-40 mix-blend-overlay";
 
   const tubesClass = isLight
     ? "opacity-18 mix-blend-multiply"
-    : "opacity-60 mix-blend-screen";
+    : intensity === "subtle"
+      ? "opacity-25 mix-blend-screen"
+      : "opacity-35 mix-blend-screen";
 
   return (
     <div
