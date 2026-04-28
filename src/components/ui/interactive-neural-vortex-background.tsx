@@ -60,6 +60,8 @@ const InteractiveNeuralVortex = ({
       }
     `;
 
+    // Em mobile, reduz iterações de 15→8 (quase 2x mais rápido) sem perda visual relevante
+    const ITERATIONS = isMobile ? 8 : 15;
     const fsSource = `
       precision mediump float;
       varying vec2 vUv;
