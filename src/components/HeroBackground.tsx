@@ -20,7 +20,7 @@ interface HeroBackgroundProps {
 export function HeroBackground({
   intensity = "medium",
   grid = true,
-  beam = true,
+  beam = false,
   tone = "dark",
 }: HeroBackgroundProps) {
   const wrapRef = useRef<HTMLDivElement>(null);
