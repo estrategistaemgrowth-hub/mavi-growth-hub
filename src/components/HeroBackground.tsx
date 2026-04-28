@@ -33,7 +33,9 @@ export function HeroBackground({
     if (!wrap) return;
 
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (reduced) return;
+    const isCoarse = window.matchMedia("(pointer: coarse)").matches;
+    // Em mobile/touch não há cursor — pular listener de parallax economiza CPU
+    if (reduced || isCoarse) return;
 
     let raf = 0;
     const onMove = (e: MouseEvent) => {
