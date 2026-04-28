@@ -518,6 +518,24 @@
 }
 
 @layer utilities {
+  /* Reescreve tokens dentro de seções escuras (Section default/gray/muted)
+     para que text-foreground, text-muted-foreground, bg-card, bg-background,
+     border-border etc. fiquem legíveis sobre fundo preto. */
+  .section-dark-scope {
+    --background: 0 0% 5%;
+    --foreground: 0 0% 98%;
+    --card: 0 0% 9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 0 0% 9%;
+    --popover-foreground: 0 0% 98%;
+    --secondary: 0 0% 12%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 10%;
+    --muted-foreground: 0 0% 70%;
+    --border: 0 0% 18%;
+    --input: 0 0% 18%;
+  }
+
   .animate-fade-in {
     animation: fadeIn 0.5s ease-out forwards;
   }
