@@ -12,11 +12,12 @@ export function Section({ children, className, variant = "default", id }: Sectio
     <section
       id={id}
       className={cn(
-        "py-20 md:py-28",
+        "py-20 md:py-28 section-dark-scope",
         variant === "dark" && "bg-mavi-black text-mavi-white",
-        variant === "gray" && "bg-mavi-gray",
-        variant === "muted" && "bg-muted",
-        variant === "default" && "bg-background",
+        // Antes "gray"/"muted"/"default" usavam fundo claro. Agora alinhados ao tema escuro MAVI.
+        variant === "gray" && "bg-[hsl(0_0%_7%)] text-mavi-white",
+        variant === "muted" && "bg-[hsl(0_0%_5%)] text-mavi-white",
+        variant === "default" && "bg-mavi-black text-mavi-white",
         className
       )}
     >
