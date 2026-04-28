@@ -48,6 +48,11 @@ export const TubesCursor = ({
     let destroyed = false;
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (reduced) return;
+    // Mobile/touch: efeito 3D pesado de Three.js (~500KB) não agrega valor sem cursor
+    // e trava o carregamento. Desligar em telas pequenas / pointer coarse.
+    const isCoarse = window.matchMedia("(pointer: coarse)").matches;
+    const isSmall = window.innerWidth < 1024;
+    if (isCoarse || isSmall) return;
 
     loadScript(SCRIPT_SRC)
       .then((Ctor) => {
