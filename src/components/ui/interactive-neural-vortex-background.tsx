@@ -37,6 +37,13 @@ const InteractiveNeuralVortex = ({
     if (!canvas) return;
 
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const isCoarse = window.matchMedia("(pointer: coarse)").matches;
+    const isSmall = window.innerWidth < 768;
+    // Shader pesado: em mobile/touch reduzimos iterações e DPR pra evitar travamento
+    const isMobile = isCoarse || isSmall;
+    // Em telas muito pequenas (smartphone), desligamos completamente o vortex
+    if (isSmall && isCoarse) return;
+
     const gl = (canvas.getContext("webgl") || canvas.getContext("experimental-webgl")) as WebGLRenderingContext | null;
     if (!gl) {
       console.warn("WebGL não suportado");
