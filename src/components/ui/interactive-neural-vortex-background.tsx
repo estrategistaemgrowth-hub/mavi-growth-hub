@@ -164,7 +164,8 @@ const InteractiveNeuralVortex = ({
     applyColors();
 
     const resize = () => {
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      // Em mobile força DPR=1 (4x menos pixels que DPR=2) — ganho enorme de performance
+      const dpr = isMobile ? 1 : Math.min(window.devicePixelRatio || 1, 2);
       const rect = canvas.getBoundingClientRect();
       const w = rect.width || window.innerWidth;
       const h = rect.height || window.innerHeight;
@@ -178,13 +179,19 @@ const InteractiveNeuralVortex = ({
     const ro = new ResizeObserver(resize);
     if (canvas.parentElement) ro.observe(canvas.parentElement);
 
-    const render = () => {
+    // Cap de FPS: 60 desktop / 30 mobile pra reduzir consumo de CPU/GPU/bateria
+    const targetFrameMs = isMobile ? 1000 / 30 : 0;
+    let lastFrame = 0;
+    const render = (now: number = 0) => {
+      if (targetFrameMs && now - lastFrame < targetFrameMs) {
+        rafRef.current = requestAnimationFrame(render);
+        return;
+      }
+      lastFrame = now;
       pointer.current.x += (pointer.current.tX - pointer.current.x) * 0.2;
       pointer.current.y += (pointer.current.tY - pointer.current.y) * 0.2;
       applyColors();
       gl.uniform1f(uTime, performance.now());
-      // Coordenadas relativas ao canvas (não à viewport) — o canvas pode estar
-      // posicionado dentro de um hero menor que window.innerHeight
       const rect = canvas.getBoundingClientRect();
       const px = (pointer.current.x - rect.left) / rect.width;
       const py = 1 - (pointer.current.y - rect.top) / rect.height;
