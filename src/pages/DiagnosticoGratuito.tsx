@@ -41,7 +41,7 @@ const etapas = [
 const cases = [
   { roas: "23,7×", segmento: "Resinas e Incensos", retorno: "R$ 184k", invest: "R$ 7,75k" },
   { roas: "21,7×", segmento: "Calçados", retorno: "R$ 104k", invest: "R$ 4,8k" },
-  { roas: "19,7×", segmento: "Calçados", retorno: "R$ 62,5k", invest: "R$ 3,18k" },
+  { roas: "19,7×", segmento: "Agro e Energia Solar", retorno: "R$ 62,5k", invest: "R$ 3,18k" },
   { roas: "15,0×", segmento: "Joias e Óculos", retorno: "—", invest: "—" },
   { roas: "12,1×", segmento: "Farmácia", retorno: "R$ 139k", invest: "R$ 11,5k" },
 ];
