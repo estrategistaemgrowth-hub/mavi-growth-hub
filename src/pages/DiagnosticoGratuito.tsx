@@ -123,7 +123,7 @@ export default function DiagnosticoGratuito() {
       }
 
       setSubmitted(true);
-      toast.success("Recebemos! Entraremos em contato em breve pelo WhatsApp.");
+      toast.success("Recebemos! Em até 30 minutos nosso especialista entra em contato para agendar o meet.");
       setFormData({ nome: "", whatsapp: "", site: "", verba: "" });
     } catch {
       toast.error("Não conseguimos enviar agora. Tente novamente ou nos chame no WhatsApp.");
