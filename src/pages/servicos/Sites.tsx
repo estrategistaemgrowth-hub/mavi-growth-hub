@@ -151,7 +151,7 @@ export default function ServicoSites() {
               <Globe className="w-4 h-4" />
               <span className="text-sm font-medium">Sites e Landing Pages</span>
             </div>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-mavi-white mb-6"><SplitText stagger={45} duration={750}>Sites que{" "}
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-mavi-white mb-2 leading-[1.05]"><SplitText stagger={45} duration={750}>Sites que{" "}
               <span className="text-primary">convertem visitantes em clientes</span></SplitText></h1>
             <p className="text-xl text-mavi-white/70 leading-relaxed mb-8 animate-fade-in-up animation-delay-200">
               Páginas pensadas para converter. Sites institucionais profissionais e landing pages 
@@ -285,7 +285,7 @@ export default function ServicoSites() {
             </Button>
           </div>
           <div className="space-y-4">
-            <h3 className="text-2xl font-bold text-mavi-white mb-6">Benefícios para o seu negócio</h3>
+            <h3 className="text-2xl font-bold text-mavi-white mb-2 leading-[1.05]">Benefícios para o seu negócio</h3>
             {benefits.map((benefit, index) => (
               <div key={index} className="flex gap-4 p-4 rounded-xl bg-mavi-white/5 border border-mavi-white/10 hover:border-primary/30 transition-colors card-glow">
                 <div className="w-12 h-12 rounded-lg bg-primary/20 flex items-center justify-center flex-shrink-0">

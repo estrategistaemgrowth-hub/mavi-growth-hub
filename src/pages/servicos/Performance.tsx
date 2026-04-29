@@ -130,7 +130,7 @@ export default function ServicoPerformance() {
               <TrendingUp className="w-4 h-4" />
               <span className="text-sm font-medium">Marketing de Performance</span>
             </div>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-mavi-white mb-6"><SplitText stagger={45} duration={750}>Mídia paga cobrada por{" "}
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-mavi-white mb-2 leading-[1.05]"><SplitText stagger={45} duration={750}>Mídia paga cobrada por{" "}
               <span className="text-primary">ROAS</span>, não por impressão.</SplitText></h1>
             <p className="text-xl text-mavi-white/70 leading-relaxed mb-8 animate-fade-in-up animation-delay-200">
               Meta Ads e Google Ads operados em rotina diária. Rastreamento de receita por campanha, criativo e público. Você vê o número de venda atribuído ao real investido.
@@ -258,7 +258,7 @@ export default function ServicoPerformance() {
             <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/20 text-primary text-sm font-medium mb-4">
               Integração exclusiva
             </span>
-            <h2 className="text-3xl md:text-4xl font-bold text-mavi-white mb-6">
+            <h2 className="text-3xl md:text-4xl font-bold text-mavi-white mb-2 leading-[1.05]">
               Conecte suas campanhas direto ao funil de vendas
             </h2>
             <p className="text-mavi-white/70 mb-6 leading-relaxed">

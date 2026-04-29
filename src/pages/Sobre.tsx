@@ -150,7 +150,7 @@ export default function Sobre() {
         <HeroBackground intensity="subtle" />
         <div className="container-mavi">
           <div className="max-w-3xl">
-            <h1 className="text-4xl md:text-5xl font-bold text-mavi-white mb-6"><SplitText stagger={45} duration={750}>Quem é a <span className="text-primary">MAVI</span> Marketing?</SplitText></h1>
+            <h1 className="text-4xl md:text-5xl font-bold text-mavi-white mb-2 leading-[1.05]"><SplitText stagger={45} duration={750}>Quem é a <span className="text-primary">MAVI</span> Marketing?</SplitText></h1>
             <p className="text-xl text-mavi-white/70 leading-relaxed animate-fade-in-up animation-delay-200">
               Agência de performance fundada em Jaraguá do Sul em 2019. Operamos mídia, CRM e automação para quem precisa de receita previsível, não de slide bonito.
             </p>
@@ -245,7 +245,7 @@ export default function Sobre() {
       <Section variant="dark">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <div>
-            <h2 className="text-3xl md:text-4xl font-bold text-mavi-white mb-6">
+            <h2 className="text-3xl md:text-4xl font-bold text-mavi-white mb-2 leading-[1.05]">
               HubRS CRM: o motor por trás da operação
             </h2>
             <p className="text-mavi-white/70 leading-relaxed mb-6">

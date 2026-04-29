@@ -130,7 +130,7 @@ export default function ServicoAutomacao() {
               <Bot className="w-4 h-4" />
               <span className="text-sm font-medium">Automação & IA</span>
             </div>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-mavi-white mb-6"><SplitText stagger={45} duration={750}>Escale vendas com{" "}
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-mavi-white mb-2 leading-[1.05]"><SplitText stagger={45} duration={750}>Escale vendas com{" "}
               <span className="text-primary">inteligência artificial</span></SplitText></h1>
             <p className="text-xl text-mavi-white/70 leading-relaxed mb-8 animate-fade-in-up animation-delay-200">
               Implantamos chatbots, fluxos automatizados e integrações com CRM para escalar 
@@ -255,7 +255,7 @@ export default function ServicoAutomacao() {
             <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/20 text-primary text-sm font-medium mb-4">
               Integração nativa
             </span>
-            <h2 className="text-3xl md:text-4xl font-bold text-mavi-white mb-6">
+            <h2 className="text-3xl md:text-4xl font-bold text-mavi-white mb-2 leading-[1.05]">
               Potencialize com o HubRS CRM
             </h2>
             <p className="text-mavi-white/70 mb-6 leading-relaxed">
