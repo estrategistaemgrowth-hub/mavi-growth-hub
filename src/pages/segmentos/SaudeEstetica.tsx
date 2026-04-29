@@ -415,8 +415,8 @@ const SegmentoSaudeEstetica = () => {
 
       {/* CTA Section */}
       <section className="relative py-20 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-mavi-black via-mavi-black to-primary/30" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_50%,rgba(230,0,126,0.2),transparent_50%)]" />
+        <div className="absolute inset-0 bg-mavi-black" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(230,0,126,0.18),transparent_60%)]" />
 
         <div className="container-mavi relative z-10">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
