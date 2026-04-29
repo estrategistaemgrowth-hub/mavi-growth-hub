@@ -208,7 +208,7 @@ const SegmentoIndustria = () => {
 
       {/* Hero Section */}
       <section className="relative min-h-[70vh] flex items-center pt-20 overflow-hidden">
-        <HeroBackground intensity="subtle" tone="light" />
+        <HeroBackground intensity="subtle" tone="dark" />
 
         <div className="container-mavi relative z-10 py-20">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
