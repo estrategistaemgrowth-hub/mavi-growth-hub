@@ -216,7 +216,7 @@ const SegmentoIndustria = () => {
               <span className="inline-block px-4 py-2 bg-primary/20 text-primary rounded-full text-sm font-medium mb-6">
                 Marketing para Indústrias
               </span>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-mavi-white mb-6 leading-tight"><SplitText stagger={45} duration={750}>Presença digital{" "}
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-mavi-white mb-4 leading-[1.05]"><SplitText stagger={45} duration={750}>Presença digital{" "}
                 <span className="text-primary">profissional</span> para sua
                 indústria</SplitText></h1>
               <p className="text-xl text-mavi-white/80 mb-8">

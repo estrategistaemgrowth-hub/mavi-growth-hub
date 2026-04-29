@@ -131,7 +131,7 @@ export default function ServicoMicroSaas() {
               </div>
             </AnimatedSection>
             <AnimatedSection animation="fadeInUp" delay={100}>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-mavi-white mb-6 leading-tight"><SplitText stagger={45} duration={750}>Desenvolvimento de Micro SaaS — do jeito do seu negócio</SplitText></h1>
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-mavi-white mb-4 leading-[1.05]"><SplitText stagger={45} duration={750}>Desenvolvimento de Micro SaaS — do jeito do seu negócio</SplitText></h1>
             </AnimatedSection>
             <AnimatedSection animation="fadeInUp" delay={200}>
               <p className="text-xl text-mavi-gray-light mb-8 max-w-3xl mx-auto">
