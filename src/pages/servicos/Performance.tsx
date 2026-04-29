@@ -137,7 +137,7 @@ export default function ServicoPerformance() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 animate-fade-in-up animation-delay-300">
               <Button asChild variant="hero" size="xl">
-                <Link to="/contato">Quero um diagnóstico gratuito</Link>
+                <Link to="/diagnostico-gratuito">Quero um diagnóstico gratuito</Link>
               </Button>
               <Button asChild variant="heroOutline" size="lg">
                 <Link to="/hubrs-crm">
@@ -346,7 +346,7 @@ export default function ServicoPerformance() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button asChild variant="hero" size="xl">
-              <Link to="/contato">Agendar Diagnóstico Gratuito</Link>
+              <Link to="/diagnostico-gratuito">Agendar Diagnóstico Gratuito</Link>
             </Button>
             <Button asChild variant="heroOutline" size="lg">
               <Link to="/cases">Ver cases de sucesso</Link>
