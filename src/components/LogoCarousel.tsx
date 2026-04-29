@@ -56,11 +56,15 @@ function LogoRow({
   const duplicatedLogos = [...logos, ...logos];
 
   return (
-    <div className="relative overflow-hidden">
-      {/* Gradient overlays for fade effect */}
-      <div className="absolute left-0 top-0 bottom-0 w-20 md:w-32 bg-gradient-to-r from-mavi-black to-transparent z-10" />
-      <div className="absolute right-0 top-0 bottom-0 w-20 md:w-32 bg-gradient-to-l from-mavi-black to-transparent z-10" />
-      
+    <div
+      className="relative overflow-hidden"
+      style={{
+        WebkitMaskImage:
+          "linear-gradient(to right, transparent 0, #000 8%, #000 92%, transparent 100%)",
+        maskImage:
+          "linear-gradient(to right, transparent 0, #000 8%, #000 92%, transparent 100%)",
+      }}
+    >
       {/* Scrolling container */}
       <div className={cn(
         "flex",
