@@ -393,7 +393,7 @@ export default function DiagnosticoGratuito() {
                   O próximo passo <span className="text-primary">não custa nada.</span>
                 </h2>
                 <p className="text-lg text-mavi-white/70">
-                  Preencha abaixo e entraremos em contato em até 1 hora útil.
+                  Preencha abaixo e em até 30 minutos nosso especialista entra em contato para agendar seu meet de diagnóstico.
                 </p>
               </div>
             </AnimatedSection>
@@ -405,7 +405,7 @@ export default function DiagnosticoGratuito() {
                     <CheckCircle2 className="w-16 h-16 text-primary mx-auto mb-4" />
                     <h3 className="text-2xl font-bold mb-2">Recebemos sua solicitação!</h3>
                     <p className="text-mavi-white/70">
-                      Em até 1 hora útil entraremos em contato pelo WhatsApp para agendar seu Diagnóstico.
+                      Em até 30 minutos nosso especialista entra em contato pelo WhatsApp para agendar o meet do seu Diagnóstico.
                     </p>
                   </div>
                 ) : (
