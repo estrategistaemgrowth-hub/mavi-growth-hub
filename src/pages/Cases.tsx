@@ -116,7 +116,7 @@ export default function Cases() {
         <HeroBackground intensity="subtle" />
         <div className="container-mavi">
           <div className="max-w-3xl">
-            <h1 className="text-4xl md:text-5xl font-bold text-mavi-white mb-6"><SplitText stagger={45} duration={750}>Cases & <span className="text-primary">Clientes</span></SplitText></h1>
+            <h1 className="text-4xl md:text-5xl font-bold text-mavi-white mb-2 leading-[1.05]"><SplitText stagger={45} duration={750}>Cases & <span className="text-primary">Clientes</span></SplitText></h1>
             <p className="text-xl text-mavi-white/70 leading-relaxed animate-fade-in-up animation-delay-200">
               Resultados reais de negócios que confiaram na MAVI para crescer. 
               De pequenas lojas a operações com múltiplos dígitos mensais.

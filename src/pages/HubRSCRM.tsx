@@ -194,7 +194,7 @@ export default function HubRSCRM() {
                 <MessageSquare className="w-4 h-4" />
                 <span className="text-sm font-medium">Solução oficial MAVI</span>
               </div>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-mavi-white leading-tight mb-6"><SplitText stagger={45} duration={750}>HUBRS CRM – o CRM que automatiza seu WhatsApp e vende com{" "}
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-mavi-white leading-[1.05] mb-2"><SplitText stagger={45} duration={750}>HUBRS CRM – o CRM que automatiza seu WhatsApp e vende com{" "}
                 <span className="text-primary">IA</span>.</SplitText></h1>
               <p className="text-lg md:text-xl text-mavi-white/70 mb-8 leading-relaxed">
                 Centralize seus contatos, nunca mais perca um lead e conecte suas campanhas de 

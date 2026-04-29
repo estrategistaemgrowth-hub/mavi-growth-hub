@@ -151,7 +151,7 @@ export default function ServicoEcommerce() {
               <ShoppingCart className="w-4 h-4" />
               <span className="text-sm font-medium">E-commerce e Lojas Virtuais</span>
             </div>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-mavi-white mb-6"><SplitText stagger={45} duration={750}>Lojas virtuais que{" "}
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-mavi-white mb-2 leading-[1.05]"><SplitText stagger={45} duration={750}>Lojas virtuais que{" "}
               <span className="text-primary">vendem de verdade</span></SplitText></h1>
             <p className="text-xl text-mavi-white/70 leading-relaxed mb-8 animate-fade-in-up animation-delay-200">
               Criação e implementação de e-commerces com foco em velocidade de lançamento, 

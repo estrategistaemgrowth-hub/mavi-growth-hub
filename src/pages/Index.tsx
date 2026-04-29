@@ -207,7 +207,7 @@ export default function Index() {
                 Agência premiada · Google Premier Partner 2025
               </div>
 
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-mavi-white leading-[1.1] mb-6 tracking-tight">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-mavi-white leading-[1.05] mb-3 tracking-tight">
                 <TypewriterText
                   text="Tráfego, CRM e automação "
                   speed={32}
@@ -453,7 +453,7 @@ export default function Index() {
                 <Blocks className="w-4 h-4" />
                 Micro SaaS sob medida
               </div>
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-mavi-white leading-[1.1] mb-6 tracking-tight">
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-mavi-white leading-[1.05] mb-3 tracking-tight">
                 Pare de ser{" "}
                 <span className="gradient-text">refém</span>{" "}
                 de software genérico.

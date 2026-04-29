@@ -183,7 +183,7 @@ export default function Servicos() {
         <HeroBackground intensity="subtle" />
         <div className="container-mavi">
           <div className="max-w-3xl">
-            <h1 className="text-4xl md:text-5xl font-bold text-mavi-white mb-6"><SplitText stagger={45} duration={750}>Nossos <span className="text-primary">Serviços</span></SplitText></h1>
+            <h1 className="text-4xl md:text-5xl font-bold text-mavi-white mb-2 leading-[1.05]"><SplitText stagger={45} duration={750}>Nossos <span className="text-primary">Serviços</span></SplitText></h1>
             <p className="text-xl text-mavi-white/70 leading-relaxed animate-fade-in-up animation-delay-200">
               Soluções completas para e-commerces e negócios que querem crescer com estratégia, 
               tecnologia e performance de verdade.
