@@ -69,12 +69,12 @@ function LogoRow({
         {duplicatedLogos.map((client, index) => (
           <div
             key={`${client.name}-${index}`}
-            className="flex-shrink-0 mx-6 md:mx-10 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-500"
+            className="flex-shrink-0 mx-6 md:mx-10 grayscale opacity-70 hover:grayscale-0 hover:opacity-100 transition-all duration-500"
           >
             <img
               src={client.logo}
               alt={client.name}
-              className="h-10 md:h-14 w-auto object-contain max-w-[140px] md:max-w-[180px]"
+              className="h-10 md:h-14 w-auto object-contain max-w-[140px] md:max-w-[180px] mix-blend-lighten"
             />
           </div>
         ))}
