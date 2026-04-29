@@ -276,7 +276,7 @@ export default function Servicos() {
             para o seu negócio.
           </p>
           <Button asChild variant="hero" size="lg">
-            <Link to="/contato">Agendar Diagnóstico Gratuito</Link>
+            <Link to="/diagnostico-gratuito">Agendar Diagnóstico Gratuito</Link>
           </Button>
         </div>
       </Section>

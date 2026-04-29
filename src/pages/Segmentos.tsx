@@ -315,7 +315,7 @@ const Segmentos = () => {
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <Button asChild variant="hero" size="lg">
-              <Link to="/contato">Solicitar diagnóstico gratuito</Link>
+              <Link to="/diagnostico-gratuito">Solicitar diagnóstico gratuito</Link>
             </Button>
             <Button asChild variant="heroOutline" size="lg">
               <a
