@@ -42,3 +42,4 @@ User-agent: *
 Allow: /
 
 Sitemap: https://www.agenciamavi.com.br/sitemap.xml
+LLMs: https://www.agenciamavi.com.br/llms.txt

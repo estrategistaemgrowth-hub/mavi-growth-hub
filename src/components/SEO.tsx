@@ -290,6 +290,36 @@ export function generateOrganizationSchema() {
   };
 }
 
+// CaseStudy List Schema for social proof pages
+export function generateCaseStudyListSchema(cases: {
+  title: string;
+  description: string;
+  result: string;
+}[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": "Cases de Sucesso — MAVI Marketing Digital",
+    "description": "Resultados reais de clientes que cresceram com a MAVI Marketing Digital.",
+    "numberOfItems": cases.length,
+    "itemListElement": cases.map((c, index) => ({
+      "@type": "ListItem",
+      "position": index + 1,
+      "item": {
+        "@type": "Article",
+        "name": c.title,
+        "description": c.description,
+        "abstract": c.result,
+        "publisher": {
+          "@type": "Organization",
+          "name": "MAVI Marketing Digital",
+          "url": "https://www.agenciamavi.com.br",
+        },
+      },
+    })),
+  };
+}
+
 // WebSite Schema with SearchAction for GEO
 export function generateWebSiteSchema() {
   return {

@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Layout } from "@/components/Layout";
 import { Section, SectionHeader } from "@/components/Section";
-import { SEO, generateBreadcrumbSchema, generateFAQSchema } from "@/components/SEO";
+import { SEO, generateBreadcrumbSchema, generateFAQSchema, generateCaseStudyListSchema } from "@/components/SEO";
 import { SplitText } from "@/components/SplitText";
 import { HeroBackground } from "@/components/HeroBackground";
 import { TrendingUp, ArrowRight, Award } from "lucide-react";
@@ -98,9 +98,17 @@ export default function Cases() {
 
   const faqSchema = generateFAQSchema(faqs);
 
+  const caseStudyListSchema = generateCaseStudyListSchema(
+    cases.map((c) => ({
+      title: c.title,
+      description: c.challenge,
+      result: c.results.join(" | "),
+    }))
+  );
+
   const combinedSchema = {
     "@context": "https://schema.org",
-    "@graph": [breadcrumbSchema, faqSchema],
+    "@graph": [breadcrumbSchema, faqSchema, caseStudyListSchema],
   };
 
   return (
