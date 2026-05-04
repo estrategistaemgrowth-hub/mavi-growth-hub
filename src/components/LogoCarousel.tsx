@@ -56,11 +56,15 @@ function LogoRow({
   const duplicatedLogos = [...logos, ...logos];
 
   return (
-    <div className="relative overflow-hidden">
-      {/* Gradient overlays for fade effect */}
-      <div className="absolute left-0 top-0 bottom-0 w-20 md:w-32 bg-gradient-to-r from-mavi-gray to-transparent z-10" />
-      <div className="absolute right-0 top-0 bottom-0 w-20 md:w-32 bg-gradient-to-l from-mavi-gray to-transparent z-10" />
-      
+    <div
+      className="relative overflow-hidden"
+      style={{
+        WebkitMaskImage:
+          "linear-gradient(to right, transparent 0, #000 8%, #000 92%, transparent 100%)",
+        maskImage:
+          "linear-gradient(to right, transparent 0, #000 8%, #000 92%, transparent 100%)",
+      }}
+    >
       {/* Scrolling container */}
       <div className={cn(
         "flex",
@@ -69,12 +73,12 @@ function LogoRow({
         {duplicatedLogos.map((client, index) => (
           <div
             key={`${client.name}-${index}`}
-            className="flex-shrink-0 mx-6 md:mx-10 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-500"
+            className="flex-shrink-0 mx-6 md:mx-10 grayscale opacity-70 hover:grayscale-0 hover:opacity-100 transition-all duration-500"
           >
             <img
               src={client.logo}
               alt={client.name}
-              className="h-10 md:h-14 w-auto object-contain max-w-[140px] md:max-w-[180px]"
+              className="h-10 md:h-14 w-auto object-contain max-w-[140px] md:max-w-[180px] mix-blend-lighten"
             />
           </div>
         ))}

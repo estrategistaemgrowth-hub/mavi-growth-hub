@@ -4,6 +4,8 @@ import { Layout } from "@/components/Layout";
 import { Section, SectionHeader } from "@/components/Section";
 import { AnimatedCounter } from "@/components/AnimatedCounter";
 import { SEO, generateBreadcrumbSchema, generateFAQSchema, generateServiceSchema } from "@/components/SEO";
+import { SplitText } from "@/components/SplitText";
+import { HeroBackground } from "@/components/HeroBackground";
 import { 
   Bot, 
   CheckCircle2, 
@@ -120,8 +122,7 @@ export default function ServicoAutomacao() {
 
       {/* Hero Section */}
       <section className="pt-32 pb-20 bg-mavi-black relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-mavi-black via-mavi-black to-primary/20" />
-        <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl" />
+        <HeroBackground intensity="subtle" />
         
         <div className="container-mavi relative z-10">
           <div className="max-w-3xl">
@@ -129,10 +130,8 @@ export default function ServicoAutomacao() {
               <Bot className="w-4 h-4" />
               <span className="text-sm font-medium">Automação & IA</span>
             </div>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-mavi-white mb-6 animate-fade-in-up">
-              Escale vendas com{" "}
-              <span className="text-primary">inteligência artificial</span>
-            </h1>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-mavi-white mb-2 leading-[1.05]"><SplitText stagger={45} duration={750}>Escale vendas com{" "}
+              <span className="text-primary">inteligência artificial</span></SplitText></h1>
             <p className="text-xl text-mavi-white/70 leading-relaxed mb-8 animate-fade-in-up animation-delay-200">
               Implantamos chatbots, fluxos automatizados e integrações com CRM para escalar 
               suas vendas e suporte sem aumentar a equipe.
@@ -179,7 +178,7 @@ export default function ServicoAutomacao() {
       <Section>
         <SectionHeader
           title="Isso soa familiar?"
-          subtitle="Se algum soa familiar, vale uma conversa."
+          subtitle="Se você enfrenta algum desses problemas, podemos ajudar."
         />
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {problems.map((problem, index) => (
@@ -196,7 +195,7 @@ export default function ServicoAutomacao() {
       <Section variant="gray">
         <SectionHeader
           title="Tipos de automação"
-          subtitle="Quatro áreas onde automação costuma fazer mais diferença."
+          subtitle="Soluções para cada necessidade do seu negócio."
         />
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {automations.map((automation, index) => (
@@ -217,7 +216,7 @@ export default function ServicoAutomacao() {
           <div>
             <SectionHeader
               title="O que entregamos"
-              subtitle="O que está incluso na prática."
+              subtitle="Automação inteligente para atendimento e vendas."
               centered={false}
             />
             <div className="space-y-3 mb-8">
@@ -256,8 +255,8 @@ export default function ServicoAutomacao() {
             <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/20 text-primary text-sm font-medium mb-4">
               Integração nativa
             </span>
-            <h2 className="text-3xl md:text-4xl font-bold text-mavi-white mb-6">
-              HubRS CRM já inclui tudo isso
+            <h2 className="text-3xl md:text-4xl font-bold text-mavi-white mb-2 leading-[1.05]">
+              Potencialize com o HubRS CRM
             </h2>
             <p className="text-mavi-white/70 mb-6 leading-relaxed">
               Todas as nossas automações se integram nativamente com o HubRS CRM, 
@@ -397,10 +396,11 @@ export default function ServicoAutomacao() {
       <Section variant="dark">
         <div className="text-center max-w-3xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-bold text-mavi-white mb-4">
-            Quer ver como funcionaria no seu caso?
+            Quer automatizar seu atendimento?
           </h2>
           <p className="text-lg text-mavi-white/70 mb-8">
-            A gente analisa sua operação e mostra o que automatizaria primeiro. Sem compromisso.
+            Converse com nosso time e descubra como a automação com IA 
+            pode transformar seu negócio.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button asChild variant="hero" size="xl">

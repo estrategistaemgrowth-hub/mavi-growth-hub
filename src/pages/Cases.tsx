@@ -3,6 +3,8 @@ import { Button } from "@/components/ui/button";
 import { Layout } from "@/components/Layout";
 import { Section, SectionHeader } from "@/components/Section";
 import { SEO, generateBreadcrumbSchema, generateFAQSchema } from "@/components/SEO";
+import { SplitText } from "@/components/SplitText";
+import { HeroBackground } from "@/components/HeroBackground";
 import { TrendingUp, ArrowRight, Award } from "lucide-react";
 import {
   Accordion,
@@ -110,12 +112,11 @@ export default function Cases() {
         schemaMarkup={combinedSchema}
       />
       {/* Hero */}
-      <section className="pt-32 pb-16 bg-mavi-black">
+      <section className="relative pt-32 pb-16 bg-mavi-black overflow-hidden">
+        <HeroBackground intensity="subtle" />
         <div className="container-mavi">
           <div className="max-w-3xl">
-            <h1 className="text-4xl md:text-5xl font-bold text-mavi-white mb-6 animate-fade-in-up">
-              Cases & <span className="text-primary">Clientes</span>
-            </h1>
+            <h1 className="text-4xl md:text-5xl font-bold text-mavi-white mb-2 leading-[1.05]"><SplitText stagger={45} duration={750}>Cases & <span className="text-primary">Clientes</span></SplitText></h1>
             <p className="text-xl text-mavi-white/70 leading-relaxed animate-fade-in-up animation-delay-200">
               Resultados reais de negócios que confiaram na MAVI para crescer. 
               De pequenas lojas a operações com múltiplos dígitos mensais.

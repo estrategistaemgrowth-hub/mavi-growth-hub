@@ -5,6 +5,8 @@ import { Section, SectionHeader } from "@/components/Section";
 import { SEO, generateBreadcrumbSchema, generateFAQSchema, generateServiceSchema } from "@/components/SEO";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { AnimatedSection } from "@/components/AnimatedSection";
+import { SplitText } from "@/components/SplitText";
+import { HeroBackground } from "@/components/HeroBackground";
 import { 
   Cpu, CheckCircle2, ArrowRight, Zap, Brain, RefreshCw, Shield, 
   Users, Target, Workflow, MessageSquare, BarChart, FileText,
@@ -119,7 +121,7 @@ export default function ServicoMicroSaas() {
 
       {/* Hero Section */}
       <section className="relative bg-mavi-black pt-32 pb-20 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-transparent to-transparent" />
+        <HeroBackground intensity="subtle" />
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-4xl mx-auto text-center">
             <AnimatedSection animation="fadeInUp">
@@ -129,9 +131,7 @@ export default function ServicoMicroSaas() {
               </div>
             </AnimatedSection>
             <AnimatedSection animation="fadeInUp" delay={100}>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-mavi-white mb-6 leading-tight">
-                Desenvolvimento de Micro SaaS — do jeito do seu negócio
-              </h1>
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-mavi-white mb-2 leading-[1.05]"><SplitText stagger={45} duration={750}>Desenvolvimento de Micro SaaS — do jeito do seu negócio</SplitText></h1>
             </AnimatedSection>
             <AnimatedSection animation="fadeInUp" delay={200}>
               <p className="text-xl text-mavi-gray-light mb-8 max-w-3xl mx-auto">

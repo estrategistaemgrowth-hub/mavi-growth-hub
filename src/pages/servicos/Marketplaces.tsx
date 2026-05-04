@@ -4,6 +4,8 @@ import { Layout } from "@/components/Layout";
 import { Section, SectionHeader } from "@/components/Section";
 import { AnimatedCounter } from "@/components/AnimatedCounter";
 import { SEO, generateBreadcrumbSchema, generateFAQSchema, generateServiceSchema } from "@/components/SEO";
+import { SplitText } from "@/components/SplitText";
+import { HeroBackground } from "@/components/HeroBackground";
 import { 
   Store,
   CheckCircle2,
@@ -135,8 +137,7 @@ export default function ServicoMarketplaces() {
 
       {/* Hero Section */}
       <section className="pt-32 pb-20 bg-mavi-black relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-mavi-black via-mavi-black to-primary/20" />
-        <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl" />
+        <HeroBackground intensity="subtle" />
         
         <div className="container-mavi relative z-10">
           <div className="max-w-3xl">
@@ -144,10 +145,8 @@ export default function ServicoMarketplaces() {
               <Store className="w-4 h-4" />
               <span className="text-sm font-medium">Marketplaces & ERP</span>
             </div>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-mavi-white mb-6 animate-fade-in-up">
-              Domine os{" "}
-              <span className="text-primary">marketplaces</span>
-            </h1>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-mavi-white mb-2 leading-[1.05]"><SplitText stagger={45} duration={750}>Domine os{" "}
+              <span className="text-primary">marketplaces</span></SplitText></h1>
             <p className="text-xl text-mavi-white/70 leading-relaxed mb-8 animate-fade-in-up animation-delay-200">
               Gestão profissional de marketplaces com integração completa. Maximize suas vendas 
               em múltiplos canais com operação organizada e rentável.
@@ -274,7 +273,7 @@ export default function ServicoMarketplaces() {
             </Button>
           </div>
           <div className="space-y-4">
-            <h3 className="text-2xl font-bold text-mavi-white mb-6">Benefícios para o seu negócio</h3>
+            <h3 className="text-2xl font-bold text-mavi-white mb-2 leading-[1.05]">Benefícios para o seu negócio</h3>
             {benefits.map((benefit, index) => (
               <div key={index} className="flex gap-4 p-4 rounded-xl bg-mavi-white/5 border border-mavi-white/10 hover:border-primary/30 transition-colors card-glow">
                 <div className="w-12 h-12 rounded-lg bg-primary/20 flex items-center justify-center flex-shrink-0">

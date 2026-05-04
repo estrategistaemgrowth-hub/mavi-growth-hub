@@ -9,6 +9,8 @@ import { Section } from "@/components/Section";
 import { SEO, generateBreadcrumbSchema, generateLocalBusinessSchema, generateFAQSchema } from "@/components/SEO";
 import { useToast } from "@/hooks/use-toast";
 import { WhatsAppLink } from "@/components/WhatsAppLink";
+import { SplitText } from "@/components/SplitText";
+import { HeroBackground } from "@/components/HeroBackground";
 import {
   Phone,
   Mail,
@@ -175,15 +177,14 @@ export default function Contato() {
         schemaMarkup={combinedSchema}
       />
       <section className="pt-32 pb-16 bg-mavi-black relative overflow-hidden">
+        <HeroBackground intensity="subtle" />
         <div className="absolute inset-0">
           <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl animate-pulse" />
           <div className="absolute bottom-1/4 left-1/4 w-64 h-64 bg-primary/5 rounded-full blur-2xl animate-pulse animation-delay-500" />
         </div>
         <div className="container-mavi relative z-10">
           <div className="max-w-3xl">
-            <h1 className="text-4xl md:text-5xl font-bold text-mavi-white mb-6 animate-fade-in-up">
-              Fale com a <span className="text-primary">MAVI</span>
-            </h1>
+            <h1 className="text-4xl md:text-5xl font-bold text-mavi-white mb-2 leading-[1.05]"><SplitText stagger={45} duration={750}>Fale com a <span className="text-primary">MAVI</span></SplitText></h1>
             <p className="text-xl text-mavi-white/70 leading-relaxed animate-fade-in-up animation-delay-200">
               Conta seu momento e a verba que você opera hoje. A gente responde em horário comercial com um diagnóstico, não com pitch.
             </p>

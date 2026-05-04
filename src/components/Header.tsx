@@ -168,7 +168,7 @@ export function Header() {
               </a>
             </Button>
             <Button asChild variant={isScrolled || isLightPage ? "default" : "hero"} size="sm">
-              <Link to="/contato">Diagnóstico Gratuito</Link>
+              <Link to="/diagnostico-gratuito">Diagnóstico Gratuito</Link>
             </Button>
           </div>
 
@@ -247,7 +247,7 @@ export function Header() {
                   </a>
                 </Button>
                 <Button asChild className="w-full">
-                  <Link to="/contato">Diagnóstico Gratuito</Link>
+                  <Link to="/diagnostico-gratuito">Diagnóstico Gratuito</Link>
                 </Button>
               </div>
             </nav>

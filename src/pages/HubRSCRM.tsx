@@ -6,6 +6,8 @@ import { Section, SectionHeader } from "@/components/Section";
 import { SEO, generateBreadcrumbSchema, generateFAQSchema } from "@/components/SEO";
 import { AnimatedSection, AnimatedChildren } from "@/components/AnimatedSection";
 import { LeadCaptureDialog } from "@/components/LeadCaptureDialog";
+import { SplitText } from "@/components/SplitText";
+import { HeroBackground } from "@/components/HeroBackground";
 import {
   Accordion,
   AccordionContent,
@@ -183,7 +185,8 @@ export default function HubRSCRM() {
         schemaMarkup={combinedSchema}
       />
       {/* Hero */}
-      <section className="pt-32 pb-20 bg-mavi-black overflow-hidden">
+      <section className="relative pt-32 pb-20 bg-mavi-black overflow-hidden">
+        <HeroBackground intensity="subtle" />
         <div className="container-mavi">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <AnimatedSection animation="fadeInUp">
@@ -191,10 +194,8 @@ export default function HubRSCRM() {
                 <MessageSquare className="w-4 h-4" />
                 <span className="text-sm font-medium">Solução oficial MAVI</span>
               </div>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-mavi-white leading-tight mb-6">
-                HUBRS CRM – o CRM que automatiza seu WhatsApp e vende com{" "}
-                <span className="text-primary">IA</span>.
-              </h1>
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-mavi-white leading-[1.05] mb-2"><SplitText stagger={45} duration={750}>HUBRS CRM – o CRM que automatiza seu WhatsApp e vende com{" "}
+                <span className="text-primary">IA</span>.</SplitText></h1>
               <p className="text-lg md:text-xl text-mavi-white/70 mb-8 leading-relaxed">
                 Centralize seus contatos, nunca mais perca um lead e conecte suas campanhas de 
                 Meta Ads direto no funil de vendas. Um CRM pensado para escalar suas vendas sem perder o controle.

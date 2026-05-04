@@ -4,6 +4,8 @@ import { Section, SectionHeader } from "@/components/Section";
 import { Button } from "@/components/ui/button";
 import { SEO, generateBreadcrumbSchema, generateFAQSchema } from "@/components/SEO";
 import { WhatsAppLink } from "@/components/WhatsAppLink";
+import { SplitText } from "@/components/SplitText";
+import { HeroBackground } from "@/components/HeroBackground";
 import {
   Accordion,
   AccordionContent,
@@ -183,8 +185,7 @@ const SegmentoImobiliarias = () => {
 
       {/* Hero Section */}
       <section className="relative min-h-[70vh] flex items-center pt-20 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-mavi-black via-mavi-black to-primary/20" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(230,0,126,0.15),transparent_50%)]" />
+        <HeroBackground intensity="subtle" tone="dark" />
 
         <div className="container-mavi relative z-10 py-20">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
@@ -192,11 +193,9 @@ const SegmentoImobiliarias = () => {
               <span className="inline-block px-4 py-2 bg-primary/20 text-primary rounded-full text-sm font-medium mb-6">
                 Marketing para Imobiliárias
               </span>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-mavi-white mb-6 leading-tight">
-                Gere mais leads{" "}
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-mavi-white mb-2 leading-[1.05]"><SplitText stagger={45} duration={750}>Gere mais leads{" "}
                 <span className="text-primary">qualificados</span> para sua
-                imobiliária
-              </h1>
+                imobiliária</SplitText></h1>
               <p className="text-xl text-mavi-white/80 mb-8">
                 Estratégias de marketing digital que atraem clientes reais
                 interessados em comprar ou alugar. CRM especializado para
@@ -414,8 +413,8 @@ const SegmentoImobiliarias = () => {
 
       {/* CTA Section */}
       <section className="relative py-20 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-mavi-black via-mavi-black to-primary/30" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_50%,rgba(230,0,126,0.2),transparent_50%)]" />
+        <div className="absolute inset-0 bg-mavi-black" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(230,0,126,0.18),transparent_60%)]" />
 
         <div className="container-mavi relative z-10">
           <div className="grid lg:grid-cols-2 gap-12 items-center">

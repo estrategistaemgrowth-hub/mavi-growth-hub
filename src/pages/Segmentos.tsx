@@ -3,6 +3,8 @@ import { Layout } from "@/components/Layout";
 import { Section, SectionHeader } from "@/components/Section";
 import { Button } from "@/components/ui/button";
 import { SEO, generateBreadcrumbSchema } from "@/components/SEO";
+import { SplitText } from "@/components/SplitText";
+import { HeroBackground } from "@/components/HeroBackground";
 import {
   ShoppingCart,
   Building2,
@@ -117,19 +119,16 @@ const Segmentos = () => {
 
       {/* Hero Section */}
       <section className="relative min-h-[60vh] flex items-center pt-20 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-mavi-black via-mavi-black to-primary/20" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(230,0,126,0.15),transparent_50%)]" />
+        <HeroBackground intensity="subtle" tone="light" />
 
         <div className="container-mavi relative z-10 py-20">
           <div className="max-w-4xl">
             <span className="inline-block px-4 py-2 bg-primary/20 text-primary rounded-full text-sm font-medium mb-6">
               Segmentos que Atendemos
             </span>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-mavi-white mb-6 leading-tight">
-              Soluções de marketing{" "}
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-mavi-white mb-2 leading-[1.05]"><SplitText stagger={45} duration={750}>Soluções de marketing{" "}
               <span className="text-primary">personalizadas</span> para o seu
-              segmento
-            </h1>
+              segmento</SplitText></h1>
             <p className="text-xl text-mavi-white/80 mb-8 max-w-2xl">
               Não faz sentido aplicar a mesma estratégia de e-commerce numa imobiliária. Por isso cada segmento tem abordagem diferente — com métricas, canais e objetivos específicos.
             </p>
@@ -299,8 +298,8 @@ const Segmentos = () => {
 
       {/* CTA Section */}
       <section className="relative py-20 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-mavi-black via-mavi-black to-primary/30" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_50%,rgba(230,0,126,0.2),transparent_50%)]" />
+        <div className="absolute inset-0 bg-mavi-black" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(230,0,126,0.18),transparent_60%)]" />
 
         <div className="container-mavi relative z-10 text-center">
           <h2 className="text-3xl md:text-4xl font-bold text-mavi-white mb-6">
@@ -311,7 +310,7 @@ const Segmentos = () => {
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <Button asChild variant="hero" size="lg">
-              <Link to="/contato">Solicitar diagnóstico gratuito</Link>
+              <Link to="/diagnostico-gratuito">Solicitar diagnóstico gratuito</Link>
             </Button>
             <Button asChild variant="heroOutline" size="lg">
               <a

@@ -31,6 +31,7 @@ import SegmentoSaudeEstetica from "./pages/segmentos/SaudeEstetica";
 import PoliticaPrivacidade from "./pages/PoliticaPrivacidade";
 import TermosUso from "./pages/TermosUso";
 import NotFound from "./pages/NotFound";
+import DiagnosticoGratuito from "./pages/DiagnosticoGratuito";
 
 const queryClient = new QueryClient();
 
@@ -77,7 +78,8 @@ const App = () => (
           <Route path="/contato" element={<Contato />} />
           <Route path="/privacidade" element={<PoliticaPrivacidade />} />
           <Route path="/termos" element={<TermosUso />} />
-          <Route path="/diagnostico" element={<Navigate to="/contato" replace />} />
+          <Route path="/diagnostico-gratuito" element={<DiagnosticoGratuito />} />
+          <Route path="/diagnostico" element={<Navigate to="/diagnostico-gratuito" replace />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
