@@ -127,6 +127,8 @@
   body {
     @apply bg-background text-foreground font-sans antialiased;
     font-family: 'Inter', sans-serif;
+    line-height: 1.6;
+    overflow-x: hidden;
   }
 }
 
@@ -220,7 +222,15 @@
   /* Glassmorphism card */
   .glass-card {
     @apply backdrop-blur-md border border-white/10;
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  /* Glass card light mode: higher opacity for visible contrast */
+  @media (prefers-color-scheme: light) {
+    .glass-card {
+      background: rgba(255, 255, 255, 0.75);
+      border-color: rgba(0, 0, 0, 0.08);
+    }
   }
 
   .glass-card-dark {

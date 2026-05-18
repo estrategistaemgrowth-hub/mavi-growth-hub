@@ -60,25 +60,28 @@ export function Footer() {
                 href="https://instagram.com/agenciamavi"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-10 h-10 rounded-full bg-mavi-white/10 flex items-center justify-center hover:bg-primary transition-colors"
+                aria-label="Instagram da MAVI"
+                className="w-10 h-10 rounded-full bg-mavi-white/10 flex items-center justify-center hover:bg-primary transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/60"
               >
-                <Instagram className="w-5 h-5" />
+                <Instagram className="w-5 h-5" aria-hidden="true" />
               </a>
               <a
                 href="https://facebook.com/agenciamavi"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-10 h-10 rounded-full bg-mavi-white/10 flex items-center justify-center hover:bg-primary transition-colors"
+                aria-label="Facebook da MAVI"
+                className="w-10 h-10 rounded-full bg-mavi-white/10 flex items-center justify-center hover:bg-primary transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/60"
               >
-                <Facebook className="w-5 h-5" />
+                <Facebook className="w-5 h-5" aria-hidden="true" />
               </a>
               <a
                 href="https://linkedin.com/company/agenciamavi"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-10 h-10 rounded-full bg-mavi-white/10 flex items-center justify-center hover:bg-primary transition-colors"
+                aria-label="LinkedIn da MAVI"
+                className="w-10 h-10 rounded-full bg-mavi-white/10 flex items-center justify-center hover:bg-primary transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/60"
               >
-                <Linkedin className="w-5 h-5" />
+                <Linkedin className="w-5 h-5" aria-hidden="true" />
               </a>
             </div>
           </div>

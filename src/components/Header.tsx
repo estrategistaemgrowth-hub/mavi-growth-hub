@@ -102,8 +102,11 @@ export function Header() {
                     onMouseLeave={() => setActiveDropdown(null)}
                   >
                     <button
+                      aria-haspopup="true"
+                      aria-expanded={activeDropdown === item.dropdownType}
                       className={cn(
-                        "flex items-center gap-1 px-4 py-2 text-sm font-medium transition-colors rounded-md",
+                        "flex items-center gap-1 px-4 py-2 text-sm font-medium transition-colors rounded-md cursor-pointer",
+                        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/60",
                         isScrolled || isLightPage
                           ? "text-foreground hover:text-primary"
                           : "text-mavi-white/90 hover:text-mavi-white",
@@ -175,8 +178,11 @@ export function Header() {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            aria-label={isMobileMenuOpen ? "Fechar menu" : "Abrir menu"}
+            aria-expanded={isMobileMenuOpen}
             className={cn(
-              "lg:hidden p-2 rounded-md transition-colors",
+              "lg:hidden p-2 rounded-md transition-colors cursor-pointer",
+              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/60",
               isScrolled || isLightPage ? "text-foreground" : "text-mavi-white"
             )}
           >
@@ -196,7 +202,9 @@ export function Header() {
                         onClick={() => setMobileActiveDropdown(
                           mobileActiveDropdown === item.dropdownType ? null : (item.dropdownType || null)
                         )}
-                        className="flex items-center justify-between w-full px-4 py-3 text-foreground hover:bg-muted rounded-md"
+                        aria-expanded={mobileActiveDropdown === item.dropdownType}
+                        aria-haspopup="true"
+                        className="flex items-center justify-between w-full px-4 py-3 text-foreground hover:bg-muted rounded-md cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/60"
                       >
                         <span>{item.name}</span>
                         <ChevronDown className={cn(
