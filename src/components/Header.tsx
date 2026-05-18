@@ -74,10 +74,12 @@ export function Header() {
   return (
     <header
       className={cn(
-        "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
-        isScrolled || isLightPage
-          ? "bg-background/95 backdrop-blur-md shadow-md"
-          : "bg-transparent"
+        "fixed z-50 transition-all duration-300",
+        isScrolled
+          ? "top-4 left-4 right-4 bg-background/80 backdrop-blur-xl shadow-2xl rounded-xl border border-border/50"
+          : isLightPage
+            ? "top-0 left-0 right-0 bg-background/95 backdrop-blur-md shadow-md"
+            : "top-0 left-0 right-0 bg-transparent"
       )}
     >
       <div className="container-mavi">

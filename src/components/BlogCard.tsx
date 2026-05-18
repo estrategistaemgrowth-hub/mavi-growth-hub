@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
-import { Calendar, User, ArrowRight } from "lucide-react";
+import { useState } from "react";
+import { Calendar, User, ArrowRight, ImageIcon } from "lucide-react";
 
 interface BlogCardProps {
   title: string;
@@ -20,19 +21,30 @@ export function BlogCard({
   publishedAt,
   categoryName,
 }: BlogCardProps) {
+  const [imageError, setImageError] = useState(false);
+  const showImage = featuredImageUrl && !imageError;
+  const showFallback = !featuredImageUrl || imageError;
+
   return (
     <Link
       to={`/blog/${slug}`}
       className="group block bg-card rounded-xl border border-border overflow-hidden card-hover"
     >
-      {featuredImageUrl && (
+      {showImage && (
         <div className="aspect-video overflow-hidden">
           <img
-            src={featuredImageUrl}
+            src={featuredImageUrl!}
             alt={title}
             className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
             loading="lazy"
+            onError={() => setImageError(true)}
           />
+        </div>
+      )}
+      {showFallback && (
+        <div className="aspect-video bg-gradient-to-br from-primary via-primary/70 to-accent flex items-center justify-center relative overflow-hidden">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,hsl(var(--primary-foreground)/0.15),transparent_60%)]" />
+          <ImageIcon className="w-12 h-12 text-primary-foreground/70 relative z-10" aria-hidden="true" />
         </div>
       )}
       <div className="p-6">
