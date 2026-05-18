@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
-import { Calendar, User, ArrowRight } from "lucide-react";
+import { useState } from "react";
+import { Calendar, User, ArrowRight, ImageIcon } from "lucide-react";
 
 interface BlogCardProps {
   title: string;
