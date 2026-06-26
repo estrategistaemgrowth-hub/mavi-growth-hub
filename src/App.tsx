@@ -32,6 +32,8 @@ import PoliticaPrivacidade from "./pages/PoliticaPrivacidade";
 import TermosUso from "./pages/TermosUso";
 import NotFound from "./pages/NotFound";
 import DiagnosticoGratuito from "./pages/DiagnosticoGratuito";
+import Assessment from "./pages/Assessment";
+import AdminAssessment from "./pages/admin/AdminAssessment";
 
 const queryClient = new QueryClient();
 
@@ -80,6 +82,8 @@ const App = () => (
           <Route path="/termos" element={<TermosUso />} />
           <Route path="/diagnostico-gratuito" element={<DiagnosticoGratuito />} />
           <Route path="/diagnostico" element={<Navigate to="/diagnostico-gratuito" replace />} />
+          <Route path="/assessment" element={<Assessment />} />
+          <Route path="/admin/assessment" element={<AdminAssessment />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
