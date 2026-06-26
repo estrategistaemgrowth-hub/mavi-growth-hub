@@ -30,7 +30,7 @@ import {
   BarChart3,
   Globe,
 } from "lucide-react";
-import logoMavi from "@/assets/logo-mavi-branca.png";
+import logoMavi from "@/assets/logo-mavi-colorida.png";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -56,30 +56,30 @@ const PILLARS: Pillar[] = [
     icon: ShoppingBag,
     questions: [
       {
-        text: "As fotos dos seus produtos são profissionais e mostram múltiplos ângulos?",
+        text: "Como são as fotos dos seus produtos na loja?",
         options: [
-          { label: "Não temos fotos profissionais", score: 0 },
-          { label: "Temos fotos, mas precisam melhorar", score: 33 },
-          { label: "Boas fotos, mas sem consistência", score: 66 },
-          { label: "Fotos profissionais e consistentes em toda a loja", score: 100 },
+          { label: "Fotos do celular ou de baixa qualidade", score: 0 },
+          { label: "Fotos ok, mas sem padrão ou organização", score: 33 },
+          { label: "Fotos boas, mas sem muita consistência visual", score: 66 },
+          { label: "Fotos profissionais, fundo limpo e vários ângulos em todos os produtos", score: 100 },
         ],
       },
       {
-        text: "As descrições dos seus produtos são detalhadas e otimizadas para venda?",
+        text: "Como você descreve seus produtos para o cliente?",
         options: [
-          { label: "Usamos a descrição do fornecedor sem editar", score: 0 },
-          { label: "Temos descrições básicas, sem estratégia", score: 33 },
-          { label: "Descrições completas, mas sem foco em conversão", score: 66 },
-          { label: "Descrições estratégicas com SEO e gatilhos de venda", score: 100 },
+          { label: "Copio o texto do fornecedor sem editar", score: 0 },
+          { label: "Escrevo o básico: nome, tamanho e preço", score: 33 },
+          { label: "Detalho bem o produto, mas não penso em convencer a compra", score: 66 },
+          { label: "Destaco benefícios, depoimentos e explico por que vale comprar", score: 100 },
         ],
       },
       {
-        text: "Você monitora e atualiza seu mix de produtos com base em dados?",
+        text: "Como você decide quais produtos manter ou tirar da loja?",
         options: [
-          { label: "Nunca analisamos o mix de produtos", score: 0 },
-          { label: "Avaliamos raramente, sem critério", score: 33 },
-          { label: "Avaliamos por vendas, mas sem curva ABC", score: 66 },
-          { label: "Gestão ativa com curva ABC e dados de margem", score: 100 },
+          { label: "Nunca removo produtos — mantenho tudo que tenho", score: 0 },
+          { label: "Só tiro o que claramente não vende nada", score: 33 },
+          { label: "Analiso as vendas de vez em quando para decidir", score: 66 },
+          { label: "Acompanho regularmente o que mais vende e o que dá mais lucro", score: 100 },
         ],
       },
     ],
@@ -100,16 +100,16 @@ const PILLARS: Pillar[] = [
           points: [
             "Melhorar consistência visual pode aumentar conversão em 20-30%",
             "Descrições com gatilhos de venda aceleram a decisão de compra",
-            "Curadoria estratégica do mix libera caixa e aumenta o ticket médio",
+            "Curadoria estratégica do mix libera caixa e aumenta o valor médio de compra",
           ],
           cta: "Otimização de catálogo e conversão",
         };
       return {
         title: "Catálogo — Base sólida",
         points: [
-          "Explore A/B test em fotos e descrições para continuar crescendo",
           "Vídeos curtos de produto aumentam engajamento e conversão",
-          "Analise margem por SKU regularmente para proteger a rentabilidade",
+          "Testar variações de fotos e textos revela o que converte mais",
+          "Analise o lucro por produto regularmente para proteger sua rentabilidade",
         ],
         cta: "Escalar performance com dados de produto",
       };
@@ -122,30 +122,30 @@ const PILLARS: Pillar[] = [
     icon: Megaphone,
     questions: [
       {
-        text: "Com que frequência você publica conteúdo nas redes sociais?",
+        text: "Com que frequência você posta nas redes sociais da sua loja?",
         options: [
-          { label: "Raramente ou nunca publicamos", score: 0 },
-          { label: "Publicamos sem regularidade", score: 33 },
-          { label: "Publicamos 2-3x por semana", score: 66 },
-          { label: "Publicamos diariamente com calendário editorial", score: 100 },
+          { label: "Raramente ou nunca posto", score: 0 },
+          { label: "Posto quando lembro, sem regularidade", score: 33 },
+          { label: "Posto algumas vezes por semana", score: 66 },
+          { label: "Posto todos os dias seguindo um plano de conteúdo", score: 100 },
         ],
       },
       {
-        text: "Seu conteúdo é estratégico — educa, engaja E vende?",
+        text: "Que tipo de conteúdo você publica nas redes?",
         options: [
-          { label: "Apenas postamos promoções e fotos de produto", score: 0 },
-          { label: "Misturamos promoções com posts aleatórios", score: 33 },
-          { label: "Temos estratégia, mas sem consistência de funil", score: 66 },
-          { label: "Seguimos funil de conteúdo: topo, meio e fundo", score: 100 },
+          { label: "Só fotos de produto e promoções", score: 0 },
+          { label: "Promoções e alguns posts variados, mas sem planejamento", score: 33 },
+          { label: "Mistura de conteúdo útil e de venda, com algum planejamento", score: 66 },
+          { label: "Conteúdos que ensinam, engajam e vendem — com calendário organizado", score: 100 },
         ],
       },
       {
-        text: "Você analisa métricas das redes e usa dados para ajustar a estratégia?",
+        text: "Você sabe o que funciona e o que não funciona nos seus posts?",
         options: [
-          { label: "Nunca analisamos métricas", score: 0 },
-          { label: "Olhamos likes e seguidores ocasionalmente", score: 33 },
-          { label: "Acompanhamos métricas, mas sem ação sobre elas", score: 66 },
-          { label: "Usamos dados para ajustar a estratégia semanalmente", score: 100 },
+          { label: "Nunca olho os números dos posts", score: 0 },
+          { label: "Vejo curtidas e seguidores de vez em quando", score: 33 },
+          { label: "Analiso os resultados, mas raramente mudo o que faço com base nisso", score: 66 },
+          { label: "Uso os dados para entender o que funciona e ajusto minha estratégia", score: 100 },
         ],
       },
     ],
@@ -154,9 +154,9 @@ const PILLARS: Pillar[] = [
         return {
           title: "Redes Sociais — Ponto crítico",
           points: [
-            "Sem presença ativa, você perde alcance orgânico gratuito todo dia",
-            "Conteúdo só de promoção cansa o público e derruba o alcance",
-            "Sem métricas, você não sabe o que funciona e desperdiça energia",
+            "Sem presença ativa, você perde alcance gratuito todos os dias",
+            "Conteúdo só de promoção cansa o público e reduz o alcance dos posts",
+            "Sem acompanhar os números, você não sabe o que funciona",
           ],
           cta: "Gestão estratégica de redes sociais",
         };
@@ -164,18 +164,18 @@ const PILLARS: Pillar[] = [
         return {
           title: "Redes Sociais — Há muito a ganhar",
           points: [
-            "Regularidade e calendário editorial dobram o alcance orgânico",
-            "Conteúdo de funil aquece a audiência antes do anúncio, reduzindo CAC",
-            "Análise semanal de métricas permite otimizar sem gastar mais",
+            "Postar com regularidade e planejamento dobra o alcance orgânico",
+            "Conteúdo que educa e entretém aquece o público antes da venda",
+            "Acompanhar os números semanalmente permite crescer sem gastar mais",
           ],
           cta: "Social media com foco em conversão",
         };
       return {
         title: "Redes Sociais — Boa base",
         points: [
-          "Explore UGC (conteúdo gerado por clientes) para escalar autenticidade",
-          "Integre social com tráfego pago para reduzir CPA",
-          "Teste influenciadores de nicho para alcançar novos públicos",
+          "Incentivar clientes a postar sobre sua loja gera conteúdo autêntico e gratuito",
+          "Combinar redes sociais com anúncios reduz o custo por venda",
+          "Parcerias com criadores de conteúdo do seu nicho abrem novos públicos",
         ],
         cta: "Amplificar alcance com conteúdo e mídia",
       };
@@ -188,30 +188,30 @@ const PILLARS: Pillar[] = [
     icon: Store,
     questions: [
       {
-        text: "Você está presente nos principais marketplaces? (Mercado Livre, Shopee, TikTok Shop)",
+        text: "Você vende em plataformas como Shopee, Mercado Livre ou TikTok Shop?",
         options: [
-          { label: "Não vendemos em nenhum marketplace", score: 0 },
-          { label: "Estamos em 1 marketplace, sem gestão ativa", score: 33 },
-          { label: "Estamos em 2+ marketplaces, mas sem otimização", score: 66 },
-          { label: "Gerenciamos ativamente ML, Shopee e TikTok Shop", score: 100 },
+          { label: "Não vendo em nenhuma dessas plataformas", score: 0 },
+          { label: "Estou em 1 delas, mas de forma passiva", score: 33 },
+          { label: "Estou em 2 ou mais, mas sem me dedicar muito", score: 66 },
+          { label: "Gerencio ativamente Mercado Livre, Shopee e/ou TikTok Shop", score: 100 },
         ],
       },
       {
-        text: "Seus anúncios no Mercado Livre e Shopee são otimizados para aparecer nas buscas?",
+        text: "Quando alguém busca um produto parecido com o seu nessas plataformas, o seu aparece?",
         options: [
-          { label: "Nunca otimizamos os anúncios", score: 0 },
-          { label: "Usamos título e descrição básicos do produto", score: 33 },
-          { label: "Otimizamos os principais anúncios, mas não todos", score: 66 },
-          { label: "Fazemos SEO e A/B de anúncios sistematicamente", score: 100 },
+          { label: "Meus produtos praticamente não aparecem nas buscas", score: 0 },
+          { label: "Aparecem pouco — uso só foto e nome básico", score: 33 },
+          { label: "Apareço em algumas buscas, mas poderia aparecer muito mais", score: 66 },
+          { label: "Cuido dos títulos, fotos e palavras para aparecer no topo das buscas", score: 100 },
         ],
       },
       {
-        text: "Você usa o TikTok Shop ou Lives para vender diretamente?",
+        text: "Você usa o TikTok para mostrar ou vender seus produtos?",
         options: [
-          { label: "Não temos presença no TikTok", score: 0 },
-          { label: "Temos perfil, mas não vendemos pelo TikTok", score: 33 },
-          { label: "Testamos o TikTok Shop, mas sem estratégia definida", score: 66 },
-          { label: "Vendemos ativamente via TikTok Shop e Lives", score: 100 },
+          { label: "Não uso o TikTok de jeito nenhum", score: 0 },
+          { label: "Tenho perfil, mas não vendo pelo TikTok", score: 33 },
+          { label: "Já testei o TikTok Shop, mas sem resultado claro", score: 66 },
+          { label: "Vendo pelo TikTok Shop ou faço Lives de vendas regularmente", score: 100 },
         ],
       },
     ],
@@ -220,9 +220,9 @@ const PILLARS: Pillar[] = [
         return {
           title: "Marketplaces — Canal inexplorado",
           points: [
-            "Mercado Livre, Shopee e TikTok Shop somam 80%+ das compras online no Brasil",
-            "Sem presença nesses canais, você perde vendas para concorrentes diretos",
-            "TikTok Shop é o canal de maior crescimento do e-commerce em 2025",
+            "Shopee, Mercado Livre e TikTok Shop concentram a maioria das compras online no Brasil",
+            "Sem presença nesses canais, você perde vendas para concorrentes todos os dias",
+            "TikTok Shop é o canal que mais cresce no e-commerce brasileiro em 2025",
           ],
           cta: "Estratégia e gestão de marketplaces",
         };
@@ -230,18 +230,18 @@ const PILLARS: Pillar[] = [
         return {
           title: "Marketplaces — Oportunidade de escala",
           points: [
-            "SEO de marketplace pode triplicar a visibilidade dos seus anúncios",
-            "TikTok Shop combina conteúdo viral com venda direta — ROI elevado",
-            "Gestão ativa de reputação é decisiva para o algoritmo do Mercado Livre",
+            "Cuidar dos títulos e palavras dos anúncios pode triplicar sua visibilidade",
+            "TikTok Shop combina conteúdo viral com venda direta — alto potencial",
+            "Manter boa reputação e responder rápido é decisivo para vender mais no ML",
           ],
           cta: "Otimização e escala em marketplaces",
         };
       return {
         title: "Marketplaces — Bem posicionado",
         points: [
-          "Anúncios patrocinados nos marketplaces aceleram o giro de estoque",
-          "TikTok Shop Live pode multiplicar vendas em datas especiais",
-          "Avalie expansão para Amazon Brasil — crescimento acelerado",
+          "Anúncios patrocinados dentro dos marketplaces aceleram as vendas",
+          "Lives de venda no TikTok Shop podem multiplicar resultados em datas especiais",
+          "Avaliar outros canais como Amazon Brasil pode abrir novas oportunidades",
         ],
         cta: "Expansão multicanal e marketplace avançado",
       };
@@ -254,33 +254,30 @@ const PILLARS: Pillar[] = [
     icon: Search,
     questions: [
       {
-        text: "Sua loja aparece no Google para buscas relevantes dos seus produtos?",
+        text: "Quando alguém pesquisa no Google algo que você vende, sua loja aparece?",
         options: [
-          { label: "Não aparecemos nas buscas importantes", score: 0 },
-          { label: "Aparecemos só para o nome da marca", score: 33 },
-          { label: "Algum tráfego orgânico, mas poderia ser muito maior", score: 66 },
-          { label: "Estratégia de SEO ativa com bom volume orgânico", score: 100 },
+          { label: "Minha loja não aparece nas pesquisas do Google", score: 0 },
+          { label: "Aparece só quando buscam o nome exato da minha loja", score: 33 },
+          { label: "Aparece em algumas buscas, mas poderia aparecer muito mais", score: 66 },
+          { label: "Apareço bem nas pesquisas e recebo visitantes sem precisar pagar por isso", score: 100 },
         ],
       },
       {
-        text: "Suas páginas de produto e categoria têm títulos, meta descrições e URLs otimizadas?",
+        text: "Você já se preocupou em preparar as páginas da sua loja para o Google encontrá-las melhor?",
         options: [
-          { label: "Nunca configuramos SEO on-page", score: 0 },
-          { label: "Configuramos o básico, mas sem critério", score: 33 },
-          { label: "Boas práticas, mas sem auditoria periódica", score: 66 },
-          { label: "Auditamos e otimizamos continuamente todas as páginas", score: 100 },
+          { label: "Nunca pensei nisso", score: 0 },
+          { label: "Fiz o mínimo, mas sem muito cuidado", score: 33 },
+          { label: "Cuidei dos elementos principais, mas não reviso com frequência", score: 66 },
+          { label: "Cuido regularmente de todos os detalhes para o Google achar e mostrar minha loja", score: 100 },
         ],
       },
       {
-        text: "Você produz conteúdo (blog, guias) para atrair tráfego orgânico?",
+        text: "Você cria textos, vídeos ou conteúdos para atrair pessoas que ainda não conhecem sua loja?",
         options: [
-          { label: "Nunca produzimos conteúdo para SEO", score: 0 },
-          { label: "Temos blog, mas sem estratégia de palavras-chave", score: 33 },
-          { label: "Produzimos conteúdo com alguma estratégia", score: 66 },
-          {
-            label: "Conteúdo baseado em pesquisa de palavra-chave e intenção de busca",
-            score: 100,
-          },
+          { label: "Não crio nenhum conteúdo além das redes sociais", score: 0 },
+          { label: "Tenho um blog ou página de conteúdo, mas sem planejamento", score: 33 },
+          { label: "Crio conteúdo pensando em atrair visitantes, mas de forma esporádica", score: 66 },
+          { label: "Crio conteúdo planejado, pensando no que as pessoas buscam no Google", score: 100 },
         ],
       },
     ],
@@ -289,9 +286,9 @@ const PILLARS: Pillar[] = [
         return {
           title: "SEO — Tráfego gratuito desperdiçado",
           points: [
-            "Sem SEO, você paga 100% do tráfego via anúncios — para sempre",
-            "Páginas sem otimização on-page não rankeiam, mesmo com bom produto",
-            "Concorrentes com SEO ativo tomam seu espaço no Google gratuitamente",
+            "Sem aparecer no Google, você depende 100% de anúncios pagos para ter visitas",
+            "Concorrentes que aparecem no Google tomam seu espaço sem pagar nada por isso",
+            "Pequenos ajustes nas páginas da loja já podem fazer você aparecer nas buscas",
           ],
           cta: "SEO para e-commerce — tráfego orgânico",
         };
@@ -299,18 +296,18 @@ const PILLARS: Pillar[] = [
         return {
           title: "SEO — Espaço grande para crescer",
           points: [
-            "Otimização on-page completa pode dobrar o tráfego orgânico em 6 meses",
-            "Conteúdo estratégico reduz a dependência de verba em anúncios",
-            "Auditoria técnica elimina erros que impedem o Google de indexar suas páginas",
+            "Ajustar todas as páginas da loja pode dobrar o tráfego gratuito em poucos meses",
+            "Criar conteúdo útil reduz a dependência de anúncios pagos ao longo do tempo",
+            "Corrigir erros técnicos faz o Google indexar e mostrar mais páginas da sua loja",
           ],
           cta: "SEO técnico e de conteúdo para e-commerce",
         };
       return {
         title: "SEO — Canal orgânico sólido",
         points: [
-          "Expanda para palavras de cauda longa para mais intenção de compra",
-          "Link building estratégico aumenta autoridade e posicionamento",
-          "Schema markup faz você aparecer em rich snippets no Google",
+          "Explore buscas mais específicas (nicho) para atrair quem está pronto para comprar",
+          "Conseguir que outros sites falem da sua loja aumenta sua relevância no Google",
+          "Dados estruturados fazem sua loja aparecer com destaque nos resultados de busca",
         ],
         cta: "SEO avançado e autoridade de domínio",
       };
@@ -323,33 +320,30 @@ const PILLARS: Pillar[] = [
     icon: TrendingUp,
     questions: [
       {
-        text: "Você investe regularmente em tráfego pago (Meta Ads, Google Ads)?",
+        text: "Você investe em anúncios pagos para divulgar sua loja (como impulsionar posts ou criar campanhas)?",
         options: [
-          { label: "Não investimos em anúncios pagos", score: 0 },
-          { label: "Investimos esporadicamente, sem estratégia", score: 33 },
-          { label: "Investimos regularmente, mas sem otimização consistente", score: 66 },
-          { label: "Campanhas otimizadas com metas de ROAS definidas", score: 100 },
+          { label: "Nunca investi em anúncios pagos", score: 0 },
+          { label: "Já impulsionei algum post, mas sem estratégia definida", score: 33 },
+          { label: "Invisto regularmente, mas sem saber ao certo se está valendo", score: 66 },
+          { label: "Tenho campanhas estruturadas e sei quanto retorna por cada real investido", score: 100 },
         ],
       },
       {
-        text: "Você conhece o ROAS real e o CAC das suas campanhas?",
+        text: "Você sabe se os anúncios que paga estão gerando mais do que custam?",
         options: [
-          { label: "Não acompanhamos essas métricas", score: 0 },
-          { label: "Vemos o faturamento, mas sem saber o ROAS real", score: 33 },
-          { label: "Acompanhamos ROAS, mas não CAC ou LTV", score: 66 },
-          { label: "Monitoramos ROAS, CAC e LTV — e agimos sobre eles semanalmente", score: 100 },
+          { label: "Não faço ideia se os anúncios estão compensando", score: 0 },
+          { label: "Vejo se o faturamento subiu, mas não separo o que veio dos anúncios", score: 33 },
+          { label: "Acompanho os resultados, mas sem muita precisão nos números", score: 66 },
+          { label: "Sei exatamente o retorno de cada campanha e ajusto toda semana", score: 100 },
         ],
       },
       {
-        text: "Suas campanhas segmentam diferentes etapas do funil?",
+        text: "O que você faz com as pessoas que visitaram sua loja mas não compraram?",
         options: [
-          { label: "Campanhas genéricas, sem segmentação de funil", score: 0 },
-          { label: "Temos campanhas de remarketing básicas", score: 33 },
-          { label: "Segmentamos topo e remarketing, mas sem granularidade", score: 66 },
-          {
-            label: "Funil completo: prospecção, consideração, remarketing e recuperação",
-            score: 100,
-          },
+          { label: "Não faço nada — perco o contato com elas", score: 0 },
+          { label: "Já tentei alcançá-las de novo, mas sem sistematizar", score: 33 },
+          { label: "Tenho campanhas para reconquistar visitantes, mas são simples", score: 66 },
+          { label: "Tenho estratégias diferentes para quem visitou, quem foi ao carrinho e quem comprou", score: 100 },
         ],
       },
     ],
@@ -358,9 +352,9 @@ const PILLARS: Pillar[] = [
         return {
           title: "Tráfego Pago — Motor desligado",
           points: [
-            "Sem tráfego pago estruturado, o crescimento depende só de orgânico e sorte",
-            "Meta e Google Ads bem geridos têm ROAS médio de 8x no e-commerce",
-            "Sem ROAS e CAC medidos, você não sabe se está lucrando ou queimando dinheiro",
+            "Sem anúncios estruturados, o crescimento depende só do orgânico e da sorte",
+            "Anúncios bem gerenciados no Facebook e Google têm retorno médio de 8x",
+            "Sem medir o retorno dos anúncios, você não sabe se está lucrando ou perdendo dinheiro",
           ],
           cta: "Estratégia de performance e tráfego pago",
         };
@@ -368,18 +362,18 @@ const PILLARS: Pillar[] = [
         return {
           title: "Tráfego Pago — Verba subaproveitada",
           points: [
-            "ROAS e CAC mal medidos fazem você cortar campanhas que estão lucrando",
-            "Sem funil completo, compradores quentes saem sem converter",
-            "Otimização semanal pode aumentar ROAS em 30-50% sem gastar mais",
+            "Sem medir direito o retorno, você pode estar cortando campanhas que funcionam",
+            "Reconquistar quem visitou e não comprou é uma das ações mais baratas e eficientes",
+            "Otimizar as campanhas semanalmente pode aumentar o retorno em 30-50%",
           ],
-          cta: "Otimização de campanhas e ROAS real",
+          cta: "Otimização de campanhas e retorno real",
         };
       return {
         title: "Tráfego Pago — Estrutura avançada",
         points: [
-          "Explore Performance Max (Google) para maximizar cobertura de canais",
-          "Teste conceitos de criativos diferentes — não só formatos",
-          "TikTok Ads tem CPMs menores para e-commerces de nicho",
+          "Campanhas automáticas do Google podem maximizar cobertura em mais canais",
+          "Testar criativos completamente diferentes (não só formatos) revela oportunidades",
+          "TikTok Ads tem custo menor para anunciar em nichos específicos",
         ],
         cta: "Escalar campanhas com inteligência",
       };
@@ -392,30 +386,30 @@ const PILLARS: Pillar[] = [
     icon: DollarSign,
     questions: [
       {
-        text: "Você sabe exatamente quanto investe em cada canal de marketing por mês?",
+        text: "Você sabe exatamente quanto gasta com divulgação e marketing por mês?",
         options: [
-          { label: "Não tenho controle dos investimentos em marketing", score: 0 },
-          { label: "Conheço o total, mas não por canal", score: 33 },
-          { label: "Distribuo por canal, mas sem análise de retorno por canal", score: 66 },
-          { label: "Dashboard com ROI por canal e otimização mensal de budget", score: 100 },
+          { label: "Não controlo o que gasto com marketing", score: 0 },
+          { label: "Sei o total gasto, mas não onde vai cada real", score: 33 },
+          { label: "Sei onde invisto, mas não analiso o retorno separado por canal", score: 66 },
+          { label: "Tenho controle total: sei o que cada canal gasta e o que traz de volta", score: 100 },
         ],
       },
       {
-        text: "Você distribui o budget entre diferentes canais (não só Meta Ads)?",
+        text: "Você divulga sua loja em mais de um lugar (não só no Instagram ou Facebook)?",
         options: [
-          { label: "Todo o investimento vai para um só canal", score: 0 },
-          { label: "Tentamos 2 canais, mas sem estratégia de alocação", score: 33 },
-          { label: "Diversificamos, mas sem análise comparada de performance", score: 66 },
-          { label: "Diversificamos e rebalanceamos mensalmente por dados", score: 100 },
+          { label: "Coloco todo meu investimento em um único lugar", score: 0 },
+          { label: "Tentei outros canais, mas sem planejamento", score: 33 },
+          { label: "Anuncio em 2 ou mais lugares, mas sem comparar os resultados", score: 66 },
+          { label: "Divido o investimento entre canais e ajusto com base nos resultados mensais", score: 100 },
         ],
       },
       {
-        text: "Você tem clareza do ROI total do marketing da sua loja?",
+        text: "Você sabe se o dinheiro que gasta com divulgação está valendo a pena?",
         options: [
-          { label: "Nunca calculamos o ROI de marketing", score: 0 },
-          { label: "Estimamos, mas sem dados precisos", score: 33 },
-          { label: "Calculamos o ROI, mas com defasagem", score: 66 },
-          { label: "ROI calculado em tempo real e usado nas decisões semanais", score: 100 },
+          { label: "Nunca calculei se o marketing está trazendo retorno", score: 0 },
+          { label: "Acho que está funcionando, mas não tenho como comprovar", score: 33 },
+          { label: "Tenho uma ideia do retorno, mas os dados não são precisos", score: 66 },
+          { label: "Sei com clareza o retorno de cada real investido em divulgação", score: 100 },
         ],
       },
     ],
@@ -424,28 +418,28 @@ const PILLARS: Pillar[] = [
         return {
           title: "Investimento em Mídia — Sem visibilidade",
           points: [
-            "Sem controle por canal, você não sabe o que funciona ou queima verba",
-            "Dependência de um canal é risco: mudança de algoritmo pode cortar suas vendas",
-            "ROI desconhecido significa que crescimento é sorte, não estratégia",
+            "Sem controle por canal, você não sabe o que funciona e arrisca jogar dinheiro fora",
+            "Depender de um único canal é perigoso — qualquer mudança pode cortar suas vendas",
+            "Sem calcular o retorno, crescer vira sorte e não estratégia",
           ],
-          cta: "Gestão de mídia e alocação estratégica de budget",
+          cta: "Gestão de mídia e alocação estratégica de verba",
         };
       if (score < 70)
         return {
           title: "Investimento em Mídia — Controle parcial",
           points: [
-            "Análise por canal permite realocar verba do que não funciona para o que converte",
-            "Diversificação reduz risco e abre públicos com custo menor",
-            "ROI em tempo real muda a velocidade das suas decisões de marketing",
+            "Analisar canal por canal permite mover verba do que não funciona para o que converte",
+            "Diversificar onde você anuncia reduz risco e alcança novos públicos",
+            "Saber o retorno em tempo real acelera suas decisões de marketing",
           ],
           cta: "Inteligência de mídia e performance",
         };
       return {
         title: "Investimento em Mídia — Gestão madura",
         points: [
-          "Avalie incrementalidade dos canais para evitar canibalização",
-          "Modelos de atribuição mais sofisticados aumentam a precisão do ROI",
-          "Media mix modeling pode revelar alocações ótimas não óbvias nos dados",
+          "Avaliar se os canais estão 'roubando' resultado um do outro revela oportunidades ocultas",
+          "Modelos de atribuição mais precisos mostram o real impacto de cada canal",
+          "Análise profunda do mix de mídia pode revelar combinações que multiplicam o resultado",
         ],
         cta: "Media intelligence e otimização avançada",
       };
@@ -458,30 +452,30 @@ const PILLARS: Pillar[] = [
     icon: Palette,
     questions: [
       {
-        text: "O design da sua loja transmite confiança e profissionalismo?",
+        text: "Quando alguém entra na sua loja, ela passa uma imagem profissional e confiável?",
         options: [
-          { label: "A loja parece amadora ou muito genérica", score: 0 },
-          { label: "Aparência razoável, mas sem identidade de marca", score: 33 },
-          { label: "Boa aparência, mas poderia ser mais profissional", score: 66 },
-          { label: "Design profissional, consistente e que gera confiança", score: 100 },
+          { label: "A loja parece amadora — ainda precisa de muito trabalho", score: 0 },
+          { label: "Está ok, mas parece genérica e sem identidade própria", score: 33 },
+          { label: "Parece boa, mas ainda falta um toque mais profissional", score: 66 },
+          { label: "A loja transmite confiança, tem identidade visual e parece profissional", score: 100 },
         ],
       },
       {
-        text: "Sua loja é otimizada para mobile e carrega rapidamente?",
+        text: "Sua loja funciona bem no celular e abre rapidamente?",
         options: [
-          { label: "Problemas sérios no mobile ou muito lenta para carregar", score: 0 },
-          { label: "Funciona no mobile, mas com dificuldades de navegação", score: 33 },
-          { label: "Mobile ok, mas com melhorias possíveis em velocidade", score: 66 },
-          { label: "Experiência mobile excelente e score de performance acima de 80", score: 100 },
+          { label: "Tem problemas sérios no celular ou demora muito para carregar", score: 0 },
+          { label: "Funciona no celular, mas a navegação é confusa", score: 33 },
+          { label: "Funciona bem no celular, mas poderia ser mais rápida", score: 66 },
+          { label: "Excelente no celular: rápida, fácil de navegar e agradável", score: 100 },
         ],
       },
       {
-        text: "Você tem elementos de conversão ativos (urgência, prova social, CTAs claros)?",
+        text: "Sua loja tem elementos que incentivam o cliente a fechar a compra?",
         options: [
-          { label: "Nenhum elemento de conversão estruturado", score: 0 },
-          { label: "Temos CTAs, mas sem urgência ou prova social", score: 33 },
-          { label: "Temos reviews e CTAs, mas sem testes de otimização", score: 66 },
-          { label: "A/B tests, countdown, reviews em destaque e CTAs otimizados", score: 100 },
+          { label: "Não — a loja só mostra produto e preço, sem nada que incentive a compra", score: 0 },
+          { label: "Tenho botões de compra, mas nada que crie urgência ou mostre avaliações", score: 33 },
+          { label: "Tenho avaliações de clientes e botões claros, mas não testo o que funciona melhor", score: 66 },
+          { label: "Uso avaliações, ofertas com prazo, botões estratégicos — e testo o que converte mais", score: 100 },
         ],
       },
     ],
@@ -490,9 +484,9 @@ const PILLARS: Pillar[] = [
         return {
           title: "Design e Layout — Conversão comprometida",
           points: [
-            "Design não profissional é a principal causa de desconfiança na hora da compra",
-            "Loja lenta ou ruim no mobile perde até 70% dos visitantes antes da compra",
-            "Sem urgência e prova social, a conversão pode cair pela metade",
+            "Uma loja com aparência amadora é a principal razão para o cliente desconfiar e não comprar",
+            "Loja lenta ou ruim no celular perde até 70% dos visitantes antes da compra",
+            "Sem avaliações e urgência, o cliente adia a compra e nunca volta",
           ],
           cta: "Design e layout de loja focado em conversão",
         };
@@ -500,18 +494,18 @@ const PILLARS: Pillar[] = [
         return {
           title: "Design e Layout — Espaço para converter mais",
           points: [
-            "Melhorias de velocidade podem aumentar conversão em até 25%",
-            "Prova social bem posicionada reduz objeções no momento da compra",
-            "A/B test em CTAs e layout tem um dos maiores ROIs no e-commerce",
+            "Melhorar a velocidade da loja pode aumentar as vendas em até 25%",
+            "Avaliações de clientes bem posicionadas eliminam a dúvida na hora de comprar",
+            "Testar variações de botões e layout é um dos investimentos com maior retorno no e-commerce",
           ],
-          cta: "CRO e otimização de experiência de compra",
+          cta: "Otimização de experiência e taxa de conversão",
         };
       return {
         title: "Design e Layout — Experiência sólida",
         points: [
-          "Personalização de vitrine por comportamento do usuário é o próximo nível",
-          "Checkout simplificado pode reduzir abandono em 20%",
-          "Brand design forte é ativo estratégico — vale investir continuamente",
+          "Personalizar a vitrine para cada tipo de visitante é o próximo nível de conversão",
+          "Simplificar o processo de pagamento pode reduzir o abandono de carrinho em 20%",
+          "Investir continuamente na identidade visual da marca é um ativo de longo prazo",
         ],
         cta: "CRO avançado e branding estratégico",
       };
@@ -537,7 +531,7 @@ function getPersona(avgScore: number): PersonaData {
       emoji: "🏗️",
       description:
         "Você está dando os primeiros passos. A base ainda precisa ser estruturada para crescer com consistência e sem desperdiçar investimento.",
-      colorClass: "text-red-400",
+      colorClass: "text-red-600",
     };
   if (avgScore < 50)
     return {
@@ -545,15 +539,15 @@ function getPersona(avgScore: number): PersonaData {
       emoji: "🌱",
       description:
         "Sua loja tem potencial, mas pontos críticos estão travando o crescimento e custando vendas — e dinheiro — todo mês.",
-      colorClass: "text-orange-400",
+      colorClass: "text-orange-600",
     };
   if (avgScore < 65)
     return {
       label: "Loja em Aceleração",
       emoji: "🚀",
       description:
-        "Você já tem uma base. Os gaps identificados custam receita real. Corrigí-los é o caminho mais rápido para crescer com consistência.",
-      colorClass: "text-yellow-400",
+        "Você já tem uma base. Os gaps identificados custam receita real. Corrigi-los é o caminho mais rápido para crescer com consistência.",
+      colorClass: "text-yellow-600",
     };
   if (avgScore < 80)
     return {
@@ -561,14 +555,14 @@ function getPersona(avgScore: number): PersonaData {
       emoji: "⚡",
       description:
         "Sua operação é sólida. O foco agora é escalar com eficiência e fechar os gaps que ainda limitam seu teto de crescimento.",
-      colorClass: "text-blue-400",
+      colorClass: "text-blue-600",
     };
   return {
     label: "Loja de Alta Performance",
     emoji: "🏆",
     description:
       "Você opera no topo. Pequenos ajustes nos pontos mais fracos podem gerar grandes saltos de resultado.",
-    colorClass: "text-green-400",
+    colorClass: "text-green-600",
   };
 }
 
@@ -632,7 +626,7 @@ export default function Assessment() {
   const finalAvg = Math.round(pillarScores.reduce((a, b) => a + b, 0) / PILLARS.length);
   const finalPersona = getPersona(finalAvg);
   const overallColor =
-    finalAvg >= 70 ? "#4ade80" : finalAvg >= 50 ? "#facc15" : "#f87171";
+    finalAvg >= 70 ? "#16a34a" : finalAvg >= 50 ? "#d97706" : "#dc2626";
 
   const radarData = PILLARS.map((p, i) => ({
     subject: p.shortLabel,
@@ -740,32 +734,32 @@ export default function Assessment() {
   // ── Phase: URL Input ─────────────────────────────────────────────────────────
   if (phase === "url-input") {
     return (
-      <div className="min-h-screen bg-mavi-black flex flex-col items-center justify-center p-6">
+      <div className="min-h-[100dvh] bg-gray-50 flex flex-col items-center justify-center p-5">
         <SEO
           title="Assessment de E-commerce Gratuito | MAVI"
           description="Descubra o nível real do seu e-commerce em 7 dimensões. Diagnóstico gratuito e instantâneo."
           canonical="/assessment"
         />
         <div className="w-full max-w-lg">
-          <div className="text-center mb-10">
-            <img src={logoMavi} alt="MAVI" className="h-8 mx-auto mb-6 opacity-90" />
-            <span className="inline-block px-3 py-1 text-xs font-semibold tracking-wider uppercase rounded-full border border-primary/40 text-primary bg-primary/5 mb-4">
+          <div className="text-center mb-8">
+            <img src={logoMavi} alt="MAVI" className="h-8 mx-auto mb-6" />
+            <span className="inline-block px-3 py-1 text-xs font-semibold tracking-wider uppercase rounded-full border border-primary/30 text-primary bg-primary/5 mb-4">
               Assessment · E-commerce
             </span>
-            <h1 className="text-3xl md:text-4xl font-bold text-mavi-white leading-tight mb-3">
+            <h1 className="text-3xl md:text-4xl font-bold text-gray-900 leading-tight mb-3">
               Descubra o nível real<br />do seu e-commerce
             </h1>
-            <p className="text-mavi-white/60 text-base leading-relaxed">
+            <p className="text-gray-500 text-base leading-relaxed">
               Análise gratuita em 7 dimensões · 5 minutos · resultado imediato
             </p>
           </div>
 
           <form
             onSubmit={handleUrlSubmit}
-            className="bg-[hsl(0_0%_5%)] border border-mavi-white/10 rounded-2xl p-6 md:p-8 space-y-5"
+            className="bg-white border border-gray-200 rounded-2xl p-6 md:p-8 space-y-5 shadow-sm"
           >
             <div className="space-y-2">
-              <Label className="text-mavi-white/80 text-sm flex items-center gap-2">
+              <Label className="text-gray-700 text-sm flex items-center gap-2">
                 <Globe className="w-3.5 h-3.5 text-primary" />
                 URL da sua loja virtual
               </Label>
@@ -775,29 +769,29 @@ export default function Assessment() {
                 value={lojaUrl}
                 onChange={(e) => setLojaUrl(e.target.value)}
                 placeholder="https://sualoja.com.br"
-                className="bg-mavi-black border-mavi-white/15 text-mavi-white placeholder:text-mavi-white/30 h-11"
+                className="bg-white border-gray-200 text-gray-900 placeholder:text-gray-400 h-11"
               />
-              <p className="text-xs text-mavi-white/35">
+              <p className="text-xs text-gray-400">
                 Usaremos sua URL para personalizar o diagnóstico
               </p>
             </div>
             <Button type="submit" variant="hero" size="lg" className="w-full">
               Analisar minha loja <ChevronRight className="w-4 h-4 ml-1" />
             </Button>
-            <p className="text-center text-xs text-mavi-white/40">
+            <p className="text-center text-xs text-gray-400">
               Gratuito · Sem compromisso · Resultado imediato
             </p>
           </form>
 
-          <div className="mt-8 grid grid-cols-7 gap-1.5">
+          <div className="mt-6 grid grid-cols-7 gap-1.5">
             {PILLARS.map((p) => {
               const Icon = p.icon;
               return (
                 <div key={p.id} className="flex flex-col items-center gap-1.5">
-                  <div className="w-9 h-9 rounded-xl bg-mavi-white/5 flex items-center justify-center">
-                    <Icon className="w-4 h-4 text-mavi-white/35" />
+                  <div className="w-9 h-9 rounded-xl bg-gray-100 flex items-center justify-center">
+                    <Icon className="w-4 h-4 text-gray-400" />
                   </div>
-                  <span className="text-[9px] text-mavi-white/30 text-center leading-tight">
+                  <span className="text-[9px] text-gray-400 text-center leading-tight">
                     {p.shortLabel}
                   </span>
                 </div>
@@ -812,14 +806,14 @@ export default function Assessment() {
   // ── Phase: Analyzing ─────────────────────────────────────────────────────────
   if (phase === "analyzing") {
     return (
-      <div className="min-h-screen bg-mavi-black flex flex-col items-center justify-center p-6">
+      <div className="min-h-[100dvh] bg-gray-50 flex flex-col items-center justify-center p-6">
         <div className="text-center max-w-md w-full">
-          <img src={logoMavi} alt="MAVI" className="h-7 mx-auto mb-10 opacity-60" />
+          <img src={logoMavi} alt="MAVI" className="h-7 mx-auto mb-10" />
           <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto mb-6">
             <BarChart3 className="w-8 h-8 text-primary animate-pulse" />
           </div>
-          <p className="text-mavi-white/50 text-sm mb-1">Analisando</p>
-          <p className="text-mavi-white font-semibold text-base truncate max-w-xs mx-auto mb-8">
+          <p className="text-gray-500 text-sm mb-1">Analisando</p>
+          <p className="text-gray-900 font-semibold text-base truncate max-w-xs mx-auto mb-8">
             {lojaUrl}
           </p>
 
@@ -828,7 +822,7 @@ export default function Assessment() {
               <div
                 key={i}
                 className={`flex items-center gap-3 transition-all duration-300 ${
-                  i <= analyzingStep ? "opacity-100" : "opacity-20"
+                  i <= analyzingStep ? "opacity-100" : "opacity-25"
                 }`}
               >
                 {i < analyzingStep ? (
@@ -836,13 +830,9 @@ export default function Assessment() {
                 ) : i === analyzingStep ? (
                   <Loader2 className="w-4 h-4 text-primary animate-spin flex-shrink-0" />
                 ) : (
-                  <div className="w-4 h-4 rounded-full border border-mavi-white/20 flex-shrink-0" />
+                  <div className="w-4 h-4 rounded-full border border-gray-300 flex-shrink-0" />
                 )}
-                <span
-                  className={`text-sm ${
-                    i <= analyzingStep ? "text-mavi-white/80" : "text-mavi-white/30"
-                  }`}
-                >
+                <span className={`text-sm ${i <= analyzingStep ? "text-gray-700" : "text-gray-300"}`}>
                   {step}
                 </span>
               </div>
@@ -862,7 +852,7 @@ export default function Assessment() {
         : null;
 
     return (
-      <div className="h-screen bg-mavi-black flex overflow-hidden">
+      <div className="h-[100dvh] bg-white flex overflow-hidden">
         <SEO
           title="Assessment de E-commerce | MAVI"
           description="Avaliação gratuita do seu e-commerce em 7 dimensões."
@@ -872,26 +862,26 @@ export default function Assessment() {
         {/* Left: Chat */}
         <div className="flex-1 flex flex-col h-full min-w-0">
           {/* Header */}
-          <div className="flex-shrink-0 px-4 py-3.5 border-b border-mavi-white/10 bg-[hsl(0_0%_3%)]">
+          <div className="flex-shrink-0 px-4 py-3 border-b border-gray-200 bg-white">
             <div className="flex items-center justify-between max-w-2xl mx-auto">
-              <img src={logoMavi} alt="MAVI" className="h-5 opacity-70" />
-              <div className="flex items-center gap-3">
-                <span className="text-xs text-mavi-white/40">
+              <img src={logoMavi} alt="MAVI" className="h-5" />
+              <div className="flex items-center gap-2">
+                <span className="text-xs text-gray-400">
                   {answeredCount}/{TOTAL_QUESTIONS}
                 </span>
-                <div className="w-28 h-1.5 bg-mavi-white/10 rounded-full overflow-hidden">
+                <div className="w-24 sm:w-32 h-1.5 bg-gray-200 rounded-full overflow-hidden">
                   <div
                     className="h-full bg-primary rounded-full transition-all duration-500"
                     style={{ width: `${progress}%` }}
                   />
                 </div>
-                <span className="text-xs text-primary font-medium">{progress}%</span>
+                <span className="text-xs text-primary font-semibold">{progress}%</span>
               </div>
             </div>
           </div>
 
           {/* Messages */}
-          <div className="flex-1 overflow-y-auto px-4 py-5">
+          <div className="flex-1 overflow-y-auto px-4 py-4">
             <div className="max-w-2xl mx-auto space-y-3">
               {messages.map((msg, i) => (
                 <div
@@ -903,14 +893,14 @@ export default function Assessment() {
                   } animate-fade-in-up`}
                 >
                   {msg.type === "question" && (
-                    <div className="w-7 h-7 rounded-full bg-primary/20 flex-shrink-0 flex items-center justify-center mt-0.5">
+                    <div className="w-7 h-7 rounded-full bg-primary/10 flex-shrink-0 flex items-center justify-center mt-0.5">
                       <Sparkles className="w-3.5 h-3.5 text-primary" />
                     </div>
                   )}
                   <div
-                    className={`max-w-[82%] px-4 py-2.5 rounded-2xl text-sm leading-relaxed ${
+                    className={`max-w-[85%] px-4 py-2.5 rounded-2xl text-sm leading-relaxed ${
                       msg.type === "question"
-                        ? "bg-[hsl(0_0%_9%)] text-mavi-white border border-mavi-white/10 rounded-tl-sm"
+                        ? "bg-gray-100 text-gray-800 rounded-tl-sm"
                         : "bg-primary text-white rounded-tr-sm"
                     }`}
                   >
@@ -924,9 +914,9 @@ export default function Assessment() {
 
           {/* Answer options */}
           {currentPillar && currentQuestion && (
-            <div className="flex-shrink-0 border-t border-mavi-white/10 px-4 py-4 bg-[hsl(0_0%_3%)]">
+            <div className="flex-shrink-0 border-t border-gray-200 px-4 py-3 bg-gray-50">
               <div className="max-w-2xl mx-auto">
-                <p className="text-[11px] text-mavi-white/40 mb-2.5 flex items-center gap-1.5">
+                <p className="text-[11px] text-gray-400 mb-2 flex items-center gap-1.5">
                   <currentPillar.icon className="w-3 h-3 text-primary" />
                   {currentPillar.label}
                 </p>
@@ -935,7 +925,7 @@ export default function Assessment() {
                     <button
                       key={i}
                       onClick={() => handleAnswer(opt)}
-                      className="w-full text-left px-4 py-2.5 rounded-xl border border-mavi-white/10 text-mavi-white/75 text-sm hover:border-primary/50 hover:bg-primary/5 hover:text-mavi-white transition-all duration-150 active:scale-[0.99]"
+                      className="w-full text-left px-4 py-3 rounded-xl border border-gray-200 bg-white text-gray-700 text-sm hover:border-primary/50 hover:bg-primary/5 hover:text-gray-900 transition-all duration-150 active:scale-[0.99] touch-manipulation min-h-[44px]"
                     >
                       {opt.label}
                     </button>
@@ -946,33 +936,29 @@ export default function Assessment() {
           )}
         </div>
 
-        {/* Right: Live Panel */}
-        <div className="hidden lg:flex w-72 xl:w-80 flex-col bg-[hsl(220_15%_7%)] border-l border-mavi-white/10 h-full overflow-y-auto flex-shrink-0">
-          <div className="p-4 border-b border-mavi-white/10">
+        {/* Right: Live Panel (desktop only) */}
+        <div className="hidden lg:flex w-72 xl:w-80 flex-col bg-gray-50 border-l border-gray-200 h-full overflow-y-auto flex-shrink-0">
+          <div className="p-4 border-b border-gray-200">
             <div className="flex items-center justify-between mb-0.5">
               <span className="text-[10px] font-semibold tracking-widest uppercase text-primary">
                 Self-Assessment
               </span>
-              <span className="text-[10px] text-mavi-white/35">
+              <span className="text-[10px] text-gray-400">
                 {new Date()
                   .toLocaleDateString("pt-BR", { month: "long", year: "numeric" })
                   .toUpperCase()}
               </span>
             </div>
-            <p className="text-[11px] text-mavi-white/50">Diagnóstico de E-commerce</p>
+            <p className="text-[11px] text-gray-500">Diagnóstico de E-commerce</p>
           </div>
 
-          <div className="p-4 border-b border-mavi-white/10 space-y-3">
+          <div className="p-4 border-b border-gray-200 space-y-3">
             <div>
-              <p className="text-[10px] uppercase tracking-wider text-mavi-white/35 mb-0.5">
-                Loja
-              </p>
-              <p className="text-xs text-mavi-white/65 truncate">{lojaUrl}</p>
+              <p className="text-[10px] uppercase tracking-wider text-gray-400 mb-0.5">Loja</p>
+              <p className="text-xs text-gray-600 truncate">{lojaUrl}</p>
             </div>
             <div>
-              <p className="text-[10px] uppercase tracking-wider text-mavi-white/35 mb-1">
-                Persona
-              </p>
+              <p className="text-[10px] uppercase tracking-wider text-gray-400 mb-1">Persona</p>
               {livePersona ? (
                 <div className="flex items-center gap-2">
                   <span className="text-lg">{livePersona.emoji}</span>
@@ -981,37 +967,34 @@ export default function Assessment() {
                   </span>
                 </div>
               ) : (
-                <div className="flex items-center gap-2 text-mavi-white/25">
+                <div className="flex items-center gap-2 text-gray-300">
                   <Sparkles className="w-3.5 h-3.5" />
-                  <span className="text-xs italic">Aparece ao finalizar</span>
+                  <span className="text-xs italic text-gray-400">Aparece ao finalizar</span>
                 </div>
               )}
             </div>
           </div>
 
           {/* Radar */}
-          <div className="p-4 border-b border-mavi-white/10">
+          <div className="p-4 border-b border-gray-200">
             <div className="flex items-center justify-between mb-2">
-              <p className="text-[10px] uppercase tracking-wider text-mavi-white/35">Radar</p>
-              <span className="text-[10px] text-mavi-white/25">7 pilares</span>
+              <p className="text-[10px] uppercase tracking-wider text-gray-400">Radar</p>
+              <span className="text-[10px] text-gray-300">7 pilares</span>
             </div>
             <div className="h-48">
               <ResponsiveContainer width="100%" height="100%">
-                <RadarChart
-                  data={radarData}
-                  margin={{ top: 5, right: 15, bottom: 5, left: 15 }}
-                >
-                  <PolarGrid stroke="rgba(255,255,255,0.08)" />
+                <RadarChart data={radarData} margin={{ top: 5, right: 15, bottom: 5, left: 15 }}>
+                  <PolarGrid stroke="rgba(0,0,0,0.08)" />
                   <PolarAngleAxis
                     dataKey="subject"
-                    tick={{ fill: "rgba(255,255,255,0.4)", fontSize: 9 }}
+                    tick={{ fill: "rgba(55,65,81,0.65)", fontSize: 9 }}
                   />
                   <Radar
                     name="Score"
                     dataKey="value"
                     stroke="#E6007E"
                     fill="#E6007E"
-                    fillOpacity={0.2}
+                    fillOpacity={0.15}
                     strokeWidth={1.5}
                   />
                 </RadarChart>
@@ -1021,17 +1004,17 @@ export default function Assessment() {
 
           {/* Scores */}
           <div className="p-4 flex-1">
-            <p className="text-[10px] uppercase tracking-wider text-mavi-white/35 mb-3">Scores</p>
+            <p className="text-[10px] uppercase tracking-wider text-gray-400 mb-3">Scores</p>
             <div className="space-y-2.5">
               {PILLARS.map((p, i) => {
                 const score = pillarScores[i];
                 const answered = (scores[p.id]?.length ?? 0) > 0;
                 return (
                   <div key={p.id} className="flex items-center gap-2">
-                    <span className="text-[10px] text-mavi-white/45 w-16 flex-shrink-0 truncate">
+                    <span className="text-[10px] text-gray-500 w-16 flex-shrink-0 truncate">
                       {p.shortLabel}
                     </span>
-                    <div className="flex-1 h-1 bg-mavi-white/8 rounded-full overflow-hidden">
+                    <div className="flex-1 h-1 bg-gray-200 rounded-full overflow-hidden">
                       <div
                         className="h-full rounded-full transition-all duration-700"
                         style={{
@@ -1040,7 +1023,7 @@ export default function Assessment() {
                         }}
                       />
                     </div>
-                    <span className="text-[10px] text-mavi-white/35 w-4 text-right">
+                    <span className="text-[10px] text-gray-400 w-4 text-right">
                       {answered ? score : "—"}
                     </span>
                   </div>
@@ -1054,9 +1037,11 @@ export default function Assessment() {
   }
 
   // ── Phase: Gate (preview bloqueado) ──────────────────────────────────────────
+  const scoreColor = (s: number) => s >= 70 ? "#16a34a" : s >= 50 ? "#d97706" : "#dc2626";
+
   if (phase === "gate") {
     return (
-      <div className="min-h-screen bg-mavi-black text-mavi-white">
+      <div className="min-h-[100dvh] bg-gray-50 text-gray-900">
         <SEO
           title="Seu Diagnóstico | MAVI"
           description="Desbloqueie o diagnóstico completo do seu e-commerce."
@@ -1064,50 +1049,47 @@ export default function Assessment() {
         />
 
         {/* Header */}
-        <div className="bg-[hsl(220_15%_5%)] border-b border-mavi-white/10 px-4 py-3.5">
+        <div className="bg-white border-b border-gray-200 px-4 py-3">
           <div className="max-w-5xl mx-auto flex items-center justify-between">
-            <img src={logoMavi} alt="MAVI" className="h-5 opacity-70" />
-            <span className="text-xs text-mavi-white/40">
+            <img src={logoMavi} alt="MAVI" className="h-5" />
+            <span className="text-xs text-gray-400">
               Assessment · E-commerce · {new Date().toLocaleDateString("pt-BR")}
             </span>
           </div>
         </div>
 
-        <div className="max-w-5xl mx-auto px-4 py-8 space-y-6">
-          {/* Visible: overview cards */}
+        <div className="max-w-5xl mx-auto px-4 py-6 space-y-5">
+          {/* Score + radar */}
           <div className="grid lg:grid-cols-3 gap-5">
-            <div className="bg-[hsl(0_0%_5%)] border border-mavi-white/10 rounded-2xl p-6 flex flex-col items-center justify-center text-center">
+            <div className="bg-white border border-gray-200 rounded-2xl p-6 flex flex-col items-center justify-center text-center shadow-sm">
               <div className="text-4xl mb-2">{finalPersona.emoji}</div>
               <div className={`text-base font-bold mb-2 ${finalPersona.colorClass}`}>
                 {finalPersona.label}
               </div>
               <div className="text-5xl font-extrabold mb-1" style={{ color: overallColor }}>
                 {finalAvg}
-                <span className="text-2xl text-mavi-white/30">/100</span>
+                <span className="text-2xl text-gray-300">/100</span>
               </div>
-              <div className="text-xs text-mavi-white/40">Score geral</div>
+              <div className="text-xs text-gray-400">Score geral</div>
             </div>
-            <div className="lg:col-span-2 bg-[hsl(0_0%_5%)] border border-mavi-white/10 rounded-2xl p-6">
-              <p className="text-[10px] uppercase tracking-wider text-mavi-white/40 mb-3">
+            <div className="lg:col-span-2 bg-white border border-gray-200 rounded-2xl p-6 shadow-sm">
+              <p className="text-[10px] uppercase tracking-wider text-gray-400 mb-3">
                 Mapa de Maturidade — 7 Dimensões
               </p>
               <div className="h-52">
                 <ResponsiveContainer width="100%" height="100%">
-                  <RadarChart
-                    data={radarData}
-                    margin={{ top: 10, right: 30, bottom: 10, left: 30 }}
-                  >
-                    <PolarGrid stroke="rgba(255,255,255,0.1)" />
+                  <RadarChart data={radarData} margin={{ top: 10, right: 30, bottom: 10, left: 30 }}>
+                    <PolarGrid stroke="rgba(0,0,0,0.08)" />
                     <PolarAngleAxis
                       dataKey="subject"
-                      tick={{ fill: "rgba(255,255,255,0.55)", fontSize: 11 }}
+                      tick={{ fill: "rgba(55,65,81,0.7)", fontSize: 11 }}
                     />
                     <Radar
                       name="Score"
                       dataKey="value"
                       stroke="#E6007E"
                       fill="#E6007E"
-                      fillOpacity={0.25}
+                      fillOpacity={0.15}
                       strokeWidth={2}
                     />
                   </RadarChart>
@@ -1116,53 +1098,46 @@ export default function Assessment() {
             </div>
           </div>
 
-          {/* Visible: pillar bars */}
-          <div className="bg-[hsl(0_0%_5%)] border border-mavi-white/10 rounded-2xl p-5">
-            <p className="text-[10px] uppercase tracking-wider text-mavi-white/40 mb-4">
+          {/* Pillar bars */}
+          <div className="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm">
+            <p className="text-[10px] uppercase tracking-wider text-gray-400 mb-4">
               Score por Dimensão
             </p>
-            <div className="space-y-3.5">
+            <div className="space-y-3">
               {PILLARS.map((p, i) => {
                 const s = pillarScores[i];
-                const color = s >= 70 ? "#4ade80" : s >= 50 ? "#facc15" : "#f87171";
+                const color = scoreColor(s);
                 const Icon = p.icon;
                 return (
                   <div key={p.id} className="flex items-center gap-3">
                     <Icon className="w-4 h-4 text-primary flex-shrink-0" />
-                    <span className="text-sm text-mavi-white/65 w-36 flex-shrink-0">{p.label}</span>
-                    <div className="flex-1 h-1.5 bg-mavi-white/10 rounded-full overflow-hidden">
-                      <div
-                        className="h-full rounded-full"
-                        style={{ width: `${s}%`, background: color }}
-                      />
+                    <span className="text-sm text-gray-600 w-32 sm:w-40 flex-shrink-0">{p.label}</span>
+                    <div className="flex-1 h-1.5 bg-gray-100 rounded-full overflow-hidden">
+                      <div className="h-full rounded-full" style={{ width: `${s}%`, background: color }} />
                     </div>
-                    <span className="text-sm font-bold w-8 text-right" style={{ color }}>
-                      {s}
-                    </span>
+                    <span className="text-sm font-bold w-8 text-right" style={{ color }}>{s}</span>
                   </div>
                 );
               })}
             </div>
           </div>
 
-          {/* Locked section with blurred content + form overlay */}
-          <div className="relative rounded-2xl overflow-hidden" style={{ minHeight: 380 }}>
-            {/* Blurred ghost content */}
-            <div className="blur-sm opacity-30 pointer-events-none select-none p-1">
+          {/* Locked section */}
+          <div className="relative rounded-2xl overflow-hidden" style={{ minHeight: 420 }}>
+            {/* Blurred ghost */}
+            <div className="blur-lg opacity-50 pointer-events-none select-none p-1">
               <div className="grid sm:grid-cols-2 gap-4">
                 {PILLARS.slice(0, 4).map((p) => (
-                  <div
-                    key={p.id}
-                    className="bg-[hsl(0_0%_5%)] border border-mavi-white/10 rounded-xl p-5"
-                  >
-                    <div className="h-4 bg-mavi-white/15 rounded w-3/4 mb-4" />
+                  <div key={p.id} className="bg-white border border-gray-200 rounded-xl p-5">
+                    <div className="h-4 bg-gray-300 rounded w-3/4 mb-4" />
                     <div className="space-y-2.5">
-                      <div className="h-3 bg-mavi-white/10 rounded w-full" />
-                      <div className="h-3 bg-mavi-white/10 rounded w-5/6" />
-                      <div className="h-3 bg-mavi-white/10 rounded w-4/5" />
+                      <div className="h-3 bg-gray-200 rounded w-full" />
+                      <div className="h-3 bg-gray-200 rounded w-5/6" />
+                      <div className="h-3 bg-gray-200 rounded w-4/5" />
+                      <div className="h-3 bg-gray-200 rounded w-3/5" />
                     </div>
-                    <div className="mt-4 pt-3 border-t border-mavi-white/10">
-                      <div className="h-3 bg-primary/20 rounded w-2/3" />
+                    <div className="mt-4 pt-3 border-t border-gray-200">
+                      <div className="h-3 bg-primary/30 rounded w-2/3" />
                     </div>
                   </div>
                 ))}
@@ -1170,69 +1145,64 @@ export default function Assessment() {
             </div>
 
             {/* Form overlay */}
-            <div className="absolute inset-0 flex items-center justify-center p-4 bg-gradient-to-b from-mavi-black/60 to-mavi-black/90">
-              <div className="w-full max-w-md bg-[hsl(0_0%_6%)] border border-primary/25 border-t-2 border-t-primary rounded-2xl p-6 shadow-2xl">
+            <div className="absolute inset-0 flex items-center justify-center p-4 bg-gradient-to-b from-white/80 via-white/95 to-white">
+              <div className="w-full max-w-md bg-white border border-gray-200 border-t-4 border-t-primary rounded-2xl p-6 shadow-2xl">
                 <div className="text-center mb-5">
                   <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-3">
                     <Lock className="w-5 h-5 text-primary" />
                   </div>
-                  <h2 className="text-lg font-bold mb-1">Desbloqueie seu diagnóstico</h2>
-                  <p className="text-mavi-white/55 text-sm leading-relaxed">
+                  <h2 className="text-lg font-bold text-gray-900 mb-1">Desbloqueie seu diagnóstico</h2>
+                  <p className="text-gray-500 text-sm leading-relaxed">
                     Preencha seus dados para ver o diagnóstico completo com os pontos de
                     melhoria do seu e-commerce.
                   </p>
                 </div>
                 <form onSubmit={handleLeadSubmit} className="space-y-3">
                   <div className="space-y-1.5">
-                    <Label className="text-mavi-white/65 text-xs">Nome *</Label>
+                    <Label className="text-gray-600 text-xs">Nome *</Label>
                     <Input
                       required
                       value={nome}
                       onChange={(e) => setNome(e.target.value)}
                       placeholder="Seu nome"
-                      className="bg-mavi-black border-mavi-white/15 text-mavi-white h-9 text-sm"
+                      className="bg-white border-gray-200 text-gray-900 h-10 text-sm touch-manipulation"
                     />
                   </div>
                   <div className="space-y-1.5">
-                    <Label className="text-mavi-white/65 text-xs">E-mail *</Label>
+                    <Label className="text-gray-600 text-xs">E-mail *</Label>
                     <Input
                       required
                       type="email"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder="seu@email.com"
-                      className="bg-mavi-black border-mavi-white/15 text-mavi-white h-9 text-sm"
+                      className="bg-white border-gray-200 text-gray-900 h-10 text-sm touch-manipulation"
                     />
                   </div>
                   <div className="space-y-1.5">
-                    <Label className="text-mavi-white/65 text-xs">WhatsApp *</Label>
+                    <Label className="text-gray-600 text-xs">WhatsApp *</Label>
                     <Input
                       required
+                      type="tel"
                       value={whatsapp}
                       onChange={(e) => setWhatsapp(e.target.value)}
                       placeholder="(47) 99999-9999"
-                      className="bg-mavi-black border-mavi-white/15 text-mavi-white h-9 text-sm"
+                      className="bg-white border-gray-200 text-gray-900 h-10 text-sm touch-manipulation"
                     />
                   </div>
                   <Button
                     type="submit"
                     variant="hero"
-                    className="w-full mt-1"
+                    className="w-full mt-1 min-h-[44px] touch-manipulation"
                     disabled={isSubmitting}
                   >
                     {isSubmitting ? (
-                      <>
-                        <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                        Carregando...
-                      </>
+                      <><Loader2 className="w-4 h-4 mr-2 animate-spin" />Carregando...</>
                     ) : (
-                      <>
-                        Ver diagnóstico completo{" "}
-                        <ArrowRight className="w-4 h-4 ml-1" />
-                      </>
+                      <>Ver diagnóstico completo <ArrowRight className="w-4 h-4 ml-1" /></>
                     )}
                   </Button>
-                  <p className="text-center text-[11px] text-mavi-white/30">
+                  <p className="text-center text-[11px] text-gray-400">
                     Sem spam · Seus dados são protegidos
                   </p>
                 </form>
@@ -1246,7 +1216,7 @@ export default function Assessment() {
 
   // ── Phase: Result (completo) ──────────────────────────────────────────────────
   return (
-    <div className="min-h-screen bg-mavi-black text-mavi-white">
+    <div className="min-h-[100dvh] bg-gray-50 text-gray-900">
       <SEO
         title="Diagnóstico Completo do seu E-commerce | MAVI"
         description="Confira o diagnóstico completo do seu e-commerce em 7 dimensões."
@@ -1254,60 +1224,51 @@ export default function Assessment() {
       />
 
       {/* Header */}
-      <div className="bg-[hsl(220_15%_5%)] border-b border-mavi-white/10 px-4 py-3.5">
+      <div className="bg-white border-b border-gray-200 px-4 py-3 sticky top-0 z-10">
         <div className="max-w-5xl mx-auto flex items-center justify-between">
-          <img src={logoMavi} alt="MAVI" className="h-5 opacity-80" />
+          <img src={logoMavi} alt="MAVI" className="h-5" />
           <div className="text-right">
-            <p className="text-xs text-mavi-white/50">Assessment de E-commerce</p>
-            <p className="text-xs text-mavi-white/30">
+            <p className="text-xs text-gray-500">Assessment de E-commerce</p>
+            <p className="text-xs text-gray-400">
               {nome} · {new Date().toLocaleDateString("pt-BR")}
             </p>
           </div>
         </div>
       </div>
 
-      <div className="max-w-5xl mx-auto px-4 py-10 space-y-8">
+      <div className="max-w-5xl mx-auto px-4 py-8 space-y-6">
         {/* Hero: score + radar */}
-        <div className="grid lg:grid-cols-3 gap-6">
-          <div className="bg-[hsl(0_0%_5%)] border border-mavi-white/10 rounded-2xl p-6 flex flex-col items-center justify-center text-center">
+        <div className="grid lg:grid-cols-3 gap-5">
+          <div className="bg-white border border-gray-200 rounded-2xl p-6 flex flex-col items-center justify-center text-center shadow-sm">
             <div className="text-5xl mb-3">{finalPersona.emoji}</div>
             <div className={`text-lg font-bold mb-2 ${finalPersona.colorClass}`}>
               {finalPersona.label}
             </div>
-            <div
-              className="text-6xl font-extrabold mb-1"
-              style={{ color: overallColor }}
-            >
-              {finalAvg}
-              <span className="text-3xl text-mavi-white/30">/100</span>
+            <div className="text-6xl font-extrabold mb-1" style={{ color: overallColor }}>
+              {finalAvg}<span className="text-3xl text-gray-300">/100</span>
             </div>
-            <div className="text-xs text-mavi-white/40 mb-4">Score geral do e-commerce</div>
-            <p className="text-sm text-mavi-white/60 leading-relaxed">
-              {finalPersona.description}
-            </p>
+            <div className="text-xs text-gray-400 mb-4">Score geral do e-commerce</div>
+            <p className="text-sm text-gray-500 leading-relaxed">{finalPersona.description}</p>
           </div>
 
-          <div className="lg:col-span-2 bg-[hsl(0_0%_5%)] border border-mavi-white/10 rounded-2xl p-6">
-            <p className="text-[10px] uppercase tracking-wider text-mavi-white/40 mb-4">
+          <div className="lg:col-span-2 bg-white border border-gray-200 rounded-2xl p-6 shadow-sm">
+            <p className="text-[10px] uppercase tracking-wider text-gray-400 mb-4">
               Mapa de Maturidade — 7 Dimensões
             </p>
             <div className="h-64">
               <ResponsiveContainer width="100%" height="100%">
-                <RadarChart
-                  data={radarData}
-                  margin={{ top: 10, right: 30, bottom: 10, left: 30 }}
-                >
-                  <PolarGrid stroke="rgba(255,255,255,0.1)" />
+                <RadarChart data={radarData} margin={{ top: 10, right: 30, bottom: 10, left: 30 }}>
+                  <PolarGrid stroke="rgba(0,0,0,0.08)" />
                   <PolarAngleAxis
                     dataKey="subject"
-                    tick={{ fill: "rgba(255,255,255,0.6)", fontSize: 11 }}
+                    tick={{ fill: "rgba(55,65,81,0.7)", fontSize: 11 }}
                   />
                   <Radar
                     name="Score"
                     dataKey="value"
                     stroke="#E6007E"
                     fill="#E6007E"
-                    fillOpacity={0.3}
+                    fillOpacity={0.15}
                     strokeWidth={2}
                   />
                 </RadarChart>
@@ -1317,28 +1278,24 @@ export default function Assessment() {
         </div>
 
         {/* Pillar bars */}
-        <div className="bg-[hsl(0_0%_5%)] border border-mavi-white/10 rounded-2xl p-6">
-          <p className="text-[10px] uppercase tracking-wider text-mavi-white/40 mb-5">
-            Score por Dimensão
-          </p>
+        <div className="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm">
+          <p className="text-[10px] uppercase tracking-wider text-gray-400 mb-5">Score por Dimensão</p>
           <div className="space-y-4">
             {PILLARS.map((p, i) => {
               const s = pillarScores[i];
-              const color = s >= 70 ? "#4ade80" : s >= 50 ? "#facc15" : "#f87171";
+              const color = scoreColor(s);
               const Icon = p.icon;
               return (
                 <div key={p.id} className="flex items-center gap-3">
                   <Icon className="w-4 h-4 text-primary flex-shrink-0" />
-                  <span className="text-sm text-mavi-white/65 w-40 flex-shrink-0">{p.label}</span>
-                  <div className="flex-1 h-2 bg-mavi-white/10 rounded-full overflow-hidden">
+                  <span className="text-sm text-gray-600 w-32 sm:w-40 flex-shrink-0">{p.label}</span>
+                  <div className="flex-1 h-2 bg-gray-100 rounded-full overflow-hidden">
                     <div
                       className="h-full rounded-full transition-all duration-1000"
                       style={{ width: `${s}%`, background: color }}
                     />
                   </div>
-                  <span className="text-sm font-bold w-8 text-right" style={{ color }}>
-                    {s}
-                  </span>
+                  <span className="text-sm font-bold w-8 text-right" style={{ color }}>{s}</span>
                 </div>
               );
             })}
@@ -1347,7 +1304,7 @@ export default function Assessment() {
 
         {/* Insights por pilar */}
         <div>
-          <p className="text-xs uppercase tracking-wider text-mavi-white/40 mb-4">
+          <p className="text-xs uppercase tracking-wider text-gray-400 mb-4">
             Diagnóstico Detalhado — Pontos de Melhoria
           </p>
           <div className="grid sm:grid-cols-2 gap-4">
@@ -1355,19 +1312,10 @@ export default function Assessment() {
               const s = pillarScores[i];
               const insight = p.insight(s);
               const Icon = p.icon;
-              const borderColor =
-                s >= 70
-                  ? "border-green-500/25"
-                  : s >= 50
-                  ? "border-yellow-500/25"
-                  : "border-red-500/25";
-              const labelColor =
-                s >= 70 ? "text-green-400" : s >= 50 ? "text-yellow-400" : "text-red-400";
+              const borderColor = s >= 70 ? "border-green-500/30" : s >= 50 ? "border-yellow-500/30" : "border-red-500/30";
+              const labelColor = s >= 70 ? "text-green-700" : s >= 50 ? "text-yellow-700" : "text-red-700";
               return (
-                <div
-                  key={p.id}
-                  className={`bg-[hsl(0_0%_5%)] border border-t-2 ${borderColor} rounded-xl p-5`}
-                >
+                <div key={p.id} className={`bg-white border border-t-2 ${borderColor} rounded-xl p-5 shadow-sm`}>
                   <div className="flex items-center gap-2 mb-3">
                     <Icon className="w-4 h-4 text-primary flex-shrink-0" />
                     <span className={`text-xs font-bold uppercase tracking-wide ${labelColor}`}>
@@ -1376,19 +1324,14 @@ export default function Assessment() {
                   </div>
                   <ul className="space-y-2 mb-4">
                     {insight.points.map((pt, j) => (
-                      <li
-                        key={j}
-                        className="flex items-start gap-2 text-xs text-mavi-white/65 leading-relaxed"
-                      >
+                      <li key={j} className="flex items-start gap-2 text-xs text-gray-600 leading-relaxed">
                         <span className="text-primary mt-0.5 flex-shrink-0">→</span>
                         {pt}
                       </li>
                     ))}
                   </ul>
-                  <div className="pt-3 border-t border-mavi-white/8 flex items-center gap-2">
-                    <span className="text-[10px] text-mavi-white/30 uppercase tracking-wider">
-                      Área de foco:
-                    </span>
+                  <div className="pt-3 border-t border-gray-100 flex items-center gap-2">
+                    <span className="text-[10px] text-gray-400 uppercase tracking-wider">Área de foco:</span>
                     <span className="text-[10px] text-primary font-semibold">{insight.cta}</span>
                   </div>
                 </div>
@@ -1397,43 +1340,38 @@ export default function Assessment() {
           </div>
         </div>
 
-        {/* Próximos passos CTA */}
-        <div className="relative bg-[hsl(0_0%_4%)] border border-primary/20 border-t-2 border-t-primary rounded-2xl p-6 md:p-8 overflow-hidden">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(230,0,126,0.12),transparent_60%)]" />
+        {/* CTA */}
+        <div className="relative bg-gray-900 border border-gray-800 border-t-2 border-t-primary rounded-2xl p-6 md:p-8 overflow-hidden">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(230,0,126,0.15),transparent_60%)]" />
           <div className="relative z-10 max-w-2xl mx-auto text-center">
             <BarChart3 className="w-8 h-8 text-primary mx-auto mb-4" />
-            <h2 className="text-xl md:text-2xl font-bold mb-2">
+            <h2 className="text-xl md:text-2xl font-bold text-white mb-2">
               Quer um plano de ação para esses resultados?
             </h2>
-            <p className="text-mavi-white/60 text-sm leading-relaxed mb-6">
+            <p className="text-white/60 text-sm leading-relaxed mb-6">
               Um estrategista da MAVI analisa seu diagnóstico e monta um plano personalizado
               para escalar seu e-commerce —{" "}
-              <strong className="text-mavi-white">sem custo e sem compromisso.</strong>
+              <strong className="text-white">sem custo e sem compromisso.</strong>
             </p>
             <a
               href={`https://wa.me/554733072030?text=Oi%21+Fiz+o+assessment+do+meu+e-commerce+e+quero+conversar+sobre+os+pr%C3%B3ximos+passos.+Score%3A+${finalAvg}%2F100+%E2%80%94+${encodeURIComponent(finalPersona.label)}.`}
               target="_blank"
               rel="noopener noreferrer"
             >
-              <Button variant="hero" size="lg">
-                Falar com um estrategista da MAVI{" "}
-                <ArrowRight className="w-4 h-4 ml-2" />
+              <Button variant="hero" size="lg" className="touch-manipulation">
+                Falar com um estrategista da MAVI <ArrowRight className="w-4 h-4 ml-2" />
               </Button>
             </a>
-            <p className="text-center text-xs text-mavi-white/30 mt-3">
+            <p className="text-center text-xs text-white/30 mt-3">
               Sem compromisso · Sem proposta empurrada · Em até 30 minutos
             </p>
           </div>
         </div>
 
-        <p className="text-center text-xs text-mavi-white/30 pb-8">
-          <Link to="/" className="hover:text-primary transition-colors">
-            ← Voltar ao site da MAVI
-          </Link>
+        <p className="text-center text-xs text-gray-400 pb-8">
+          <Link to="/" className="hover:text-primary transition-colors">← Voltar ao site da MAVI</Link>
           {" · "}
-          <Link to="/contato" className="hover:text-primary transition-colors">
-            Fale com a gente
-          </Link>
+          <Link to="/contato" className="hover:text-primary transition-colors">Fale com a gente</Link>
         </p>
       </div>
     </div>
