@@ -78,7 +78,11 @@ export default function AdminBlog() {
     <div className="min-h-screen bg-background">
       <header className="border-b border-border bg-card">
         <div className="container-mavi flex items-center justify-between h-16">
-          <h1 className="text-xl font-bold text-foreground">Blog — Painel Admin</h1>
+          <div className="flex items-center gap-3">
+            <Link to="/admin" className="text-muted-foreground hover:text-foreground text-sm transition-colors">← Dashboard</Link>
+            <span className="text-border">|</span>
+            <h1 className="text-xl font-bold text-foreground">Blog — Painel Admin</h1>
+          </div>
           <div className="flex items-center gap-3">
             <Button variant="ghost" size="sm" asChild>
               <Link to="/blog" target="_blank"><Eye className="w-4 h-4 mr-1" /> Ver Blog</Link>

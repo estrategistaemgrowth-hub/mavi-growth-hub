@@ -34,8 +34,15 @@ import NotFound from "./pages/NotFound";
 import DiagnosticoGratuito from "./pages/DiagnosticoGratuito";
 import Assessment from "./pages/Assessment";
 import AdminAssessment from "./pages/admin/AdminAssessment";
+import AdminDashboard from "./pages/admin/AdminDashboard";
+import { usePageTracking } from "./hooks/usePageTracking";
 
 const queryClient = new QueryClient();
+
+function PageTracker() {
+  usePageTracking();
+  return null;
+}
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
@@ -43,6 +50,7 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
+        <PageTracker />
         <ScrollToTop />
         <ScrollProgress />
         <Routes>
@@ -83,6 +91,7 @@ const App = () => (
           <Route path="/diagnostico-gratuito" element={<DiagnosticoGratuito />} />
           <Route path="/diagnostico" element={<Navigate to="/diagnostico-gratuito" replace />} />
           <Route path="/assessment" element={<Assessment />} />
+          <Route path="/admin" element={<AdminDashboard />} />
           <Route path="/admin/assessment" element={<AdminAssessment />} />
           <Route path="*" element={<NotFound />} />
         </Routes>

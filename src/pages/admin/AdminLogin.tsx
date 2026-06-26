@@ -22,7 +22,7 @@ export default function AdminLogin() {
     if (error) {
       toast.error("Erro ao fazer login", { description: error.message });
     } else {
-      navigate("/admin/blog");
+      navigate("/admin");
     }
     setLoading(false);
   };
