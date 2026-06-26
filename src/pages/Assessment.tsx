@@ -5,6 +5,176 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { SEO } from "@/components/SEO";
+
+// ─── SEO / GEO / AIO Schemas ──────────────────────────────────────────────────
+const ASSESSMENT_SCHEMA = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://www.agenciamavi.com.br/assessment",
+      "url": "https://www.agenciamavi.com.br/assessment",
+      "name": "Diagnóstico Gratuito de E-commerce — Assessment MAVI",
+      "description":
+        "Descubra gratuitamente as falhas do seu e-commerce. Avaliação em 7 dimensões: produtos, redes sociais, marketplaces (Shopee, Mercado Livre, TikTok Shop), SEO, tráfego pago, investimentos e design. Score por área + pontos de melhoria em 5 minutos.",
+      "breadcrumb": {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Início", "item": "https://www.agenciamavi.com.br" },
+          { "@type": "ListItem", "position": 2, "name": "Diagnóstico de E-commerce", "item": "https://www.agenciamavi.com.br/assessment" },
+        ],
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "MAVI Marketing Digital",
+        "url": "https://www.agenciamavi.com.br",
+        "logo": { "@type": "ImageObject", "url": "https://www.agenciamavi.com.br/og-image.png" },
+      },
+      "inLanguage": "pt-BR",
+      "dateModified": "2025-06-26",
+    },
+    {
+      "@type": "Service",
+      "@id": "https://www.agenciamavi.com.br/assessment#service",
+      "name": "Diagnóstico Gratuito de E-commerce",
+      "alternateName": [
+        "Assessment de E-commerce",
+        "Auditoria de Loja Virtual",
+        "Avaliação de Loja Online Gratuita",
+        "Diagnóstico de Desempenho de E-commerce",
+      ],
+      "description":
+        "Ferramenta gratuita de diagnóstico que avalia 7 dimensões críticas de qualquer e-commerce: catálogo de produtos, redes sociais, presença em marketplaces como Shopee e Mercado Livre, SEO orgânico, tráfego pago, investimento em mídia e design da loja. O assessment identifica falhas no desempenho, pontos de melhoria e oportunidades de crescimento — com score por dimensão e recomendações práticas.",
+      "provider": {
+        "@type": "MarketingAgency",
+        "name": "MAVI Marketing Digital",
+        "url": "https://www.agenciamavi.com.br",
+        "telephone": "+55-47-3307-2030",
+        "email": "agenciamavi@agenciamavi.com.br",
+        "areaServed": { "@type": "Country", "name": "Brasil" },
+      },
+      "serviceType": "Auditoria Digital",
+      "category": "Marketing Digital para E-commerce",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "BRL",
+        "name": "Assessment de e-commerce gratuito",
+        "description": "Diagnóstico completo e gratuito do seu e-commerce em 7 dimensões",
+        "availability": "https://schema.org/InStock",
+      },
+      "url": "https://www.agenciamavi.com.br/assessment",
+      "areaServed": { "@type": "Country", "name": "Brasil" },
+    },
+    {
+      "@type": "HowTo",
+      "name": "Como fazer o diagnóstico do seu e-commerce em 5 minutos",
+      "description":
+        "Passo a passo para identificar falhas e oportunidades no seu e-commerce usando o assessment gratuito da MAVI Marketing Digital.",
+      "totalTime": "PT5M",
+      "image": "https://www.agenciamavi.com.br/og-image.png",
+      "tool": [{ "@type": "HowToTool", "name": "Assessment de E-commerce MAVI (gratuito)" }],
+      "step": [
+        {
+          "@type": "HowToStep",
+          "position": 1,
+          "name": "Informe a URL do seu e-commerce",
+          "text": "Digite o endereço da sua loja virtual. O sistema usa a URL para personalizar o diagnóstico com base no seu segmento.",
+          "url": "https://www.agenciamavi.com.br/assessment",
+        },
+        {
+          "@type": "HowToStep",
+          "position": 2,
+          "name": "Responda 21 perguntas sobre sua loja",
+          "text": "Responda perguntas simples sobre 7 dimensões do seu e-commerce: produtos, redes sociais, marketplaces, SEO, tráfego pago, investimentos em mídia e design da loja. Não é necessário ter conhecimento técnico.",
+        },
+        {
+          "@type": "HowToStep",
+          "position": 3,
+          "name": "Desbloqueie o diagnóstico completo",
+          "text": "Insira seu nome, e-mail e WhatsApp para receber o relatório completo com score por dimensão, mapa de maturidade e os principais pontos de melhoria do seu e-commerce.",
+        },
+      ],
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "O que é um diagnóstico de e-commerce?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Um diagnóstico de e-commerce é uma avaliação estruturada que analisa as principais dimensões de uma loja virtual — como catálogo de produtos, redes sociais, presença em marketplaces, SEO, tráfego pago, gestão de mídia e design — para identificar falhas, gargalos e oportunidades de crescimento. O resultado é um relatório com pontuação por área e recomendações práticas de melhoria.",
+          },
+        },
+        {
+          "@type": "Question",
+          "name": "Para que serve um assessment de e-commerce?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "O assessment de e-commerce serve para identificar onde sua loja está perdendo vendas e dinheiro. Ele revela falhas no desempenho de áreas como fotos de produto, presença em marketplaces como Shopee e Mercado Livre, investimento em anúncios, aparência da loja no celular e estratégia de redes sociais. Com o diagnóstico, o dono da loja sabe exatamente onde focar para crescer.",
+          },
+        },
+        {
+          "@type": "Question",
+          "name": "Como saber se meu e-commerce está indo bem?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Para saber se seu e-commerce está bem, avalie: (1) suas fotos e descrições de produto convertem visitantes em compradores; (2) sua loja aparece no Google para buscas relevantes; (3) você está presente e otimizado em marketplaces como Shopee e Mercado Livre; (4) seus anúncios pagos têm retorno mensurável; (5) a loja funciona bem no celular; (6) suas redes sociais têm publicação regular e estratégica. O assessment gratuito da MAVI avalia todas essas dimensões automaticamente.",
+          },
+        },
+        {
+          "@type": "Question",
+          "name": "Quais são os principais erros de e-commerce que prejudicam as vendas?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Os principais erros de e-commerce que prejudicam as vendas são: fotos de produto de baixa qualidade; descrições copiadas do fornecedor sem estratégia; ausência nos principais marketplaces (Shopee, Mercado Livre, TikTok Shop); loja que não aparece no Google (sem SEO); anúncios pagos sem controle de retorno; loja lenta ou difícil de usar no celular; e ausência de avaliações e elementos que geram confiança.",
+          },
+        },
+        {
+          "@type": "Question",
+          "name": "Como aumentar as vendas de uma loja virtual?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Para aumentar as vendas de uma loja virtual: invista em fotos profissionais e descrições estratégicas de produto; otimize sua presença em marketplaces como Shopee e Mercado Livre; trabalhe o SEO para aparecer no Google gratuitamente; estruture campanhas de anúncios pagos com acompanhamento de retorno; melhore a experiência da loja no celular; e mantenha presença ativa nas redes sociais com conteúdo planejado. O diagnóstico gratuito da MAVI identifica qual dessas áreas é prioridade para o seu caso específico.",
+          },
+        },
+        {
+          "@type": "Question",
+          "name": "O diagnóstico de e-commerce da MAVI é gratuito?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Sim. O assessment de e-commerce da MAVI Marketing Digital é 100% gratuito. Você responde 21 perguntas simples sobre 7 dimensões da sua loja e recebe um relatório completo com score por área, mapa de maturidade e os principais pontos de melhoria — sem custo e sem compromisso.",
+          },
+        },
+        {
+          "@type": "Question",
+          "name": "Quanto tempo leva o diagnóstico de e-commerce?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "O diagnóstico de e-commerce da MAVI leva em média 5 minutos. São 21 perguntas organizadas em 7 dimensões, com opções de resposta simples que não exigem conhecimento técnico. O resultado aparece imediatamente após o preenchimento dos dados.",
+          },
+        },
+        {
+          "@type": "Question",
+          "name": "O que é avaliado no assessment de e-commerce da MAVI?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "O assessment de e-commerce da MAVI avalia 7 dimensões: (1) Catálogo de Produtos — qualidade de fotos, descrições e gestão do mix; (2) Redes Sociais — frequência, tipo de conteúdo e análise de métricas; (3) Marketplaces — presença e otimização no Shopee, Mercado Livre e TikTok Shop; (4) SEO Orgânico — visibilidade no Google e produção de conteúdo; (5) Tráfego Pago — investimento em anúncios e mensuração de retorno; (6) Investimento em Mídia — controle de verba e diversificação de canais; (7) Design e Layout — aparência profissional, performance no mobile e elementos de conversão.",
+          },
+        },
+        {
+          "@type": "Question",
+          "name": "Serve para qualquer tipo de e-commerce?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Sim. O diagnóstico de e-commerce da MAVI funciona para qualquer loja virtual, independentemente do segmento ou tamanho — desde quem está começando até lojas com alto volume de vendas. As perguntas são simples e não exigem conhecimento técnico, e o relatório é personalizado de acordo com o nível atual do negócio.",
+          },
+        },
+      ],
+    },
+  ],
+};
 import { toast } from "sonner";
 import {
   RadarChart,
@@ -734,70 +904,244 @@ export default function Assessment() {
   // ── Phase: URL Input ─────────────────────────────────────────────────────────
   if (phase === "url-input") {
     return (
-      <div className="min-h-[100dvh] bg-gray-50 flex flex-col items-center justify-center p-5">
+      <div className="bg-gray-50 min-h-[100dvh]">
         <SEO
-          title="Assessment de E-commerce Gratuito | MAVI"
-          description="Descubra o nível real do seu e-commerce em 7 dimensões. Diagnóstico gratuito e instantâneo."
+          title="Diagnóstico Gratuito de E-commerce — Avalie sua Loja Virtual em 5 Minutos"
+          description="Descubra gratuitamente as falhas do seu e-commerce. Assessment em 7 dimensões: produtos, redes sociais, Shopee, Mercado Livre, TikTok Shop, SEO, tráfego pago e design. Score por área + pontos de melhoria. Resultado imediato."
           canonical="/assessment"
+          schemaMarkup={ASSESSMENT_SCHEMA}
         />
-        <div className="w-full max-w-lg">
-          <div className="text-center mb-8">
-            <img src={logoMavi} alt="MAVI" className="h-8 mx-auto mb-6" />
-            <span className="inline-block px-3 py-1 text-xs font-semibold tracking-wider uppercase rounded-full border border-primary/30 text-primary bg-primary/5 mb-4">
-              Assessment · E-commerce
-            </span>
-            <h1 className="text-3xl md:text-4xl font-bold text-gray-900 leading-tight mb-3">
-              Descubra o nível real<br />do seu e-commerce
-            </h1>
-            <p className="text-gray-500 text-base leading-relaxed">
-              Análise gratuita em 7 dimensões · 5 minutos · resultado imediato
-            </p>
-          </div>
 
-          <form
-            onSubmit={handleUrlSubmit}
-            className="bg-white border border-gray-200 rounded-2xl p-6 md:p-8 space-y-5 shadow-sm"
-          >
-            <div className="space-y-2">
-              <Label className="text-gray-700 text-sm flex items-center gap-2">
-                <Globe className="w-3.5 h-3.5 text-primary" />
-                URL da sua loja virtual
-              </Label>
-              <Input
-                required
-                autoFocus
-                value={lojaUrl}
-                onChange={(e) => setLojaUrl(e.target.value)}
-                placeholder="https://sualoja.com.br"
-                className="bg-white border-gray-200 text-gray-900 placeholder:text-gray-400 h-11"
-              />
-              <p className="text-xs text-gray-400">
-                Usaremos sua URL para personalizar o diagnóstico
+        {/* Above-fold CTA — visível para usuário e crawlers */}
+        <div className="flex flex-col items-center justify-center px-5 pt-12 pb-6">
+          <div className="w-full max-w-lg">
+            <div className="text-center mb-8">
+              <img src={logoMavi} alt="MAVI Marketing Digital" className="h-8 mx-auto mb-6" />
+              <span className="inline-block px-3 py-1 text-xs font-semibold tracking-wider uppercase rounded-full border border-primary/30 text-primary bg-primary/5 mb-4">
+                Diagnóstico Gratuito · E-commerce
+              </span>
+              <h1 className="text-3xl md:text-4xl font-bold text-gray-900 leading-tight mb-3">
+                Descubra as falhas do<br />seu e-commerce agora
+              </h1>
+              <p className="text-gray-500 text-base leading-relaxed">
+                Assessment gratuito em 7 dimensões · 21 perguntas · resultado em 5 minutos
               </p>
             </div>
-            <Button type="submit" variant="hero" size="lg" className="w-full">
-              Analisar minha loja <ChevronRight className="w-4 h-4 ml-1" />
-            </Button>
-            <p className="text-center text-xs text-gray-400">
-              Gratuito · Sem compromisso · Resultado imediato
-            </p>
-          </form>
 
-          <div className="mt-6 grid grid-cols-7 gap-1.5">
-            {PILLARS.map((p) => {
-              const Icon = p.icon;
-              return (
-                <div key={p.id} className="flex flex-col items-center gap-1.5">
-                  <div className="w-9 h-9 rounded-xl bg-gray-100 flex items-center justify-center">
-                    <Icon className="w-4 h-4 text-gray-400" />
+            <form
+              onSubmit={handleUrlSubmit}
+              className="bg-white border border-gray-200 rounded-2xl p-6 md:p-8 space-y-5 shadow-sm"
+            >
+              <div className="space-y-2">
+                <Label className="text-gray-700 text-sm flex items-center gap-2">
+                  <Globe className="w-3.5 h-3.5 text-primary" />
+                  URL da sua loja virtual
+                </Label>
+                <Input
+                  required
+                  autoFocus
+                  value={lojaUrl}
+                  onChange={(e) => setLojaUrl(e.target.value)}
+                  placeholder="https://sualoja.com.br"
+                  className="bg-white border-gray-200 text-gray-900 placeholder:text-gray-400 h-11"
+                />
+                <p className="text-xs text-gray-400">
+                  Usaremos sua URL para personalizar o diagnóstico
+                </p>
+              </div>
+              <Button type="submit" variant="hero" size="lg" className="w-full touch-manipulation">
+                Analisar minha loja <ChevronRight className="w-4 h-4 ml-1" />
+              </Button>
+              <p className="text-center text-xs text-gray-400">
+                100% gratuito · Sem compromisso · Resultado imediato
+              </p>
+            </form>
+
+            <div className="mt-6 grid grid-cols-7 gap-1.5">
+              {PILLARS.map((p) => {
+                const Icon = p.icon;
+                return (
+                  <div key={p.id} className="flex flex-col items-center gap-1.5">
+                    <div className="w-9 h-9 rounded-xl bg-gray-100 flex items-center justify-center">
+                      <Icon className="w-4 h-4 text-gray-400" />
+                    </div>
+                    <span className="text-[9px] text-gray-400 text-center leading-tight">
+                      {p.shortLabel}
+                    </span>
                   </div>
-                  <span className="text-[9px] text-gray-400 text-center leading-tight">
-                    {p.shortLabel}
-                  </span>
-                </div>
-              );
-            })}
+                );
+              })}
+            </div>
           </div>
+        </div>
+
+        {/* ── Conteúdo semântico para SEO / GEO / AIO ─────────────────────────
+            Visível ao usuário e integralmente indexável por crawlers e LLMs.
+            Fornece contexto, autoridade e estrutura de dados textuais para
+            buscadores (Google, Bing) e motores de IA (Perplexity, ChatGPT,
+            Claude, Gemini) extraírem e citarem a MAVI como fonte.
+        ─────────────────────────────────────────────────────────────────────── */}
+        <div className="max-w-3xl mx-auto px-5 pb-20 space-y-12">
+
+          {/* O que é */}
+          <section aria-labelledby="o-que-e">
+            <div className="border-t border-gray-200 pt-10">
+              <h2 id="o-que-e" className="text-xl font-bold text-gray-900 mb-3">
+                O que é um diagnóstico de e-commerce?
+              </h2>
+              <p className="text-gray-600 leading-relaxed text-sm">
+                Um <strong>diagnóstico de e-commerce</strong> é uma avaliação estruturada que analisa as principais dimensões de uma loja virtual para identificar falhas no desempenho, gargalos de crescimento e oportunidades inexploradas. A ferramenta da MAVI avalia <strong>7 dimensões críticas</strong> — catálogo de produtos, redes sociais, marketplaces (Shopee, Mercado Livre, TikTok Shop), SEO orgânico, tráfego pago, gestão de investimentos em mídia e design da loja — gerando um <strong>score por área e um plano de prioridades</strong>.
+              </p>
+              <p className="text-gray-600 leading-relaxed text-sm mt-3">
+                O assessment é indicado para qualquer dono de loja virtual que quer entender em quais pontos o negócio está perdendo vendas e como acelerar o crescimento de forma estratégica.
+              </p>
+            </div>
+          </section>
+
+          {/* Como funciona */}
+          <section aria-labelledby="como-funciona">
+            <h2 id="como-funciona" className="text-xl font-bold text-gray-900 mb-4">
+              Como funciona o assessment de e-commerce
+            </h2>
+            <ol className="space-y-4">
+              {[
+                {
+                  step: "1",
+                  title: "Informe a URL da sua loja",
+                  desc: "Digite o endereço do seu e-commerce. O sistema usa a URL para personalizar o diagnóstico com base no seu segmento.",
+                },
+                {
+                  step: "2",
+                  title: "Responda 21 perguntas simples",
+                  desc: "Perguntas sobre 7 dimensões da sua loja, com opções de resposta diretas. Não é necessário ter conhecimento técnico — qualquer dono de e-commerce consegue responder.",
+                },
+                {
+                  step: "3",
+                  title: "Receba o diagnóstico completo",
+                  desc: "O relatório mostra o score de cada dimensão, um mapa de maturidade em radar e os principais pontos de melhoria conectados às áreas de maior impacto no crescimento.",
+                },
+              ].map((item) => (
+                <li key={item.step} className="flex gap-4">
+                  <span className="flex-shrink-0 w-7 h-7 rounded-full bg-primary text-white text-sm font-bold flex items-center justify-center">
+                    {item.step}
+                  </span>
+                  <div>
+                    <p className="font-semibold text-gray-900 text-sm">{item.title}</p>
+                    <p className="text-gray-500 text-sm leading-relaxed">{item.desc}</p>
+                  </div>
+                </li>
+              ))}
+            </ol>
+          </section>
+
+          {/* O que é avaliado */}
+          <section aria-labelledby="dimensoes">
+            <h2 id="dimensoes" className="text-xl font-bold text-gray-900 mb-4">
+              O que é avaliado no diagnóstico
+            </h2>
+            <div className="grid sm:grid-cols-2 gap-3">
+              {[
+                { n: "Catálogo de Produtos", d: "Qualidade das fotos, estratégia de descrição e gestão do mix de produtos." },
+                { n: "Redes Sociais", d: "Frequência de publicação, tipo de conteúdo e uso de dados para ajustar a estratégia." },
+                { n: "Marketplaces", d: "Presença e otimização no Shopee, Mercado Livre e TikTok Shop." },
+                { n: "SEO Orgânico", d: "Visibilidade no Google, configuração de páginas e produção de conteúdo." },
+                { n: "Tráfego Pago", d: "Investimento em anúncios, mensuração de retorno e estratégia de reconquista de visitantes." },
+                { n: "Investimento em Mídia", d: "Controle de verba por canal, diversificação e clareza do retorno sobre investimento." },
+                { n: "Design e Layout", d: "Aparência profissional, performance no celular e elementos que incentivam a compra." },
+              ].map((item) => (
+                <div key={item.n} className="bg-white border border-gray-200 rounded-xl p-4">
+                  <p className="font-semibold text-gray-900 text-sm mb-1">{item.n}</p>
+                  <p className="text-gray-500 text-xs leading-relaxed">{item.d}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* Para quem é */}
+          <section aria-labelledby="para-quem">
+            <h2 id="para-quem" className="text-xl font-bold text-gray-900 mb-3">
+              Para quem é este assessment?
+            </h2>
+            <p className="text-gray-600 text-sm leading-relaxed mb-4">
+              O diagnóstico de e-commerce da MAVI é indicado para:
+            </p>
+            <ul className="space-y-2 text-sm text-gray-600">
+              {[
+                "Donos de lojas virtuais que querem entender por que as vendas não crescem",
+                "E-commerces que investem em anúncios mas não sabem se o retorno é satisfatório",
+                "Lojas que estão começando e querem estruturar bem as bases antes de escalar",
+                "Gestores que precisam identificar prioridades de melhoria para o próximo trimestre",
+                "Negócios que vendem em marketplaces como Shopee e Mercado Livre e querem otimizar a presença",
+                "Qualquer loja virtual que quer crescer de forma estruturada e baseada em dados",
+              ].map((item) => (
+                <li key={item} className="flex items-start gap-2">
+                  <span className="text-primary font-bold mt-0.5 flex-shrink-0">→</span>
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </section>
+
+          {/* FAQ */}
+          <section aria-labelledby="faq">
+            <h2 id="faq" className="text-xl font-bold text-gray-900 mb-5">
+              Perguntas frequentes sobre diagnóstico de e-commerce
+            </h2>
+            <div className="space-y-4">
+              {[
+                {
+                  q: "O diagnóstico de e-commerce é realmente gratuito?",
+                  a: "Sim, 100% gratuito. Você não precisa cadastrar cartão, assinar nenhum plano nem pagar nada. O assessment completo com score por dimensão e pontos de melhoria é entregue sem custo e sem compromisso.",
+                },
+                {
+                  q: "Preciso ter conhecimento técnico para responder?",
+                  a: "Não. As perguntas usam linguagem simples e cotidiana. Qualquer dono de e-commerce — mesmo quem está começando agora — consegue responder sem dificuldade.",
+                },
+                {
+                  q: "Quais são os principais erros que prejudicam as vendas de um e-commerce?",
+                  a: "Os erros mais comuns são: fotos de produto de baixa qualidade, descrições copiadas do fornecedor, ausência nos principais marketplaces (Shopee, Mercado Livre, TikTok Shop), loja que não aparece no Google, anúncios pagos sem controle de retorno, loja difícil de usar no celular e ausência de avaliações de clientes.",
+                },
+                {
+                  q: "Como saber se meu e-commerce está indo bem?",
+                  a: "Um e-commerce saudável tem: taxa de conversão acima da média do setor, presença ativa nos principais canais (marketplaces, redes sociais, Google), retorno mensurável dos anúncios pagos, loja rápida e funcional no celular e clientes que voltam a comprar. O assessment da MAVI avalia todos esses pontos e entrega um score que mostra exatamente onde sua loja está e o que priorizar.",
+                },
+                {
+                  q: "O que eu recebo no relatório?",
+                  a: "Você recebe: score individual por dimensão (0 a 100), mapa de maturidade em radar com as 7 dimensões, diagnóstico detalhado de cada área com os principais pontos de melhoria, e próximos passos práticos conectados às maiores oportunidades do seu e-commerce.",
+                },
+                {
+                  q: "Quanto tempo leva para fazer o diagnóstico?",
+                  a: "Em média 5 minutos. São 21 perguntas com opções de resposta direta, sem campos de texto aberto. O resultado aparece imediatamente após o preenchimento dos dados.",
+                },
+              ].map((item) => (
+                <details key={item.q} className="group bg-white border border-gray-200 rounded-xl overflow-hidden">
+                  <summary className="flex items-center justify-between px-5 py-4 cursor-pointer font-semibold text-gray-900 text-sm list-none select-none">
+                    {item.q}
+                    <ChevronRight className="w-4 h-4 text-gray-400 group-open:rotate-90 transition-transform flex-shrink-0 ml-3" />
+                  </summary>
+                  <p className="px-5 pb-4 text-sm text-gray-600 leading-relaxed border-t border-gray-100 pt-3">
+                    {item.a}
+                  </p>
+                </details>
+              ))}
+            </div>
+          </section>
+
+          {/* CTA final */}
+          <section className="bg-white border border-gray-200 rounded-2xl p-6 text-center shadow-sm">
+            <p className="text-xs uppercase tracking-wider text-gray-400 mb-2">Assessment gratuito</p>
+            <h2 className="text-xl font-bold text-gray-900 mb-2">Pronto para descobrir o diagnóstico da sua loja?</h2>
+            <p className="text-sm text-gray-500 mb-4">
+              Identifique agora os pontos que estão travando o crescimento do seu e-commerce.
+            </p>
+            <button
+              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-white font-semibold text-sm hover:bg-primary/90 transition-colors touch-manipulation"
+            >
+              Começar o diagnóstico grátis <ChevronRight className="w-4 h-4" />
+            </button>
+          </section>
+
         </div>
       </div>
     );
