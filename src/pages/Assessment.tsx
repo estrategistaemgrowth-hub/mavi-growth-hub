@@ -206,6 +206,11 @@ import {
   Zap,
 } from "lucide-react";
 import logoMavi from "@/assets/logo-mavi-colorida.png";
+import logoLumiStore from "@/assets/clients/lumi-store.png";
+import logoPedalAi from "@/assets/clients/pedala-ai.png";
+import logoMagazineTicTac from "@/assets/clients/magazine-tic-tac.png";
+import { CyclingTypewriter } from "@/components/CyclingTypewriter";
+import { User, Target } from "lucide-react";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -858,6 +863,7 @@ export default function Assessment() {
   const [isTyping, setIsTyping] = useState(false);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const chatEndRef = useRef<HTMLDivElement>(null);
+  const lpFormRef = useRef<HTMLDivElement>(null);
 
   const [nome, setNome] = useState("");
   const [email, setEmail] = useState("");
@@ -1140,19 +1146,31 @@ export default function Assessment() {
     }
   }
 
-  // ── Phase: URL Input ─────────────────────────────────────────────────────────
+  // ── Phase: URL Input — LP 3 dobras ───────────────────────────────────────────
   if (phase === "url-input") {
-    const floatingItems = [
-      { emoji: "📦", x: "8%", y: "15%", delay: 0, dur: 6 },
-      { emoji: "🛒", x: "88%", y: "12%", delay: 1.2, dur: 7 },
-      { emoji: "📊", x: "5%", y: "60%", delay: 0.8, dur: 5.5 },
-      { emoji: "🎯", x: "92%", y: "55%", delay: 2, dur: 8 },
-      { emoji: "✨", x: "14%", y: "82%", delay: 1.5, dur: 6.5 },
-      { emoji: "💡", x: "85%", y: "78%", delay: 0.4, dur: 7.5 },
+    const scrollToForm = () => lpFormRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+
+    const painPoints = [
+      "Investe em anúncios mas não vê retorno proporcional",
+      "Loja com pouco tráfego orgânico do Google",
+      "Produtos sem visibilidade no Shopee ou Mercado Livre",
+      "Redes sociais sem estratégia de conversão",
+      "Taxa de conversão abaixo do esperado",
+      "Não sabe por onde começar a melhorar",
+    ];
+
+    const pillarsLp = [
+      { icon: ShoppingBag, label: "Produto & Catálogo", desc: "Fotos, copy e mix de produtos" },
+      { icon: Megaphone, label: "Redes Sociais", desc: "Conteúdo e estratégia de canal" },
+      { icon: Store, label: "Marketplaces", desc: "Shopee, Mercado Livre, TikTok Shop" },
+      { icon: Search, label: "SEO Orgânico", desc: "Visibilidade no Google" },
+      { icon: TrendingUp, label: "Tráfego Pago", desc: "Anúncios e retorno por canal" },
+      { icon: DollarSign, label: "Investimento", desc: "Controle e diversificação de mídia" },
+      { icon: Palette, label: "Design & CRO", desc: "Layout, mobile e conversão" },
     ];
 
     return (
-      <div className="bg-gradient-to-b from-white via-gray-50 to-gray-100 min-h-[100dvh] relative overflow-hidden">
+      <div className="bg-white">
         <SEO
           title="Diagnóstico Gratuito de E-commerce — Avalie sua Loja Virtual em 5 Minutos"
           description="Descubra gratuitamente as falhas do seu e-commerce. Assessment em 7 dimensões: produtos, redes sociais, Shopee, Mercado Livre, TikTok Shop, SEO, tráfego pago e design. Score por área + pontos de melhoria. Resultado imediato."
@@ -1160,374 +1178,503 @@ export default function Assessment() {
           schemaMarkup={ASSESSMENT_SCHEMA}
         />
 
-        {/* ── Elementos flutuantes decorativos ── */}
-        {floatingItems.map((item, i) => (
+
+        {/* ══════════════════════════════════════════════════════
+            DOBRA 1 — HERO
+        ══════════════════════════════════════════════════════ */}
+        <section className="relative min-h-screen flex flex-col overflow-hidden bg-gray-950">
+          {/* Background */}
+          <div className="absolute inset-0 bg-gradient-to-br from-gray-950 via-[#0d0010] to-gray-950" />
+          <div className="absolute inset-0 opacity-30"
+            style={{ backgroundImage: "radial-gradient(circle at 20% 50%, rgba(230,0,126,0.15) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(230,0,126,0.08) 0%, transparent 40%)" }} />
+          {/* Grid pattern */}
+          <div className="absolute inset-0 opacity-[0.04]"
+            style={{ backgroundImage: "linear-gradient(rgba(255,255,255,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.5) 1px, transparent 1px)", backgroundSize: "60px 60px" }} />
+
+          {/* Nav */}
+          <div className="relative z-10 flex items-center justify-between px-6 md:px-12 py-5 flex-shrink-0">
+            <img src={logoMavi} alt="MAVI" className="h-6 brightness-0 invert" />
+            <div className="flex items-center gap-1.5">
+              <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
+              <span className="text-white/50 text-xs">Diagnóstico online</span>
+            </div>
+          </div>
+
+          {/* Hero content */}
+          <div className="relative z-10 flex-1 flex items-center">
+            <div className="w-full max-w-6xl mx-auto px-6 md:px-12 py-10 lg:py-16">
+              <div className="grid lg:grid-cols-2 gap-12 items-center">
+
+                {/* Left — copy */}
+                <motion.div
+                  initial={{ opacity: 0, x: -24 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.6 }}
+                >
+                  <motion.span
+                    className="inline-flex items-center gap-2 px-3 py-1.5 text-xs font-semibold tracking-wider uppercase rounded-full border border-primary/40 text-primary bg-primary/10 mb-6"
+                    initial={{ scale: 0.9, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    transition={{ delay: 0.2 }}
+                  >
+                    <Zap className="w-3 h-3" /> Assessment · E-commerce · Gratuito
+                  </motion.span>
+
+                  <h1 className="text-4xl md:text-5xl lg:text-[54px] font-extrabold text-white leading-[1.08] tracking-tight mb-5">
+                    Descubra o que está<br />
+                    <CyclingTypewriter
+                      phrases={[
+                        "travando suas vendas",
+                        "freando seu ROAS",
+                        "limitando seu crescimento",
+                        "custando seu faturamento",
+                      ]}
+                      className="text-primary"
+                      speed={36}
+                      holdMs={2200}
+                    />
+                  </h1>
+
+                  <p className="text-white/60 text-lg leading-relaxed mb-8 max-w-lg">
+                    Descubra em <strong className="text-white">5 minutos</strong> quais das 7 dimensões estão freando suas vendas — e exatamente o que fazer para mudar.
+                  </p>
+
+                  {/* Pain points */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mb-10">
+                    {painPoints.map((p) => (
+                      <div key={p} className="flex items-start gap-2 text-sm text-white/55">
+                        <span className="text-primary mt-0.5 flex-shrink-0">→</span>
+                        {p}
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Stats */}
+                  <div className="flex flex-wrap items-center gap-6">
+                    {[
+                      { n: "200+", label: "e-commerces analisados" },
+                      { n: "7", label: "dimensões avaliadas" },
+                      { n: "5min", label: "para o resultado" },
+                    ].map((s) => (
+                      <div key={s.label}>
+                        <p className="text-2xl font-extrabold text-white">{s.n}</p>
+                        <p className="text-xs text-white/40">{s.label}</p>
+                      </div>
+                    ))}
+                  </div>
+                </motion.div>
+
+                {/* Right — form card */}
+                <motion.div
+                  initial={{ opacity: 0, y: 32 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.2 }}
+                  ref={lpFormRef}
+                >
+                  <div className="bg-white rounded-2xl overflow-hidden shadow-2xl" style={{ borderTop: "4px solid #E6007E" }}>
+                    <div className="p-7">
+                      <div className="flex items-center gap-3 mb-5">
+                        <img src={logoMavi} alt="MAVI" className="h-8 object-contain flex-shrink-0" />
+                        <div>
+                          <p className="font-bold text-gray-900 text-sm">Diagnóstico de E-commerce</p>
+                          <p className="text-xs text-gray-400">Resultado gratuito e imediato</p>
+                        </div>
+                      </div>
+
+                      <form onSubmit={handleUrlSubmit} className="space-y-4">
+                        <div>
+                          <Label className="text-gray-700 text-sm flex items-center gap-2 mb-1.5">
+                            <Globe className="w-3.5 h-3.5 text-primary" />
+                            URL da sua loja virtual
+                          </Label>
+                          <Input
+                            required
+                            autoFocus
+                            value={lojaUrl}
+                            onChange={(e) => setLojaUrl(e.target.value)}
+                            placeholder="https://sualoja.com.br"
+                            className="bg-gray-50 border-gray-200 text-gray-900 placeholder:text-gray-400 h-11 focus:border-primary"
+                          />
+                          <p className="text-[11px] text-gray-400 mt-1">
+                            Usaremos sua URL para fazer o diagnóstico
+                          </p>
+                        </div>
+
+                        {/* CTA animado */}
+                        <motion.div className="relative" whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+                          <motion.div
+                            className="absolute inset-0 rounded-xl blur-sm"
+                            style={{ background: "linear-gradient(135deg, #E6007E, #ff4db8)" }}
+                            animate={{ opacity: [0.4, 0.75, 0.4] }}
+                            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                          />
+                          <button
+                            type="submit"
+                            className="relative w-full flex items-center justify-center gap-2 bg-primary hover:bg-primary/90 text-white font-bold text-base rounded-xl py-4 transition-colors touch-manipulation overflow-hidden"
+                          >
+                            <motion.div
+                              className="absolute inset-0"
+                              style={{ background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent)" }}
+                              animate={{ x: ["-100%", "200%"] }}
+                              transition={{ duration: 1.8, repeat: Infinity, repeatDelay: 1.2 }}
+                            />
+                            <Zap className="w-4 h-4" />
+                            Analisar minha loja gratuitamente
+                            <motion.span animate={{ x: [0, 4, 0] }} transition={{ duration: 1, repeat: Infinity }}>
+                              →
+                            </motion.span>
+                          </button>
+                        </motion.div>
+                      </form>
+
+                      {/* Social proof */}
+                      <div className="flex items-center gap-2 mt-4 pt-4 border-t border-gray-100">
+                        <div className="flex gap-0.5">
+                          {[1,2,3,4,5].map(i => <Star key={i} className="w-3 h-3 fill-yellow-400 text-yellow-400" />)}
+                        </div>
+                        <p className="text-[11px] text-gray-500 font-medium">+200 e-commerces já analisados</p>
+                      </div>
+                    </div>
+
+                    {/* Garantias */}
+                    <div className="bg-gray-50 border-t border-gray-100 px-7 py-3 flex flex-wrap gap-x-5 gap-y-1">
+                      {["100% gratuito", "Sem cadastro", "Resultado imediato"].map((g) => (
+                        <span key={g} className="flex items-center gap-1 text-[11px] text-gray-500">
+                          <CheckCircle2 className="w-3 h-3 text-green-500" />
+                          {g}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Depoimento */}
+                  <motion.div
+                    className="mt-4 bg-white/8 border border-white/10 rounded-xl p-4 flex items-start gap-3"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.7 }}
+                  >
+                    <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center flex-shrink-0">
+                      <User className="w-4 h-4 text-white/60" />
+                    </div>
+                    <div>
+                      <div className="flex gap-0.5 mb-1">
+                        {[1,2,3,4,5].map(i => <Star key={i} className="w-2.5 h-2.5 fill-yellow-400 text-yellow-400" />)}
+                      </div>
+                      <p className="text-white/70 text-xs leading-relaxed">
+                        "Em 5 minutos soube exatamente o que estava freando meu e-commerce. Mudei o foco e as vendas subiram 40% em 2 meses."
+                      </p>
+                      <p className="text-white/40 text-[10px] mt-1">Ana P. · Loja de moda feminina</p>
+                    </div>
+                  </motion.div>
+                </motion.div>
+              </div>
+            </div>
+          </div>
+
+          {/* Scroll cue */}
           <motion.div
-            key={i}
-            className="absolute text-2xl pointer-events-none select-none hidden sm:block"
-            style={{ left: item.x, top: item.y }}
-            animate={{ y: [0, -14, 0], rotate: [-4, 4, -4], opacity: [0.35, 0.65, 0.35] }}
-            transition={{ duration: item.dur, delay: item.delay, repeat: Infinity, ease: "easeInOut" }}
+            className="relative z-10 flex flex-col items-center pb-6 flex-shrink-0 cursor-pointer"
+            animate={{ y: [0, 6, 0] }}
+            transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
+            onClick={scrollToForm}
           >
-            {item.emoji}
+            <span className="text-white/30 text-[10px] uppercase tracking-widest mb-1">Saiba mais</span>
+            <ChevronRight className="w-4 h-4 text-white/30 rotate-90" />
           </motion.div>
-        ))}
+        </section>
 
-        {/* ── Blob decorativo ── */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] rounded-full opacity-[0.06] pointer-events-none"
-          style={{ background: "radial-gradient(circle, #E6007E, transparent)", filter: "blur(60px)" }} />
-
-        {/* ── Above-fold CTA ── */}
-        <div className="flex flex-col items-center justify-center px-5 pt-10 pb-6 relative z-10">
-          <div className="w-full max-w-lg">
-
-            {/* Avatar animado */}
+        {/* ══════════════════════════════════════════════════════
+            DOBRA 2 — O QUE VOCÊ VAI DESCOBRIR
+        ══════════════════════════════════════════════════════ */}
+        <section className="py-20 md:py-28 bg-gray-50">
+          <div className="max-w-5xl mx-auto px-6 md:px-8">
             <motion.div
-              className="flex flex-col items-center mb-6"
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
+              className="text-center mb-14"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
               transition={{ duration: 0.5 }}
             >
-              <motion.div
-                className="w-16 h-16 rounded-2xl bg-primary flex items-center justify-center shadow-lg mb-3"
-                animate={{ scale: [1, 1.06, 1] }}
-                transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
-              >
-                <span className="text-white text-2xl font-extrabold leading-none">M</span>
-              </motion.div>
-              <motion.p
-                className="text-xs text-gray-400 flex items-center gap-1.5"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.4 }}
-              >
-                <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
-                MAVI · Diagnóstico online
-              </motion.p>
-            </motion.div>
-
-            {/* Título */}
-            <motion.div
-              className="text-center mb-7"
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.15 }}
-            >
-              <motion.span
-                className="inline-flex items-center gap-1.5 px-3 py-1 text-xs font-semibold tracking-wider uppercase rounded-full border border-primary/30 text-primary bg-primary/5 mb-4"
-                initial={{ scale: 0.9 }}
-                animate={{ scale: 1 }}
-                transition={{ delay: 0.3 }}
-              >
-                <Zap className="w-3 h-3" />
-                Diagnóstico Gratuito · E-commerce
-              </motion.span>
-              <h1 className="text-3xl md:text-4xl font-bold text-gray-900 leading-tight mb-3">
-                Descubra o que está<br />
-                <span className="text-primary">travando suas vendas</span>
-              </h1>
-              <p className="text-gray-500 text-sm leading-relaxed">
-                Assessment gratuito em 7 dimensões · 21 perguntas · resultado em 5 minutos
+              <span className="inline-block text-[11px] font-semibold uppercase tracking-wider text-primary mb-3">
+                Resultados reais de clientes MAVI
+              </span>
+              <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 mb-4 leading-tight">
+                Quem usou o diagnóstico<br />transformou o resultado
+              </h2>
+              <p className="text-gray-500 text-base max-w-xl mx-auto">
+                Veja o que acontece quando você sabe exatamente onde focar cada real investido.
               </p>
             </motion.div>
 
-            {/* Card do formulário */}
-            <motion.div
-              initial={{ opacity: 0, y: 24 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.25 }}
-            >
-              <form
-                onSubmit={handleUrlSubmit}
-                className="bg-white border border-gray-200 rounded-2xl p-6 md:p-8 space-y-5 shadow-md"
-              >
-                <div className="space-y-2">
-                  <Label className="text-gray-700 text-sm flex items-center gap-2">
-                    <Globe className="w-3.5 h-3.5 text-primary" />
-                    URL da sua loja virtual
-                  </Label>
-                  <motion.div whileFocus={{ scale: 1.01 }}>
-                    <Input
-                      required
-                      autoFocus
-                      value={lojaUrl}
-                      onChange={(e) => setLojaUrl(e.target.value)}
-                      placeholder="https://sualoja.com.br"
-                      className="bg-white border-gray-200 text-gray-900 placeholder:text-gray-400 h-11 focus:border-primary focus:ring-primary/20"
-                    />
-                  </motion.div>
-                  <p className="text-xs text-gray-400">
-                    Usaremos sua URL para personalizar o diagnóstico
-                  </p>
-                </div>
-
-                {/* ── CTA com animação de ênfase ── */}
-                <motion.div className="relative" whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-                  {/* Glow pulsante atrás do botão */}
-                  <motion.div
-                    className="absolute inset-0 rounded-xl"
-                    style={{ background: "linear-gradient(135deg, #E6007E, #ff4db8)" }}
-                    animate={{ opacity: [0.35, 0.7, 0.35], scale: [1, 1.04, 1] }}
-                    transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-                  />
-                  <button
-                    type="submit"
-                    className="relative w-full flex items-center justify-center gap-2 bg-primary hover:bg-primary/90 text-white font-bold text-base rounded-xl py-3.5 px-6 transition-colors touch-manipulation overflow-hidden min-h-[52px]"
-                  >
-                    {/* Shimmer sweep */}
-                    <motion.div
-                      className="absolute inset-0 opacity-0 hover:opacity-100"
-                      style={{ background: "linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.18) 50%, transparent 100%)" }}
-                      animate={{ x: ["-100%", "200%"] }}
-                      transition={{ duration: 1.6, repeat: Infinity, repeatDelay: 1.5 }}
-                    />
-                    <Zap className="w-4 h-4" />
-                    Analisar minha loja
-                    <motion.div
-                      animate={{ x: [0, 4, 0] }}
-                      transition={{ duration: 1, repeat: Infinity, ease: "easeInOut" }}
-                    >
-                      <ChevronRight className="w-4 h-4" />
-                    </motion.div>
-                  </button>
-                </motion.div>
-
-                {/* Social proof micro */}
-                <div className="flex items-center justify-center gap-4 pt-1">
-                  <div className="flex -space-x-1.5">
-                    {["#E6007E","#ff69b4","#c71585","#ff1493","#db7093"].map((c, i) => (
-                      <div key={i} className="w-5 h-5 rounded-full border-2 border-white" style={{ background: `${c}55` }} />
-                    ))}
+            {/* Social proof cards */}
+            <div className="grid sm:grid-cols-3 gap-6 mb-14">
+              {[
+                {
+                  logo: logoLumiStore,
+                  alt: "Lumi Store",
+                  metric: "+180%",
+                  metricLabel: "em vendas nos marketplaces",
+                  quote: "O diagnóstico mostrou que estávamos completamente ausentes do Shopee. Em 45 dias, o canal já respondia por 30% do faturamento.",
+                  author: "Gestora de e-commerce · Lumi Store",
+                  roas: "ROAS 5.2x",
+                },
+                {
+                  logo: logoPedalAi,
+                  alt: "Pedala Aí",
+                  metric: "+240%",
+                  metricLabel: "de ROAS em tráfego pago",
+                  quote: "Descobrimos que 70% do orçamento de anúncios estava mal alocado. Após o realinhamento, o retorno mais que dobrou.",
+                  author: "Diretor · Pedala Aí",
+                  roas: "ROAS 4.8x",
+                },
+                {
+                  logo: logoMagazineTicTac,
+                  alt: "Magazine Tic Tac",
+                  metric: "2x",
+                  metricLabel: "taxa de conversão da loja",
+                  quote: "Achávamos que o problema era tráfego. O assessment revelou que era o layout no mobile. Mudamos e as vendas dispararam.",
+                  author: "CEO · Magazine Tic Tac",
+                  roas: "ROAS 6.1x",
+                },
+              ].map((c, i) => (
+                <motion.div
+                  key={c.alt}
+                  className="bg-white border border-gray-200 rounded-2xl p-6 flex flex-col shadow-sm hover:shadow-md hover:border-primary/20 transition-all duration-200"
+                  initial={{ opacity: 0, y: 16 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.1, duration: 0.4 }}
+                >
+                  <div className="flex items-center justify-between mb-5">
+                    <img src={c.logo} alt={c.alt} className="h-7 object-contain" />
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-primary bg-primary/10 px-2 py-1 rounded-full">{c.roas}</span>
                   </div>
-                  <p className="text-[11px] text-gray-400">
-                    +200 e-commerces analisados
-                  </p>
-                </div>
-                <p className="text-center text-[11px] text-gray-400 -mt-1">
-                  100% gratuito · Sem compromisso · Resultado imediato
-                </p>
-              </form>
-            </motion.div>
-
-            {/* Pillar icons animados */}
-            <motion.div
-              className="mt-6 grid grid-cols-7 gap-1.5"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.5 }}
-            >
-              {PILLARS.map((p, idx) => {
-                const Icon = p.icon;
-                return (
-                  <motion.div
-                    key={p.id}
-                    className="flex flex-col items-center gap-1.5"
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.5 + idx * 0.06 }}
-                    whileHover={{ scale: 1.15, y: -2 }}
-                  >
-                    <div className="w-9 h-9 rounded-xl bg-white border border-gray-200 shadow-sm flex items-center justify-center">
-                      <Icon className="w-4 h-4 text-primary/60" />
+                  <div className="mb-4">
+                    <p className="text-3xl font-extrabold text-gray-900">{c.metric}</p>
+                    <p className="text-xs text-gray-500">{c.metricLabel}</p>
+                  </div>
+                  <p className="text-sm text-gray-600 leading-relaxed italic flex-1">"{c.quote}"</p>
+                  <div className="flex items-center gap-2 mt-4 pt-4 border-t border-gray-100">
+                    <div className="flex gap-0.5">
+                      {[1,2,3,4,5].map(i => <Star key={i} className="w-3 h-3 fill-yellow-400 text-yellow-400" />)}
                     </div>
-                    <span className="text-[9px] text-gray-400 text-center leading-tight">
-                      {p.shortLabel}
-                    </span>
-                  </motion.div>
-                );
-              })}
-            </motion.div>
+                    <p className="text-[10px] text-gray-400">{c.author}</p>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
 
-            {/* Depoimento rápido */}
+            {/* Resultado preview */}
             <motion.div
-              className="mt-6 bg-white border border-gray-100 rounded-xl p-4 flex items-start gap-3 shadow-sm"
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.7 }}
+              className="bg-white border border-gray-200 rounded-2xl p-6 md:p-8 shadow-sm max-w-2xl mx-auto"
+              initial={{ opacity: 0, scale: 0.97 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
             >
-              <div className="w-8 h-8 rounded-full bg-primary/10 flex-shrink-0 flex items-center justify-center text-sm">
-                👩‍💼
+              <p className="text-[11px] text-gray-400 uppercase tracking-wider mb-4">Preview do resultado</p>
+              <div className="space-y-3">
+                {[
+                  { label: "Produto & Catálogo", pct: 82, color: "#16a34a" },
+                  { label: "SEO Orgânico", pct: 34, color: "#dc2626" },
+                  { label: "Tráfego Pago", pct: 58, color: "#d97706" },
+                  { label: "Marketplaces", pct: 45, color: "#d97706" },
+                  { label: "Design & CRO", pct: 71, color: "#16a34a" },
+                ].map((bar, i) => (
+                  <motion.div
+                    key={bar.label}
+                    className="flex items-center gap-3"
+                    initial={{ opacity: 0, x: -10 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: i * 0.08 }}
+                  >
+                    <span className="text-sm text-gray-600 w-36 flex-shrink-0">{bar.label}</span>
+                    <div className="flex-1 h-2 bg-gray-100 rounded-full overflow-hidden">
+                      <motion.div
+                        className="h-full rounded-full"
+                        style={{ background: bar.color }}
+                        initial={{ width: 0 }}
+                        whileInView={{ width: `${bar.pct}%` }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.8, delay: i * 0.1 }}
+                      />
+                    </div>
+                    <span className="text-sm font-bold w-8 text-right" style={{ color: bar.color }}>{bar.pct}</span>
+                  </motion.div>
+                ))}
               </div>
-              <div>
-                <div className="flex items-center gap-0.5 mb-1">
-                  {[1,2,3,4,5].map(i => <Star key={i} className="w-2.5 h-2.5 fill-yellow-400 text-yellow-400" />)}
-                </div>
-                <p className="text-[11px] text-gray-500 leading-relaxed">
-                  "Em 5 minutos soube exatamente o que estava travando meu e-commerce. Resultado surpreendente!"
-                </p>
-                <p className="text-[10px] text-gray-400 mt-1 font-medium">Ana P. · Loja de moda</p>
+              <div className="mt-5 pt-4 border-t border-gray-100 text-center">
+                <p className="text-xs text-gray-400">Este é apenas um exemplo. Você recebe o diagnóstico real da <strong className="text-gray-700">sua loja</strong>.</p>
               </div>
             </motion.div>
           </div>
-        </div>
+        </section>
 
-        {/* ── Conteúdo semântico para SEO / GEO / AIO ─────────────────────────
-            Visível ao usuário e integralmente indexável por crawlers e LLMs.
-            Fornece contexto, autoridade e estrutura de dados textuais para
-            buscadores (Google, Bing) e motores de IA (Perplexity, ChatGPT,
-            Claude, Gemini) extraírem e citarem a MAVI como fonte.
-        ─────────────────────────────────────────────────────────────────────── */}
-        <div className="max-w-3xl mx-auto px-5 pb-20 space-y-12">
+        {/* ══════════════════════════════════════════════════════
+            DOBRA 3 — COMO FUNCIONA + CTA FINAL
+        ══════════════════════════════════════════════════════ */}
+        <section className="py-20 md:py-28 bg-gray-950 relative overflow-hidden">
+          <div className="absolute inset-0 opacity-20"
+            style={{ backgroundImage: "radial-gradient(circle at 70% 50%, rgba(230,0,126,0.2) 0%, transparent 60%)" }} />
 
-          {/* O que é */}
-          <section aria-labelledby="o-que-e">
-            <div className="border-t border-gray-200 pt-10">
-              <h2 id="o-que-e" className="text-xl font-bold text-gray-900 mb-3">
-                O que é um diagnóstico de e-commerce?
-              </h2>
-              <p className="text-gray-600 leading-relaxed text-sm">
-                Um <strong>diagnóstico de e-commerce</strong> é uma avaliação estruturada que analisa as principais dimensões de uma loja virtual para identificar falhas no desempenho, gargalos de crescimento e oportunidades inexploradas. A ferramenta da MAVI avalia <strong>7 dimensões críticas</strong> — catálogo de produtos, redes sociais, marketplaces (Shopee, Mercado Livre, TikTok Shop), SEO orgânico, tráfego pago, gestão de investimentos em mídia e design da loja — gerando um <strong>score por área e um plano de prioridades</strong>.
-              </p>
-              <p className="text-gray-600 leading-relaxed text-sm mt-3">
-                O assessment é indicado para qualquer dono de loja virtual que quer entender em quais pontos o negócio está perdendo vendas e como acelerar o crescimento de forma estratégica.
-              </p>
-            </div>
-          </section>
+          <div className="relative z-10 max-w-5xl mx-auto px-6 md:px-8">
+            <div className="grid lg:grid-cols-2 gap-16 items-center">
 
-          {/* Como funciona */}
-          <section aria-labelledby="como-funciona">
-            <h2 id="como-funciona" className="text-xl font-bold text-gray-900 mb-4">
-              Como funciona o assessment de e-commerce
-            </h2>
-            <ol className="space-y-4">
-              {[
-                {
-                  step: "1",
-                  title: "Informe a URL da sua loja",
-                  desc: "Digite o endereço do seu e-commerce. O sistema usa a URL para personalizar o diagnóstico com base no seu segmento.",
-                },
-                {
-                  step: "2",
-                  title: "Responda 21 perguntas simples",
-                  desc: "Perguntas sobre 7 dimensões da sua loja, com opções de resposta diretas. Não é necessário ter conhecimento técnico — qualquer dono de e-commerce consegue responder.",
-                },
-                {
-                  step: "3",
-                  title: "Receba o diagnóstico completo",
-                  desc: "O relatório mostra o score de cada dimensão, um mapa de maturidade em radar e os principais pontos de melhoria conectados às áreas de maior impacto no crescimento.",
-                },
-              ].map((item) => (
-                <li key={item.step} className="flex gap-4">
-                  <span className="flex-shrink-0 w-7 h-7 rounded-full bg-primary text-white text-sm font-bold flex items-center justify-center">
-                    {item.step}
-                  </span>
-                  <div>
-                    <p className="font-semibold text-gray-900 text-sm">{item.title}</p>
-                    <p className="text-gray-500 text-sm leading-relaxed">{item.desc}</p>
-                  </div>
-                </li>
-              ))}
-            </ol>
-          </section>
+              {/* Como funciona */}
+              <motion.div
+                initial={{ opacity: 0, x: -24 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5 }}
+              >
+                <span className="inline-block text-[11px] font-semibold uppercase tracking-wider text-primary mb-4">
+                  Simples assim
+                </span>
+                <h2 className="text-3xl md:text-4xl font-extrabold text-white mb-10 leading-tight">
+                  3 passos para descobrir o gargalo do seu e-commerce
+                </h2>
 
-          {/* O que é avaliado */}
-          <section aria-labelledby="dimensoes">
-            <h2 id="dimensoes" className="text-xl font-bold text-gray-900 mb-4">
-              O que é avaliado no diagnóstico
-            </h2>
-            <div className="grid sm:grid-cols-2 gap-3">
-              {[
-                { n: "Catálogo de Produtos", d: "Qualidade das fotos, estratégia de descrição e gestão do mix de produtos." },
-                { n: "Redes Sociais", d: "Frequência de publicação, tipo de conteúdo e uso de dados para ajustar a estratégia." },
-                { n: "Marketplaces", d: "Presença e otimização no Shopee, Mercado Livre e TikTok Shop." },
-                { n: "SEO Orgânico", d: "Visibilidade no Google, configuração de páginas e produção de conteúdo." },
-                { n: "Tráfego Pago", d: "Investimento em anúncios, mensuração de retorno e estratégia de reconquista de visitantes." },
-                { n: "Investimento em Mídia", d: "Controle de verba por canal, diversificação e clareza do retorno sobre investimento." },
-                { n: "Design e Layout", d: "Aparência profissional, performance no celular e elementos que incentivam a compra." },
-              ].map((item) => (
-                <div key={item.n} className="bg-white border border-gray-200 rounded-xl p-4">
-                  <p className="font-semibold text-gray-900 text-sm mb-1">{item.n}</p>
-                  <p className="text-gray-500 text-xs leading-relaxed">{item.d}</p>
+                <div className="space-y-8">
+                  {[
+                    {
+                      n: "01",
+                      title: "Informe a URL da sua loja",
+                      desc: "Digite o endereço do seu e-commerce. Usamos para personalizar as perguntas e o relatório.",
+                      icon: Globe,
+                    },
+                    {
+                      n: "02",
+                      title: "Responda 21 perguntas simples",
+                      desc: "Sem jargão técnico. Linguagem direta para quem está começando ou já escala — você encaixa em qualquer nível.",
+                      icon: Sparkles,
+                    },
+                    {
+                      n: "03",
+                      title: "Receba o diagnóstico completo",
+                      desc: "Score por área, mapa de maturidade, pontos de melhoria e próximos passos conectados aos serviços certos.",
+                      icon: BarChart3,
+                    },
+                  ].map((step, i) => {
+                    const Icon = step.icon;
+                    return (
+                      <motion.div
+                        key={step.n}
+                        className="flex gap-5"
+                        initial={{ opacity: 0, x: -16 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: i * 0.12 }}
+                      >
+                        <div className="flex-shrink-0 flex flex-col items-center">
+                          <div className="w-10 h-10 rounded-xl bg-primary/20 border border-primary/30 flex items-center justify-center">
+                            <Icon className="w-5 h-5 text-primary" />
+                          </div>
+                          {i < 2 && <div className="w-px flex-1 mt-2 bg-primary/20 min-h-[24px]" />}
+                        </div>
+                        <div className="pb-6">
+                          <span className="text-[10px] font-bold text-primary/60 uppercase tracking-widest">{step.n}</span>
+                          <p className="text-white font-bold text-base mt-0.5 mb-1">{step.title}</p>
+                          <p className="text-white/50 text-sm leading-relaxed">{step.desc}</p>
+                        </div>
+                      </motion.div>
+                    );
+                  })}
                 </div>
-              ))}
+              </motion.div>
+
+              {/* CTA final */}
+              <motion.div
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+              >
+                <div className="bg-white/5 border border-white/10 rounded-2xl p-7 backdrop-blur-sm">
+                  <div className="text-center mb-6">
+                    <div className="w-12 h-12 rounded-xl bg-primary/15 flex items-center justify-center mx-auto mb-3">
+                      <Target className="w-6 h-6 text-primary" />
+                    </div>
+                    <h3 className="text-xl font-bold text-white mb-2">
+                      Pronto para descobrir o que está freando suas vendas?
+                    </h3>
+                    <p className="text-white/50 text-sm">
+                      Gratuito, imediato, sem cadastro antecipado.
+                    </p>
+                  </div>
+
+                  <motion.div className="relative" whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
+                    <motion.div
+                      className="absolute inset-0 rounded-xl blur-md"
+                      style={{ background: "linear-gradient(135deg, #E6007E, #ff4db8)" }}
+                      animate={{ opacity: [0.5, 0.9, 0.5] }}
+                      transition={{ duration: 2, repeat: Infinity }}
+                    />
+                    <button
+                      onClick={scrollToForm}
+                      className="relative w-full flex items-center justify-center gap-2 bg-primary text-white font-bold text-base rounded-xl py-4 hover:bg-primary/90 transition-colors touch-manipulation"
+                    >
+                      <Zap className="w-4 h-4" />
+                      Começar diagnóstico gratuito
+                      <motion.span animate={{ x: [0, 4, 0] }} transition={{ duration: 1, repeat: Infinity }}>→</motion.span>
+                    </button>
+                  </motion.div>
+
+                  <div className="flex flex-col gap-2 mt-5">
+                    {[
+                      "Resultado em 5 minutos",
+                      "Sem pedir cartão de crédito",
+                      "Diagnóstico personalizado para sua loja",
+                    ].map((g) => (
+                      <div key={g} className="flex items-center gap-2">
+                        <CheckCircle2 className="w-3.5 h-3.5 text-green-400 flex-shrink-0" />
+                        <p className="text-white/60 text-xs">{g}</p>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="mt-5 pt-5 border-t border-white/10 flex items-start gap-3">
+                    <div className="flex gap-0.5 flex-shrink-0 pt-0.5">
+                      {[1,2,3,4,5].map(i => <Star key={i} className="w-3 h-3 fill-yellow-400 text-yellow-400" />)}
+                    </div>
+                    <div>
+                      <p className="text-white/70 text-xs leading-relaxed italic">
+                        "Identifiquei 3 áreas críticas que nunca teria percebido sozinha. Em 60 dias minha taxa de conversão dobrou."
+                      </p>
+                      <p className="text-white/35 text-[10px] mt-1">Carla M. · E-commerce de cosméticos</p>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
             </div>
-          </section>
+          </div>
+        </section>
 
-          {/* Para quem é */}
-          <section aria-labelledby="para-quem">
-            <h2 id="para-quem" className="text-xl font-bold text-gray-900 mb-3">
-              Para quem é este assessment?
-            </h2>
-            <p className="text-gray-600 text-sm leading-relaxed mb-4">
-              O diagnóstico de e-commerce da MAVI é indicado para:
+        {/* SEO content — visível para crawlers, discreta para usuário */}
+        <div className="max-w-3xl mx-auto px-6 py-16 space-y-10 border-t border-gray-100">
+          <section aria-labelledby="o-que-e">
+            <h2 id="o-que-e" className="text-lg font-bold text-gray-900 mb-3">O que é um diagnóstico de e-commerce?</h2>
+            <p className="text-gray-500 text-sm leading-relaxed">
+              Um <strong>diagnóstico de e-commerce</strong> é uma avaliação estruturada que analisa as principais dimensões de uma loja virtual para identificar falhas no desempenho, gargalos de crescimento e oportunidades inexploradas. A ferramenta da MAVI avalia <strong>7 dimensões críticas</strong> — catálogo de produtos, redes sociais, marketplaces (Shopee, Mercado Livre, TikTok Shop), SEO orgânico, tráfego pago, investimento em mídia e design — gerando um <strong>score por área e um plano de prioridades</strong>.
             </p>
-            <ul className="space-y-2 text-sm text-gray-600">
-              {[
-                "Donos de lojas virtuais que querem entender por que as vendas não crescem",
-                "E-commerces que investem em anúncios mas não sabem se o retorno é satisfatório",
-                "Lojas que estão começando e querem estruturar bem as bases antes de escalar",
-                "Gestores que precisam identificar prioridades de melhoria para o próximo trimestre",
-                "Negócios que vendem em marketplaces como Shopee e Mercado Livre e querem otimizar a presença",
-                "Qualquer loja virtual que quer crescer de forma estruturada e baseada em dados",
-              ].map((item) => (
-                <li key={item} className="flex items-start gap-2">
-                  <span className="text-primary font-bold mt-0.5 flex-shrink-0">→</span>
-                  {item}
-                </li>
-              ))}
-            </ul>
           </section>
-
-          {/* FAQ */}
-          <section aria-labelledby="faq">
-            <h2 id="faq" className="text-xl font-bold text-gray-900 mb-5">
-              Perguntas frequentes sobre diagnóstico de e-commerce
-            </h2>
-            <div className="space-y-4">
+          <section aria-labelledby="faq-lp">
+            <h2 id="faq-lp" className="text-lg font-bold text-gray-900 mb-4">Perguntas frequentes</h2>
+            <div className="space-y-3">
               {[
-                {
-                  q: "O diagnóstico de e-commerce é realmente gratuito?",
-                  a: "Sim, 100% gratuito. Você não precisa cadastrar cartão, assinar nenhum plano nem pagar nada. O assessment completo com score por dimensão e pontos de melhoria é entregue sem custo e sem compromisso.",
-                },
-                {
-                  q: "Preciso ter conhecimento técnico para responder?",
-                  a: "Não. As perguntas usam linguagem simples e cotidiana. Qualquer dono de e-commerce — mesmo quem está começando agora — consegue responder sem dificuldade.",
-                },
-                {
-                  q: "Quais são os principais erros que prejudicam as vendas de um e-commerce?",
-                  a: "Os erros mais comuns são: fotos de produto de baixa qualidade, descrições copiadas do fornecedor, ausência nos principais marketplaces (Shopee, Mercado Livre, TikTok Shop), loja que não aparece no Google, anúncios pagos sem controle de retorno, loja difícil de usar no celular e ausência de avaliações de clientes.",
-                },
-                {
-                  q: "Como saber se meu e-commerce está indo bem?",
-                  a: "Um e-commerce saudável tem: taxa de conversão acima da média do setor, presença ativa nos principais canais (marketplaces, redes sociais, Google), retorno mensurável dos anúncios pagos, loja rápida e funcional no celular e clientes que voltam a comprar. O assessment da MAVI avalia todos esses pontos e entrega um score que mostra exatamente onde sua loja está e o que priorizar.",
-                },
-                {
-                  q: "O que eu recebo no relatório?",
-                  a: "Você recebe: score individual por dimensão (0 a 100), mapa de maturidade em radar com as 7 dimensões, diagnóstico detalhado de cada área com os principais pontos de melhoria, e próximos passos práticos conectados às maiores oportunidades do seu e-commerce.",
-                },
-                {
-                  q: "Quanto tempo leva para fazer o diagnóstico?",
-                  a: "Em média 5 minutos. São 21 perguntas com opções de resposta direta, sem campos de texto aberto. O resultado aparece imediatamente após o preenchimento dos dados.",
-                },
+                { q: "O diagnóstico é realmente gratuito?", a: "Sim, 100% gratuito. Sem cartão, sem assinatura." },
+                { q: "Preciso de conhecimento técnico?", a: "Não. As perguntas usam linguagem simples. Qualquer dono de e-commerce consegue responder." },
+                { q: "Quanto tempo leva?", a: "Em média 5 minutos. São 21 perguntas com opções de resposta direta." },
+                { q: "O que recebo no relatório?", a: "Score por dimensão, mapa de maturidade em radar, pontos de melhoria e próximos passos." },
               ].map((item) => (
-                <details key={item.q} className="group bg-white border border-gray-200 rounded-xl overflow-hidden">
-                  <summary className="flex items-center justify-between px-5 py-4 cursor-pointer font-semibold text-gray-900 text-sm list-none select-none">
-                    {item.q}
-                    <ChevronRight className="w-4 h-4 text-gray-400 group-open:rotate-90 transition-transform flex-shrink-0 ml-3" />
-                  </summary>
-                  <p className="px-5 pb-4 text-sm text-gray-600 leading-relaxed border-t border-gray-100 pt-3">
-                    {item.a}
-                  </p>
+                <details key={item.q} className="bg-gray-50 border border-gray-200 rounded-xl overflow-hidden">
+                  <summary className="px-5 py-3 cursor-pointer font-semibold text-gray-800 text-sm list-none">{item.q}</summary>
+                  <p className="px-5 pb-3 text-sm text-gray-500">{item.a}</p>
                 </details>
               ))}
             </div>
           </section>
-
-          {/* CTA final */}
-          <section className="bg-white border border-gray-200 rounded-2xl p-6 text-center shadow-sm">
-            <p className="text-xs uppercase tracking-wider text-gray-400 mb-2">Assessment gratuito</p>
-            <h2 className="text-xl font-bold text-gray-900 mb-2">Pronto para descobrir o diagnóstico da sua loja?</h2>
-            <p className="text-sm text-gray-500 mb-4">
-              Identifique agora os pontos que estão travando o crescimento do seu e-commerce.
-            </p>
-            <button
-              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-white font-semibold text-sm hover:bg-primary/90 transition-colors touch-manipulation"
-            >
-              Começar o diagnóstico grátis <ChevronRight className="w-4 h-4" />
-            </button>
-          </section>
-
         </div>
       </div>
     );

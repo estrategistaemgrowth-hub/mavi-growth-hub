@@ -9,6 +9,7 @@ import { AnimatedCounter } from "@/components/AnimatedCounter";
 import { AnimatedSection, AnimatedChildren } from "@/components/AnimatedSection";
 import { HeroBackground } from "@/components/HeroBackground";
 import { TypewriterText } from "@/components/TypewriterText";
+import { CyclingTypewriter } from "@/components/CyclingTypewriter";
 import { SplitText } from "@/components/SplitText";
 import { SEO, generateBreadcrumbSchema, generateLocalBusinessSchema, generateOrganizationSchema, generateWebSiteSchema, generateFAQSchema } from "@/components/SEO";
 import {
@@ -208,13 +209,20 @@ export default function Index() {
               </div>
 
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-mavi-white leading-[1.05] mb-3 tracking-tight">
-                <TypewriterText
-                  text="Tráfego, CRM e automação "
+                Tráfego, CRM e automação{" "}
+                <CyclingTypewriter
+                  phrases={[
+                    "pagos pelo seu ROAS.",
+                    "para e-commerces.",
+                    "para imobiliárias.",
+                    "para clínicas e estéticas.",
+                    "que fecham vendas.",
+                    "orientados a dados.",
+                  ]}
+                  className="gradient-text"
                   speed={32}
-                  childrenDelay={150}
-                >
-                  <span className="gradient-text">pagos pelo seu ROAS</span>.
-                </TypewriterText>
+                  holdMs={2600}
+                />
               </h1>
 
               <p className="text-lg md:text-xl text-mavi-white/65 mb-10 leading-relaxed">
