@@ -747,6 +747,64 @@ function getQuestionByIndex(idx: number): { pillarIndex: number; questionIndex: 
   return null;
 }
 
+const PILLAR_SERVICE_MAP: Record<string, {
+  service: string;
+  tagline: string;
+  description: string;
+  href: string;
+  waText: string;
+}> = {
+  produto: {
+    service: "Gestão de E-commerce",
+    tagline: "Catálogo, copy e gestão de mix",
+    description: "Estratégia de produto, fotografia profissional, copywriting de conversão e curadoria do mix com foco em margem e giro.",
+    href: "/servicos/ecommerce",
+    waText: "Quero melhorar meu catálogo e conversão de produto",
+  },
+  "redes-sociais": {
+    service: "Gestão de Redes Sociais",
+    tagline: "Conteúdo estratégico com foco em venda",
+    description: "Calendário editorial, produção de conteúdo, gestão de comunidade e análise de métricas para crescer de forma consistente.",
+    href: "/servicos/redes-sociais",
+    waText: "Quero uma estratégia de redes sociais para minha loja",
+  },
+  marketplaces: {
+    service: "Gestão de Marketplaces",
+    tagline: "Shopee, Mercado Livre e TikTok Shop",
+    description: "Otimização de anúncios, estratégia de reputação, gestão de estoque e campanhas patrocinadas dentro dos marketplaces.",
+    href: "/servicos/marketplaces",
+    waText: "Quero vender mais no Shopee, Mercado Livre e TikTok Shop",
+  },
+  seo: {
+    service: "SEO para E-commerce",
+    tagline: "Tráfego orgânico sem pagar por clique",
+    description: "Otimização on-page de produto e categoria, SEO técnico, estratégia de conteúdo e link building para crescer no Google.",
+    href: "/servicos/ecommerce",
+    waText: "Quero aparecer melhor no Google sem pagar por anúncios",
+  },
+  "trafego-pago": {
+    service: "Marketing de Performance",
+    tagline: "Meta Ads e Google Ads com retorno real",
+    description: "Estruturação de campanhas, funil completo de prospecção e remarketing, mensuração de ROAS e otimização semanal.",
+    href: "/servicos/performance",
+    waText: "Quero estruturar meus anúncios pagos com retorno mensurável",
+  },
+  "investimentos-midia": {
+    service: "Estratégia de Mídia",
+    tagline: "Controle e diversificação de verba",
+    description: "Diagnóstico da distribuição atual de budget, reestruturação por canal com análise de ROI e dashboard de performance.",
+    href: "/servicos/performance",
+    waText: "Quero organizar meus investimentos de marketing com ROI claro",
+  },
+  "design-layout": {
+    service: "Design e CRO",
+    tagline: "Loja que converte mais",
+    description: "Redesign estratégico da loja, otimização para mobile, elementos de confiança, prova social e testes de conversão.",
+    href: "/servicos/sites",
+    waText: "Quero melhorar o design da minha loja e aumentar as vendas",
+  },
+};
+
 const ANALYZING_STEPS = [
   "Acessando sua loja...",
   "Verificando velocidade e performance...",
@@ -760,6 +818,28 @@ const ANALYZING_STEPS = [
 
 type Phase = "url-input" | "analyzing" | "questions" | "gate" | "result";
 type AnswerRecord = { pillar: string; question: string; answer: string; score: number };
+type MsgType = "question" | "answer" | "system";
+
+const INTRO_MESSAGES = [
+  "Olá! 👋 Vou guiar você pelo diagnóstico do seu e-commerce.",
+  "São 21 perguntas simples sobre 7 áreas da sua loja — leva menos de 5 minutos.",
+  "Conforme você responde, o mapa de maturidade vai sendo preenchido em tempo real. Vamos lá! 🚀",
+];
+
+const PILLAR_TRANSITIONS: Record<string, string> = {
+  "redes-sociais": "✅ Produto avaliado! Agora vamos ver suas redes sociais.",
+  marketplaces: "Ótimo! Agora vamos checar sua presença em Shopee, Mercado Livre e TikTok Shop.",
+  seo: "Anotado! Vamos ver como sua loja aparece no Google.",
+  "trafego-pago": "Certo! Agora vamos falar sobre seus anúncios pagos.",
+  "investimentos-midia": "Quase lá! 💪 Vamos analisar como você investe em marketing.",
+  "design-layout": "Última parte! 🏁 Vamos avaliar o design e a experiência da sua loja.",
+};
+
+const MILESTONE_MESSAGES: Record<number, string> = {
+  7: "Você está indo muito bem! Continue assim 💪",
+  14: "Mais da metade! Estamos quase no final 🚀",
+  18: "Faltam só 3 perguntas — quase lá!",
+};
 
 export default function Assessment() {
   const [phase, setPhase] = useState<Phase>("url-input");
@@ -769,7 +849,9 @@ export default function Assessment() {
   const [currentIdx, setCurrentIdx] = useState(0);
   const [scores, setScores] = useState<Record<string, number[]>>({});
   const [allAnswers, setAllAnswers] = useState<AnswerRecord[]>([]);
-  const [messages, setMessages] = useState<Array<{ type: "question" | "answer"; text: string }>>([]);
+  const [messages, setMessages] = useState<Array<{ type: MsgType; text: string }>>([]);
+  const [isTyping, setIsTyping] = useState(false);
+  const [isTransitioning, setIsTransitioning] = useState(false);
   const chatEndRef = useRef<HTMLDivElement>(null);
 
   const [nome, setNome] = useState("");
@@ -811,15 +893,44 @@ export default function Assessment() {
     chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
+  // Chains bot messages with typing animation
+  function chainMessages(
+    msgs: Array<{ type: MsgType; text: string }>,
+    onDone?: () => void
+  ) {
+    const TYPING_PRE = 320;
+    const TYPING_DUR = 680;
+    const GAP = 120;
+    let t = 0;
+
+    msgs.forEach((msg, i) => {
+      const tTyping = t + TYPING_PRE;
+      const tMsg = tTyping + TYPING_DUR;
+      const isLast = i === msgs.length - 1;
+      const m = msg;
+
+      setTimeout(() => setIsTyping(true), tTyping);
+      setTimeout(() => {
+        setIsTyping(false);
+        setMessages((prev) => [...prev, m]);
+        if (isLast) {
+          setIsTransitioning(false);
+          onDone?.();
+        }
+      }, tMsg);
+
+      t = tMsg + GAP;
+    });
+  }
+
+  // Intro sequence when questions phase starts
   useEffect(() => {
-    if (phase === "questions" && messages.length === 0 && currentQInfo) {
-      setMessages([
-        {
-          type: "question",
-          text: PILLARS[currentQInfo.pillarIndex].questions[currentQInfo.questionIndex].text,
-        },
-      ]);
-    }
+    if (phase !== "questions") return;
+    setIsTransitioning(true);
+    const intro = INTRO_MESSAGES.map((text) => ({ type: "system" as MsgType, text }));
+    const firstQ = { type: "question" as MsgType, text: PILLARS[0].questions[0].text };
+    chainMessages([...intro, firstQ]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [phase]);
 
   // Analyzing animation
@@ -843,7 +954,7 @@ export default function Assessment() {
   }
 
   function handleAnswer(option: AnswerOption) {
-    if (!currentQInfo) return;
+    if (!currentQInfo || isTransitioning) return;
     const pillar = PILLARS[currentQInfo.pillarIndex];
     const questionText = pillar.questions[currentQInfo.questionIndex].text;
 
@@ -856,23 +967,28 @@ export default function Assessment() {
 
     const nextIdx = currentIdx + 1;
     if (nextIdx >= TOTAL_QUESTIONS) {
-      setTimeout(() => setPhase("gate"), 500);
+      setTimeout(() => setPhase("gate"), 900);
       return;
     }
 
     setCurrentIdx(nextIdx);
+    setIsTransitioning(true);
+
     const next = getQuestionByIndex(nextIdx);
-    if (next) {
-      setTimeout(() => {
-        setMessages((prev) => [
-          ...prev,
-          {
-            type: "question",
-            text: PILLARS[next.pillarIndex].questions[next.questionIndex].text,
-          },
-        ]);
-      }, 400);
+    if (!next) return;
+    const nextPillar = PILLARS[next.pillarIndex];
+    const isNewPillar = next.pillarIndex !== currentQInfo.pillarIndex;
+
+    const queue: Array<{ type: MsgType; text: string }> = [];
+    if (isNewPillar && PILLAR_TRANSITIONS[nextPillar.id]) {
+      queue.push({ type: "system", text: PILLAR_TRANSITIONS[nextPillar.id] });
     }
+    if (MILESTONE_MESSAGES[nextIdx]) {
+      queue.push({ type: "system", text: MILESTONE_MESSAGES[nextIdx] });
+    }
+    queue.push({ type: "question", text: nextPillar.questions[next.questionIndex].text });
+
+    chainMessages(queue);
   }
 
   async function handleLeadSubmit(e: React.FormEvent) {
@@ -1236,28 +1352,47 @@ export default function Assessment() {
                       : "justify-start items-start gap-2.5"
                   } animate-fade-in-up`}
                 >
-                  {msg.type === "question" && (
-                    <div className="w-7 h-7 rounded-full bg-primary/10 flex-shrink-0 flex items-center justify-center mt-0.5">
-                      <Sparkles className="w-3.5 h-3.5 text-primary" />
+                  {msg.type !== "answer" && (
+                    <div className="w-7 h-7 rounded-full bg-primary flex-shrink-0 flex items-center justify-center mt-0.5 shadow-sm">
+                      <span className="text-white text-[11px] font-bold leading-none">M</span>
                     </div>
                   )}
                   <div
                     className={`max-w-[85%] px-4 py-2.5 rounded-2xl text-sm leading-relaxed ${
-                      msg.type === "question"
-                        ? "bg-gray-100 text-gray-800 rounded-tl-sm"
-                        : "bg-primary text-white rounded-tr-sm"
+                      msg.type === "answer"
+                        ? "bg-primary text-white rounded-tr-sm"
+                        : msg.type === "system"
+                        ? "bg-primary/8 text-gray-600 rounded-tl-sm border border-primary/10"
+                        : "bg-gray-100 text-gray-800 rounded-tl-sm"
                     }`}
                   >
                     {msg.text}
                   </div>
                 </div>
               ))}
+
+              {/* Typing indicator */}
+              {isTyping && (
+                <div className="flex justify-start items-start gap-2.5 animate-fade-in-up">
+                  <div className="w-7 h-7 rounded-full bg-primary flex-shrink-0 flex items-center justify-center shadow-sm">
+                    <span className="text-white text-[11px] font-bold leading-none">M</span>
+                  </div>
+                  <div className="px-4 py-3 rounded-2xl bg-gray-100 rounded-tl-sm">
+                    <div className="flex items-center gap-1">
+                      <span className="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: "0ms" }} />
+                      <span className="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: "160ms" }} />
+                      <span className="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: "320ms" }} />
+                    </div>
+                  </div>
+                </div>
+              )}
+
               <div ref={chatEndRef} />
             </div>
           </div>
 
-          {/* Answer options */}
-          {currentPillar && currentQuestion && (
+          {/* Answer options — hidden while bot is typing/transitioning */}
+          {!isTransitioning && currentPillar && currentQuestion && (
             <div className="flex-shrink-0 border-t border-gray-200 px-4 py-3 bg-gray-50">
               <div className="max-w-2xl mx-auto">
                 <p className="text-[11px] text-gray-400 mb-2 flex items-center gap-1.5">
@@ -1385,172 +1520,149 @@ export default function Assessment() {
 
   if (phase === "gate") {
     return (
-      <div className="min-h-[100dvh] bg-gray-50 text-gray-900">
+      <div className="min-h-[100dvh] bg-gray-50 text-gray-900 relative">
         <SEO
           title="Seu Diagnóstico | MAVI"
           description="Desbloqueie o diagnóstico completo do seu e-commerce."
           canonical="/assessment"
         />
 
-        {/* Header */}
-        <div className="bg-white border-b border-gray-200 px-4 py-3">
-          <div className="max-w-5xl mx-auto flex items-center justify-between">
-            <img src={logoMavi} alt="MAVI" className="h-5" />
-            <span className="text-xs text-gray-400">
-              Assessment · E-commerce · {new Date().toLocaleDateString("pt-BR")}
-            </span>
+        {/* ── Conteúdo do diagnóstico — borrado atrás do modal ── */}
+        <div
+          className="select-none pointer-events-none"
+          aria-hidden="true"
+          style={{ filter: "blur(6px)", opacity: 0.65 }}
+        >
+          <div className="bg-white border-b border-gray-200 px-4 py-3">
+            <div className="max-w-5xl mx-auto flex items-center justify-between">
+              <img src={logoMavi} alt="MAVI" className="h-5" />
+              <span className="text-xs text-gray-400">Assessment · E-commerce</span>
+            </div>
+          </div>
+
+          <div className="max-w-5xl mx-auto px-4 py-6 space-y-5">
+            {/* Score + radar */}
+            <div className="grid lg:grid-cols-3 gap-5">
+              <div className="bg-white border border-gray-200 rounded-2xl p-6 flex flex-col items-center justify-center text-center shadow-sm">
+                <div className="text-4xl mb-2">{finalPersona.emoji}</div>
+                <div className={`text-base font-bold mb-2 ${finalPersona.colorClass}`}>{finalPersona.label}</div>
+                <div className="text-5xl font-extrabold mb-1" style={{ color: overallColor }}>
+                  {finalAvg}<span className="text-2xl text-gray-300">/100</span>
+                </div>
+                <div className="text-xs text-gray-400">Score geral</div>
+              </div>
+              <div className="lg:col-span-2 bg-white border border-gray-200 rounded-2xl p-6 shadow-sm">
+                <p className="text-[10px] uppercase tracking-wider text-gray-400 mb-3">Mapa de Maturidade</p>
+                <div className="h-52">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <RadarChart data={radarData} margin={{ top: 10, right: 30, bottom: 10, left: 30 }}>
+                      <PolarGrid stroke="rgba(0,0,0,0.08)" />
+                      <PolarAngleAxis dataKey="subject" tick={{ fill: "rgba(55,65,81,0.7)", fontSize: 11 }} />
+                      <Radar name="Score" dataKey="value" stroke="#E6007E" fill="#E6007E" fillOpacity={0.15} strokeWidth={2} />
+                    </RadarChart>
+                  </ResponsiveContainer>
+                </div>
+              </div>
+            </div>
+
+            {/* Pillar bars */}
+            <div className="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm">
+              <p className="text-[10px] uppercase tracking-wider text-gray-400 mb-4">Score por Dimensão</p>
+              <div className="space-y-3">
+                {PILLARS.map((p, i) => {
+                  const s = pillarScores[i];
+                  const color = scoreColor(s);
+                  const Icon = p.icon;
+                  return (
+                    <div key={p.id} className="flex items-center gap-3">
+                      <Icon className="w-4 h-4 text-primary flex-shrink-0" />
+                      <span className="text-sm text-gray-600 w-32 sm:w-40 flex-shrink-0">{p.label}</span>
+                      <div className="flex-1 h-1.5 bg-gray-100 rounded-full overflow-hidden">
+                        <div className="h-full rounded-full" style={{ width: `${s}%`, background: color }} />
+                      </div>
+                      <span className="text-sm font-bold w-8 text-right" style={{ color }}>{s}</span>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Ghost insight cards */}
+            <div className="grid sm:grid-cols-2 gap-4">
+              {PILLARS.map((p) => (
+                <div key={p.id} className="bg-white border border-gray-200 rounded-xl p-5">
+                  <div className="h-4 bg-gray-300 rounded w-3/4 mb-4" />
+                  <div className="space-y-2.5">
+                    <div className="h-3 bg-gray-200 rounded w-full" />
+                    <div className="h-3 bg-gray-200 rounded w-5/6" />
+                    <div className="h-3 bg-gray-200 rounded w-4/5" />
+                  </div>
+                  <div className="mt-4 pt-3 border-t border-gray-200">
+                    <div className="h-3 bg-primary/25 rounded w-2/3" />
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
 
-        <div className="max-w-5xl mx-auto px-4 py-6 space-y-5">
-          {/* Score + radar */}
-          <div className="grid lg:grid-cols-3 gap-5">
-            <div className="bg-white border border-gray-200 rounded-2xl p-6 flex flex-col items-center justify-center text-center shadow-sm">
-              <div className="text-4xl mb-2">{finalPersona.emoji}</div>
-              <div className={`text-base font-bold mb-2 ${finalPersona.colorClass}`}>
-                {finalPersona.label}
-              </div>
-              <div className="text-5xl font-extrabold mb-1" style={{ color: overallColor }}>
-                {finalAvg}
-                <span className="text-2xl text-gray-300">/100</span>
-              </div>
-              <div className="text-xs text-gray-400">Score geral</div>
-            </div>
-            <div className="lg:col-span-2 bg-white border border-gray-200 rounded-2xl p-6 shadow-sm">
-              <p className="text-[10px] uppercase tracking-wider text-gray-400 mb-3">
-                Mapa de Maturidade — 7 Dimensões
-              </p>
-              <div className="h-52">
-                <ResponsiveContainer width="100%" height="100%">
-                  <RadarChart data={radarData} margin={{ top: 10, right: 30, bottom: 10, left: 30 }}>
-                    <PolarGrid stroke="rgba(0,0,0,0.08)" />
-                    <PolarAngleAxis
-                      dataKey="subject"
-                      tick={{ fill: "rgba(55,65,81,0.7)", fontSize: 11 }}
-                    />
-                    <Radar
-                      name="Score"
-                      dataKey="value"
-                      stroke="#E6007E"
-                      fill="#E6007E"
-                      fillOpacity={0.15}
-                      strokeWidth={2}
-                    />
-                  </RadarChart>
-                </ResponsiveContainer>
-              </div>
-            </div>
-          </div>
-
-          {/* Pillar bars */}
-          <div className="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm">
-            <p className="text-[10px] uppercase tracking-wider text-gray-400 mb-4">
-              Score por Dimensão
-            </p>
-            <div className="space-y-3">
-              {PILLARS.map((p, i) => {
-                const s = pillarScores[i];
-                const color = scoreColor(s);
-                const Icon = p.icon;
-                return (
-                  <div key={p.id} className="flex items-center gap-3">
-                    <Icon className="w-4 h-4 text-primary flex-shrink-0" />
-                    <span className="text-sm text-gray-600 w-32 sm:w-40 flex-shrink-0">{p.label}</span>
-                    <div className="flex-1 h-1.5 bg-gray-100 rounded-full overflow-hidden">
-                      <div className="h-full rounded-full" style={{ width: `${s}%`, background: color }} />
-                    </div>
-                    <span className="text-sm font-bold w-8 text-right" style={{ color }}>{s}</span>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-
-          {/* Locked section */}
-          <div className="relative rounded-2xl overflow-hidden" style={{ minHeight: 420 }}>
-            {/* Blurred ghost */}
-            <div className="blur-lg opacity-50 pointer-events-none select-none p-1">
-              <div className="grid sm:grid-cols-2 gap-4">
-                {PILLARS.slice(0, 4).map((p) => (
-                  <div key={p.id} className="bg-white border border-gray-200 rounded-xl p-5">
-                    <div className="h-4 bg-gray-300 rounded w-3/4 mb-4" />
-                    <div className="space-y-2.5">
-                      <div className="h-3 bg-gray-200 rounded w-full" />
-                      <div className="h-3 bg-gray-200 rounded w-5/6" />
-                      <div className="h-3 bg-gray-200 rounded w-4/5" />
-                      <div className="h-3 bg-gray-200 rounded w-3/5" />
-                    </div>
-                    <div className="mt-4 pt-3 border-t border-gray-200">
-                      <div className="h-3 bg-primary/30 rounded w-2/3" />
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Form overlay */}
-            <div className="absolute inset-0 flex items-center justify-center p-4 bg-gradient-to-b from-white/80 via-white/95 to-white">
-              <div className="w-full max-w-md bg-white border border-gray-200 border-t-4 border-t-primary rounded-2xl p-6 shadow-2xl">
-                <div className="text-center mb-5">
-                  <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-3">
-                    <Lock className="w-5 h-5 text-primary" />
-                  </div>
-                  <h2 className="text-lg font-bold text-gray-900 mb-1">Desbloqueie seu diagnóstico</h2>
-                  <p className="text-gray-500 text-sm leading-relaxed">
-                    Preencha seus dados para ver o diagnóstico completo com os pontos de
-                    melhoria do seu e-commerce.
-                  </p>
+        {/* ── Modal fixo com formulário ── */}
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 overflow-y-auto"
+          style={{ background: "rgba(249,250,251,0.72)", backdropFilter: "blur(3px)" }}
+        >
+          <div className="w-full max-w-md bg-white border border-gray-200 rounded-2xl shadow-2xl my-4"
+               style={{ borderTopWidth: 4, borderTopColor: "#E6007E" }}>
+            <div className="p-6">
+              <div className="text-center mb-5">
+                <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto mb-3">
+                  <Lock className="w-6 h-6 text-primary" />
                 </div>
-                <form onSubmit={handleLeadSubmit} className="space-y-3">
-                  <div className="space-y-1.5">
-                    <Label className="text-gray-600 text-xs">Nome *</Label>
-                    <Input
-                      required
-                      value={nome}
-                      onChange={(e) => setNome(e.target.value)}
-                      placeholder="Seu nome"
-                      className="bg-white border-gray-200 text-gray-900 h-10 text-sm touch-manipulation"
-                    />
-                  </div>
-                  <div className="space-y-1.5">
-                    <Label className="text-gray-600 text-xs">E-mail *</Label>
-                    <Input
-                      required
-                      type="email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      placeholder="seu@email.com"
-                      className="bg-white border-gray-200 text-gray-900 h-10 text-sm touch-manipulation"
-                    />
-                  </div>
-                  <div className="space-y-1.5">
-                    <Label className="text-gray-600 text-xs">WhatsApp *</Label>
-                    <Input
-                      required
-                      type="tel"
-                      value={whatsapp}
-                      onChange={(e) => setWhatsapp(e.target.value)}
-                      placeholder="(47) 99999-9999"
-                      className="bg-white border-gray-200 text-gray-900 h-10 text-sm touch-manipulation"
-                    />
-                  </div>
-                  <Button
-                    type="submit"
-                    variant="hero"
-                    className="w-full mt-1 min-h-[44px] touch-manipulation"
-                    disabled={isSubmitting}
-                  >
-                    {isSubmitting ? (
-                      <><Loader2 className="w-4 h-4 mr-2 animate-spin" />Carregando...</>
-                    ) : (
-                      <>Ver diagnóstico completo <ArrowRight className="w-4 h-4 ml-1" /></>
-                    )}
-                  </Button>
-                  <p className="text-center text-[11px] text-gray-400">
-                    Sem spam · Seus dados são protegidos
-                  </p>
-                </form>
+                <h2 className="text-xl font-bold text-gray-900 mb-1">Seu diagnóstico está pronto!</h2>
+                <p className="text-gray-500 text-sm leading-relaxed">
+                  Preencha seus dados para desbloquear o relatório completo com os pontos de melhoria do seu e-commerce.
+                </p>
               </div>
+
+              {/* Score preview teaser */}
+              <div className="flex items-center justify-center gap-3 mb-5 py-3 bg-gray-50 rounded-xl border border-gray-100">
+                <span className="text-2xl">{finalPersona.emoji}</span>
+                <div>
+                  <p className="text-xs text-gray-400">Score geral</p>
+                  <p className="text-2xl font-extrabold" style={{ color: overallColor }}>{finalAvg}<span className="text-sm text-gray-300 font-normal">/100</span></p>
+                </div>
+                <div className="w-px h-10 bg-gray-200" />
+                <div>
+                  <p className="text-xs text-gray-400">Perfil</p>
+                  <p className={`text-sm font-bold ${finalPersona.colorClass}`}>{finalPersona.label}</p>
+                </div>
+              </div>
+
+              <form onSubmit={handleLeadSubmit} className="space-y-3">
+                <div className="space-y-1.5">
+                  <Label className="text-gray-600 text-xs">Nome *</Label>
+                  <Input required value={nome} onChange={(e) => setNome(e.target.value)} placeholder="Seu nome"
+                    className="bg-white border-gray-200 text-gray-900 h-10 text-sm touch-manipulation" />
+                </div>
+                <div className="space-y-1.5">
+                  <Label className="text-gray-600 text-xs">E-mail *</Label>
+                  <Input required type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="seu@email.com"
+                    className="bg-white border-gray-200 text-gray-900 h-10 text-sm touch-manipulation" />
+                </div>
+                <div className="space-y-1.5">
+                  <Label className="text-gray-600 text-xs">WhatsApp *</Label>
+                  <Input required type="tel" value={whatsapp} onChange={(e) => setWhatsapp(e.target.value)} placeholder="(47) 99999-9999"
+                    className="bg-white border-gray-200 text-gray-900 h-10 text-sm touch-manipulation" />
+                </div>
+                <Button type="submit" variant="hero" className="w-full mt-1 min-h-[44px] touch-manipulation text-base" disabled={isSubmitting}>
+                  {isSubmitting ? (
+                    <><Loader2 className="w-4 h-4 mr-2 animate-spin" />Processando...</>
+                  ) : (
+                    <>Ver diagnóstico completo <ArrowRight className="w-4 h-4 ml-1" /></>
+                  )}
+                </Button>
+                <p className="text-center text-[11px] text-gray-400">Sem spam · Seus dados são protegidos</p>
+              </form>
             </div>
           </div>
         </div>
@@ -1683,6 +1795,71 @@ export default function Assessment() {
             })}
           </div>
         </div>
+
+        {/* ── Próximos Passos ── */}
+        {(() => {
+          const worst3 = [...PILLARS]
+            .map((p, i) => ({ ...p, score: pillarScores[i] }))
+            .sort((a, b) => a.score - b.score)
+            .slice(0, 3)
+            .filter((p) => PILLAR_SERVICE_MAP[p.id]);
+          if (worst3.length === 0) return null;
+          return (
+            <div>
+              <div className="text-center mb-6">
+                <p className="text-[10px] uppercase tracking-wider text-gray-400 mb-1">
+                  Próximos Passos
+                </p>
+                <h2 className="text-xl font-bold text-gray-900">
+                  Como a MAVI pode ajudar seu e-commerce
+                </h2>
+                <p className="text-sm text-gray-500 mt-1">
+                  Com base nos seus resultados, estas são as áreas com maior potencial de crescimento:
+                </p>
+              </div>
+              <div className="grid sm:grid-cols-3 gap-4">
+                {worst3.map((pillar, idx) => {
+                  const svc = PILLAR_SERVICE_MAP[pillar.id];
+                  const Icon = pillar.icon;
+                  const priorityLabel = idx === 0 ? "Prioridade Alta" : idx === 1 ? "Prioridade Média" : "Prioridade";
+                  const priorityColor = idx === 0 ? "bg-red-50 text-red-700 border-red-200" : idx === 1 ? "bg-yellow-50 text-yellow-700 border-yellow-200" : "bg-blue-50 text-blue-700 border-blue-200";
+                  const borderTop = idx === 0 ? "border-t-red-500" : idx === 1 ? "border-t-yellow-500" : "border-t-blue-500";
+                  return (
+                    <div key={pillar.id} className={`bg-white border border-t-2 ${borderTop} border-gray-200 rounded-2xl p-5 shadow-sm flex flex-col`}>
+                      <div className="flex items-start justify-between gap-2 mb-3">
+                        <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
+                          <Icon className="w-5 h-5 text-primary" />
+                        </div>
+                        <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full border ${priorityColor}`}>
+                          {priorityLabel}
+                        </span>
+                      </div>
+                      <h3 className="text-sm font-bold text-gray-900 mb-0.5">{svc.service}</h3>
+                      <p className="text-[11px] text-primary font-semibold mb-2">{svc.tagline}</p>
+                      <p className="text-xs text-gray-500 leading-relaxed flex-1 mb-4">{svc.description}</p>
+                      <div className="flex flex-col gap-2 mt-auto">
+                        <a
+                          href={`https://wa.me/554733072030?text=${encodeURIComponent(svc.waText)}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center justify-center gap-1.5 bg-primary text-white text-xs font-semibold py-2.5 px-4 rounded-xl hover:bg-primary/90 transition-colors touch-manipulation"
+                        >
+                          Quero saber mais <ArrowRight className="w-3.5 h-3.5" />
+                        </a>
+                        <a
+                          href={svc.href}
+                          className="text-center text-xs text-gray-400 hover:text-primary transition-colors"
+                        >
+                          Ver serviço →
+                        </a>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          );
+        })()}
 
         {/* CTA */}
         <div className="relative bg-gray-900 border border-gray-800 border-t-2 border-t-primary rounded-2xl p-6 md:p-8 overflow-hidden">
