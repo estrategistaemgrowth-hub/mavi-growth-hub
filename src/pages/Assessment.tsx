@@ -948,6 +948,26 @@ export default function Assessment() {
     return () => clearInterval(interval);
   }, [phase]);
 
+  // CompleteRegistration: disparado quando o resultado é exibido
+  useEffect(() => {
+    if (phase !== "result") return;
+    if (typeof window === "undefined") return;
+    (window as any).dataLayer = (window as any).dataLayer || [];
+    (window as any).dataLayer.push({
+      event: "assessment_complete",
+      assessment_score: finalAvg,
+      assessment_persona: finalPersona.label,
+    });
+    if (typeof (window as any).fbq === "function") {
+      (window as any).fbq("track", "CompleteRegistration", {
+        content_name: "Assessment E-commerce Completo",
+        value: finalAvg,
+        currency: "BRL",
+      });
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [phase]);
+
   function handleUrlSubmit(e: React.FormEvent) {
     e.preventDefault();
     setPhase("analyzing");
@@ -1008,6 +1028,36 @@ export default function Assessment() {
         answers: allAnswers,
       });
       if (error) throw error;
+
+      // ── Pixel events ──────────────────────────────────────────────────────────
+      // Lead: cadastro do formulário de desbloqueio
+      if (typeof window !== "undefined") {
+        // dataLayer para GTM → Facebook Pixel tag
+        (window as any).dataLayer = (window as any).dataLayer || [];
+        (window as any).dataLayer.push({
+          event: "assessment_lead",
+          assessment_score: finalAvg,
+          assessment_persona: finalPersona.label,
+          email,
+        });
+        // fbq direto caso o pixel esteja carregado fora do GTM
+        if (typeof (window as any).fbq === "function") {
+          (window as any).fbq("track", "Lead", {
+            content_name: "Assessment E-commerce",
+            value: finalAvg,
+            currency: "BRL",
+          });
+        }
+        // Google Ads conversion
+        if (typeof (window as any).gtag === "function") {
+          (window as any).gtag("event", "conversion", {
+            send_to: "AW-743684226/GlzACMu-rJcbEILxzuIC",
+            value: 1.0,
+            currency: "BRL",
+          });
+        }
+      }
+
       setPhase("result");
     } catch (err) {
       console.error(err);
