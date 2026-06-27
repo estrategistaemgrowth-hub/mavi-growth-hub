@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { SEO } from "@/components/SEO";
+import { motion, AnimatePresence } from "framer-motion";
 
 // ─── SEO / GEO / AIO Schemas ──────────────────────────────────────────────────
 const ASSESSMENT_SCHEMA = {
@@ -199,6 +200,10 @@ import {
   Lock,
   BarChart3,
   Globe,
+  Download,
+  FileText,
+  Star,
+  Zap,
 } from "lucide-react";
 import logoMavi from "@/assets/logo-mavi-colorida.png";
 
@@ -968,6 +973,74 @@ export default function Assessment() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [phase]);
 
+  function downloadPDF() {
+    const colorScore = (s: number) => s >= 70 ? "#16a34a" : s >= 50 ? "#d97706" : "#dc2626";
+    const pillarsHTML = PILLARS.map((p, i) => {
+      const s = pillarScores[i];
+      const c = colorScore(s);
+      const insight = p.insight(s);
+      return `
+        <div style="margin-bottom:16px;padding:14px;border:1px solid #e5e7eb;border-radius:10px;border-left:3px solid ${c}">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+            <strong style="font-size:13px;color:#111">${p.label}</strong>
+            <span style="font-size:15px;font-weight:800;color:${c}">${s}/100</span>
+          </div>
+          <div style="background:#f3f4f6;border-radius:4px;height:6px;margin-bottom:10px">
+            <div style="background:${c};height:6px;border-radius:4px;width:${s}%"></div>
+          </div>
+          <ul style="margin:0;padding-left:16px;font-size:11px;color:#4b5563;line-height:1.7">
+            ${insight.points.map(pt => `<li>${pt}</li>`).join("")}
+          </ul>
+        </div>`;
+    }).join("");
+
+    const html = `<!DOCTYPE html><html lang="pt-BR"><head>
+      <meta charset="UTF-8"/>
+      <title>Diagnóstico E-commerce – ${nome}</title>
+      <style>
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:'Segoe UI',Arial,sans-serif;color:#111;background:#fff;padding:32px;font-size:13px}
+        @media print{@page{size:A4;margin:20mm}body{padding:0}}
+        h1{font-size:22px;font-weight:800;color:#E6007E;margin-bottom:4px}
+        .sub{color:#6b7280;font-size:12px;margin-bottom:24px}
+        .hero{display:flex;gap:20px;align-items:center;background:#fdf2f8;border:1px solid #fce7f3;border-radius:12px;padding:18px;margin-bottom:24px}
+        .score-big{font-size:48px;font-weight:900;color:${colorScore(finalAvg)};line-height:1}
+        .persona{font-size:14px;font-weight:700;color:#374151;margin-top:4px}
+        .section-title{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#9ca3af;margin:20px 0 10px}
+        .footer{margin-top:32px;padding-top:16px;border-top:1px solid #e5e7eb;font-size:10px;color:#9ca3af;text-align:center}
+        .brand{color:#E6007E;font-weight:700}
+      </style>
+    </head><body>
+      <h1>Diagnóstico de E-commerce</h1>
+      <p class="sub">Gerado em ${new Date().toLocaleDateString("pt-BR")} · agenciamavi.com.br/assessment</p>
+      <div class="hero">
+        <div style="flex:1">
+          <p style="font-size:11px;color:#9ca3af;margin-bottom:2px">Loja analisada</p>
+          <p style="font-weight:600;color:#374151;word-break:break-all">${lojaUrl}</p>
+          <p style="font-size:11px;color:#9ca3af;margin:8px 0 2px">Responsável</p>
+          <p style="font-weight:600;color:#374151">${nome}</p>
+        </div>
+        <div style="text-align:center">
+          <div class="score-big">${finalAvg}</div>
+          <div class="persona">${finalPersona.emoji} ${finalPersona.label}</div>
+          <div style="font-size:10px;color:#9ca3af">Score geral /100</div>
+        </div>
+      </div>
+      <p class="section-title">Diagnóstico por dimensão</p>
+      ${pillarsHTML}
+      <div class="footer">
+        Relatório gerado por <span class="brand">MAVI Marketing Digital</span> ·
+        Este diagnóstico é confidencial · agenciamavi.com.br
+      </div>
+    </body></html>`;
+
+    const w = window.open("", "_blank", "width=900,height=700");
+    if (!w) return;
+    w.document.write(html);
+    w.document.close();
+    setTimeout(() => { w.focus(); w.print(); }, 400);
+  }
+
   function handleUrlSubmit(e: React.FormEvent) {
     e.preventDefault();
     setPhase("analyzing");
@@ -1069,8 +1142,17 @@ export default function Assessment() {
 
   // ── Phase: URL Input ─────────────────────────────────────────────────────────
   if (phase === "url-input") {
+    const floatingItems = [
+      { emoji: "📦", x: "8%", y: "15%", delay: 0, dur: 6 },
+      { emoji: "🛒", x: "88%", y: "12%", delay: 1.2, dur: 7 },
+      { emoji: "📊", x: "5%", y: "60%", delay: 0.8, dur: 5.5 },
+      { emoji: "🎯", x: "92%", y: "55%", delay: 2, dur: 8 },
+      { emoji: "✨", x: "14%", y: "82%", delay: 1.5, dur: 6.5 },
+      { emoji: "💡", x: "85%", y: "78%", delay: 0.4, dur: 7.5 },
+    ];
+
     return (
-      <div className="bg-gray-50 min-h-[100dvh]">
+      <div className="bg-gradient-to-b from-white via-gray-50 to-gray-100 min-h-[100dvh] relative overflow-hidden">
         <SEO
           title="Diagnóstico Gratuito de E-commerce — Avalie sua Loja Virtual em 5 Minutos"
           description="Descubra gratuitamente as falhas do seu e-commerce. Assessment em 7 dimensões: produtos, redes sociais, Shopee, Mercado Livre, TikTok Shop, SEO, tráfego pago e design. Score por área + pontos de melhoria. Resultado imediato."
@@ -1078,66 +1160,204 @@ export default function Assessment() {
           schemaMarkup={ASSESSMENT_SCHEMA}
         />
 
-        {/* Above-fold CTA — visível para usuário e crawlers */}
-        <div className="flex flex-col items-center justify-center px-5 pt-12 pb-6">
+        {/* ── Elementos flutuantes decorativos ── */}
+        {floatingItems.map((item, i) => (
+          <motion.div
+            key={i}
+            className="absolute text-2xl pointer-events-none select-none hidden sm:block"
+            style={{ left: item.x, top: item.y }}
+            animate={{ y: [0, -14, 0], rotate: [-4, 4, -4], opacity: [0.35, 0.65, 0.35] }}
+            transition={{ duration: item.dur, delay: item.delay, repeat: Infinity, ease: "easeInOut" }}
+          >
+            {item.emoji}
+          </motion.div>
+        ))}
+
+        {/* ── Blob decorativo ── */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] rounded-full opacity-[0.06] pointer-events-none"
+          style={{ background: "radial-gradient(circle, #E6007E, transparent)", filter: "blur(60px)" }} />
+
+        {/* ── Above-fold CTA ── */}
+        <div className="flex flex-col items-center justify-center px-5 pt-10 pb-6 relative z-10">
           <div className="w-full max-w-lg">
-            <div className="text-center mb-8">
-              <img src={logoMavi} alt="MAVI Marketing Digital" className="h-8 mx-auto mb-6" />
-              <span className="inline-block px-3 py-1 text-xs font-semibold tracking-wider uppercase rounded-full border border-primary/30 text-primary bg-primary/5 mb-4">
+
+            {/* Avatar animado */}
+            <motion.div
+              className="flex flex-col items-center mb-6"
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              <motion.div
+                className="w-16 h-16 rounded-2xl bg-primary flex items-center justify-center shadow-lg mb-3"
+                animate={{ scale: [1, 1.06, 1] }}
+                transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
+              >
+                <span className="text-white text-2xl font-extrabold leading-none">M</span>
+              </motion.div>
+              <motion.p
+                className="text-xs text-gray-400 flex items-center gap-1.5"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.4 }}
+              >
+                <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
+                MAVI · Diagnóstico online
+              </motion.p>
+            </motion.div>
+
+            {/* Título */}
+            <motion.div
+              className="text-center mb-7"
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.15 }}
+            >
+              <motion.span
+                className="inline-flex items-center gap-1.5 px-3 py-1 text-xs font-semibold tracking-wider uppercase rounded-full border border-primary/30 text-primary bg-primary/5 mb-4"
+                initial={{ scale: 0.9 }}
+                animate={{ scale: 1 }}
+                transition={{ delay: 0.3 }}
+              >
+                <Zap className="w-3 h-3" />
                 Diagnóstico Gratuito · E-commerce
-              </span>
+              </motion.span>
               <h1 className="text-3xl md:text-4xl font-bold text-gray-900 leading-tight mb-3">
-                Descubra as falhas do<br />seu e-commerce agora
+                Descubra o que está<br />
+                <span className="text-primary">travando suas vendas</span>
               </h1>
-              <p className="text-gray-500 text-base leading-relaxed">
+              <p className="text-gray-500 text-sm leading-relaxed">
                 Assessment gratuito em 7 dimensões · 21 perguntas · resultado em 5 minutos
               </p>
-            </div>
+            </motion.div>
 
-            <form
-              onSubmit={handleUrlSubmit}
-              className="bg-white border border-gray-200 rounded-2xl p-6 md:p-8 space-y-5 shadow-sm"
+            {/* Card do formulário */}
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.25 }}
             >
-              <div className="space-y-2">
-                <Label className="text-gray-700 text-sm flex items-center gap-2">
-                  <Globe className="w-3.5 h-3.5 text-primary" />
-                  URL da sua loja virtual
-                </Label>
-                <Input
-                  required
-                  autoFocus
-                  value={lojaUrl}
-                  onChange={(e) => setLojaUrl(e.target.value)}
-                  placeholder="https://sualoja.com.br"
-                  className="bg-white border-gray-200 text-gray-900 placeholder:text-gray-400 h-11"
-                />
-                <p className="text-xs text-gray-400">
-                  Usaremos sua URL para personalizar o diagnóstico
-                </p>
-              </div>
-              <Button type="submit" variant="hero" size="lg" className="w-full touch-manipulation">
-                Analisar minha loja <ChevronRight className="w-4 h-4 ml-1" />
-              </Button>
-              <p className="text-center text-xs text-gray-400">
-                100% gratuito · Sem compromisso · Resultado imediato
-              </p>
-            </form>
+              <form
+                onSubmit={handleUrlSubmit}
+                className="bg-white border border-gray-200 rounded-2xl p-6 md:p-8 space-y-5 shadow-md"
+              >
+                <div className="space-y-2">
+                  <Label className="text-gray-700 text-sm flex items-center gap-2">
+                    <Globe className="w-3.5 h-3.5 text-primary" />
+                    URL da sua loja virtual
+                  </Label>
+                  <motion.div whileFocus={{ scale: 1.01 }}>
+                    <Input
+                      required
+                      autoFocus
+                      value={lojaUrl}
+                      onChange={(e) => setLojaUrl(e.target.value)}
+                      placeholder="https://sualoja.com.br"
+                      className="bg-white border-gray-200 text-gray-900 placeholder:text-gray-400 h-11 focus:border-primary focus:ring-primary/20"
+                    />
+                  </motion.div>
+                  <p className="text-xs text-gray-400">
+                    Usaremos sua URL para personalizar o diagnóstico
+                  </p>
+                </div>
 
-            <div className="mt-6 grid grid-cols-7 gap-1.5">
-              {PILLARS.map((p) => {
+                {/* ── CTA com animação de ênfase ── */}
+                <motion.div className="relative" whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+                  {/* Glow pulsante atrás do botão */}
+                  <motion.div
+                    className="absolute inset-0 rounded-xl"
+                    style={{ background: "linear-gradient(135deg, #E6007E, #ff4db8)" }}
+                    animate={{ opacity: [0.35, 0.7, 0.35], scale: [1, 1.04, 1] }}
+                    transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                  />
+                  <button
+                    type="submit"
+                    className="relative w-full flex items-center justify-center gap-2 bg-primary hover:bg-primary/90 text-white font-bold text-base rounded-xl py-3.5 px-6 transition-colors touch-manipulation overflow-hidden min-h-[52px]"
+                  >
+                    {/* Shimmer sweep */}
+                    <motion.div
+                      className="absolute inset-0 opacity-0 hover:opacity-100"
+                      style={{ background: "linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.18) 50%, transparent 100%)" }}
+                      animate={{ x: ["-100%", "200%"] }}
+                      transition={{ duration: 1.6, repeat: Infinity, repeatDelay: 1.5 }}
+                    />
+                    <Zap className="w-4 h-4" />
+                    Analisar minha loja
+                    <motion.div
+                      animate={{ x: [0, 4, 0] }}
+                      transition={{ duration: 1, repeat: Infinity, ease: "easeInOut" }}
+                    >
+                      <ChevronRight className="w-4 h-4" />
+                    </motion.div>
+                  </button>
+                </motion.div>
+
+                {/* Social proof micro */}
+                <div className="flex items-center justify-center gap-4 pt-1">
+                  <div className="flex -space-x-1.5">
+                    {["#E6007E","#ff69b4","#c71585","#ff1493","#db7093"].map((c, i) => (
+                      <div key={i} className="w-5 h-5 rounded-full border-2 border-white" style={{ background: `${c}55` }} />
+                    ))}
+                  </div>
+                  <p className="text-[11px] text-gray-400">
+                    +200 e-commerces analisados
+                  </p>
+                </div>
+                <p className="text-center text-[11px] text-gray-400 -mt-1">
+                  100% gratuito · Sem compromisso · Resultado imediato
+                </p>
+              </form>
+            </motion.div>
+
+            {/* Pillar icons animados */}
+            <motion.div
+              className="mt-6 grid grid-cols-7 gap-1.5"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.5 }}
+            >
+              {PILLARS.map((p, idx) => {
                 const Icon = p.icon;
                 return (
-                  <div key={p.id} className="flex flex-col items-center gap-1.5">
-                    <div className="w-9 h-9 rounded-xl bg-gray-100 flex items-center justify-center">
-                      <Icon className="w-4 h-4 text-gray-400" />
+                  <motion.div
+                    key={p.id}
+                    className="flex flex-col items-center gap-1.5"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.5 + idx * 0.06 }}
+                    whileHover={{ scale: 1.15, y: -2 }}
+                  >
+                    <div className="w-9 h-9 rounded-xl bg-white border border-gray-200 shadow-sm flex items-center justify-center">
+                      <Icon className="w-4 h-4 text-primary/60" />
                     </div>
                     <span className="text-[9px] text-gray-400 text-center leading-tight">
                       {p.shortLabel}
                     </span>
-                  </div>
+                  </motion.div>
                 );
               })}
-            </div>
+            </motion.div>
+
+            {/* Depoimento rápido */}
+            <motion.div
+              className="mt-6 bg-white border border-gray-100 rounded-xl p-4 flex items-start gap-3 shadow-sm"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.7 }}
+            >
+              <div className="w-8 h-8 rounded-full bg-primary/10 flex-shrink-0 flex items-center justify-center text-sm">
+                👩‍💼
+              </div>
+              <div>
+                <div className="flex items-center gap-0.5 mb-1">
+                  {[1,2,3,4,5].map(i => <Star key={i} className="w-2.5 h-2.5 fill-yellow-400 text-yellow-400" />)}
+                </div>
+                <p className="text-[11px] text-gray-500 leading-relaxed">
+                  "Em 5 minutos soube exatamente o que estava travando meu e-commerce. Resultado surpreendente!"
+                </p>
+                <p className="text-[10px] text-gray-400 mt-1 font-medium">Ana P. · Loja de moda</p>
+              </div>
+            </motion.div>
           </div>
         </div>
 
@@ -1733,20 +1953,46 @@ export default function Assessment() {
       <div className="bg-white border-b border-gray-200 px-4 py-3 sticky top-0 z-10">
         <div className="max-w-5xl mx-auto flex items-center justify-between">
           <img src={logoMavi} alt="MAVI" className="h-5" />
-          <div className="text-right">
-            <p className="text-xs text-gray-500">Assessment de E-commerce</p>
-            <p className="text-xs text-gray-400">
-              {nome} · {new Date().toLocaleDateString("pt-BR")}
-            </p>
+          <div className="flex items-center gap-3">
+            <div className="text-right hidden sm:block">
+              <p className="text-xs text-gray-500">Assessment de E-commerce</p>
+              <p className="text-xs text-gray-400">
+                {nome} · {new Date().toLocaleDateString("pt-BR")}
+              </p>
+            </div>
+            <motion.button
+              onClick={downloadPDF}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-gray-200 bg-white text-gray-600 text-xs font-medium hover:border-primary/40 hover:text-primary hover:bg-primary/5 transition-colors touch-manipulation"
+              whileHover={{ scale: 1.04 }}
+              whileTap={{ scale: 0.96 }}
+              title="Baixar relatório em PDF"
+            >
+              <Download className="w-3.5 h-3.5" />
+              <span className="hidden sm:inline">Baixar PDF</span>
+            </motion.button>
           </div>
         </div>
       </div>
 
-      <div className="max-w-5xl mx-auto px-4 py-8 space-y-6">
+      <motion.div
+        className="max-w-5xl mx-auto px-4 py-8 space-y-6"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.4 }}
+      >
         {/* Hero: score + radar */}
-        <div className="grid lg:grid-cols-3 gap-5">
+        <motion.div
+          className="grid lg:grid-cols-3 gap-5"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+        >
           <div className="bg-white border border-gray-200 rounded-2xl p-6 flex flex-col items-center justify-center text-center shadow-sm">
-            <div className="text-5xl mb-3">{finalPersona.emoji}</div>
+            <motion.div
+              className="text-5xl mb-3"
+              animate={{ scale: [1, 1.12, 1] }}
+              transition={{ duration: 1.5, delay: 0.6, ease: "easeInOut" }}
+            >{finalPersona.emoji}</motion.div>
             <div className={`text-lg font-bold mb-2 ${finalPersona.colorClass}`}>
               {finalPersona.label}
             </div>
@@ -1781,10 +2027,15 @@ export default function Assessment() {
               </ResponsiveContainer>
             </div>
           </div>
-        </div>
+        </motion.div>
 
         {/* Pillar bars */}
-        <div className="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm">
+        <motion.div
+          className="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm"
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+        >
           <p className="text-[10px] uppercase tracking-wider text-gray-400 mb-5">Score por Dimensão</p>
           <div className="space-y-4">
             {PILLARS.map((p, i) => {
@@ -1806,7 +2057,7 @@ export default function Assessment() {
               );
             })}
           </div>
-        </div>
+        </motion.div>
 
         {/* Insights por pilar */}
         <div>
@@ -1939,12 +2190,37 @@ export default function Assessment() {
           </div>
         </div>
 
+        {/* ── Baixar PDF ── */}
+        <motion.div
+          className="bg-white border border-gray-200 rounded-2xl p-5 flex flex-col sm:flex-row items-center gap-4 shadow-sm"
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3 }}
+        >
+          <div className="w-10 h-10 rounded-xl bg-gray-100 flex items-center justify-center flex-shrink-0">
+            <FileText className="w-5 h-5 text-gray-500" />
+          </div>
+          <div className="flex-1 text-center sm:text-left">
+            <p className="text-sm font-semibold text-gray-800">Salve seu diagnóstico em PDF</p>
+            <p className="text-xs text-gray-400 mt-0.5">Baixe o relatório completo com scores e recomendações por área</p>
+          </div>
+          <motion.button
+            onClick={downloadPDF}
+            className="flex-shrink-0 flex items-center gap-2 px-4 py-2.5 rounded-xl border border-gray-200 bg-white text-gray-700 text-sm font-semibold hover:border-primary/40 hover:text-primary hover:bg-primary/5 transition-colors touch-manipulation whitespace-nowrap"
+            whileHover={{ scale: 1.04 }}
+            whileTap={{ scale: 0.96 }}
+          >
+            <Download className="w-4 h-4" />
+            Baixar PDF
+          </motion.button>
+        </motion.div>
+
         <p className="text-center text-xs text-gray-400 pb-8">
           <Link to="/" className="hover:text-primary transition-colors">← Voltar ao site da MAVI</Link>
           {" · "}
           <Link to="/contato" className="hover:text-primary transition-colors">Fale com a gente</Link>
         </p>
-      </div>
+      </motion.div>
     </div>
   );
 }
