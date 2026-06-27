@@ -1220,34 +1220,26 @@ export default function Assessment() {
                     <Zap className="w-3 h-3" /> Assessment · E-commerce · Gratuito
                   </motion.span>
 
-                  <h1 className="text-4xl md:text-5xl lg:text-[54px] font-extrabold text-white leading-[1.08] tracking-tight mb-5">
-                    Descubra o que está<br />
-                    <CyclingTypewriter
-                      phrases={[
-                        "travando suas vendas",
-                        "freando seu ROAS",
-                        "limitando seu crescimento",
-                        "custando seu faturamento",
-                      ]}
-                      className="text-primary"
-                      speed={36}
-                      holdMs={2200}
-                    />
+                  <h1 className="text-4xl md:text-5xl lg:text-[54px] font-extrabold text-white leading-[1.1] tracking-tight mb-5">
+                    Descubra o que está
+                    <span className="block min-h-[1.1em]">
+                      <CyclingTypewriter
+                        phrases={[
+                          "travando vendas",
+                          "freando seu ROAS",
+                          "custando lucro",
+                          "limitando crescimento",
+                        ]}
+                        className="text-primary"
+                        speed={36}
+                        holdMs={2400}
+                      />
+                    </span>
                   </h1>
 
-                  <p className="text-white/60 text-lg leading-relaxed mb-8 max-w-lg">
-                    Descubra em <strong className="text-white">5 minutos</strong> quais das 7 dimensões estão freando suas vendas — e exatamente o que fazer para mudar.
+                  <p className="text-white/60 text-lg leading-relaxed mb-10 max-w-lg">
+                    Diagnóstico em <strong className="text-white">7 dimensões</strong>, resultado em <strong className="text-white">5 minutos</strong>. Saiba exatamente onde focar para crescer.
                   </p>
-
-                  {/* Pain points */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mb-10">
-                    {painPoints.map((p) => (
-                      <div key={p} className="flex items-start gap-2 text-sm text-white/55">
-                        <span className="text-primary mt-0.5 flex-shrink-0">→</span>
-                        {p}
-                      </div>
-                    ))}
-                  </div>
 
                   {/* Stats */}
                   <div className="flex flex-wrap items-center gap-6">
