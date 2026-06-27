@@ -866,6 +866,7 @@ export default function Assessment() {
   const [email, setEmail] = useState("");
   const [whatsapp, setWhatsapp] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [leadErrors, setLeadErrors] = useState<{ email?: string; whatsapp?: string }>({});
 
   // Computed
   const pillarScores = PILLARS.map((p) => {
@@ -978,70 +979,157 @@ export default function Assessment() {
 
   function downloadPDF() {
     const colorScore = (s: number) => s >= 70 ? "#16a34a" : s >= 50 ? "#d97706" : "#dc2626";
+    const labelScore = (s: number) => s >= 70 ? "Bom" : s >= 50 ? "Regular" : "Crítico";
+
+    // SVG Radar chart
+    const cx = 160, cy = 160, r = 120;
+    const n = PILLARS.length;
+    const radarPoints = PILLARS.map((_, i) => {
+      const angle = (Math.PI * 2 * i) / n - Math.PI / 2;
+      const ratio = pillarScores[i] / 100;
+      return { x: cx + r * ratio * Math.cos(angle), y: cy + r * ratio * Math.sin(angle) };
+    });
+    const gridPoints = (pct: number) => PILLARS.map((_, i) => {
+      const angle = (Math.PI * 2 * i) / n - Math.PI / 2;
+      return `${cx + r * pct * Math.cos(angle)},${cy + r * pct * Math.sin(angle)}`;
+    }).join(" ");
+    const radarPolygon = radarPoints.map(p => `${p.x.toFixed(1)},${p.y.toFixed(1)}`).join(" ");
+    const labelOffset = 18;
+    const radarLabels = PILLARS.map((p, i) => {
+      const angle = (Math.PI * 2 * i) / n - Math.PI / 2;
+      const lx = (cx + (r + labelOffset) * Math.cos(angle)).toFixed(1);
+      const ly = (cy + (r + labelOffset) * Math.sin(angle)).toFixed(1);
+      const anchor = parseFloat(lx) < cx - 5 ? "end" : parseFloat(lx) > cx + 5 ? "start" : "middle";
+      return `<text x="${lx}" y="${ly}" text-anchor="${anchor}" dominant-baseline="middle" font-size="9" fill="#6b7280">${p.shortLabel}</text>`;
+    }).join("");
+
+    const radarSVG = `
+      <svg width="320" height="320" viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg">
+        ${[0.25, 0.5, 0.75, 1].map(pct => `<polygon points="${gridPoints(pct)}" fill="none" stroke="#e5e7eb" stroke-width="1"/>`).join("")}
+        ${PILLARS.map((_, i) => {
+          const angle = (Math.PI * 2 * i) / n - Math.PI / 2;
+          return `<line x1="${cx}" y1="${cy}" x2="${(cx + r * Math.cos(angle)).toFixed(1)}" y2="${(cy + r * Math.sin(angle)).toFixed(1)}" stroke="#e5e7eb" stroke-width="1"/>`;
+        }).join("")}
+        <polygon points="${radarPolygon}" fill="#E6007E" fill-opacity="0.15" stroke="#E6007E" stroke-width="2"/>
+        ${radarPoints.map(p => `<circle cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="4" fill="#E6007E"/>`).join("")}
+        ${radarLabels}
+      </svg>`;
+
     const pillarsHTML = PILLARS.map((p, i) => {
       const s = pillarScores[i];
       const c = colorScore(s);
       const insight = p.insight(s);
+      const barW = Math.max(s, 2);
       return `
-        <div style="margin-bottom:16px;padding:14px;border:1px solid #e5e7eb;border-radius:10px;border-left:3px solid ${c}">
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
-            <strong style="font-size:13px;color:#111">${p.label}</strong>
-            <span style="font-size:15px;font-weight:800;color:${c}">${s}/100</span>
+        <div style="margin-bottom:14px;padding:12px 14px;border:1px solid #e5e7eb;border-radius:8px;border-left:4px solid ${c};page-break-inside:avoid">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+            <strong style="font-size:12px;color:#111827">${p.label}</strong>
+            <div style="display:flex;align-items:center;gap:6px">
+              <span style="font-size:10px;padding:2px 6px;border-radius:4px;background:${c}22;color:${c};font-weight:700">${labelScore(s)}</span>
+              <span style="font-size:14px;font-weight:900;color:${c}">${s}/100</span>
+            </div>
           </div>
-          <div style="background:#f3f4f6;border-radius:4px;height:6px;margin-bottom:10px">
-            <div style="background:${c};height:6px;border-radius:4px;width:${s}%"></div>
+          <div style="width:100%;background:#f3f4f6;border-radius:3px;height:7px;margin-bottom:8px;overflow:hidden">
+            <div style="width:${barW}%;background:${c};height:7px;border-radius:3px;display:block"></div>
           </div>
-          <ul style="margin:0;padding-left:16px;font-size:11px;color:#4b5563;line-height:1.7">
-            ${insight.points.map(pt => `<li>${pt}</li>`).join("")}
+          <ul style="margin:0;padding-left:14px;font-size:11px;color:#4b5563;line-height:1.8">
+            ${insight.points.slice(0, 3).map(pt => `<li>${pt}</li>`).join("")}
           </ul>
         </div>`;
     }).join("");
 
     const html = `<!DOCTYPE html><html lang="pt-BR"><head>
       <meta charset="UTF-8"/>
-      <title>Diagnóstico E-commerce – ${nome}</title>
+      <title>Diagnostico E-commerce - ${nome}</title>
       <style>
         *{margin:0;padding:0;box-sizing:border-box}
-        body{font-family:'Segoe UI',Arial,sans-serif;color:#111;background:#fff;padding:32px;font-size:13px}
-        @media print{@page{size:A4;margin:20mm}body{padding:0}}
-        h1{font-size:22px;font-weight:800;color:#E6007E;margin-bottom:4px}
-        .sub{color:#6b7280;font-size:12px;margin-bottom:24px}
-        .hero{display:flex;gap:20px;align-items:center;background:#fdf2f8;border:1px solid #fce7f3;border-radius:12px;padding:18px;margin-bottom:24px}
-        .score-big{font-size:48px;font-weight:900;color:${colorScore(finalAvg)};line-height:1}
-        .persona{font-size:14px;font-weight:700;color:#374151;margin-top:4px}
-        .section-title{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#9ca3af;margin:20px 0 10px}
-        .footer{margin-top:32px;padding-top:16px;border-top:1px solid #e5e7eb;font-size:10px;color:#9ca3af;text-align:center}
+        body{font-family:'Segoe UI',Arial,sans-serif;color:#111827;background:#fff;padding:28px 32px;font-size:13px;max-width:760px;margin:0 auto}
+        @media print{@page{size:A4;margin:15mm 18mm}body{padding:0;max-width:100%}.no-break{page-break-inside:avoid}}
+        h1{font-size:20px;font-weight:800;color:#E6007E;margin-bottom:2px}
+        .sub{color:#6b7280;font-size:11px;margin-bottom:20px}
+        .hero{display:flex;gap:16px;align-items:stretch;background:#fdf2f8;border:1px solid #fce7f3;border-radius:10px;padding:16px;margin-bottom:20px}
+        .score-big{font-size:44px;font-weight:900;line-height:1;color:${colorScore(finalAvg)}}
+        .label-info{font-size:10px;color:#9ca3af;margin-bottom:2px}
+        .label-val{font-weight:600;color:#374151;font-size:13px;word-break:break-all}
+        .section-title{font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#9ca3af;margin:16px 0 8px}
+        .two-col{display:flex;gap:20px;align-items:flex-start;margin-bottom:16px}
+        .footer{margin-top:24px;padding-top:12px;border-top:1px solid #e5e7eb;font-size:10px;color:#9ca3af;text-align:center}
         .brand{color:#E6007E;font-weight:700}
       </style>
     </head><body>
-      <h1>Diagnóstico de E-commerce</h1>
+      <h1>Diagnostico de E-commerce</h1>
       <p class="sub">Gerado em ${new Date().toLocaleDateString("pt-BR")} · agenciamavi.com.br/assessment</p>
+
       <div class="hero">
         <div style="flex:1">
-          <p style="font-size:11px;color:#9ca3af;margin-bottom:2px">Loja analisada</p>
-          <p style="font-weight:600;color:#374151;word-break:break-all">${lojaUrl}</p>
-          <p style="font-size:11px;color:#9ca3af;margin:8px 0 2px">Responsável</p>
-          <p style="font-weight:600;color:#374151">${nome}</p>
+          <p class="label-info">Loja analisada</p>
+          <p class="label-val">${lojaUrl || "—"}</p>
+          <p class="label-info" style="margin-top:10px">Responsavel</p>
+          <p class="label-val">${nome}</p>
+          <p class="label-info" style="margin-top:10px">Perfil</p>
+          <p style="font-weight:700;color:#E6007E;font-size:13px">${finalPersona.label}</p>
         </div>
-        <div style="text-align:center">
+        <div style="text-align:center;padding:0 12px">
           <div class="score-big">${finalAvg}</div>
-          <div class="persona">${finalPersona.emoji} ${finalPersona.label}</div>
-          <div style="font-size:10px;color:#9ca3af">Score geral /100</div>
+          <div style="font-size:10px;color:#9ca3af;margin-top:2px">Score geral /100</div>
+          <div style="margin-top:8px;display:flex;flex-direction:column;gap:3px">
+            ${pillarScores.map((s, i) => `
+              <div style="display:flex;align-items:center;gap:6px;font-size:9px">
+                <span style="color:#6b7280;width:68px;text-align:right;white-space:nowrap">${PILLARS[i].shortLabel}</span>
+                <div style="width:80px;background:#f3f4f6;border-radius:2px;height:4px;overflow:hidden">
+                  <div style="width:${Math.max(s,2)}%;background:${colorScore(s)};height:4px;display:block"></div>
+                </div>
+                <span style="font-weight:700;color:${colorScore(s)};width:22px">${s}</span>
+              </div>`).join("")}
+          </div>
         </div>
       </div>
-      <p class="section-title">Diagnóstico por dimensão</p>
+
+      <div class="two-col">
+        <div style="flex:1">
+          <p class="section-title">Mapa de maturidade (radar)</p>
+          ${radarSVG}
+        </div>
+        <div style="flex:1">
+          <p class="section-title">Resumo por dimensao</p>
+          ${PILLARS.map((p, i) => {
+            const s = pillarScores[i];
+            const c = colorScore(s);
+            return `<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
+              <span style="font-size:11px;color:#374151;flex:1">${p.shortLabel}</span>
+              <div style="width:90px;background:#f3f4f6;border-radius:2px;height:6px;overflow:hidden">
+                <div style="width:${Math.max(s,2)}%;background:${c};height:6px;display:block"></div>
+              </div>
+              <span style="font-size:11px;font-weight:800;color:${c};width:28px;text-align:right">${s}</span>
+            </div>`;
+          }).join("")}
+        </div>
+      </div>
+
+      <p class="section-title">Diagnostico detalhado por dimensao</p>
       ${pillarsHTML}
+
       <div class="footer">
-        Relatório gerado por <span class="brand">MAVI Marketing Digital</span> ·
-        Este diagnóstico é confidencial · agenciamavi.com.br
+        Relatorio gerado por <span class="brand">MAVI Marketing Digital</span> &middot;
+        Diagnostico confidencial &middot; agenciamavi.com.br &middot; ${new Date().toLocaleDateString("pt-BR")}
       </div>
     </body></html>`;
 
-    const w = window.open("", "_blank", "width=900,height=700");
-    if (!w) return;
-    w.document.write(html);
-    w.document.close();
-    setTimeout(() => { w.focus(); w.print(); }, 400);
+    const blob = new Blob([html], { type: "text/html;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const w = window.open(url, "_blank");
+    if (!w) {
+      alert("Permita pop-ups para baixar o PDF.");
+      URL.revokeObjectURL(url);
+      return;
+    }
+    w.addEventListener("load", () => {
+      setTimeout(() => {
+        w.focus();
+        w.print();
+        setTimeout(() => URL.revokeObjectURL(url), 5000);
+      }, 300);
+    });
   }
 
   function handleUrlSubmit(e: React.FormEvent) {
@@ -1089,6 +1177,14 @@ export default function Assessment() {
 
   async function handleLeadSubmit(e: React.FormEvent) {
     e.preventDefault();
+    const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim());
+    const digits = whatsapp.replace(/\D/g, "");
+    const wppOk = digits.length === 10 || digits.length === 11;
+    const errs: { email?: string; whatsapp?: string } = {};
+    if (!emailOk) errs.email = "Digite um e-mail válido";
+    if (!wppOk) errs.whatsapp = "Informe DDD + número (10 ou 11 dígitos)";
+    if (Object.keys(errs).length) { setLeadErrors(errs); return; }
+    setLeadErrors({});
     setIsSubmitting(true);
     try {
       const scoreMap = Object.fromEntries(PILLARS.map((p, i) => [p.id, pillarScores[i]]));
@@ -2057,13 +2153,19 @@ export default function Assessment() {
                 </div>
                 <div>
                   <Label className="text-gray-500 text-[11px] mb-1 block">E-mail *</Label>
-                  <Input required type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="seu@email.com"
-                    className="bg-white border-gray-200 text-gray-900 h-9 text-sm touch-manipulation" />
+                  <Input required type="email" value={email}
+                    onChange={(e) => { setEmail(e.target.value); setLeadErrors((p) => ({ ...p, email: undefined })); }}
+                    placeholder="seu@email.com"
+                    className={`bg-white h-9 text-sm touch-manipulation ${leadErrors.email ? "border-red-400 focus:border-red-400" : "border-gray-200"} text-gray-900`} />
+                  {leadErrors.email && <p className="text-[10px] text-red-500 mt-0.5 flex items-center gap-1"><span>!</span>{leadErrors.email}</p>}
                 </div>
                 <div>
                   <Label className="text-gray-500 text-[11px] mb-1 block">WhatsApp *</Label>
-                  <Input required type="tel" value={whatsapp} onChange={(e) => setWhatsapp(e.target.value)} placeholder="(47) 99999-9999"
-                    className="bg-white border-gray-200 text-gray-900 h-9 text-sm touch-manipulation" />
+                  <Input required type="tel" value={whatsapp}
+                    onChange={(e) => { setWhatsapp(e.target.value); setLeadErrors((p) => ({ ...p, whatsapp: undefined })); }}
+                    placeholder="(47) 99999-9999"
+                    className={`bg-white h-9 text-sm touch-manipulation ${leadErrors.whatsapp ? "border-red-400 focus:border-red-400" : "border-gray-200"} text-gray-900`} />
+                  {leadErrors.whatsapp && <p className="text-[10px] text-red-500 mt-0.5 flex items-center gap-1"><span>!</span>{leadErrors.whatsapp}</p>}
                 </div>
                 <Button type="submit" variant="hero" className="w-full min-h-[44px] touch-manipulation font-semibold" disabled={isSubmitting}>
                   {isSubmitting ? (
