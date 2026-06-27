@@ -94,7 +94,7 @@ export function Header() {
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center gap-1">
+          <nav className="hidden lg:flex items-center gap-0">
             {navItems.map((item) => (
               <div key={item.name} className="relative group">
                 {item.hasDropdown ? (
@@ -107,7 +107,7 @@ export function Header() {
                       aria-haspopup="true"
                       aria-expanded={activeDropdown === item.dropdownType}
                       className={cn(
-                        "flex items-center gap-1 px-4 py-2 text-sm font-medium transition-colors rounded-md cursor-pointer",
+                        "flex items-center gap-1 px-3 py-2 text-sm font-medium transition-colors rounded-md cursor-pointer whitespace-nowrap",
                         "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/60",
                         isScrolled || isLightPage
                           ? "text-foreground hover:text-primary"
@@ -117,7 +117,7 @@ export function Header() {
                       )}
                     >
                       {item.name}
-                      <ChevronDown className="w-4 h-4" />
+                      <ChevronDown className="w-3.5 h-3.5" />
                     </button>
                     {activeDropdown === item.dropdownType && (
                       <div className="absolute top-full left-0 pt-2">
@@ -149,7 +149,7 @@ export function Header() {
                   <Link
                     to={item.href}
                     className={cn(
-                      "px-4 py-2 text-sm font-medium transition-colors rounded-md",
+                      "px-3 py-2 text-sm font-medium transition-colors rounded-md whitespace-nowrap",
                       item.highlight
                         ? "text-primary hover:text-primary/80"
                         : isScrolled || isLightPage
@@ -166,7 +166,7 @@ export function Header() {
           </nav>
 
           {/* CTA Buttons */}
-          <div className="hidden lg:flex items-center gap-3">
+          <div className="hidden lg:flex items-center gap-2 flex-shrink-0">
             <Button asChild variant={isScrolled || isLightPage ? "outline" : "heroOutline"} size="sm">
             <a href="https://crm.hubrs.com.br/pt/users/sign_in" target="_blank" rel="noopener noreferrer">
                 Login do CRM

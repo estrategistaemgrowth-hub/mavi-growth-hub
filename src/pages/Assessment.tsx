@@ -1589,82 +1589,84 @@ export default function Assessment() {
           canonical="/assessment"
         />
 
-        {/* Left: Chat */}
-        <div className="flex-1 flex flex-col h-full min-w-0">
-          {/* Header */}
-          <div className="flex-shrink-0 px-4 py-3 border-b border-gray-200 bg-white">
-            <div className="flex items-center justify-between max-w-2xl mx-auto">
-              <img src={logoMavi} alt="MAVI" className="h-5" />
-              <div className="flex items-center gap-2">
-                <span className="text-xs text-gray-400">
-                  {answeredCount}/{TOTAL_QUESTIONS}
-                </span>
-                <div className="w-24 sm:w-32 h-1.5 bg-gray-200 rounded-full overflow-hidden">
-                  <div
-                    className="h-full bg-primary rounded-full transition-all duration-500"
-                    style={{ width: `${progress}%` }}
-                  />
+        {/* Left: Chat — conteúdo centralizado e contido */}
+        <div className="flex-1 flex flex-col h-full min-w-0 bg-white overflow-hidden">
+          {/* Coluna interna com max-width para não ocupar toda a tela */}
+          <div className="flex flex-col h-full w-full max-w-2xl mx-auto border-x border-gray-100">
+
+            {/* Header */}
+            <div className="flex-shrink-0 px-5 py-3 border-b border-gray-200 bg-white">
+              <div className="flex items-center justify-between">
+                <img src={logoMavi} alt="MAVI" className="h-5" />
+                <div className="flex items-center gap-2">
+                  <span className="text-xs text-gray-400">
+                    {answeredCount}/{TOTAL_QUESTIONS}
+                  </span>
+                  <div className="w-28 h-1.5 bg-gray-200 rounded-full overflow-hidden">
+                    <div
+                      className="h-full bg-primary rounded-full transition-all duration-500"
+                      style={{ width: `${progress}%` }}
+                    />
+                  </div>
+                  <span className="text-xs text-primary font-semibold">{progress}%</span>
                 </div>
-                <span className="text-xs text-primary font-semibold">{progress}%</span>
               </div>
             </div>
-          </div>
 
-          {/* Messages */}
-          <div className="flex-1 overflow-y-auto px-4 py-4">
-            <div className="max-w-2xl mx-auto space-y-3">
-              {messages.map((msg, i) => (
-                <div
-                  key={i}
-                  className={`flex ${
-                    msg.type === "answer"
-                      ? "justify-end"
-                      : "justify-start items-start gap-2.5"
-                  } animate-fade-in-up`}
-                >
-                  {msg.type !== "answer" && (
-                    <div className="w-7 h-7 rounded-full bg-primary flex-shrink-0 flex items-center justify-center mt-0.5 shadow-sm">
+            {/* Messages */}
+            <div className="flex-1 overflow-y-auto px-5 py-5">
+              <div className="space-y-3">
+                {messages.map((msg, i) => (
+                  <div
+                    key={i}
+                    className={`flex ${
+                      msg.type === "answer"
+                        ? "justify-end"
+                        : "justify-start items-start gap-2.5"
+                    } animate-fade-in-up`}
+                  >
+                    {msg.type !== "answer" && (
+                      <div className="w-7 h-7 rounded-full bg-primary flex-shrink-0 flex items-center justify-center mt-0.5 shadow-sm">
+                        <span className="text-white text-[11px] font-bold leading-none">M</span>
+                      </div>
+                    )}
+                    <div
+                      className={`max-w-[78%] px-4 py-2.5 rounded-2xl text-sm leading-relaxed ${
+                        msg.type === "answer"
+                          ? "bg-primary text-white rounded-tr-sm"
+                          : msg.type === "system"
+                          ? "bg-primary/8 text-gray-600 rounded-tl-sm border border-primary/10"
+                          : "bg-gray-100 text-gray-800 rounded-tl-sm"
+                      }`}
+                    >
+                      {msg.text}
+                    </div>
+                  </div>
+                ))}
+
+                {/* Typing indicator */}
+                {isTyping && (
+                  <div className="flex justify-start items-start gap-2.5 animate-fade-in-up">
+                    <div className="w-7 h-7 rounded-full bg-primary flex-shrink-0 flex items-center justify-center shadow-sm">
                       <span className="text-white text-[11px] font-bold leading-none">M</span>
                     </div>
-                  )}
-                  <div
-                    className={`max-w-[85%] px-4 py-2.5 rounded-2xl text-sm leading-relaxed ${
-                      msg.type === "answer"
-                        ? "bg-primary text-white rounded-tr-sm"
-                        : msg.type === "system"
-                        ? "bg-primary/8 text-gray-600 rounded-tl-sm border border-primary/10"
-                        : "bg-gray-100 text-gray-800 rounded-tl-sm"
-                    }`}
-                  >
-                    {msg.text}
-                  </div>
-                </div>
-              ))}
-
-              {/* Typing indicator */}
-              {isTyping && (
-                <div className="flex justify-start items-start gap-2.5 animate-fade-in-up">
-                  <div className="w-7 h-7 rounded-full bg-primary flex-shrink-0 flex items-center justify-center shadow-sm">
-                    <span className="text-white text-[11px] font-bold leading-none">M</span>
-                  </div>
-                  <div className="px-4 py-3 rounded-2xl bg-gray-100 rounded-tl-sm">
-                    <div className="flex items-center gap-1">
-                      <span className="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: "0ms" }} />
-                      <span className="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: "160ms" }} />
-                      <span className="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: "320ms" }} />
+                    <div className="px-4 py-3 rounded-2xl bg-gray-100 rounded-tl-sm">
+                      <div className="flex items-center gap-1">
+                        <span className="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: "0ms" }} />
+                        <span className="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: "160ms" }} />
+                        <span className="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: "320ms" }} />
+                      </div>
                     </div>
                   </div>
-                </div>
-              )}
+                )}
 
-              <div ref={chatEndRef} />
+                <div ref={chatEndRef} />
+              </div>
             </div>
-          </div>
 
-          {/* Answer options — hidden while bot is typing/transitioning */}
-          {!isTransitioning && currentPillar && currentQuestion && (
-            <div className="flex-shrink-0 border-t border-gray-200 px-4 py-3 bg-gray-50">
-              <div className="max-w-2xl mx-auto">
+            {/* Answer options */}
+            {!isTransitioning && currentPillar && currentQuestion && (
+              <div className="flex-shrink-0 border-t border-gray-200 px-5 py-4 bg-gray-50">
                 <p className="text-[11px] text-gray-400 mb-2 flex items-center gap-1.5">
                   <currentPillar.icon className="w-3 h-3 text-primary" />
                   {currentPillar.label}
@@ -1681,8 +1683,8 @@ export default function Assessment() {
                   ))}
                 </div>
               </div>
-            </div>
-          )}
+            )}
+          </div>
         </div>
 
         {/* Right: Live Panel (desktop only) */}
@@ -1876,62 +1878,62 @@ export default function Assessment() {
           </div>
         </div>
 
-        {/* ── Modal fixo com formulário ── */}
+        {/* ── Modal fixo com formulário — compacto, sem scroll ── */}
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 overflow-y-auto"
-          style={{ background: "rgba(249,250,251,0.72)", backdropFilter: "blur(3px)" }}
+          className="fixed inset-0 z-50 flex items-center justify-center p-3"
+          style={{ background: "rgba(249,250,251,0.75)", backdropFilter: "blur(4px)" }}
         >
-          <div className="w-full max-w-md bg-white border border-gray-200 rounded-2xl shadow-2xl my-4"
-               style={{ borderTopWidth: 4, borderTopColor: "#E6007E" }}>
-            <div className="p-6">
-              <div className="text-center mb-5">
-                <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto mb-3">
-                  <Lock className="w-6 h-6 text-primary" />
+          <div
+            className="w-full max-w-sm bg-white rounded-2xl shadow-2xl overflow-hidden"
+            style={{ borderTop: "4px solid #E6007E" }}
+          >
+            <div className="p-5">
+              {/* Cabeçalho compacto */}
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-9 h-9 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
+                  <Lock className="w-4 h-4 text-primary" />
                 </div>
-                <h2 className="text-xl font-bold text-gray-900 mb-1">Seu diagnóstico está pronto!</h2>
-                <p className="text-gray-500 text-sm leading-relaxed">
-                  Preencha seus dados para desbloquear o relatório completo com os pontos de melhoria do seu e-commerce.
-                </p>
-              </div>
-
-              {/* Score preview teaser */}
-              <div className="flex items-center justify-center gap-3 mb-5 py-3 bg-gray-50 rounded-xl border border-gray-100">
-                <span className="text-2xl">{finalPersona.emoji}</span>
                 <div>
-                  <p className="text-xs text-gray-400">Score geral</p>
-                  <p className="text-2xl font-extrabold" style={{ color: overallColor }}>{finalAvg}<span className="text-sm text-gray-300 font-normal">/100</span></p>
-                </div>
-                <div className="w-px h-10 bg-gray-200" />
-                <div>
-                  <p className="text-xs text-gray-400">Perfil</p>
-                  <p className={`text-sm font-bold ${finalPersona.colorClass}`}>{finalPersona.label}</p>
+                  <h2 className="text-base font-bold text-gray-900 leading-tight">Seu diagnóstico está pronto!</h2>
+                  <p className="text-xs text-gray-400 mt-0.5">Preencha para desbloquear o relatório completo</p>
                 </div>
               </div>
 
-              <form onSubmit={handleLeadSubmit} className="space-y-3">
-                <div className="space-y-1.5">
-                  <Label className="text-gray-600 text-xs">Nome *</Label>
+              {/* Score teaser compacto — 1 linha */}
+              <div className="flex items-center gap-3 mb-4 px-3 py-2 bg-gray-50 rounded-xl border border-gray-100">
+                <span className="text-xl">{finalPersona.emoji}</span>
+                <div className="flex items-baseline gap-1">
+                  <span className="text-xl font-extrabold" style={{ color: overallColor }}>{finalAvg}</span>
+                  <span className="text-xs text-gray-300">/100</span>
+                </div>
+                <div className="w-px h-5 bg-gray-200" />
+                <span className={`text-xs font-bold ${finalPersona.colorClass}`}>{finalPersona.label}</span>
+              </div>
+
+              <form onSubmit={handleLeadSubmit} className="space-y-2.5">
+                <div>
+                  <Label className="text-gray-500 text-[11px] mb-1 block">Nome *</Label>
                   <Input required value={nome} onChange={(e) => setNome(e.target.value)} placeholder="Seu nome"
-                    className="bg-white border-gray-200 text-gray-900 h-10 text-sm touch-manipulation" />
+                    className="bg-white border-gray-200 text-gray-900 h-9 text-sm touch-manipulation" />
                 </div>
-                <div className="space-y-1.5">
-                  <Label className="text-gray-600 text-xs">E-mail *</Label>
+                <div>
+                  <Label className="text-gray-500 text-[11px] mb-1 block">E-mail *</Label>
                   <Input required type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="seu@email.com"
-                    className="bg-white border-gray-200 text-gray-900 h-10 text-sm touch-manipulation" />
+                    className="bg-white border-gray-200 text-gray-900 h-9 text-sm touch-manipulation" />
                 </div>
-                <div className="space-y-1.5">
-                  <Label className="text-gray-600 text-xs">WhatsApp *</Label>
+                <div>
+                  <Label className="text-gray-500 text-[11px] mb-1 block">WhatsApp *</Label>
                   <Input required type="tel" value={whatsapp} onChange={(e) => setWhatsapp(e.target.value)} placeholder="(47) 99999-9999"
-                    className="bg-white border-gray-200 text-gray-900 h-10 text-sm touch-manipulation" />
+                    className="bg-white border-gray-200 text-gray-900 h-9 text-sm touch-manipulation" />
                 </div>
-                <Button type="submit" variant="hero" className="w-full mt-1 min-h-[44px] touch-manipulation text-base" disabled={isSubmitting}>
+                <Button type="submit" variant="hero" className="w-full min-h-[44px] touch-manipulation font-semibold" disabled={isSubmitting}>
                   {isSubmitting ? (
                     <><Loader2 className="w-4 h-4 mr-2 animate-spin" />Processando...</>
                   ) : (
-                    <>Ver diagnóstico completo <ArrowRight className="w-4 h-4 ml-1" /></>
+                    <>Ver diagnóstico completo <ArrowRight className="w-4 h-4 ml-1.5" /></>
                   )}
                 </Button>
-                <p className="text-center text-[11px] text-gray-400">Sem spam · Seus dados são protegidos</p>
+                <p className="text-center text-[10px] text-gray-400">Sem spam · Seus dados são protegidos</p>
               </form>
             </div>
           </div>

@@ -388,6 +388,103 @@ export default function ServicoEcommerce() {
         </div>
       </Section>
 
+      {/* ── Assessment CTA ── */}
+      <Section variant="gray">
+        <div className="max-w-5xl mx-auto">
+          <div className="grid lg:grid-cols-2 gap-10 items-center">
+            {/* Copy */}
+            <div>
+              <span className="inline-flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-wider text-primary bg-primary/10 px-3 py-1 rounded-full mb-4">
+                <BarChart3 className="w-3.5 h-3.5" /> Diagnóstico gratuito
+              </span>
+              <h2 className="text-3xl md:text-4xl font-bold text-mavi-white mb-4 leading-tight">
+                Antes de qualquer investimento, descubra onde está o gargalo
+              </h2>
+              <p className="text-mavi-white/70 text-base leading-relaxed mb-6">
+                Nosso assessment avalia seu e-commerce em 7 dimensões — produto, tráfego, marketplaces, SEO, redes sociais, design e investimento — e entrega um diagnóstico personalizado em menos de 5 minutos.
+              </p>
+              <ul className="space-y-2.5 mb-8">
+                {[
+                  "21 perguntas simples, resultado imediato",
+                  "Score por área + mapa de maturidade",
+                  "Recomendação dos próximos passos",
+                  "100% gratuito e sem compromisso",
+                ].map((item) => (
+                  <li key={item} className="flex items-center gap-2 text-sm text-mavi-white/80">
+                    <CheckCircle2 className="w-4 h-4 text-primary flex-shrink-0" />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+              <Button asChild variant="hero" size="lg" className="group">
+                <Link to="/assessment">
+                  Fazer diagnóstico gratuito
+                  <ArrowRight className="w-4 h-4 ml-1 transition-transform duration-300 group-hover:translate-x-1" />
+                </Link>
+              </Button>
+              <p className="text-xs text-mavi-white/40 mt-3">Mais de 200 e-commerces já fizeram o diagnóstico</p>
+            </div>
+
+            {/* Mockup visual */}
+            <div className="relative hidden lg:block">
+              <div className="bg-white/5 border border-white/10 rounded-2xl overflow-hidden backdrop-blur-sm">
+                {/* Header mockup */}
+                <div className="bg-white/8 border-b border-white/10 px-4 py-3 flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <div className="w-5 h-5 rounded-full bg-primary flex items-center justify-center">
+                      <span className="text-white text-[9px] font-bold">M</span>
+                    </div>
+                    <span className="text-xs font-semibold text-mavi-white">Diagnóstico MAVI</span>
+                  </div>
+                  <span className="text-[10px] text-mavi-white/40">Assessment E-commerce</span>
+                </div>
+                {/* Chat mockup */}
+                <div className="p-4 space-y-3">
+                  {[
+                    { bot: true, text: "Olá! Vou analisar seu e-commerce em 7 áreas estratégicas. Pronto?" },
+                    { bot: false, text: "Vamos lá!" },
+                    { bot: true, text: "Como estão as fotos dos seus produtos nas páginas da loja?" },
+                  ].map((m, i) => (
+                    <div key={i} className={`flex ${m.bot ? "justify-start items-start gap-2" : "justify-end"}`}>
+                      {m.bot && (
+                        <div className="w-5 h-5 rounded-full bg-primary flex-shrink-0 flex items-center justify-center mt-0.5">
+                          <span className="text-white text-[8px] font-bold">M</span>
+                        </div>
+                      )}
+                      <div className={`max-w-[80%] px-3 py-2 rounded-xl text-xs ${m.bot ? "bg-white/10 text-mavi-white/90 rounded-tl-sm" : "bg-primary text-white rounded-tr-sm"}`}>
+                        {m.text}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                {/* Score preview */}
+                <div className="border-t border-white/10 px-4 py-3">
+                  <p className="text-[10px] uppercase tracking-wider text-mavi-white/40 mb-2">Preview do resultado</p>
+                  <div className="space-y-1.5">
+                    {[
+                      { label: "Produto & Catálogo", pct: 78, color: "#16a34a" },
+                      { label: "SEO Orgânico", pct: 35, color: "#dc2626" },
+                      { label: "Tráfego Pago", pct: 55, color: "#d97706" },
+                    ].map((bar) => (
+                      <div key={bar.label} className="flex items-center gap-2">
+                        <span className="text-[10px] text-mavi-white/50 w-28 flex-shrink-0">{bar.label}</span>
+                        <div className="flex-1 h-1.5 bg-white/10 rounded-full overflow-hidden">
+                          <div className="h-full rounded-full" style={{ width: `${bar.pct}%`, background: bar.color }} />
+                        </div>
+                        <span className="text-[10px] font-bold w-5 text-right" style={{ color: bar.color }}>{bar.pct}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+              <div className="absolute -top-2 -right-2 bg-primary text-white text-[10px] font-bold px-2.5 py-1 rounded-full shadow-lg">
+                Grátis
+              </div>
+            </div>
+          </div>
+        </div>
+      </Section>
+
       {/* Final CTA */}
       <Section variant="dark">
         <div className="text-center max-w-3xl mx-auto">
