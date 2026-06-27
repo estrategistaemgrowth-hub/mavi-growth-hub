@@ -206,9 +206,6 @@ import {
   Zap,
 } from "lucide-react";
 import logoMavi from "@/assets/logo-mavi-colorida.png";
-import logoLumiStore from "@/assets/clients/lumi-store.png";
-import logoPedalAi from "@/assets/clients/pedala-ai.png";
-import logoMagazineTicTac from "@/assets/clients/magazine-tic-tac.png";
 import { CyclingTypewriter } from "@/components/CyclingTypewriter";
 import { User, Target } from "lucide-react";
 
@@ -1403,35 +1400,32 @@ export default function Assessment() {
             <div className="grid sm:grid-cols-3 gap-6 mb-14">
               {[
                 {
-                  logo: logoLumiStore,
-                  alt: "Lumi Store",
+                  segment: "E-commerce · Moda",
                   metric: "+180%",
                   metricLabel: "em vendas nos marketplaces",
                   quote: "O diagnóstico mostrou que estávamos completamente ausentes do Shopee. Em 45 dias, o canal já respondia por 30% do faturamento.",
-                  author: "Gestora de e-commerce · Lumi Store",
+                  role: "Gestora de e-commerce",
                   roas: "ROAS 5.2x",
                 },
                 {
-                  logo: logoPedalAi,
-                  alt: "Pedala Aí",
+                  segment: "E-commerce · Esportes",
                   metric: "+240%",
                   metricLabel: "de ROAS em tráfego pago",
                   quote: "Descobrimos que 70% do orçamento de anúncios estava mal alocado. Após o realinhamento, o retorno mais que dobrou.",
-                  author: "Diretor · Pedala Aí",
+                  role: "Diretor Comercial",
                   roas: "ROAS 4.8x",
                 },
                 {
-                  logo: logoMagazineTicTac,
-                  alt: "Magazine Tic Tac",
+                  segment: "E-commerce · Varejo",
                   metric: "2x",
                   metricLabel: "taxa de conversão da loja",
                   quote: "Achávamos que o problema era tráfego. O assessment revelou que era o layout no mobile. Mudamos e as vendas dispararam.",
-                  author: "CEO · Magazine Tic Tac",
+                  role: "CEO",
                   roas: "ROAS 6.1x",
                 },
               ].map((c, i) => (
                 <motion.div
-                  key={c.alt}
+                  key={c.segment}
                   className="bg-white border border-gray-200 rounded-2xl p-6 flex flex-col shadow-sm hover:shadow-md hover:border-primary/20 transition-all duration-200"
                   initial={{ opacity: 0, y: 16 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -1439,9 +1433,14 @@ export default function Assessment() {
                   transition={{ delay: i * 0.1, duration: 0.4 }}
                 >
                   <div className="flex items-center justify-between mb-5">
-                    <img src={c.logo} alt={c.alt} className="h-7 object-contain" />
+                    {/* Placeholder borrado — identidade preservada */}
+                    <div className="flex items-center gap-2">
+                      <div className="w-7 h-7 rounded-lg bg-gray-200" style={{ filter: "blur(3px)" }} />
+                      <div className="h-3 w-20 rounded bg-gray-200" style={{ filter: "blur(3px)" }} />
+                    </div>
                     <span className="text-[10px] font-bold uppercase tracking-wider text-primary bg-primary/10 px-2 py-1 rounded-full">{c.roas}</span>
                   </div>
+                  <p className="text-[10px] font-semibold uppercase tracking-wider text-gray-400 mb-3">{c.segment}</p>
                   <div className="mb-4">
                     <p className="text-3xl font-extrabold text-gray-900">{c.metric}</p>
                     <p className="text-xs text-gray-500">{c.metricLabel}</p>
@@ -1449,9 +1448,10 @@ export default function Assessment() {
                   <p className="text-sm text-gray-600 leading-relaxed italic flex-1">"{c.quote}"</p>
                   <div className="flex items-center gap-2 mt-4 pt-4 border-t border-gray-100">
                     <div className="flex gap-0.5">
-                      {[1,2,3,4,5].map(i => <Star key={i} className="w-3 h-3 fill-yellow-400 text-yellow-400" />)}
+                      {[1,2,3,4,5].map(j => <Star key={j} className="w-3 h-3 fill-yellow-400 text-yellow-400" />)}
                     </div>
-                    <p className="text-[10px] text-gray-400">{c.author}</p>
+                    <p className="text-[10px] text-gray-400">{c.role}</p>
+                    <span className="text-[10px] text-gray-300 ml-1" style={{ filter: "blur(3px)" }}>· Cliente MAVI</span>
                   </div>
                 </motion.div>
               ))}
