@@ -43,6 +43,7 @@ interface AssessmentLead {
 interface BlogPost {
   id: string;
   title: string;
+  slug: string;
   status: string;
   created_at: string;
 }
@@ -102,9 +103,9 @@ export default function AdminDashboard() {
   async function fetchPosts() {
     const { data } = await supabase
       .from("blog_posts")
-      .select("id, title, status, created_at")
+      .select("id, title, slug, status, created_at")
       .order("created_at", { ascending: false })
-      .limit(5);
+      .limit(20);
     if (data) setPosts(data as BlogPost[]);
   }
 
@@ -133,6 +134,19 @@ export default function AdminDashboard() {
   const topPages = Object.entries(pageCounts)
     .sort((a, b) => b[1] - a[1])
     .slice(0, 8);
+
+  // Top blog posts by page views
+  const blogViewCounts: Record<string, number> = {};
+  pageViews.forEach((v) => {
+    if (v.path.startsWith("/blog/")) {
+      const slug = v.path.replace("/blog/", "").split("?")[0].split("#")[0];
+      if (slug) blogViewCounts[slug] = (blogViewCounts[slug] ?? 0) + 1;
+    }
+  });
+  const topBlogPosts = [...posts]
+    .map((p) => ({ ...p, views: blogViewCounts[p.slug] ?? 0 }))
+    .sort((a, b) => b.views - a.views)
+    .slice(0, 6);
 
   // Chart: last 14 days
   const chartData = Array.from({ length: 14 }, (_, i) => {
@@ -370,12 +384,12 @@ export default function AdminDashboard() {
             )}
           </div>
 
-          {/* Recent Blog Posts */}
+          {/* Top Blog Posts by views */}
           <div className="bg-gray-900 border border-white/10 rounded-xl p-5">
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-2">
-                <FileText className="w-4 h-4 text-blue-400" />
-                <p className="text-sm font-medium">Posts Recentes — Blog</p>
+                <TrendingUp className="w-4 h-4 text-blue-400" />
+                <p className="text-sm font-medium">Posts Mais Acessados</p>
               </div>
               <Link
                 to="/admin/blog"
@@ -384,33 +398,45 @@ export default function AdminDashboard() {
                 Gerenciar <ArrowRight className="w-3 h-3" />
               </Link>
             </div>
-            {posts.length === 0 ? (
+            {topBlogPosts.length === 0 ? (
               <p className="text-xs text-white/30 italic">Nenhum post ainda</p>
             ) : (
-              <div className="space-y-2.5">
-                {posts.map((post) => (
-                  <div
-                    key={post.id}
-                    className="flex items-center justify-between py-2 border-b border-white/5 last:border-0"
-                  >
-                    <p className="text-sm truncate max-w-[240px] text-white/80">{post.title}</p>
-                    <div className="flex items-center gap-2 ml-2 flex-shrink-0">
-                      <span
-                        className={`text-[10px] px-2 py-0.5 rounded-full font-medium ${
-                          post.status === "published"
-                            ? "bg-green-500/15 text-green-400"
-                            : "bg-white/10 text-white/40"
-                        }`}
-                      >
-                        {post.status === "published" ? "publicado" : "rascunho"}
-                      </span>
-                      <span className="text-xs text-white/30">
-                        {formatDate(post.created_at)}
-                      </span>
+              <div className="space-y-1">
+                {topBlogPosts.map((post, i) => {
+                  const maxViews = topBlogPosts[0]?.views || 1;
+                  return (
+                    <div
+                      key={post.id}
+                      className="flex items-center gap-3 py-2 border-b border-white/5 last:border-0"
+                    >
+                      <span className="text-xs text-white/20 w-4 flex-shrink-0 text-right">{i + 1}</span>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-sm truncate text-white/80 leading-tight">{post.title}</p>
+                        <div className="mt-1 h-1 bg-white/5 rounded-full overflow-hidden">
+                          <div
+                            className="h-full rounded-full transition-all"
+                            style={{
+                              width: maxViews > 0 ? `${(post.views / maxViews) * 100}%` : "2%",
+                              background: i === 0 ? "#E6007E" : "rgba(99,179,237,0.6)",
+                            }}
+                          />
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-1.5 flex-shrink-0 ml-1">
+                        <Eye className="w-3 h-3 text-white/20" />
+                        <span className="text-xs font-semibold text-white/50 tabular-nums w-8 text-right">
+                          {post.views}
+                        </span>
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
+            )}
+            {posts.length > 0 && topBlogPosts.every((p) => p.views === 0) && (
+              <p className="text-[10px] text-white/25 mt-3 italic">
+                Views são contabilizadas assim que o tracking de páginas registrar acessos ao blog.
+              </p>
             )}
           </div>
         </div>
