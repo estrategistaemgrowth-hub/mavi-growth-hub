@@ -2409,11 +2409,7 @@ export default function Assessment() {
                   const svc = PILLAR_SERVICE_MAP[p.id];
                   return (
                     <div key={p.id} className="bg-gradient-to-br from-primary/5 to-primary/10 border-2 border-primary rounded-xl p-5 shadow-md relative">
-                      <div className="absolute top-3 right-3">
-                        <span className="text-[9px] font-bold bg-primary text-white px-2 py-0.5 rounded-full uppercase tracking-wider">
-                          ⭐ Serviço principal MAVI
-                        </span>
-                      </div>
+
                       <div className="flex items-center gap-2 mb-3">
                         <Icon className="w-4 h-4 text-primary flex-shrink-0" />
                         <span className="text-xs font-extrabold uppercase tracking-wide text-primary">
