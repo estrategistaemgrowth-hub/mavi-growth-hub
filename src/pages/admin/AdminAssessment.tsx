@@ -27,6 +27,21 @@ import {
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
+interface DiagnosticoLead {
+  id: string;
+  created_at: string;
+  nome: string;
+  whatsapp: string;
+  segmento: string | null;
+  faturamento: string | null;
+  verba: string | null;
+  canais: string | null;
+  dor: string | null;
+  site: string | null;
+  dinheiro_na_mesa: number;
+  maturidade: number;
+}
+
 interface AssessmentLead {
   id: string;
   created_at: string;
@@ -86,7 +101,9 @@ function PersonaEmoji({ label }: { label: string }) {
 // ─── Main Component ───────────────────────────────────────────────────────────
 
 export default function AdminAssessment() {
+  const [activeTab, setActiveTab] = useState<"assessments" | "diagnostico">("assessments");
   const [leads, setLeads] = useState<AssessmentLead[]>([]);
+  const [diagnosticoLeads, setDiagnosticoLeads] = useState<DiagnosticoLead[]>([]);
   const [loading, setLoading] = useState(true);
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const [search, setSearch] = useState("");
@@ -100,7 +117,10 @@ export default function AdminAssessment() {
   }, [user, isAdmin, authLoading, navigate]);
 
   useEffect(() => {
-    if (isAdmin) fetchLeads();
+    if (isAdmin) {
+      fetchLeads();
+      fetchDiagnosticoLeads();
+    }
   }, [isAdmin]);
 
   async function fetchLeads() {
@@ -117,6 +137,15 @@ export default function AdminAssessment() {
       setLeads((data as AssessmentLead[]) ?? []);
     }
     setLoading(false);
+  }
+
+  async function fetchDiagnosticoLeads() {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const { data } = await (supabase as any)
+      .from("diagnostico_leads")
+      .select("*")
+      .order("created_at", { ascending: false });
+    setDiagnosticoLeads((data as DiagnosticoLead[]) ?? []);
   }
 
   async function deleteLead(id: string) {
@@ -182,10 +211,20 @@ export default function AdminAssessment() {
               Blog
             </Link>
             <span className="text-border">|</span>
-            <span className="text-sm font-semibold text-foreground flex items-center gap-1.5">
-              <BarChart3 className="w-4 h-4 text-primary" />
-              Assessments
-            </span>
+            <div className="flex items-center gap-1">
+              <button
+                onClick={() => setActiveTab("assessments")}
+                className={`text-sm px-3 py-1.5 rounded-md font-medium transition-colors ${activeTab === "assessments" ? "bg-primary text-white" : "text-muted-foreground hover:text-foreground"}`}
+              >
+                Assessments
+              </button>
+              <button
+                onClick={() => setActiveTab("diagnostico")}
+                className={`text-sm px-3 py-1.5 rounded-md font-medium transition-colors ${activeTab === "diagnostico" ? "bg-primary text-white" : "text-muted-foreground hover:text-foreground"}`}
+              >
+                Diagnóstico Gratuito
+              </button>
+            </div>
           </div>
           <Button variant="ghost" size="sm" onClick={handleSignOut} className="text-muted-foreground">
             <LogOut className="w-4 h-4 mr-2" />
@@ -196,40 +235,80 @@ export default function AdminAssessment() {
 
       <div className="max-w-7xl mx-auto px-4 py-8 space-y-6">
         {/* KPIs */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <div className="bg-card border border-border rounded-xl p-4">
-            <div className="flex items-center gap-2 mb-1">
-              <Users className="w-4 h-4 text-primary" />
-              <span className="text-xs text-muted-foreground uppercase tracking-wider">Total de Leads</span>
+        {activeTab === "assessments" ? (
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div className="bg-card border border-border rounded-xl p-4">
+              <div className="flex items-center gap-2 mb-1">
+                <Users className="w-4 h-4 text-primary" />
+                <span className="text-xs text-muted-foreground uppercase tracking-wider">Total de Leads</span>
+              </div>
+              <p className="text-3xl font-bold text-foreground">{leads.length}</p>
             </div>
-            <p className="text-3xl font-bold text-foreground">{leads.length}</p>
-          </div>
-          <div className="bg-card border border-border rounded-xl p-4">
-            <div className="flex items-center gap-2 mb-1">
-              <TrendingUp className="w-4 h-4 text-primary" />
-              <span className="text-xs text-muted-foreground uppercase tracking-wider">Score Médio</span>
+            <div className="bg-card border border-border rounded-xl p-4">
+              <div className="flex items-center gap-2 mb-1">
+                <TrendingUp className="w-4 h-4 text-primary" />
+                <span className="text-xs text-muted-foreground uppercase tracking-wider">Score Médio</span>
+              </div>
+              <p className={`text-3xl font-bold ${getScoreColor(avgOverall)}`}>{avgOverall}<span className="text-lg text-muted-foreground">/100</span></p>
             </div>
-            <p className={`text-3xl font-bold ${getScoreColor(avgOverall)}`}>{avgOverall}<span className="text-lg text-muted-foreground">/100</span></p>
-          </div>
-          <div className="bg-card border border-border rounded-xl p-4">
-            <div className="flex items-center gap-2 mb-1">
-              <BarChart3 className="w-4 h-4 text-primary" />
-              <span className="text-xs text-muted-foreground uppercase tracking-wider">Score &lt; 50</span>
+            <div className="bg-card border border-border rounded-xl p-4">
+              <div className="flex items-center gap-2 mb-1">
+                <BarChart3 className="w-4 h-4 text-primary" />
+                <span className="text-xs text-muted-foreground uppercase tracking-wider">Score &lt; 50</span>
+              </div>
+              <p className="text-3xl font-bold text-red-500">
+                {leads.filter((l) => l.avg_score < 50).length}
+              </p>
             </div>
-            <p className="text-3xl font-bold text-red-500">
-              {leads.filter((l) => l.avg_score < 50).length}
-            </p>
-          </div>
-          <div className="bg-card border border-border rounded-xl p-4">
-            <div className="flex items-center gap-2 mb-1">
-              <BarChart3 className="w-4 h-4 text-primary" />
-              <span className="text-xs text-muted-foreground uppercase tracking-wider">Score ≥ 70</span>
+            <div className="bg-card border border-border rounded-xl p-4">
+              <div className="flex items-center gap-2 mb-1">
+                <BarChart3 className="w-4 h-4 text-primary" />
+                <span className="text-xs text-muted-foreground uppercase tracking-wider">Score ≥ 70</span>
+              </div>
+              <p className="text-3xl font-bold text-green-500">
+                {leads.filter((l) => l.avg_score >= 70).length}
+              </p>
             </div>
-            <p className="text-3xl font-bold text-green-500">
-              {leads.filter((l) => l.avg_score >= 70).length}
-            </p>
           </div>
-        </div>
+        ) : (
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div className="bg-card border border-border rounded-xl p-4">
+              <div className="flex items-center gap-2 mb-1">
+                <Users className="w-4 h-4 text-primary" />
+                <span className="text-xs text-muted-foreground uppercase tracking-wider">Total de Leads</span>
+              </div>
+              <p className="text-3xl font-bold text-foreground">{diagnosticoLeads.length}</p>
+            </div>
+            <div className="bg-card border border-border rounded-xl p-4">
+              <div className="flex items-center gap-2 mb-1">
+                <TrendingUp className="w-4 h-4 text-primary" />
+                <span className="text-xs text-muted-foreground uppercase tracking-wider">Maturidade Média</span>
+              </div>
+              <p className={`text-3xl font-bold ${getScoreColor(diagnosticoLeads.length > 0 ? Math.round(diagnosticoLeads.reduce((a,b) => a + b.maturidade, 0) / diagnosticoLeads.length) : 0)}`}>
+                {diagnosticoLeads.length > 0 ? Math.round(diagnosticoLeads.reduce((a,b) => a + b.maturidade, 0) / diagnosticoLeads.length) : 0}
+                <span className="text-lg text-muted-foreground">/100</span>
+              </p>
+            </div>
+            <div className="bg-card border border-border rounded-xl p-4">
+              <div className="flex items-center gap-2 mb-1">
+                <BarChart3 className="w-4 h-4 text-primary" />
+                <span className="text-xs text-muted-foreground uppercase tracking-wider">Maturidade &lt; 50</span>
+              </div>
+              <p className="text-3xl font-bold text-red-500">
+                {diagnosticoLeads.filter((l) => l.maturidade < 50).length}
+              </p>
+            </div>
+            <div className="bg-card border border-border rounded-xl p-4">
+              <div className="flex items-center gap-2 mb-1">
+                <BarChart3 className="w-4 h-4 text-primary" />
+                <span className="text-xs text-muted-foreground uppercase tracking-wider">Receita na Mesa</span>
+              </div>
+              <p className="text-2xl font-bold text-primary">
+                R$ {diagnosticoLeads.reduce((a,b) => a + (b.dinheiro_na_mesa || 0), 0).toLocaleString("pt-BR")}
+              </p>
+            </div>
+          </div>
+        )}
 
         {/* Search + refresh */}
         <div className="flex items-center gap-3">
@@ -243,13 +322,14 @@ export default function AdminAssessment() {
               className="w-full pl-9 pr-4 h-9 rounded-lg border border-input bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary"
             />
           </div>
-          <Button variant="outline" size="sm" onClick={fetchLeads}>
+          <Button variant="outline" size="sm" onClick={() => { fetchLeads(); fetchDiagnosticoLeads(); }}>
             <RefreshCw className="w-4 h-4 mr-2" />
             Atualizar
           </Button>
         </div>
 
-        {/* Table */}
+        {/* Tab: Assessments */}
+        {activeTab === "assessments" && (
         <div className="bg-card border border-border rounded-xl overflow-hidden">
           <div className="px-4 py-3 border-b border-border flex items-center justify-between">
             <h2 className="text-sm font-semibold text-foreground">
@@ -489,6 +569,87 @@ export default function AdminAssessment() {
             </div>
           )}
         </div>
+        )} {/* end activeTab === "assessments" */}
+
+        {/* Tab: Diagnóstico Gratuito */}
+        {activeTab === "diagnostico" && (
+          <div className="bg-card border border-border rounded-xl overflow-hidden">
+            <div className="px-4 py-3 border-b border-border">
+              <h2 className="text-sm font-semibold text-foreground">
+                {diagnosticoLeads.length} lead{diagnosticoLeads.length !== 1 ? "s" : ""} — Diagnóstico Gratuito
+              </h2>
+            </div>
+            {diagnosticoLeads.length === 0 ? (
+              <div className="text-center py-16 text-muted-foreground">
+                <BarChart3 className="w-10 h-10 mx-auto mb-3 opacity-30" />
+                <p className="text-sm">Nenhum lead do Diagnóstico Gratuito ainda</p>
+                <p className="text-xs mt-1 opacity-60">Os leads aparecerão aqui após preencherem o formulário em /diagnostico-gratuito</p>
+              </div>
+            ) : (
+              <div className="divide-y divide-border">
+                {diagnosticoLeads.map((lead) => (
+                  <div key={lead.id} className="px-4 py-4 hover:bg-muted/30 transition-colors">
+                    <div className="flex items-center gap-4 flex-wrap">
+                      {/* Score */}
+                      <div className="text-center w-14 flex-shrink-0">
+                        <div className={`text-2xl font-extrabold ${getScoreColor(lead.maturidade)}`}>
+                          {lead.maturidade}
+                        </div>
+                        <div className="text-[10px] text-muted-foreground">/100</div>
+                      </div>
+
+                      {/* Info */}
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center gap-2 mb-0.5 flex-wrap">
+                          <span className="font-semibold text-sm text-foreground">{lead.nome}</span>
+                          {lead.segmento && (
+                            <Badge variant="outline" className="text-[10px] px-1.5 py-0">{lead.segmento}</Badge>
+                          )}
+                          {lead.dinheiro_na_mesa > 0 && (
+                            <span className="text-[10px] font-bold text-primary bg-primary/10 px-2 py-0.5 rounded-full">
+                              R$ {lead.dinheiro_na_mesa.toLocaleString("pt-BR")}/mês na mesa
+                            </span>
+                          )}
+                        </div>
+                        <div className="flex flex-wrap items-center gap-x-3 gap-y-0.5 text-xs text-muted-foreground">
+                          <span>{lead.whatsapp}</span>
+                          {lead.faturamento && <><span>·</span><span>Fat: {lead.faturamento}</span></>}
+                          {lead.verba && <><span>·</span><span>Verba: {lead.verba}</span></>}
+                          {lead.site && <><span>·</span><a href={lead.site} target="_blank" rel="noopener noreferrer" className="hover:text-primary flex items-center gap-0.5">{lead.site.replace(/^https?:\/\//, "")}<ExternalLink className="w-3 h-3" /></a></>}
+                        </div>
+                        {lead.canais && (
+                          <p className="text-[10px] text-muted-foreground mt-1">Canais: {lead.canais}</p>
+                        )}
+                        {lead.dor && (
+                          <p className="text-[10px] text-muted-foreground italic mt-0.5">Dor: {lead.dor}</p>
+                        )}
+                      </div>
+
+                      {/* Date + WhatsApp */}
+                      <div className="flex items-center gap-2 flex-shrink-0">
+                        <span className="text-xs text-muted-foreground hidden md:block">
+                          {new Date(lead.created_at).toLocaleDateString("pt-BR", {
+                            day: "2-digit", month: "2-digit", year: "2-digit",
+                            hour: "2-digit", minute: "2-digit",
+                          })}
+                        </span>
+                        <a
+                          href={`https://wa.me/55${lead.whatsapp.replace(/\D/g, "")}?text=Oi+${encodeURIComponent(lead.nome)}%2C+aqui+%C3%A9+da+MAVI+Marketing+Digital%21+Vi+que+voc%C3%AA+fez+nosso+diagn%C3%B3stico+gratuito+e+queria+conversar+sobre+os+pr%C3%B3ximos+passos.+Tem+um+momento%3F`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <Button size="sm" variant="outline" className="text-green-600 border-green-600/30 hover:bg-green-500/10 text-xs">
+                            WhatsApp
+                          </Button>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );

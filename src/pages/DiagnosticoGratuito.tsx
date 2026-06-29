@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -370,6 +371,19 @@ export default function DiagnosticoGratuito() {
       if (typeof window.gtag_report_conversion === "function") {
         window.gtag_report_conversion();
       }
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      await (supabase as any).from("diagnostico_leads").insert({
+        nome: respostas.nome,
+        whatsapp: respostas.whatsapp,
+        segmento: respostas.segmento,
+        faturamento: respostas.faturamento,
+        verba: respostas.verba,
+        canais: respostas.canais.join(", "),
+        dor: respostas.dor,
+        site: respostas.site,
+        dinheiro_na_mesa: resultado?.dinheiroNaMesa ?? 0,
+        maturidade: resultado?.maturidade ?? 0,
+      });
     } catch {
       toast.error("Não conseguimos registrar agora, mas seu resultado está pronto!");
     } finally {

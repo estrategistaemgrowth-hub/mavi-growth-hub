@@ -848,6 +848,14 @@ const MILESTONE_MESSAGES: Record<number, string> = {
   18: "Faltam só 3 perguntas — quase lá!",
 };
 
+const FATURAMENTO_MIDPOINTS: Record<string, number> = {
+  "ate30k": 15000,
+  "30k-100k": 65000,
+  "100k-300k": 200000,
+  "300k-1M": 650000,
+  "acima1M": 1500000,
+};
+
 export default function Assessment() {
   const [phase, setPhase] = useState<Phase>("url-input");
   const [lojaUrl, setLojaUrl] = useState("");
@@ -865,6 +873,7 @@ export default function Assessment() {
   const [nome, setNome] = useState("");
   const [email, setEmail] = useState("");
   const [whatsapp, setWhatsapp] = useState("");
+  const [faturamento, setFaturamento] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [leadErrors, setLeadErrors] = useState<{ email?: string; whatsapp?: string }>({});
 
@@ -888,6 +897,11 @@ export default function Assessment() {
   const finalPersona = getPersona(finalAvg);
   const overallColor =
     finalAvg >= 70 ? "#16a34a" : finalAvg >= 50 ? "#d97706" : "#dc2626";
+
+  const faturamentoMidpoint = FATURAMENTO_MIDPOINTS[faturamento] ?? 0;
+  const dinheiraNaMesa = faturamentoMidpoint > 0
+    ? Math.round(faturamentoMidpoint * (100 - finalAvg) / 100 * 0.20)
+    : 0;
 
   const radarData = PILLARS.map((p, i) => ({
     subject: p.shortLabel,
@@ -1188,6 +1202,7 @@ export default function Assessment() {
     setIsSubmitting(true);
     try {
       const scoreMap = Object.fromEntries(PILLARS.map((p, i) => [p.id, pillarScores[i]]));
+      const metaAnswer = { pillar: "meta", question: "faturamento_mensal", answer: faturamento, score: 0 };
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const { error } = await (supabase as any).from("assessment_leads").insert({
         loja_url: lojaUrl,
@@ -1197,7 +1212,7 @@ export default function Assessment() {
         avg_score: finalAvg,
         persona: finalPersona.label,
         scores: scoreMap,
-        answers: allAnswers,
+        answers: [...allAnswers, metaAnswer],
       });
       if (error) throw error;
 
@@ -2167,6 +2182,22 @@ export default function Assessment() {
                     className={`bg-white h-9 text-sm touch-manipulation ${leadErrors.whatsapp ? "border-red-400 focus:border-red-400" : "border-gray-200"} text-gray-900`} />
                   {leadErrors.whatsapp && <p className="text-[10px] text-red-500 mt-0.5 flex items-center gap-1"><span>!</span>{leadErrors.whatsapp}</p>}
                 </div>
+                <div>
+                  <Label className="text-gray-500 text-[11px] mb-1 block">Faturamento mensal *</Label>
+                  <select
+                    required
+                    value={faturamento}
+                    onChange={(e) => setFaturamento(e.target.value)}
+                    className="w-full h-9 text-sm border border-gray-200 rounded-md px-3 bg-white text-gray-900 touch-manipulation focus:outline-none focus:ring-1 focus:ring-primary"
+                  >
+                    <option value="">Selecione...</option>
+                    <option value="ate30k">Até R$ 30k/mês</option>
+                    <option value="30k-100k">R$ 30k a R$ 100k/mês</option>
+                    <option value="100k-300k">R$ 100k a R$ 300k/mês</option>
+                    <option value="300k-1M">R$ 300k a R$ 1M/mês</option>
+                    <option value="acima1M">Acima de R$ 1M/mês</option>
+                  </select>
+                </div>
                 <Button type="submit" variant="hero" className="w-full min-h-[44px] touch-manipulation font-semibold" disabled={isSubmitting}>
                   {isSubmitting ? (
                     <><Loader2 className="w-4 h-4 mr-2 animate-spin" />Processando...</>
@@ -2271,6 +2302,31 @@ export default function Assessment() {
             </div>
           </div>
         </motion.div>
+
+        {/* Dinheiro na mesa */}
+        {dinheiraNaMesa > 0 && (
+          <motion.div
+            className="bg-gray-950 border border-gray-800 rounded-2xl px-6 py-7 text-center relative overflow-hidden"
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.15 }}
+          >
+            <div className="absolute inset-0 opacity-30" style={{ backgroundImage: "radial-gradient(circle at 50% 80%, rgba(230,0,126,0.25) 0%, transparent 65%)" }} />
+            <div className="relative z-10">
+              <p className="text-[10px] uppercase tracking-widest text-gray-500 mb-3 font-semibold">
+                Estimativa de Receita Não Capturada
+              </p>
+              <p className="text-5xl md:text-6xl font-extrabold text-primary mb-2">
+                R$ {dinheiraNaMesa.toLocaleString("pt-BR")}
+              </p>
+              <p className="text-sm text-gray-400 mb-4">por mês — dinheiro que está na mesa</p>
+              <p className="text-xs text-gray-600">
+                Calculado com base no seu faturamento e score de maturidade ({finalAvg}/100). <br />
+                Com as otimizações certas, esse valor pode ser capturado nos próximos 90 dias.
+              </p>
+            </div>
+          </motion.div>
+        )}
 
         {/* Pillar bars */}
         <motion.div
