@@ -794,14 +794,14 @@ const PILLAR_SERVICE_MAP: Record<string, {
     tagline: "Meta Ads e Google Ads com retorno real",
     description: "Estruturação de campanhas, funil completo de prospecção e remarketing, mensuração de ROAS e otimização semanal.",
     href: "/servicos/performance",
-    waText: "Quero estruturar meus anúncios pagos com retorno mensurável",
+    waText: "Fiz o assessment e preciso de ajuda pra performar meu ecommerce",
   },
   "investimentos-midia": {
     service: "Estratégia de Mídia",
     tagline: "Controle e diversificação de verba",
     description: "Diagnóstico da distribuição atual de budget, reestruturação por canal com análise de ROI e dashboard de performance.",
     href: "/servicos/performance",
-    waText: "Quero organizar meus investimentos de marketing com ROI claro",
+    waText: "Fiz o assessment e preciso de ajuda pra performar meu ecommerce",
   },
   "design-layout": {
     service: "Design e CRO",
