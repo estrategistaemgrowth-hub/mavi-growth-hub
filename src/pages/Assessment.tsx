@@ -874,6 +874,7 @@ export default function Assessment() {
   const [email, setEmail] = useState("");
   const [whatsapp, setWhatsapp] = useState("");
   const [faturamento, setFaturamento] = useState("");
+  const [chatPhase, setChatPhase] = useState<"pillars" | "faturamento">("pillars");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [leadErrors, setLeadErrors] = useState<{ email?: string; whatsapp?: string }>({});
 
@@ -975,6 +976,7 @@ export default function Assessment() {
   useEffect(() => {
     if (phase !== "result") return;
     if (typeof window === "undefined") return;
+    window.scrollTo({ top: 0, behavior: "instant" });
     (window as any).dataLayer = (window as any).dataLayer || [];
     (window as any).dataLayer.push({
       event: "assessment_complete",
@@ -1165,7 +1167,14 @@ export default function Assessment() {
 
     const nextIdx = currentIdx + 1;
     if (nextIdx >= TOTAL_QUESTIONS) {
-      setTimeout(() => setPhase("gate"), 900);
+      setIsTransitioning(true);
+      chainMessages(
+        [
+          { type: "system" as MsgType, text: "✅ Perfeito! Todas as respostas foram registradas." },
+          { type: "question" as MsgType, text: "Só mais uma pergunta: qual é o faturamento mensal médio da sua loja?" },
+        ],
+        () => setChatPhase("faturamento")
+      );
       return;
     }
 
@@ -1187,6 +1196,17 @@ export default function Assessment() {
     queue.push({ type: "question", text: nextPillar.questions[next.questionIndex].text });
 
     chainMessages(queue);
+  }
+
+  function handleFaturamentoAnswer(value: string, label: string) {
+    if (isTransitioning) return;
+    setFaturamento(value);
+    setMessages((prev) => [...prev, { type: "answer", text: label }]);
+    setIsTransitioning(true);
+    chainMessages(
+      [{ type: "system" as MsgType, text: "Ótimo! Vou preparar seu diagnóstico completo agora. 🎯" }],
+      () => setPhase("gate")
+    );
   }
 
   async function handleLeadSubmit(e: React.FormEvent) {
@@ -1915,24 +1935,52 @@ export default function Assessment() {
             </div>
 
             {/* Answer options */}
-            {!isTransitioning && currentPillar && currentQuestion && (
-              <div className="flex-shrink-0 border-t border-gray-200 px-5 py-4 bg-gray-50">
-                <p className="text-[11px] text-gray-400 mb-2 flex items-center gap-1.5">
-                  <currentPillar.icon className="w-3 h-3 text-primary" />
-                  {currentPillar.label}
-                </p>
-                <div className="space-y-2">
-                  {currentQuestion.options.map((opt, i) => (
-                    <button
-                      key={i}
-                      onClick={() => handleAnswer(opt)}
-                      className="w-full text-left px-4 py-3 rounded-xl border border-gray-200 bg-white text-gray-700 text-sm hover:border-primary/50 hover:bg-primary/5 hover:text-gray-900 transition-all duration-150 active:scale-[0.99] touch-manipulation min-h-[44px]"
-                    >
-                      {opt.label}
-                    </button>
-                  ))}
-                </div>
-              </div>
+            {!isTransitioning && (
+              <>
+                {chatPhase === "faturamento" ? (
+                  <div className="flex-shrink-0 border-t border-gray-200 px-5 py-4 bg-gray-50">
+                    <p className="text-[11px] text-gray-400 mb-2 flex items-center gap-1.5">
+                      <DollarSign className="w-3 h-3 text-primary" />
+                      Faturamento mensal
+                    </p>
+                    <div className="space-y-2">
+                      {[
+                        { value: "ate30k", label: "Até R$ 30k/mês" },
+                        { value: "30k-100k", label: "R$ 30k a R$ 100k/mês" },
+                        { value: "100k-300k", label: "R$ 100k a R$ 300k/mês" },
+                        { value: "300k-1M", label: "R$ 300k a R$ 1M/mês" },
+                        { value: "acima1M", label: "Acima de R$ 1M/mês" },
+                      ].map((opt) => (
+                        <button
+                          key={opt.value}
+                          onClick={() => handleFaturamentoAnswer(opt.value, opt.label)}
+                          className="w-full text-left px-4 py-3 rounded-xl border border-gray-200 bg-white text-gray-700 text-sm hover:border-primary/50 hover:bg-primary/5 hover:text-gray-900 transition-all duration-150 active:scale-[0.99] touch-manipulation min-h-[44px]"
+                        >
+                          {opt.label}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                ) : currentPillar && currentQuestion ? (
+                  <div className="flex-shrink-0 border-t border-gray-200 px-5 py-4 bg-gray-50">
+                    <p className="text-[11px] text-gray-400 mb-2 flex items-center gap-1.5">
+                      <currentPillar.icon className="w-3 h-3 text-primary" />
+                      {currentPillar.label}
+                    </p>
+                    <div className="space-y-2">
+                      {currentQuestion.options.map((opt, i) => (
+                        <button
+                          key={i}
+                          onClick={() => handleAnswer(opt)}
+                          className="w-full text-left px-4 py-3 rounded-xl border border-gray-200 bg-white text-gray-700 text-sm hover:border-primary/50 hover:bg-primary/5 hover:text-gray-900 transition-all duration-150 active:scale-[0.99] touch-manipulation min-h-[44px]"
+                        >
+                          {opt.label}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                ) : null}
+              </>
             )}
           </div>
         </div>
@@ -2182,22 +2230,6 @@ export default function Assessment() {
                     className={`bg-white h-9 text-sm touch-manipulation ${leadErrors.whatsapp ? "border-red-400 focus:border-red-400" : "border-gray-200"} text-gray-900`} />
                   {leadErrors.whatsapp && <p className="text-[10px] text-red-500 mt-0.5 flex items-center gap-1"><span>!</span>{leadErrors.whatsapp}</p>}
                 </div>
-                <div>
-                  <Label className="text-gray-500 text-[11px] mb-1 block">Faturamento mensal *</Label>
-                  <select
-                    required
-                    value={faturamento}
-                    onChange={(e) => setFaturamento(e.target.value)}
-                    className="w-full h-9 text-sm border border-gray-200 rounded-md px-3 bg-white text-gray-900 touch-manipulation focus:outline-none focus:ring-1 focus:ring-primary"
-                  >
-                    <option value="">Selecione...</option>
-                    <option value="ate30k">Até R$ 30k/mês</option>
-                    <option value="30k-100k">R$ 30k a R$ 100k/mês</option>
-                    <option value="100k-300k">R$ 100k a R$ 300k/mês</option>
-                    <option value="300k-1M">R$ 300k a R$ 1M/mês</option>
-                    <option value="acima1M">Acima de R$ 1M/mês</option>
-                  </select>
-                </div>
                 <Button type="submit" variant="hero" className="w-full min-h-[44px] touch-manipulation font-semibold" disabled={isSubmitting}>
                   {isSubmitting ? (
                     <><Loader2 className="w-4 h-4 mr-2 animate-spin" />Processando...</>
@@ -2363,8 +2395,60 @@ export default function Assessment() {
           <p className="text-xs uppercase tracking-wider text-gray-400 mb-4">
             Diagnóstico Detalhado — Pontos de Melhoria
           </p>
+
+          {/* ── Destaques: Tráfego Pago + Investimento em Mídia (serviços principais MAVI) ── */}
+          {(() => {
+            const FEATURED_IDS = ["trafego-pago", "investimentos-midia"];
+            const featured = PILLARS.map((p, i) => ({ p, i })).filter(({ p }) => FEATURED_IDS.includes(p.id));
+            return (
+              <div className="grid sm:grid-cols-2 gap-4 mb-4">
+                {featured.map(({ p, i }) => {
+                  const s = pillarScores[i];
+                  const insight = p.insight(s);
+                  const Icon = p.icon;
+                  const svc = PILLAR_SERVICE_MAP[p.id];
+                  return (
+                    <div key={p.id} className="bg-gradient-to-br from-primary/5 to-primary/10 border-2 border-primary rounded-xl p-5 shadow-md relative">
+                      <div className="absolute top-3 right-3">
+                        <span className="text-[9px] font-bold bg-primary text-white px-2 py-0.5 rounded-full uppercase tracking-wider">
+                          ⭐ Serviço principal MAVI
+                        </span>
+                      </div>
+                      <div className="flex items-center gap-2 mb-3">
+                        <Icon className="w-4 h-4 text-primary flex-shrink-0" />
+                        <span className="text-xs font-extrabold uppercase tracking-wide text-primary">
+                          {insight.title}
+                        </span>
+                      </div>
+                      <ul className="space-y-2 mb-4">
+                        {insight.points.map((pt, j) => (
+                          <li key={j} className="flex items-start gap-2 text-xs text-gray-700 leading-relaxed font-medium">
+                            <span className="text-primary mt-0.5 flex-shrink-0">→</span>
+                            {pt}
+                          </li>
+                        ))}
+                      </ul>
+                      {svc && (
+                        <a
+                          href={`https://wa.me/554733072030?text=${encodeURIComponent(svc.waText)}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center justify-center gap-1.5 bg-primary text-white text-xs font-bold py-2.5 px-4 rounded-xl hover:bg-primary/90 transition-colors touch-manipulation w-full"
+                        >
+                          Quero resolver isso agora <ArrowRight className="w-3.5 h-3.5" />
+                        </a>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            );
+          })()}
+
+          {/* ── Demais pilares ── */}
           <div className="grid sm:grid-cols-2 gap-4">
-            {PILLARS.map((p, i) => {
+            {PILLARS.filter(p => !["trafego-pago", "investimentos-midia"].includes(p.id)).map((p) => {
+              const i = PILLARS.indexOf(p);
               const s = pillarScores[i];
               const insight = p.insight(s);
               const Icon = p.icon;
