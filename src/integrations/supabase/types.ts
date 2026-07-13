@@ -14,6 +14,45 @@ export type Database = {
   }
   public: {
     Tables: {
+      assessment_leads: {
+        Row: {
+          answers: Json
+          avg_score: number
+          created_at: string
+          email: string
+          id: string
+          loja_url: string | null
+          nome: string
+          persona: string
+          scores: Json
+          whatsapp: string
+        }
+        Insert: {
+          answers?: Json
+          avg_score?: number
+          created_at?: string
+          email: string
+          id?: string
+          loja_url?: string | null
+          nome: string
+          persona?: string
+          scores?: Json
+          whatsapp: string
+        }
+        Update: {
+          answers?: Json
+          avg_score?: number
+          created_at?: string
+          email?: string
+          id?: string
+          loja_url?: string | null
+          nome?: string
+          persona?: string
+          scores?: Json
+          whatsapp?: string
+        }
+        Relationships: []
+      }
       blog_categories: {
         Row: {
           created_at: string
@@ -90,6 +129,27 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      page_views: {
+        Row: {
+          created_at: string
+          id: string
+          path: string
+          referrer: string | null
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          path: string
+          referrer?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          path?: string
+          referrer?: string | null
+        }
+        Relationships: []
       }
       user_roles: {
         Row: {
