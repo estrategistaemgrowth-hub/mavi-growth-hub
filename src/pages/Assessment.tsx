@@ -917,6 +917,25 @@ export default function Assessment() {
     chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
+  // Envia o evento também via Conversions API (server-side), com o mesmo
+  // event_id do fbq client-side para o Meta deduplicar as duas chamadas.
+  function sendCapiEvent(eventName: string, eventId: string, opts?: { email?: string; phone?: string; value?: number }) {
+    const getCookie = (name: string) => document.cookie.match(new RegExp(`(?:^|; )${name}=([^;]*)`))?.[1];
+    supabase.functions.invoke("meta-capi", {
+      body: {
+        event_name: eventName,
+        event_id: eventId,
+        event_source_url: window.location.href,
+        email: opts?.email,
+        phone: opts?.phone,
+        value: opts?.value,
+        currency: "BRL",
+        fbp: getCookie("_fbp"),
+        fbc: getCookie("_fbc"),
+      },
+    }).catch((err) => console.error("meta-capi invoke error:", err));
+  }
+
   // Chains bot messages with typing animation
   function chainMessages(
     msgs: Array<{ type: MsgType; text: string }>,
@@ -983,13 +1002,15 @@ export default function Assessment() {
       assessment_score: finalAvg,
       assessment_persona: finalPersona.label,
     });
+    const eventId = `assessment-complete-${Date.now()}`;
     if (typeof (window as any).fbq === "function") {
       (window as any).fbq("track", "CompleteRegistration", {
         content_name: "Assessment E-commerce Completo",
         value: finalAvg,
         currency: "BRL",
-      });
+      }, { eventID: eventId });
     }
+    sendCapiEvent("CompleteRegistration", eventId, { email, phone: whatsapp, value: finalAvg });
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [phase]);
 
@@ -1248,13 +1269,15 @@ export default function Assessment() {
           email,
         });
         // fbq direto caso o pixel esteja carregado fora do GTM
+        const leadEventId = `assessment-lead-${Date.now()}`;
         if (typeof (window as any).fbq === "function") {
           (window as any).fbq("track", "Lead", {
             content_name: "Assessment E-commerce",
             value: finalAvg,
             currency: "BRL",
-          });
+          }, { eventID: leadEventId });
         }
+        sendCapiEvent("Lead", leadEventId, { email, phone: whatsapp, value: finalAvg });
         // Google Ads conversion
         if (typeof (window as any).gtag === "function") {
           (window as any).gtag("event", "conversion", {
