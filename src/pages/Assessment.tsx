@@ -186,6 +186,7 @@ import {
 } from "recharts";
 import {
   CheckCircle2,
+  Check,
   Loader2,
   ChevronRight,
   Sparkles,
@@ -867,6 +868,7 @@ export default function Assessment() {
   const [messages, setMessages] = useState<Array<{ type: MsgType; text: string }>>([]);
   const [isTyping, setIsTyping] = useState(false);
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const [selectedIdx, setSelectedIdx] = useState<number | null>(null);
   const chatEndRef = useRef<HTMLDivElement>(null);
   const lpFormRef = useRef<HTMLDivElement>(null);
 
@@ -1194,6 +1196,26 @@ export default function Assessment() {
     }
 
     setPhase("analyzing");
+  }
+
+  // Delay curta para o usuário ver a resposta escolhida destacada antes do
+  // chat avançar — sem isso, o clique some instantaneamente e não há feedback.
+  function selectAnswer(option: AnswerOption, idx: number) {
+    if (isTransitioning || selectedIdx !== null) return;
+    setSelectedIdx(idx);
+    setTimeout(() => {
+      handleAnswer(option);
+      setSelectedIdx(null);
+    }, 220);
+  }
+
+  function selectFaturamento(value: string, label: string, idx: number) {
+    if (isTransitioning || selectedIdx !== null) return;
+    setSelectedIdx(idx);
+    setTimeout(() => {
+      handleFaturamentoAnswer(value, label);
+      setSelectedIdx(null);
+    }, 220);
   }
 
   function handleAnswer(option: AnswerOption) {
@@ -1910,27 +1932,44 @@ export default function Assessment() {
           <div className="flex flex-col h-full w-full max-w-2xl mx-auto border-x border-gray-100">
 
             {/* Header */}
-            <div className="flex-shrink-0 px-5 py-3 border-b border-gray-200 bg-white">
-              <div className="flex items-center justify-between">
+            <div className="flex-shrink-0 px-5 py-3.5 border-b border-gray-200 bg-white">
+              <div className="flex items-center justify-between mb-2.5">
                 <img src={logoMavi} alt="MAVI" className="h-5" />
-                <div className="flex items-center gap-2">
-                  <span className="text-xs text-gray-400">
-                    {answeredCount}/{TOTAL_QUESTIONS}
-                  </span>
-                  <div className="w-28 h-1.5 bg-gray-200 rounded-full overflow-hidden">
-                    <div
-                      className="h-full bg-primary rounded-full transition-all duration-500"
-                      style={{ width: `${progress}%` }}
-                    />
+                {currentPillar && (
+                  <div className="flex items-center gap-1.5 text-gray-500">
+                    <currentPillar.icon className="w-3.5 h-3.5 text-primary" />
+                    <span className="text-xs font-medium">{currentPillar.label}</span>
                   </div>
-                  <span className="text-xs text-primary font-semibold">{progress}%</span>
-                </div>
+                )}
+                <span className="text-xs text-primary font-bold tabular-nums">{progress}%</span>
+              </div>
+              {/* Progresso segmentado por pilar — mostra estrutura real (7 pilares), não só um número */}
+              <div className="flex items-center gap-1">
+                {PILLARS.map((p) => {
+                  const answered = scores[p.id]?.length ?? 0;
+                  const total = p.questions.length;
+                  const isCurrent = currentPillar?.id === p.id;
+                  return (
+                    <div
+                      key={p.id}
+                      className="h-1.5 flex-1 bg-gray-200 rounded-full overflow-hidden"
+                      title={p.label}
+                    >
+                      <div
+                        className={`h-full rounded-full transition-all duration-500 ${
+                          isCurrent ? "bg-primary" : "bg-primary/70"
+                        }`}
+                        style={{ width: `${Math.round((answered / total) * 100)}%` }}
+                      />
+                    </div>
+                  );
+                })}
               </div>
             </div>
 
             {/* Messages */}
             <div className="flex-1 overflow-y-auto px-5 py-5">
-              <div className="space-y-3">
+              <div className="min-h-full flex flex-col justify-end space-y-3">
                 {messages.map((msg, i) => (
                   <div
                     key={i}
@@ -1983,11 +2022,11 @@ export default function Assessment() {
             {!isTransitioning && (
               <>
                 {chatPhase === "faturamento" ? (
-                  <div className="flex-shrink-0 border-t border-gray-200 px-5 py-4 bg-gray-50">
-                    <p className="text-[11px] text-gray-400 mb-2 flex items-center gap-1.5">
-                      <DollarSign className="w-3 h-3 text-primary" />
+                  <div className="flex-shrink-0 border-t border-gray-200 px-5 pt-4 pb-5 bg-gray-50">
+                    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 text-[10px] font-semibold tracking-wide uppercase rounded-full border border-primary/30 text-primary bg-primary/10 mb-3">
+                      <DollarSign className="w-3 h-3" />
                       Faturamento mensal
-                    </p>
+                    </span>
                     <div className="space-y-2">
                       {[
                         { value: "ate30k", label: "Até R$ 30k/mês" },
@@ -1995,33 +2034,67 @@ export default function Assessment() {
                         { value: "100k-300k", label: "R$ 100k a R$ 300k/mês" },
                         { value: "300k-1M", label: "R$ 300k a R$ 1M/mês" },
                         { value: "acima1M", label: "Acima de R$ 1M/mês" },
-                      ].map((opt) => (
-                        <button
-                          key={opt.value}
-                          onClick={() => handleFaturamentoAnswer(opt.value, opt.label)}
-                          className="w-full text-left px-4 py-3 rounded-xl border border-gray-200 bg-white text-gray-700 text-sm hover:border-primary/50 hover:bg-primary/5 hover:text-gray-900 transition-all duration-150 active:scale-[0.99] touch-manipulation min-h-[44px]"
-                        >
-                          {opt.label}
-                        </button>
-                      ))}
+                      ].map((opt, i) => {
+                        const isSelected = selectedIdx === i;
+                        return (
+                          <button
+                            key={opt.value}
+                            onClick={() => selectFaturamento(opt.value, opt.label, i)}
+                            disabled={selectedIdx !== null}
+                            className={`w-full flex items-center gap-3 text-left px-4 py-3 rounded-xl border text-sm transition-all duration-150 active:scale-[0.99] touch-manipulation min-h-[44px] ${
+                              isSelected
+                                ? "border-primary bg-primary text-white"
+                                : "border-gray-200 bg-white text-gray-700 hover:border-primary/50 hover:bg-primary/5 hover:text-gray-900"
+                            }`}
+                          >
+                            <span
+                              className={`flex-shrink-0 w-6 h-6 rounded-full border flex items-center justify-center text-[11px] font-bold ${
+                                isSelected
+                                  ? "border-white/60 text-white"
+                                  : "border-gray-300 text-gray-400"
+                              }`}
+                            >
+                              {isSelected ? <Check className="w-3.5 h-3.5" /> : String.fromCharCode(65 + i)}
+                            </span>
+                            {opt.label}
+                          </button>
+                        );
+                      })}
                     </div>
                   </div>
                 ) : currentPillar && currentQuestion ? (
-                  <div className="flex-shrink-0 border-t border-gray-200 px-5 py-4 bg-gray-50">
-                    <p className="text-[11px] text-gray-400 mb-2 flex items-center gap-1.5">
-                      <currentPillar.icon className="w-3 h-3 text-primary" />
+                  <div className="flex-shrink-0 border-t border-gray-200 px-5 pt-4 pb-5 bg-gray-50">
+                    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 text-[10px] font-semibold tracking-wide uppercase rounded-full border border-primary/30 text-primary bg-primary/10 mb-3">
+                      <currentPillar.icon className="w-3 h-3" />
                       {currentPillar.label}
-                    </p>
+                    </span>
                     <div className="space-y-2">
-                      {currentQuestion.options.map((opt, i) => (
-                        <button
-                          key={i}
-                          onClick={() => handleAnswer(opt)}
-                          className="w-full text-left px-4 py-3 rounded-xl border border-gray-200 bg-white text-gray-700 text-sm hover:border-primary/50 hover:bg-primary/5 hover:text-gray-900 transition-all duration-150 active:scale-[0.99] touch-manipulation min-h-[44px]"
-                        >
-                          {opt.label}
-                        </button>
-                      ))}
+                      {currentQuestion.options.map((opt, i) => {
+                        const isSelected = selectedIdx === i;
+                        return (
+                          <button
+                            key={i}
+                            onClick={() => selectAnswer(opt, i)}
+                            disabled={selectedIdx !== null}
+                            className={`w-full flex items-center gap-3 text-left px-4 py-3 rounded-xl border text-sm transition-all duration-150 active:scale-[0.99] touch-manipulation min-h-[44px] ${
+                              isSelected
+                                ? "border-primary bg-primary text-white"
+                                : "border-gray-200 bg-white text-gray-700 hover:border-primary/50 hover:bg-primary/5 hover:text-gray-900"
+                            }`}
+                          >
+                            <span
+                              className={`flex-shrink-0 w-6 h-6 rounded-full border flex items-center justify-center text-[11px] font-bold ${
+                                isSelected
+                                  ? "border-white/60 text-white"
+                                  : "border-gray-300 text-gray-400"
+                              }`}
+                            >
+                              {isSelected ? <Check className="w-3.5 h-3.5" /> : String.fromCharCode(65 + i)}
+                            </span>
+                            {opt.label}
+                          </button>
+                        );
+                      })}
                     </div>
                   </div>
                 ) : null}
@@ -2471,7 +2544,7 @@ export default function Assessment() {
                       </ul>
                       {svc && (
                         <a
-                          href={`https://wa.me/554733072030?text=${encodeURIComponent(svc.waText)}`}
+                          href={`https://wa.me/5547999293541?text=${encodeURIComponent(svc.waText)}`}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="flex items-center justify-center gap-1.5 bg-primary text-white text-xs font-bold py-2.5 px-4 rounded-xl hover:bg-primary/90 transition-colors touch-manipulation w-full"
@@ -2564,7 +2637,7 @@ export default function Assessment() {
                       <p className="text-xs text-gray-500 leading-relaxed flex-1 mb-4">{svc.description}</p>
                       <div className="flex flex-col gap-2 mt-auto">
                         <a
-                          href={`https://wa.me/554733072030?text=${encodeURIComponent(svc.waText)}`}
+                          href={`https://wa.me/5547999293541?text=${encodeURIComponent(svc.waText)}`}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="flex items-center justify-center gap-1.5 bg-primary text-white text-xs font-semibold py-2.5 px-4 rounded-xl hover:bg-primary/90 transition-colors touch-manipulation"
@@ -2600,7 +2673,7 @@ export default function Assessment() {
               <strong className="text-white">sem custo e sem compromisso.</strong>
             </p>
             <a
-              href={`https://wa.me/554733072030?text=Oi%21+Fiz+o+assessment+do+meu+e-commerce+e+quero+conversar+sobre+os+pr%C3%B3ximos+passos.+Score%3A+${finalAvg}%2F100+%E2%80%94+${encodeURIComponent(finalPersona.label)}.`}
+              href={`https://wa.me/5547999293541?text=Oi%21+Fiz+o+assessment+do+meu+e-commerce+e+quero+conversar+sobre+os+pr%C3%B3ximos+passos.+Score%3A+${finalAvg}%2F100+%E2%80%94+${encodeURIComponent(finalPersona.label)}.`}
               target="_blank"
               rel="noopener noreferrer"
             >
