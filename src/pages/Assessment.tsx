@@ -207,6 +207,7 @@ import {
   Zap,
 } from "lucide-react";
 import logoMavi from "@/assets/logo-mavi-colorida.png";
+import camilaAvatar from "@/assets/camila-avatar.jpg";
 import { CyclingTypewriter } from "@/components/CyclingTypewriter";
 import { User, Target } from "lucide-react";
 
@@ -1980,9 +1981,11 @@ export default function Assessment() {
                     } animate-fade-in-up`}
                   >
                     {msg.type !== "answer" && (
-                      <div className="w-7 h-7 rounded-full bg-primary flex-shrink-0 flex items-center justify-center mt-0.5 shadow-sm">
-                        <span className="text-white text-[11px] font-bold leading-none">M</span>
-                      </div>
+                      <img
+                        src={camilaAvatar}
+                        alt="Camila"
+                        className="w-7 h-7 rounded-full flex-shrink-0 object-cover mt-0.5 shadow-sm"
+                      />
                     )}
                     <div
                       className={`max-w-[78%] px-4 py-2.5 rounded-2xl text-sm leading-relaxed ${
@@ -2001,9 +2004,11 @@ export default function Assessment() {
                 {/* Typing indicator */}
                 {isTyping && (
                   <div className="flex justify-start items-start gap-2.5 animate-fade-in-up">
-                    <div className="w-7 h-7 rounded-full bg-primary flex-shrink-0 flex items-center justify-center shadow-sm">
-                      <span className="text-white text-[11px] font-bold leading-none">M</span>
-                    </div>
+                    <img
+                      src={camilaAvatar}
+                      alt="Camila"
+                      className="w-7 h-7 rounded-full flex-shrink-0 object-cover shadow-sm"
+                    />
                     <div className="px-4 py-3 rounded-2xl bg-gray-100 rounded-tl-sm">
                       <div className="flex items-center gap-1">
                         <span className="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: "0ms" }} />
