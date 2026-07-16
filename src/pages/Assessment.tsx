@@ -823,6 +823,53 @@ const ANALYZING_STEPS = [
   "Preparando seu assessment personalizado...",
 ];
 
+// Anel de progresso circular com contador animado — reforça que o score
+// foi calculado de verdade (não é só um número estático na tela).
+function ScoreRing({ score, color, size = 148, stroke = 11 }: { score: number; color: string; size?: number; stroke?: number }) {
+  const [display, setDisplay] = useState(0);
+  const radius = (size - stroke) / 2;
+  const circumference = 2 * Math.PI * radius;
+
+  useEffect(() => {
+    let raf: number;
+    const duration = 1100;
+    const start = performance.now();
+    const tick = (now: number) => {
+      const t = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - t, 3);
+      setDisplay(Math.round(eased * score));
+      if (t < 1) raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [score]);
+
+  return (
+    <div className="relative flex-shrink-0" style={{ width: size, height: size }}>
+      <svg width={size} height={size} className="-rotate-90">
+        <circle cx={size / 2} cy={size / 2} r={radius} fill="none" stroke="#f1f1f3" strokeWidth={stroke} />
+        <motion.circle
+          cx={size / 2}
+          cy={size / 2}
+          r={radius}
+          fill="none"
+          stroke={color}
+          strokeWidth={stroke}
+          strokeLinecap="round"
+          strokeDasharray={circumference}
+          initial={{ strokeDashoffset: circumference }}
+          animate={{ strokeDashoffset: circumference - (score / 100) * circumference }}
+          transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
+        />
+      </svg>
+      <div className="absolute inset-0 flex flex-col items-center justify-center">
+        <span className="text-4xl font-extrabold tabular-nums" style={{ color }}>{display}</span>
+        <span className="text-[10px] text-gray-400">/100</span>
+      </div>
+    </div>
+  );
+}
+
 // ─── Main Component ───────────────────────────────────────────────────────────
 
 type Phase = "url-input" | "analyzing" | "questions" | "gate" | "result";
@@ -1398,8 +1445,8 @@ export default function Assessment() {
 
           {/* Hero content */}
           <div className="relative z-10">
-            <div className="w-full max-w-6xl mx-auto px-6 md:px-12 py-14 lg:py-20">
-              <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div className="w-full max-w-6xl mx-auto px-6 md:px-12 py-6 md:py-10 lg:py-20">
+              <div className="grid lg:grid-cols-2 gap-5 lg:gap-12 items-center">
 
                 {/* Left — copy */}
                 <motion.div
@@ -1408,7 +1455,7 @@ export default function Assessment() {
                   transition={{ duration: 0.6 }}
                 >
                   <motion.span
-                    className="inline-flex items-center gap-2 px-3 py-1.5 text-xs font-semibold tracking-wider uppercase rounded-full border border-primary/40 text-primary bg-primary/10 mb-6"
+                    className="inline-flex items-center gap-2 px-3 py-1.5 text-xs font-semibold tracking-wider uppercase rounded-full border border-primary/40 text-primary bg-primary/10 mb-3 lg:mb-6"
                     initial={{ scale: 0.9, opacity: 0 }}
                     animate={{ scale: 1, opacity: 1 }}
                     transition={{ delay: 0.2 }}
@@ -1416,7 +1463,7 @@ export default function Assessment() {
                     <Zap className="w-3 h-3" /> Assessment · E-commerce · Gratuito
                   </motion.span>
 
-                  <h1 className="text-4xl md:text-5xl lg:text-[54px] font-extrabold text-white leading-[1.1] tracking-tight mb-5">
+                  <h1 className="text-[30px] leading-[1.1] md:text-5xl lg:text-[54px] font-extrabold text-white tracking-tight mb-2.5 lg:mb-5">
                     Descubra o que está
                     <span className="block min-h-[1.1em]">
                       <CyclingTypewriter
@@ -1433,12 +1480,12 @@ export default function Assessment() {
                     </span>
                   </h1>
 
-                  <p className="text-white/60 text-lg leading-relaxed mb-10 max-w-lg">
+                  <p className="text-white/60 text-sm md:text-lg leading-relaxed mb-4 lg:mb-10 max-w-lg">
                     Diagnóstico em <strong className="text-white">7 dimensões</strong>, resultado em <strong className="text-white">5 minutos</strong>. Saiba exatamente onde focar para crescer.
                   </p>
 
-                  {/* Stats */}
-                  <div className="flex flex-wrap items-center gap-6">
+                  {/* Stats — só desktop; no mobile o card de captura entra logo em seguida */}
+                  <div className="hidden lg:flex flex-wrap items-center gap-6">
                     {[
                       { n: "200+", label: "e-commerces analisados" },
                       { n: "7", label: "dimensões avaliadas" },
@@ -1490,6 +1537,13 @@ export default function Assessment() {
 
                         {/* CTA animado */}
                         <motion.div className="relative" whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+                          {/* Anel pulsante — chama atenção pro CTA sem ser infantil */}
+                          <motion.div
+                            className="absolute inset-0 rounded-xl border-2 border-primary pointer-events-none"
+                            initial={{ opacity: 0.5, scale: 1 }}
+                            animate={{ opacity: [0.5, 0], scale: [1, 1.06] }}
+                            transition={{ duration: 1.6, repeat: Infinity, ease: [0.16, 1, 0.3, 1] }}
+                          />
                           <motion.div
                             className="absolute inset-0 rounded-xl blur-sm"
                             style={{ background: "linear-gradient(135deg, #E6007E, #ff4db8)" }}
@@ -2409,6 +2463,21 @@ export default function Assessment() {
         animate={{ opacity: 1 }}
         transition={{ duration: 0.4 }}
       >
+        {/* Autenticidade — mostra que a análise foi feita em cima dos dados reais da pessoa */}
+        <motion.div
+          className="bg-white border border-gray-200 rounded-xl px-4 py-3 flex items-center gap-2.5 shadow-sm"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.4 }}
+        >
+          <CheckCircle2 className="w-4 h-4 text-green-500 flex-shrink-0" />
+          <p className="text-xs text-gray-500 leading-snug">
+            Analisamos <strong className="text-gray-700">{lojaUrl.replace(/^https?:\/\//, "")}</strong>
+            {" · "}{TOTAL_QUESTIONS}/{TOTAL_QUESTIONS} perguntas respondidas{" · "}
+            {new Date().toLocaleDateString("pt-BR")}
+          </p>
+        </motion.div>
+
         {/* Hero: score + radar */}
         <motion.div
           className="grid lg:grid-cols-3 gap-5"
@@ -2417,16 +2486,9 @@ export default function Assessment() {
           transition={{ duration: 0.5, delay: 0.1 }}
         >
           <div className="bg-white border border-gray-200 rounded-2xl p-6 flex flex-col items-center justify-center text-center shadow-sm">
-            <motion.div
-              className="text-5xl mb-3"
-              animate={{ scale: [1, 1.12, 1] }}
-              transition={{ duration: 1.5, delay: 0.6, ease: "easeInOut" }}
-            >{finalPersona.emoji}</motion.div>
-            <div className={`text-lg font-bold mb-2 ${finalPersona.colorClass}`}>
-              {finalPersona.label}
-            </div>
-            <div className="text-6xl font-extrabold mb-1" style={{ color: overallColor }}>
-              {finalAvg}<span className="text-3xl text-gray-300">/100</span>
+            <ScoreRing score={finalAvg} color={overallColor} />
+            <div className={`text-lg font-bold mt-3 mb-2 ${finalPersona.colorClass}`}>
+              {finalPersona.emoji} {finalPersona.label}
             </div>
             <div className="text-xs text-gray-400 mb-4">Score geral do e-commerce</div>
             <p className="text-sm text-gray-500 leading-relaxed">{finalPersona.description}</p>
@@ -2501,9 +2563,12 @@ export default function Assessment() {
                   <Icon className="w-4 h-4 text-primary flex-shrink-0" />
                   <span className="text-sm text-gray-600 w-32 sm:w-40 flex-shrink-0">{p.label}</span>
                   <div className="flex-1 h-2 bg-gray-100 rounded-full overflow-hidden">
-                    <div
-                      className="h-full rounded-full transition-all duration-1000"
-                      style={{ width: `${s}%`, background: color }}
+                    <motion.div
+                      className="h-full rounded-full"
+                      style={{ background: color }}
+                      initial={{ width: 0 }}
+                      animate={{ width: `${s}%` }}
+                      transition={{ duration: 0.8, delay: 0.3 + i * 0.06, ease: [0.16, 1, 0.3, 1] }}
                     />
                   </div>
                   <span className="text-sm font-bold w-8 text-right" style={{ color }}>{s}</span>
@@ -2511,6 +2576,9 @@ export default function Assessment() {
               );
             })}
           </div>
+          <p className="text-xs text-gray-400 mt-5 pt-4 border-t border-gray-100">
+            A MAVI já ajudou <strong className="text-gray-600">mais de 200 lojas</strong> a evoluir exatamente nesses pontos.
+          </p>
         </motion.div>
 
         {/* Insights por pilar */}
