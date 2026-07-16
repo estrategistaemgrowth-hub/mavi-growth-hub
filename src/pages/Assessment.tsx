@@ -235,7 +235,7 @@ const PILLARS: Pillar[] = [
     icon: ShoppingBag,
     questions: [
       {
-        text: "Como são as fotos dos seus produtos na loja?",
+        text: "Bora começar pelo básico: como estão as fotos dos seus produtos hoje?",
         options: [
           { label: "Fotos do celular ou de baixa qualidade", score: 0 },
           { label: "Fotos ok, mas sem padrão ou organização", score: 33 },
@@ -244,7 +244,7 @@ const PILLARS: Pillar[] = [
         ],
       },
       {
-        text: "Como você descreve seus produtos para o cliente?",
+        text: "E as descrições — como você conta pro cliente por que vale a pena comprar?",
         options: [
           { label: "Copio o texto do fornecedor sem editar", score: 0 },
           { label: "Escrevo o básico: nome, tamanho e preço", score: 33 },
@@ -253,7 +253,7 @@ const PILLARS: Pillar[] = [
         ],
       },
       {
-        text: "Como você decide quais produtos manter ou tirar da loja?",
+        text: "Uma mais estratégica agora: como você decide o que continua no catálogo e o que sai?",
         options: [
           { label: "Nunca removo produtos — mantenho tudo que tenho", score: 0 },
           { label: "Só tiro o que claramente não vende nada", score: 33 },
@@ -301,7 +301,7 @@ const PILLARS: Pillar[] = [
     icon: Megaphone,
     questions: [
       {
-        text: "Com que frequência você posta nas redes sociais da sua loja?",
+        text: "Pra começar: com que frequência você posta nas redes da loja?",
         options: [
           { label: "Raramente ou nunca posto", score: 0 },
           { label: "Posto quando lembro, sem regularidade", score: 33 },
@@ -310,7 +310,7 @@ const PILLARS: Pillar[] = [
         ],
       },
       {
-        text: "Que tipo de conteúdo você publica nas redes?",
+        text: "E o que você costuma postar — é só produto e promoção, ou tem mais variedade?",
         options: [
           { label: "Só fotos de produto e promoções", score: 0 },
           { label: "Promoções e alguns posts variados, mas sem planejamento", score: 33 },
@@ -319,7 +319,7 @@ const PILLARS: Pillar[] = [
         ],
       },
       {
-        text: "Você sabe o que funciona e o que não funciona nos seus posts?",
+        text: "Você olha os números pra saber o que realmente funciona nos seus posts?",
         options: [
           { label: "Nunca olho os números dos posts", score: 0 },
           { label: "Vejo curtidas e seguidores de vez em quando", score: 33 },
@@ -367,7 +367,7 @@ const PILLARS: Pillar[] = [
     icon: Store,
     questions: [
       {
-        text: "Você vende em plataformas como Shopee, Mercado Livre ou TikTok Shop?",
+        text: "Pra começar: você vende ativamente nessas plataformas ou só tem conta criada?",
         options: [
           { label: "Não vendo em nenhuma dessas plataformas", score: 0 },
           { label: "Estou em 1 delas, mas de forma passiva", score: 33 },
@@ -376,7 +376,7 @@ const PILLARS: Pillar[] = [
         ],
       },
       {
-        text: "Quando alguém busca um produto parecido com o seu nessas plataformas, o seu aparece?",
+        text: "Quando alguém procura algo parecido com o que você vende lá dentro, seu produto aparece?",
         options: [
           { label: "Meus produtos praticamente não aparecem nas buscas", score: 0 },
           { label: "Aparecem pouco — uso só foto e nome básico", score: 33 },
@@ -385,7 +385,7 @@ const PILLARS: Pillar[] = [
         ],
       },
       {
-        text: "Você usa o TikTok para mostrar ou vender seus produtos?",
+        text: "E o TikTok especificamente — você já usa pra mostrar ou vender seus produtos?",
         options: [
           { label: "Não uso o TikTok de jeito nenhum", score: 0 },
           { label: "Tenho perfil, mas não vendo pelo TikTok", score: 33 },
@@ -433,7 +433,7 @@ const PILLARS: Pillar[] = [
     icon: Search,
     questions: [
       {
-        text: "Quando alguém pesquisa no Google algo que você vende, sua loja aparece?",
+        text: "Quando alguém pesquisa o que você vende no Google, sua loja aparece nos resultados?",
         options: [
           { label: "Minha loja não aparece nas pesquisas do Google", score: 0 },
           { label: "Aparece só quando buscam o nome exato da minha loja", score: 33 },
@@ -442,7 +442,7 @@ const PILLARS: Pillar[] = [
         ],
       },
       {
-        text: "Você já se preocupou em preparar as páginas da sua loja para o Google encontrá-las melhor?",
+        text: "Você já parou pra preparar as páginas da loja pro Google encontrar elas com mais facilidade?",
         options: [
           { label: "Nunca pensei nisso", score: 0 },
           { label: "Fiz o mínimo, mas sem muito cuidado", score: 33 },
@@ -451,7 +451,7 @@ const PILLARS: Pillar[] = [
         ],
       },
       {
-        text: "Você cria textos, vídeos ou conteúdos para atrair pessoas que ainda não conhecem sua loja?",
+        text: "E pra quem ainda não te conhece: você cria algum conteúdo — texto, vídeo — pra atrair essas pessoas?",
         options: [
           { label: "Não crio nenhum conteúdo além das redes sociais", score: 0 },
           { label: "Tenho um blog ou página de conteúdo, mas sem planejamento", score: 33 },
@@ -499,7 +499,7 @@ const PILLARS: Pillar[] = [
     icon: TrendingUp,
     questions: [
       {
-        text: "Você investe em anúncios pagos para divulgar sua loja (como impulsionar posts ou criar campanhas)?",
+        text: "Você investe em campanhas pagas pra divulgar a loja, ou nunca chegou a fazer isso?",
         options: [
           { label: "Nunca investi em anúncios pagos", score: 0 },
           { label: "Já impulsionei algum post, mas sem estratégia definida", score: 33 },
@@ -508,7 +508,7 @@ const PILLARS: Pillar[] = [
         ],
       },
       {
-        text: "Você sabe se os anúncios que paga estão gerando mais do que custam?",
+        text: "E você sabe se o que gasta com anúncios está voltando em vendas?",
         options: [
           { label: "Não faço ideia se os anúncios estão compensando", score: 0 },
           { label: "Vejo se o faturamento subiu, mas não separo o que veio dos anúncios", score: 33 },
@@ -517,7 +517,7 @@ const PILLARS: Pillar[] = [
         ],
       },
       {
-        text: "O que você faz com as pessoas que visitaram sua loja mas não compraram?",
+        text: "Uma que eu adoro perguntar: o que você faz com quem visita a loja e não compra?",
         options: [
           { label: "Não faço nada — perco o contato com elas", score: 0 },
           { label: "Já tentei alcançá-las de novo, mas sem sistematizar", score: 33 },
@@ -565,7 +565,7 @@ const PILLARS: Pillar[] = [
     icon: DollarSign,
     questions: [
       {
-        text: "Você sabe exatamente quanto gasta com divulgação e marketing por mês?",
+        text: "Você sabe, de cabeça, quanto gasta com marketing todo mês?",
         options: [
           { label: "Não controlo o que gasto com marketing", score: 0 },
           { label: "Sei o total gasto, mas não onde vai cada real", score: 33 },
@@ -574,7 +574,7 @@ const PILLARS: Pillar[] = [
         ],
       },
       {
-        text: "Você divulga sua loja em mais de um lugar (não só no Instagram ou Facebook)?",
+        text: "Você divulga a loja em mais de um canal, ou concentra tudo num só lugar?",
         options: [
           { label: "Coloco todo meu investimento em um único lugar", score: 0 },
           { label: "Tentei outros canais, mas sem planejamento", score: 33 },
@@ -583,7 +583,7 @@ const PILLARS: Pillar[] = [
         ],
       },
       {
-        text: "Você sabe se o dinheiro que gasta com divulgação está valendo a pena?",
+        text: "E no fim das contas: você sabe se esse investimento está valendo a pena?",
         options: [
           { label: "Nunca calculei se o marketing está trazendo retorno", score: 0 },
           { label: "Acho que está funcionando, mas não tenho como comprovar", score: 33 },
@@ -631,7 +631,7 @@ const PILLARS: Pillar[] = [
     icon: Palette,
     questions: [
       {
-        text: "Quando alguém entra na sua loja, ela passa uma imagem profissional e confiável?",
+        text: "Quando alguém entra na sua loja pela primeira vez, ela passa confiança?",
         options: [
           { label: "A loja parece amadora — ainda precisa de muito trabalho", score: 0 },
           { label: "Está ok, mas parece genérica e sem identidade própria", score: 33 },
@@ -640,7 +640,7 @@ const PILLARS: Pillar[] = [
         ],
       },
       {
-        text: "Sua loja funciona bem no celular e abre rapidamente?",
+        text: "E no celular, que é onde a maioria compra — sua loja carrega rápido e é fácil de navegar?",
         options: [
           { label: "Tem problemas sérios no celular ou demora muito para carregar", score: 0 },
           { label: "Funciona no celular, mas a navegação é confusa", score: 33 },
@@ -649,7 +649,7 @@ const PILLARS: Pillar[] = [
         ],
       },
       {
-        text: "Sua loja tem elementos que incentivam o cliente a fechar a compra?",
+        text: "Pra fechar: sua loja tem algo que ajuda o cliente a decidir comprar ali, na hora?",
         options: [
           { label: "Não — a loja só mostra produto e preço, sem nada que incentive a compra", score: 0 },
           { label: "Tenho botões de compra, mas nada que crie urgência ou mostre avaliações", score: 33 },
@@ -830,9 +830,9 @@ type AnswerRecord = { pillar: string; question: string; answer: string; score: n
 type MsgType = "question" | "answer" | "system";
 
 const INTRO_MESSAGES = [
-  "Olá! 👋 Vou guiar você pelo diagnóstico do seu e-commerce.",
-  "São 21 perguntas simples sobre 7 áreas da sua loja — leva menos de 5 minutos.",
-  "Conforme você responde, o mapa de maturidade vai sendo preenchido em tempo real. Vamos lá! 🚀",
+  "Oi! 👋 Eu sou a Camila, vou te acompanhar nesse diagnóstico do seu e-commerce.",
+  "São 21 perguntas rápidas sobre 7 áreas da sua loja — leva menos de 5 minutos, prometo.",
+  "Vai sendo sincero(a) nas respostas — quanto mais real, melhor o diagnóstico no final. Bora? 🚀",
 ];
 
 const PILLAR_TRANSITIONS: Record<string, string> = {
