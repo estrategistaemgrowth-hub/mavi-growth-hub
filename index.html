@@ -89,6 +89,10 @@
       t.src=v;s=b.getElementsByTagName(e)[0];
       s.parentNode.insertBefore(t,s)}(window, document,'script',
       'https://connect.facebook.net/en_US/fbevents.js');
+      // autoConfig desligado: o pixel estava auto-detectando cliques em botão
+      // (ex.: as opções de resposta do Assessment) e disparando "SubscribedButtonClick"
+      // a cada clique. Sem autoConfig, só disparam os eventos que chamamos via fbq('track', ...).
+      fbq('set', 'autoConfig', false, '504107338642725');
       fbq('init', '504107338642725');
       fbq('track', 'PageView');
     </script>

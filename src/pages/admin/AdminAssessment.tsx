@@ -42,6 +42,12 @@ interface DiagnosticoLead {
   maturidade: number;
 }
 
+interface UrlSubmission {
+  id: string;
+  created_at: string;
+  loja_url: string;
+}
+
 interface AssessmentLead {
   id: string;
   created_at: string;
@@ -101,9 +107,10 @@ function PersonaEmoji({ label }: { label: string }) {
 // ─── Main Component ───────────────────────────────────────────────────────────
 
 export default function AdminAssessment() {
-  const [activeTab, setActiveTab] = useState<"assessments" | "diagnostico">("assessments");
+  const [activeTab, setActiveTab] = useState<"assessments" | "diagnostico" | "urls">("assessments");
   const [leads, setLeads] = useState<AssessmentLead[]>([]);
   const [diagnosticoLeads, setDiagnosticoLeads] = useState<DiagnosticoLead[]>([]);
+  const [urlSubmissions, setUrlSubmissions] = useState<UrlSubmission[]>([]);
   const [loading, setLoading] = useState(true);
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const [search, setSearch] = useState("");
@@ -120,6 +127,7 @@ export default function AdminAssessment() {
     if (isAdmin) {
       fetchLeads();
       fetchDiagnosticoLeads();
+      fetchUrlSubmissions();
     }
   }, [isAdmin]);
 
@@ -146,6 +154,15 @@ export default function AdminAssessment() {
       .select("*")
       .order("created_at", { ascending: false });
     setDiagnosticoLeads((data as DiagnosticoLead[]) ?? []);
+  }
+
+  async function fetchUrlSubmissions() {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const { data } = await (supabase as any)
+      .from("assessment_url_submissions")
+      .select("*")
+      .order("created_at", { ascending: false });
+    setUrlSubmissions((data as UrlSubmission[]) ?? []);
   }
 
   async function deleteLead(id: string) {
@@ -224,6 +241,12 @@ export default function AdminAssessment() {
               >
                 Diagnóstico Gratuito
               </button>
+              <button
+                onClick={() => setActiveTab("urls")}
+                className={`text-sm px-3 py-1.5 rounded-md font-medium transition-colors ${activeTab === "urls" ? "bg-primary text-white" : "text-muted-foreground hover:text-foreground"}`}
+              >
+                URLs digitadas
+              </button>
             </div>
           </div>
           <Button variant="ghost" size="sm" onClick={handleSignOut} className="text-muted-foreground">
@@ -268,6 +291,23 @@ export default function AdminAssessment() {
               <p className="text-3xl font-bold text-green-500">
                 {leads.filter((l) => l.avg_score >= 70).length}
               </p>
+            </div>
+          </div>
+        ) : activeTab === "urls" ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="bg-card border border-border rounded-xl p-4">
+              <div className="flex items-center gap-2 mb-1">
+                <Users className="w-4 h-4 text-primary" />
+                <span className="text-xs text-muted-foreground uppercase tracking-wider">Total de URLs digitadas</span>
+              </div>
+              <p className="text-3xl font-bold text-foreground">{urlSubmissions.length}</p>
+            </div>
+            <div className="bg-card border border-border rounded-xl p-4">
+              <div className="flex items-center gap-2 mb-1">
+                <TrendingUp className="w-4 h-4 text-primary" />
+                <span className="text-xs text-muted-foreground uppercase tracking-wider">Concluíram o assessment</span>
+              </div>
+              <p className="text-3xl font-bold text-foreground">{leads.length}</p>
             </div>
           </div>
         ) : (
@@ -322,7 +362,7 @@ export default function AdminAssessment() {
               className="w-full pl-9 pr-4 h-9 rounded-lg border border-input bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary"
             />
           </div>
-          <Button variant="outline" size="sm" onClick={() => { fetchLeads(); fetchDiagnosticoLeads(); }}>
+          <Button variant="outline" size="sm" onClick={() => { fetchLeads(); fetchDiagnosticoLeads(); fetchUrlSubmissions(); }}>
             <RefreshCw className="w-4 h-4 mr-2" />
             Atualizar
           </Button>
@@ -646,6 +686,54 @@ export default function AdminAssessment() {
                     </div>
                   </div>
                 ))}
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* Tab: URLs digitadas */}
+        {activeTab === "urls" && (
+          <div className="bg-card border border-border rounded-xl overflow-hidden">
+            <div className="px-4 py-3 border-b border-border">
+              <h2 className="text-sm font-semibold text-foreground">
+                {urlSubmissions.length} URL{urlSubmissions.length !== 1 ? "s" : ""} digitada{urlSubmissions.length !== 1 ? "s" : ""}
+              </h2>
+            </div>
+            {urlSubmissions.length === 0 ? (
+              <div className="text-center py-16 text-muted-foreground">
+                <BarChart3 className="w-10 h-10 mx-auto mb-3 opacity-30" />
+                <p className="text-sm">Nenhuma URL registrada ainda</p>
+                <p className="text-xs mt-1 opacity-60">Toda URL digitada no início do Assessment aparece aqui, mesmo que a pessoa não conclua.</p>
+              </div>
+            ) : (
+              <div className="divide-y divide-border">
+                {urlSubmissions.map((u) => {
+                  const converteu = leads.some((l) => l.loja_url === u.loja_url);
+                  return (
+                    <div key={u.id} className="px-4 py-3 hover:bg-muted/30 transition-colors flex items-center gap-3">
+                      <a
+                        href={u.loja_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex-1 min-w-0 flex items-center gap-1 text-sm text-foreground hover:text-primary transition-colors truncate"
+                      >
+                        {u.loja_url.replace(/^https?:\/\//, "")}
+                        <ExternalLink className="w-3 h-3 flex-shrink-0" />
+                      </a>
+                      {converteu && (
+                        <Badge variant="default" className="text-[10px] px-1.5 py-0 flex-shrink-0">
+                          Concluiu
+                        </Badge>
+                      )}
+                      <span className="text-xs text-muted-foreground flex-shrink-0">
+                        {new Date(u.created_at).toLocaleDateString("pt-BR", {
+                          day: "2-digit", month: "2-digit", year: "2-digit",
+                          hour: "2-digit", minute: "2-digit",
+                        })}
+                      </span>
+                    </div>
+                  );
+                })}
               </div>
             )}
           </div>

@@ -1171,6 +1171,28 @@ export default function Assessment() {
 
   function handleUrlSubmit(e: React.FormEvent) {
     e.preventDefault();
+
+    // Registra a URL digitada mesmo que a pessoa não conclua o assessment,
+    // para consulta no portal admin.
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (supabase as any)
+      .from("assessment_url_submissions")
+      .insert({ loja_url: lojaUrl })
+      .then(({ error }: { error: unknown }) => {
+        if (error) console.error("assessment_url_submissions insert error:", error);
+      });
+
+    // Pixel: início do assessment (dispara uma única vez, aqui).
+    if (typeof window !== "undefined") {
+      const startEventId = `assessment-start-${Date.now()}`;
+      if (typeof (window as any).fbq === "function") {
+        (window as any).fbq("trackCustom", "AssessmentStart", {
+          content_name: "Assessment E-commerce",
+        }, { eventID: startEventId });
+      }
+      sendCapiEvent("AssessmentStart", startEventId);
+    }
+
     setPhase("analyzing");
   }
 
@@ -1333,7 +1355,7 @@ export default function Assessment() {
         {/* ══════════════════════════════════════════════════════
             DOBRA 1 — HERO
         ══════════════════════════════════════════════════════ */}
-        <section className="relative min-h-screen flex flex-col overflow-hidden bg-gray-950">
+        <section className="relative flex flex-col overflow-hidden bg-gray-950 lg:min-h-[640px]">
           {/* Background */}
           <div className="absolute inset-0 bg-gradient-to-br from-gray-950 via-[#0d0010] to-gray-950" />
           <div className="absolute inset-0 opacity-30"
@@ -1352,8 +1374,8 @@ export default function Assessment() {
           </div>
 
           {/* Hero content */}
-          <div className="relative z-10 flex-1 flex items-center">
-            <div className="w-full max-w-6xl mx-auto px-6 md:px-12 py-10 lg:py-16">
+          <div className="relative z-10">
+            <div className="w-full max-w-6xl mx-auto px-6 md:px-12 py-14 lg:py-20">
               <div className="grid lg:grid-cols-2 gap-12 items-center">
 
                 {/* Left — copy */}
