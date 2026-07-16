@@ -905,9 +905,138 @@ const FATURAMENTO_MIDPOINTS: Record<string, number> = {
   "acima1M": 1500000,
 };
 
+// Palavras que aparecem como domínio "de mentira" quando a pessoa só quer
+// passar pela etapa sem informar a loja real (teste.com, exemplo.com.br...).
+const PLACEHOLDER_LABELS = new Set([
+  "teste", "test", "testando", "testeteste", "exemplo", "example",
+  "site", "sitesite", "meusite", "loja", "minhaloja", "lojateste",
+  "dominio", "domain", "empresa", "minhaempresa", "abc", "abcd",
+  "asdf", "qwerty", "lorem", "xyz", "foo", "bar", "semnome",
+  "naotenho", "aaa", "xxx", "123", "000", "111",
+]);
+
+// Extrai o rótulo principal do domínio (ex.: "teste" em "teste.com.br" ou
+// "www.teste.com"), ignorando "www" e sufixos genéricos tipo ".com.br".
+function extractRootLabel(host: string): string {
+  const labels = host.split(".").filter(Boolean);
+  const noWww = labels[0] === "www" ? labels.slice(1) : labels;
+  if (noWww.length < 2) return noWww[0] ?? "";
+  const last = noWww[noWww.length - 1];
+  const secondLast = noWww[noWww.length - 2];
+  const genericSld = new Set(["com", "net", "org", "gov", "edu", "co", "mil"]);
+  if (last.length === 2 && genericSld.has(secondLast) && noWww.length >= 3) {
+    return noWww[noWww.length - 3];
+  }
+  return secondLast;
+}
+
+// Aceita URL com ou sem protocolo (ex.: "sualoja.com.br"), rejeita texto que
+// não seja um domínio plausível e domínios de teste/placeholder óbvios.
+// Retorna a URL normalizada (com https://) ou um erro com mensagem para o usuário.
+function validateStoreUrl(raw: string): { url: string } | { error: string } {
+  const value = raw.trim();
+  if (!value) return { error: "Digite a URL da sua loja" };
+
+  const withProtocol = /^https?:\/\//i.test(value) ? value : `https://${value}`;
+
+  let parsed: URL;
+  try {
+    parsed = new URL(withProtocol);
+  } catch {
+    return { error: "Digite uma URL válida (ex.: sualoja.com.br)" };
+  }
+
+  const host = parsed.hostname.toLowerCase();
+  // domínio precisa de pelo menos um ponto e um TLD alfabético de 2+ letras
+  // (bloqueia "asdf", "http://teste", "minha loja", localhost, IPs soltos etc.)
+  const domainOk = /^[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)+$/i.test(host)
+    && /\.[a-z]{2,}$/i.test(host);
+  if (!domainOk) return { error: "Digite uma URL válida (ex.: sualoja.com.br)" };
+
+  if (PLACEHOLDER_LABELS.has(extractRootLabel(host))) {
+    return { error: "Digite o domínio real da sua loja, não um exemplo/teste" };
+  }
+
+  return { url: withProtocol };
+}
+
+// Confere se o domínio realmente existe via DNS-over-HTTPS pública do Google
+// (sem chave, CORS liberado) — pega quem passa na sintaxe mas digitou um
+// domínio que não resolve (ex.: "minhalojaxyz123.com.br" nunca registrado).
+// Se a API falhar, não bloqueia o usuário (checagem é um extra, não gate).
+async function checkDomainResolves(host: string): Promise<boolean> {
+  try {
+    const lookup = async (type: "A" | "NS") => {
+      const res = await fetch(`https://dns.google/resolve?name=${encodeURIComponent(host)}&type=${type}`);
+      if (!res.ok) return null;
+      return res.json();
+    };
+
+    const a = await lookup("A");
+    if (!a) return true; // API indisponível — não bloqueia
+    if (a.Status === 0 && Array.isArray(a.Answer) && a.Answer.length > 0) return true;
+    if (a.Status === 3) return false; // NXDOMAIN — domínio não existe
+
+    // Sem registro A mas sem NXDOMAIN: confere NS antes de reprovar
+    // (domínio pode responder só por MX/CNAME em subdomínios comuns).
+    const ns = await lookup("NS");
+    if (ns?.Status === 0 && Array.isArray(ns.Answer) && ns.Answer.length > 0) return true;
+
+    return false;
+  } catch {
+    return true; // erro de rede — não bloqueia por falha nossa
+  }
+}
+
+// Rejeita e-mail de teste (teste@teste.com, teste@gmail.com) além de sintaxe inválida.
+function validateLeadEmail(raw: string): string | undefined {
+  const value = raw.trim().toLowerCase();
+  const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(value);
+  if (!emailOk) return "Digite um e-mail válido";
+
+  const [local, domain] = value.split("@");
+  if (PLACEHOLDER_LABELS.has(local) || PLACEHOLDER_LABELS.has(extractRootLabel(domain))) {
+    return "Digite seu e-mail real, não um exemplo/teste";
+  }
+  return undefined;
+}
+
+// DDDs brasileiros existentes (bloqueia "00", "20", "01" etc.).
+const VALID_DDDS = new Set([
+  "11", "12", "13", "14", "15", "16", "17", "18", "19",
+  "21", "22", "24", "27", "28",
+  "31", "32", "33", "34", "35", "37", "38",
+  "41", "42", "43", "44", "45", "46", "47", "48", "49",
+  "51", "53", "54", "55",
+  "61", "62", "63", "64", "65", "66", "67", "68", "69",
+  "71", "73", "74", "75", "77", "79",
+  "81", "82", "83", "84", "85", "86", "87", "88", "89",
+  "91", "92", "93", "94", "95", "96", "97", "98", "99",
+]);
+
+// Valida DDD real + formato de celular/fixo, e bloqueia número repetido tipo "11999999999".
+function validateLeadWhatsapp(raw: string): string | undefined {
+  const digits = raw.replace(/\D/g, "");
+  if (digits.length !== 10 && digits.length !== 11) {
+    return "Informe DDD + número (10 ou 11 dígitos)";
+  }
+  const ddd = digits.slice(0, 2);
+  if (!VALID_DDDS.has(ddd)) return "DDD inválido";
+
+  const rest = digits.slice(2);
+  if (digits.length === 11 && rest[0] !== "9") {
+    return "Celular deve começar com 9 após o DDD";
+  }
+  if (/^(\d)\1+$/.test(rest)) return "Número inválido";
+
+  return undefined;
+}
+
 export default function Assessment() {
   const [phase, setPhase] = useState<Phase>("url-input");
   const [lojaUrl, setLojaUrl] = useState("");
+  const [urlError, setUrlError] = useState<string | undefined>();
+  const [isCheckingUrl, setIsCheckingUrl] = useState(false);
   const [analyzingStep, setAnalyzingStep] = useState(0);
 
   const [currentIdx, setCurrentIdx] = useState(0);
@@ -1219,15 +1348,33 @@ export default function Assessment() {
     });
   }
 
-  function handleUrlSubmit(e: React.FormEvent) {
+  async function handleUrlSubmit(e: React.FormEvent) {
     e.preventDefault();
+
+    const result = validateStoreUrl(lojaUrl);
+    if ("error" in result) {
+      setUrlError(result.error);
+      return;
+    }
+
+    setIsCheckingUrl(true);
+    const host = new URL(result.url).hostname;
+    const resolves = await checkDomainResolves(host);
+    setIsCheckingUrl(false);
+    if (!resolves) {
+      setUrlError("Não encontramos esse domínio. Confira se a URL está certa");
+      return;
+    }
+
+    setUrlError(undefined);
+    setLojaUrl(result.url);
 
     // Registra a URL digitada mesmo que a pessoa não conclua o assessment,
     // para consulta no portal admin.
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (supabase as any)
       .from("assessment_url_submissions")
-      .insert({ loja_url: lojaUrl })
+      .insert({ loja_url: result.url })
       .then(({ error }: { error: unknown }) => {
         if (error) console.error("assessment_url_submissions insert error:", error);
       });
@@ -1324,12 +1471,11 @@ export default function Assessment() {
 
   async function handleLeadSubmit(e: React.FormEvent) {
     e.preventDefault();
-    const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim());
-    const digits = whatsapp.replace(/\D/g, "");
-    const wppOk = digits.length === 10 || digits.length === 11;
     const errs: { email?: string; whatsapp?: string } = {};
-    if (!emailOk) errs.email = "Digite um e-mail válido";
-    if (!wppOk) errs.whatsapp = "Informe DDD + número (10 ou 11 dígitos)";
+    const emailErr = validateLeadEmail(email);
+    if (emailErr) errs.email = emailErr;
+    const whatsappErr = validateLeadWhatsapp(whatsapp);
+    if (whatsappErr) errs.whatsapp = whatsappErr;
     if (Object.keys(errs).length) { setLeadErrors(errs); return; }
     setLeadErrors({});
     setIsSubmitting(true);
@@ -1526,13 +1672,17 @@ export default function Assessment() {
                             required
                             autoFocus
                             value={lojaUrl}
-                            onChange={(e) => setLojaUrl(e.target.value)}
+                            onChange={(e) => { setLojaUrl(e.target.value); setUrlError(undefined); }}
                             placeholder="https://sualoja.com.br"
-                            className="bg-gray-50 border-gray-200 text-gray-900 placeholder:text-gray-400 h-11 focus:border-primary"
+                            className={`bg-gray-50 text-gray-900 placeholder:text-gray-400 h-11 ${urlError ? "border-red-400 focus:border-red-400" : "border-gray-200 focus:border-primary"}`}
                           />
-                          <p className="text-[11px] text-gray-400 mt-1">
-                            Usaremos sua URL para fazer o diagnóstico
-                          </p>
+                          {urlError ? (
+                            <p className="text-[11px] text-red-500 mt-1 flex items-center gap-1"><span>!</span>{urlError}</p>
+                          ) : (
+                            <p className="text-[11px] text-gray-400 mt-1">
+                              Usaremos sua URL para fazer o diagnóstico
+                            </p>
+                          )}
                         </div>
 
                         {/* CTA animado */}
@@ -1552,7 +1702,8 @@ export default function Assessment() {
                           />
                           <button
                             type="submit"
-                            className="relative w-full flex items-center justify-center gap-2 bg-primary hover:bg-primary/90 text-white font-bold text-base rounded-xl py-4 transition-colors touch-manipulation overflow-hidden"
+                            disabled={isCheckingUrl}
+                            className="relative w-full flex items-center justify-center gap-2 bg-primary hover:bg-primary/90 text-white font-bold text-base rounded-xl py-4 transition-colors touch-manipulation overflow-hidden disabled:opacity-70"
                           >
                             <motion.div
                               className="absolute inset-0"
@@ -1560,11 +1711,20 @@ export default function Assessment() {
                               animate={{ x: ["-100%", "200%"] }}
                               transition={{ duration: 1.8, repeat: Infinity, repeatDelay: 1.2 }}
                             />
-                            <Zap className="w-4 h-4" />
-                            Analisar minha loja gratuitamente
-                            <motion.span animate={{ x: [0, 4, 0] }} transition={{ duration: 1, repeat: Infinity }}>
-                              →
-                            </motion.span>
+                            {isCheckingUrl ? (
+                              <>
+                                <Loader2 className="w-4 h-4 animate-spin" />
+                                Verificando URL...
+                              </>
+                            ) : (
+                              <>
+                                <Zap className="w-4 h-4" />
+                                Analisar minha loja gratuitamente
+                                <motion.span animate={{ x: [0, 4, 0] }} transition={{ duration: 1, repeat: Infinity }}>
+                                  →
+                                </motion.span>
+                              </>
+                            )}
                           </button>
                         </motion.div>
                       </form>
