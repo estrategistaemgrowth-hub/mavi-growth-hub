@@ -53,6 +53,24 @@ export type Database = {
         }
         Relationships: []
       }
+      assessment_url_submissions: {
+        Row: {
+          created_at: string
+          id: string
+          loja_url: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          loja_url: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          loja_url?: string
+        }
+        Relationships: []
+      }
       blog_categories: {
         Row: {
           created_at: string

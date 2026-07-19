@@ -158,10 +158,13 @@ export default function AdminAssessment() {
 
   async function fetchUrlSubmissions() {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const { data } = await (supabase as any)
+    const { data, error } = await (supabase as any)
       .from("assessment_url_submissions")
       .select("*")
       .order("created_at", { ascending: false });
+    if (error) {
+      toast.error("Erro ao carregar URLs digitadas", { description: error.message });
+    }
     setUrlSubmissions((data as UrlSubmission[]) ?? []);
   }
 
