@@ -148,6 +148,42 @@ export type Database = {
           },
         ]
       }
+      landing_assessoria_leads: {
+        Row: {
+          created_at: string
+          email: string
+          empresa: string | null
+          faturamento: string | null
+          id: string
+          nome: string
+          origem_url: string | null
+          segmento: string
+          whatsapp: string
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          empresa?: string | null
+          faturamento?: string | null
+          id?: string
+          nome: string
+          origem_url?: string | null
+          segmento: string
+          whatsapp: string
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          empresa?: string | null
+          faturamento?: string | null
+          id?: string
+          nome?: string
+          origem_url?: string | null
+          segmento?: string
+          whatsapp?: string
+        }
+        Relationships: []
+      }
       page_views: {
         Row: {
           created_at: string
