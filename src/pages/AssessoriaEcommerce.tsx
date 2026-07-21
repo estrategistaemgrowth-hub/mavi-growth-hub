@@ -39,15 +39,50 @@ import logoMavi from "@/assets/logo-mavi-branca.png";
 
 const WHATSAPP_NUMBER = "5547999293541";
 
+// Segmentos reais de e-commerce no Brasil (Moda, Casa e Jardim, Infantil, Saúde e
+// Bem-estar e Alimentos e Bebidas são os 5 maiores por faturamento; Beleza é o que
+// mais cresce). Fonte: edrone.me/br/blog/nichos-ecommerce, jul/2026.
 const SEGMENTO_OPTIONS = [
-  "E-commerce / Loja Virtual",
-  "Indústria",
-  "Imobiliária",
-  "Saúde e Estética",
-  "Serviços",
-  "Varejo Físico",
+  "Moda e Vestuário",
+  "Calçados e Acessórios",
+  "Beleza e Cosméticos",
+  "Casa e Decoração",
+  "Eletrônicos e Tecnologia",
+  "Alimentos e Bebidas",
+  "Saúde e Bem-estar / Suplementos",
+  "Infantil e Bebês",
+  "Pet Shop",
+  "Esporte e Lazer",
+  "Joias e Bijuterias",
+  "Móveis",
   "Outro",
 ];
+
+const NOME_BLOCKLIST = ["teste", "test", "asdf", "qwerty", "lorem", "exemplo", "fulano", "admin", "xxxx", "aaaa"];
+const EMAIL_DOMAIN_BLOCKLIST = [
+  "teste.com", "test.com", "example.com", "exemplo.com", "mailinator.com",
+  "yopmail.com", "tempmail.com", "temp-mail.org", "guerrillamail.com", "10minutemail.com",
+];
+
+function isNomeSuspeito(nome: string): boolean {
+  const v = nome.trim().toLowerCase();
+  if (/^(.)\1+$/.test(v.replace(/\s/g, ""))) return true; // "aaaa aaaa"
+  if (NOME_BLOCKLIST.some((w) => v.includes(w))) return true;
+  return false;
+}
+
+function isEmailSuspeito(email: string): boolean {
+  const domain = email.trim().toLowerCase().split("@")[1] ?? "";
+  if (EMAIL_DOMAIN_BLOCKLIST.includes(domain)) return true;
+  const user = email.trim().toLowerCase().split("@")[0] ?? "";
+  return NOME_BLOCKLIST.some((w) => user.includes(w));
+}
+
+function isWhatsAppSuspeito(digits: string): boolean {
+  if (/^(\d)\1+$/.test(digits)) return true; // 11111111111
+  if (digits === "1234567890" || digits === "12345678901") return true;
+  return false;
+}
 
 const FATURAMENTO_OPTIONS = [
   { value: "ate30k", label: "Até R$ 30k/mês" },
@@ -73,12 +108,12 @@ const DIFERENCIAIS = [
   {
     icon: Megaphone,
     title: "Criativos que Convertem",
-    desc: "Testes de gancho e produção pensada pra parar o scroll — não é anúncio bonito, é anúncio que vende.",
+    desc: "A gente testa vários ganchos até achar o que trava o dedo na tela nos primeiros 3 segundos.",
   },
   {
     icon: MonitorSmartphone,
     title: "Site & Conversão",
-    desc: "CRO, mobile-first e checkout sem fricção — cada visita vale mais sem precisar de mais tráfego.",
+    desc: "CRO, mobile-first e checkout sem fricção. Cada visita passa a valer mais, sem gastar mais em tráfego.",
   },
   {
     icon: RefreshCw,
@@ -127,7 +162,7 @@ const FAQS = [
   },
   {
     question: "O diagnóstico de 30 minutos tem algum custo?",
-    answer: "Não. É uma conversa gratuita e sem compromisso — um especialista analisa sua loja e te mostra onde estão as maiores oportunidades, com ou sem contratar a MAVI depois.",
+    answer: "Não. É uma conversa gratuita e sem compromisso. Um especialista analisa sua loja e te mostra onde estão as maiores oportunidades, com ou sem contratar a MAVI depois.",
   },
   {
     question: "Como é calculado o ROAS mostrado nos cases?",
@@ -135,7 +170,7 @@ const FAQS = [
   },
   {
     question: "Preciso já ter um CRM ou site pronto?",
-    answer: "Não. A gente diagnostica o que existe hoje — mesmo que seja só uma página de rede social — e monta o plano a partir daí.",
+    answer: "Não. A gente diagnostica o que existe hoje, mesmo que seja só uma página de rede social, e monta o plano a partir daí.",
   },
 ];
 
@@ -145,23 +180,65 @@ export default function AssessoriaEcommerce() {
   const [whatsapp, setWhatsapp] = useState("");
   const [empresa, setEmpresa] = useState("");
   const [segmento, setSegmento] = useState("");
+  const [outroSegmento, setOutroSegmento] = useState("");
   const [faturamento, setFaturamento] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [errors, setErrors] = useState<{ nome?: string; email?: string; whatsapp?: string; segmento?: string }>({});
+  const [errors, setErrors] = useState<{ nome?: string; email?: string; whatsapp?: string; empresa?: string; segmento?: string; outroSegmento?: string; faturamento?: string }>({});
+
+  const showOutroInput = segmento === "Outro";
+  const segmentoFinal = segmento === "Outro" ? outroSegmento.trim() : segmento;
 
   function scrollToForm() {
     document.getElementById("form-diagnostico")?.scrollIntoView({ behavior: "smooth", block: "center" });
+  }
+
+  // Envia o evento também via Conversions API (server-side), com o mesmo
+  // event_id do fbq client-side para o Meta deduplicar as duas chamadas.
+  function sendCapiEvent(eventName: string, eventId: string, opts?: { email?: string; phone?: string }) {
+    const getCookie = (name: string) => document.cookie.match(new RegExp(`(?:^|; )${name}=([^;]*)`))?.[1];
+    supabase.functions.invoke("meta-capi", {
+      body: {
+        event_name: eventName,
+        event_id: eventId,
+        event_source_url: window.location.href,
+        email: opts?.email,
+        phone: opts?.phone,
+        fbp: getCookie("_fbp"),
+        fbc: getCookie("_fbc"),
+      },
+    }).catch((err) => console.error("meta-capi invoke error:", err));
   }
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
 
     const newErrors: typeof errors = {};
-    if (!nome.trim() || nome.trim().length < 2) newErrors.nome = "Digite seu nome completo";
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) newErrors.email = "Digite um e-mail válido";
+    const nomeParts = nome.trim().split(/\s+/).filter(Boolean);
+    if (nomeParts.length < 2 || nomeParts.some((p) => p.length < 2)) {
+      newErrors.nome = "Digite nome e sobrenome";
+    } else if (isNomeSuspeito(nome)) {
+      newErrors.nome = "Digite seu nome de verdade";
+    }
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) {
+      newErrors.email = "Digite um e-mail válido";
+    } else if (isEmailSuspeito(email)) {
+      newErrors.email = "Digite um e-mail de verdade";
+    }
+
     const digits = whatsapp.replace(/\D/g, "");
-    if (digits.length < 10 || digits.length > 11) newErrors.whatsapp = "Digite um WhatsApp válido";
+    if (digits.length < 10 || digits.length > 11) {
+      newErrors.whatsapp = "Digite um WhatsApp válido";
+    } else if (isWhatsAppSuspeito(digits)) {
+      newErrors.whatsapp = "Digite um WhatsApp de verdade";
+    }
+
+    if (!empresa.trim() || empresa.trim().length < 2) newErrors.empresa = "Digite o nome da sua empresa";
     if (!segmento) newErrors.segmento = "Selecione seu segmento";
+    if (segmento === "Outro" && (!outroSegmento.trim() || outroSegmento.trim().length < 2)) {
+      newErrors.outroSegmento = "Digite seu segmento";
+    }
+    if (!faturamento) newErrors.faturamento = "Selecione o faturamento";
 
     if (Object.keys(newErrors).length) {
       setErrors(newErrors);
@@ -178,12 +255,22 @@ export default function AssessoriaEcommerce() {
         nome: nome.trim(),
         email: email.trim(),
         whatsapp,
-        empresa: empresa.trim() || null,
-        segmento,
+        empresa: empresa.trim(),
+        segmento: segmentoFinal,
         faturamento: faturamentoLabel || null,
         origem_url: window.location.href,
       });
       if (error) throw error;
+
+      // ── Pixel events ──────────────────────────────────────────────────────────
+      const leadEventId = `assessoria-lead-${Date.now()}`;
+      if (typeof (window as any).fbq === "function") {
+        (window as any).fbq("track", "Lead", {
+          content_name: "Assessoria de E-commerce",
+          currency: "BRL",
+        }, { eventID: leadEventId });
+      }
+      sendCapiEvent("Lead", leadEventId, { email: email.trim(), phone: whatsapp });
 
       if (typeof (window as any).gtag_report_conversion === "function") {
         (window as any).gtag_report_conversion();
@@ -203,7 +290,7 @@ export default function AssessoriaEcommerce() {
   return (
     <div className="bg-white">
       <SEO
-        title="Assessoria de E-commerce Gratuita — Diagnóstico de 30 Minutos"
+        title="Assessoria de E-commerce Gratuita: Diagnóstico de 30 Minutos"
         description="Agende um diagnóstico gratuito de 30 minutos com um especialista da MAVI. Analisamos seu e-commerce e mostramos onde estão as maiores oportunidades de crescimento."
         canonical="/assessoria-ecommerce"
       />
@@ -233,7 +320,7 @@ export default function AssessoriaEcommerce() {
             transition={{ duration: 0.4 }}
             className="inline-flex items-center gap-2 px-3 py-1.5 text-xs font-semibold tracking-wider uppercase rounded-full border border-primary/40 text-primary bg-primary/10 mb-5"
           >
-            <Zap className="w-3 h-3" /> Assessoria de E-commerce · MAVI
+            <Zap className="w-3 h-3" /> Growth Marketing para E-commerce
           </motion.span>
 
           <motion.h1
@@ -242,7 +329,7 @@ export default function AssessoriaEcommerce() {
             transition={{ duration: 0.5, delay: 0.1 }}
             className="text-[32px] leading-[1.1] md:text-5xl lg:text-[54px] font-extrabold text-white tracking-tight mb-4"
           >
-            Sua loja virtual pode vender muito mais —
+            Sua loja pode vender muito mais
             <span className="block min-h-[1.1em] text-primary">
               <CyclingTypewriter
                 phrases={[
@@ -273,7 +360,7 @@ export default function AssessoriaEcommerce() {
           >
             <button
               onClick={scrollToForm}
-              className="relative inline-flex items-center justify-center gap-2 bg-primary hover:bg-primary/90 text-white font-bold text-base rounded-xl py-4 px-8 transition-colors touch-manipulation"
+              className="relative w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-primary hover:bg-primary/90 text-white font-bold text-base rounded-xl py-4 px-8 transition-colors touch-manipulation"
             >
               <Zap className="w-4 h-4" />
               Quero meu diagnóstico gratuito de 30 minutos
@@ -299,11 +386,11 @@ export default function AssessoriaEcommerce() {
       {/* ══════════════════════════════════════════════════════
           FORMULÁRIO
       ══════════════════════════════════════════════════════ */}
-      <section id="form-diagnostico" className="bg-gray-950 border-t border-white/5 py-16 md:py-24">
+      <section id="form-diagnostico" className="bg-gray-950 border-t border-white/5 py-12 md:py-24">
         <div className="max-w-5xl mx-auto px-6 md:px-12 grid lg:grid-cols-2 gap-10 items-center">
           <div>
             <span className="inline-block text-[11px] font-semibold uppercase tracking-wider text-primary mb-3">
-              Aviso
+              Diagnóstico gratuito
             </span>
             <h2 className="text-2xl md:text-3xl font-bold text-white leading-tight mb-4">
               Agende seu diagnóstico gratuito de 30 minutos
@@ -372,10 +459,11 @@ export default function AssessoriaEcommerce() {
                 <Label className="text-gray-600 text-xs mb-1 block">Nome da sua empresa</Label>
                 <Input
                   value={empresa}
-                  onChange={(e) => setEmpresa(e.target.value)}
+                  onChange={(e) => { setEmpresa(e.target.value); setErrors((p) => ({ ...p, empresa: undefined })); }}
                   placeholder="Nome da loja"
-                  className="h-11 border-gray-200"
+                  className={`h-11 ${errors.empresa ? "border-red-400" : "border-gray-200"}`}
                 />
+                {errors.empresa && <p className="text-[11px] text-red-500 mt-1">{errors.empresa}</p>}
               </div>
 
               <div>
@@ -393,11 +481,24 @@ export default function AssessoriaEcommerce() {
                 {errors.segmento && <p className="text-[11px] text-red-500 mt-1">{errors.segmento}</p>}
               </div>
 
+              {showOutroInput && (
+                <div>
+                  <Label className="text-gray-600 text-xs mb-1 block">Qual o segmento, então?</Label>
+                  <Input
+                    value={outroSegmento}
+                    onChange={(e) => { setOutroSegmento(e.target.value); setErrors((p) => ({ ...p, outroSegmento: undefined })); }}
+                    placeholder="Ex: Livros, Artigos religiosos..."
+                    className={`h-11 ${errors.outroSegmento ? "border-red-400" : "border-gray-200"}`}
+                  />
+                  {errors.outroSegmento && <p className="text-[11px] text-red-500 mt-1">{errors.outroSegmento}</p>}
+                </div>
+              )}
+
               <div>
                 <Label className="text-gray-600 text-xs mb-1 block">Quanto você fatura no mês?</Label>
-                <Select value={faturamento} onValueChange={setFaturamento}>
-                  <SelectTrigger className="h-11 border-gray-200">
-                    <SelectValue placeholder="Selecione (opcional)" />
+                <Select value={faturamento} onValueChange={(v) => { setFaturamento(v); setErrors((p) => ({ ...p, faturamento: undefined })); }}>
+                  <SelectTrigger className={`h-11 ${errors.faturamento ? "border-red-400" : "border-gray-200"}`}>
+                    <SelectValue placeholder="Selecione" />
                   </SelectTrigger>
                   <SelectContent>
                     {FATURAMENTO_OPTIONS.map((opt) => (
@@ -405,6 +506,7 @@ export default function AssessoriaEcommerce() {
                     ))}
                   </SelectContent>
                 </Select>
+                {errors.faturamento && <p className="text-[11px] text-red-500 mt-1">{errors.faturamento}</p>}
               </div>
 
               <Button
@@ -428,7 +530,7 @@ export default function AssessoriaEcommerce() {
       {/* ══════════════════════════════════════════════════════
           O QUE FAZEMOS
       ══════════════════════════════════════════════════════ */}
-      <section className="py-16 md:py-24 px-6 md:px-12">
+      <section className="py-12 md:py-24 px-6 md:px-12">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">
             <span className="inline-block text-[11px] font-semibold uppercase tracking-wider text-primary mb-2">
@@ -455,7 +557,7 @@ export default function AssessoriaEcommerce() {
       {/* ══════════════════════════════════════════════════════
           O QUE ENTREGAMOS NA PRÁTICA
       ══════════════════════════════════════════════════════ */}
-      <section className="py-16 md:py-24 px-6 md:px-12 bg-gray-50">
+      <section className="py-12 md:py-24 px-6 md:px-12 bg-gray-50">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">
             <span className="inline-block text-[11px] font-semibold uppercase tracking-wider text-primary mb-2">
@@ -483,7 +585,7 @@ export default function AssessoriaEcommerce() {
       {/* ══════════════════════════════════════════════════════
           QUEM SOMOS
       ══════════════════════════════════════════════════════ */}
-      <section className="py-16 md:py-24 px-6 md:px-12 bg-gray-950">
+      <section className="py-12 md:py-24 px-6 md:px-12 bg-gray-950">
         <div className="max-w-4xl mx-auto text-center">
           <span className="inline-block text-[11px] font-semibold uppercase tracking-wider text-primary mb-3">
             Quem somos
@@ -492,8 +594,8 @@ export default function AssessoriaEcommerce() {
             Especialistas em e-commerce, não uma agência genérica de anúncios
           </h2>
           <p className="text-white/60 text-sm md:text-base leading-relaxed mb-12 max-w-2xl mx-auto">
-            Há mais de 5 anos ajudamos lojas virtuais a vender mais — de pequenas operações a marcas com
-            múltiplos dígitos de faturamento mensal. Resultado não se promete, se constrói.
+            Há mais de 5 anos ajudamos lojas virtuais a vender mais, do pequeno negócio que está começando
+            até marcas que já faturam milhões por mês. Resultado não se promete, se constrói.
           </p>
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
             {[
@@ -514,7 +616,7 @@ export default function AssessoriaEcommerce() {
       {/* ══════════════════════════════════════════════════════
           RESULTADOS / CASES
       ══════════════════════════════════════════════════════ */}
-      <section className="py-16 md:py-24 px-6 md:px-12">
+      <section className="py-12 md:py-24 px-6 md:px-12">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">
             <span className="inline-block text-[11px] font-semibold uppercase tracking-wider text-primary mb-2">
@@ -550,7 +652,7 @@ export default function AssessoriaEcommerce() {
       {/* ══════════════════════════════════════════════════════
           FAQ
       ══════════════════════════════════════════════════════ */}
-      <section className="py-16 md:py-24 px-6 md:px-12 bg-gray-50">
+      <section className="py-12 md:py-24 px-6 md:px-12 bg-gray-50">
         <div className="max-w-2xl mx-auto">
           <div className="text-center mb-10">
             <h2 className="text-2xl md:text-3xl font-bold text-gray-900">Perguntas Frequentes</h2>
@@ -577,7 +679,7 @@ export default function AssessoriaEcommerce() {
       {/* ══════════════════════════════════════════════════════
           CTA FINAL
       ══════════════════════════════════════════════════════ */}
-      <section className="py-16 md:py-20 px-6 md:px-12 bg-gray-950 text-center">
+      <section className="py-12 md:py-20 px-6 md:px-12 bg-gray-950 text-center">
         <div className="max-w-2xl mx-auto">
           <h2 className="text-2xl md:text-3xl font-bold text-white mb-3">
             Pronto pra descobrir onde sua loja está perdendo venda?
@@ -587,7 +689,7 @@ export default function AssessoriaEcommerce() {
           </p>
           <button
             onClick={scrollToForm}
-            className="inline-flex items-center justify-center gap-2 bg-primary hover:bg-primary/90 text-white font-bold text-base rounded-xl py-4 px-8 transition-colors touch-manipulation"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-primary hover:bg-primary/90 text-white font-bold text-base rounded-xl py-4 px-8 transition-colors touch-manipulation"
           >
             Agendar meu diagnóstico gratuito <ArrowRight className="w-4 h-4" />
           </button>
