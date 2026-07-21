@@ -33,6 +33,7 @@ import TermosUso from "./pages/TermosUso";
 import NotFound from "./pages/NotFound";
 import DiagnosticoGratuito from "./pages/DiagnosticoGratuito";
 import Assessment from "./pages/Assessment";
+import AssessoriaEcommerce from "./pages/AssessoriaEcommerce";
 import AdminAssessment from "./pages/admin/AdminAssessment";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import { usePageTracking } from "./hooks/usePageTracking";
@@ -91,6 +92,7 @@ const App = () => (
           <Route path="/diagnostico-gratuito" element={<DiagnosticoGratuito />} />
           <Route path="/diagnostico" element={<Navigate to="/diagnostico-gratuito" replace />} />
           <Route path="/assessment" element={<Assessment />} />
+          <Route path="/assessoria-ecommerce" element={<AssessoriaEcommerce />} />
           <Route path="/admin" element={<AdminDashboard />} />
           <Route path="/admin/assessment" element={<AdminAssessment />} />
           <Route path="*" element={<NotFound />} />
