@@ -140,7 +140,7 @@ const dorOpts = [
   { emoji: "🎯", label: "Não consigo atribuir os resultados corretamente" },
 ];
 
-const WA_NUMBER = "554733072030";
+const WA_NUMBER = "5547996810630";
 
 interface Respostas {
   segmento: string;

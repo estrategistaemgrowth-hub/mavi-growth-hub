@@ -182,7 +182,7 @@ export default function TermosUso() {
               <div className="mt-4 p-4 bg-mavi-gray rounded-lg">
                 <p className="text-foreground"><strong>MAVI Marketing Digital</strong></p>
                 <p className="text-foreground"><strong>E-mail:</strong> agenciamavi@agenciamavi.com.br</p>
-                <p className="text-foreground"><strong>Telefone:</strong> (47) 3307-2030</p>
+                <p className="text-foreground"><strong>Telefone:</strong> (47) 99681-0630</p>
                 <p className="text-foreground"><strong>Endereço:</strong> Jaraguá do Sul - SC</p>
               </div>
             </section>

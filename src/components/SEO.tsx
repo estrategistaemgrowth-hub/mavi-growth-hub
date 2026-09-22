@@ -122,7 +122,7 @@ export function generateLocalBusinessSchema() {
     "image": "https://www.agenciamavi.com.br/og-image.png",
     "logo": "https://www.agenciamavi.com.br/og-image.png",
     "url": "https://www.agenciamavi.com.br",
-    "telephone": "+55-47-3307-2030",
+    "telephone": "+55-47-99681-0630",
     "email": "agenciamavi@agenciamavi.com.br",
     "description": "Agência de marketing digital especializada em e-commerce, performance, automação e CRM. Atendemos empresas de todo o Brasil com foco em resultados mensuráveis.",
     "foundingDate": "2020",
@@ -221,7 +221,7 @@ export function generateLocalBusinessSchema() {
     ],
     "contactPoint": {
       "@type": "ContactPoint",
-      "telephone": "+55-47-3307-2030",
+      "telephone": "+55-47-99681-0630",
       "contactType": "sales",
       "email": "agenciamavi@agenciamavi.com.br",
       "availableLanguage": ["Portuguese"]
@@ -269,7 +269,7 @@ export function generateOrganizationSchema() {
     },
     "contactPoint": {
       "@type": "ContactPoint",
-      "telephone": "+55-47-3307-2030",
+      "telephone": "+55-47-99681-0630",
       "contactType": "sales",
       "email": "agenciamavi@agenciamavi.com.br",
       "availableLanguage": "Portuguese"

@@ -351,10 +351,10 @@ export default function Contato() {
                   <div>
                     <p className="text-sm text-muted-foreground">Telefone</p>
                     <a
-                      href="tel:+554733072030"
+                      href="tel:+5547996810630"
                       className="text-foreground hover:text-primary transition-colors"
                     >
-                      (47) 3307-2030
+                      (47) 99681-0630
                     </a>
                   </div>
                 </div>

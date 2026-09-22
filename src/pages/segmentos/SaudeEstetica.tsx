@@ -440,7 +440,7 @@ const SegmentoSaudeEstetica = () => {
               <div className="space-y-4">
                 <WhatsAppLink className="flex items-center gap-3 text-mavi-white/80 hover:text-primary transition-colors cursor-pointer">
                   <Phone className="w-5 h-5" />
-                  (47) 3307-2030
+                  (47) 99681-0630
                 </WhatsAppLink>
                 <a
                   href="mailto:agenciamavi@agenciamavi.com.br"

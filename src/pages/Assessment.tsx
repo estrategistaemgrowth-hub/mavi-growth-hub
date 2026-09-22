@@ -50,7 +50,7 @@ const ASSESSMENT_SCHEMA = {
         "@type": "MarketingAgency",
         "name": "MAVI Marketing Digital",
         "url": "https://www.agenciamavi.com.br",
-        "telephone": "+55-47-3307-2030",
+        "telephone": "+55-47-99681-0630",
         "email": "agenciamavi@agenciamavi.com.br",
         "areaServed": { "@type": "Country", "name": "Brasil" },
       },

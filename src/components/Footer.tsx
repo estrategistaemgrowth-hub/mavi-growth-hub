@@ -130,10 +130,10 @@ export function Footer() {
                 <Phone className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
                 <div>
                   <a
-                    href="tel:+554733072030"
+                    href="tel:+5547996810630"
                     className="text-mavi-white/70 hover:text-primary transition-colors"
                   >
-                    (47) 3307-2030
+                    (47) 99681-0630
                   </a>
                 </div>
               </li>

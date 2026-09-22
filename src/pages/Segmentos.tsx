@@ -314,7 +314,7 @@ const Segmentos = () => {
             </Button>
             <Button asChild variant="heroOutline" size="lg">
               <a
-                href="https://wa.me/554733072030?text=Olá! Gostaria de saber mais sobre os serviços da MAVI para meu segmento."
+                href="https://wa.me/5547996810630?text=Olá! Gostaria de saber mais sobre os serviços da MAVI para meu segmento."
                 target="_blank"
                 rel="noopener noreferrer"
               >

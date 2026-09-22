@@ -24,7 +24,7 @@ interface WhatsAppLeadDialogProps {
   onOpenChange: (open: boolean) => void;
 }
 
-const WHATSAPP_NUMBER = "554733072030";
+const WHATSAPP_NUMBER = "5547996810630";
 
 const segmentOptions = [
   "E-commerce / Loja Virtual",

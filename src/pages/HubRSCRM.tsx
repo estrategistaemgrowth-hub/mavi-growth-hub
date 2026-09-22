@@ -505,7 +505,7 @@ export default function HubRSCRM() {
               <a href="#planos">Começar teste do HUBRS CRM</a>
             </Button>
             <Button asChild variant="heroOutline" size="xl">
-              <a href="https://wa.me/554733072030?text=Quero%20falar%20sobre%20o%20HUBRS%20CRM" target="_blank" rel="noopener noreferrer">
+              <a href="https://wa.me/5547996810630?text=Quero%20falar%20sobre%20o%20HUBRS%20CRM" target="_blank" rel="noopener noreferrer">
                 Falar com o time da MAVI
               </a>
             </Button>
