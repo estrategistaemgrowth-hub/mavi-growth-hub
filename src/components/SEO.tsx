@@ -226,13 +226,6 @@ export function generateLocalBusinessSchema() {
       "email": "agenciamavi@agenciamavi.com.br",
       "availableLanguage": ["Portuguese"]
     },
-    "aggregateRating": {
-      "@type": "AggregateRating",
-      "ratingValue": "4.9",
-      "reviewCount": "47",
-      "bestRating": "5",
-      "worstRating": "1"
-    },
     "knowsAbout": [
       "Marketing Digital",
       "E-commerce",

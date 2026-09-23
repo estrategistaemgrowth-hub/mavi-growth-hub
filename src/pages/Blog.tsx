@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
+import { getPrerenderData } from "@/lib/prerender-data";
 import { Layout } from "@/components/Layout";
 import { SEO, generateBreadcrumbSchema } from "@/components/SEO";
 import { BlogCard } from "@/components/BlogCard";
@@ -27,12 +28,13 @@ interface Category {
 const POSTS_PER_PAGE = 9;
 
 export default function Blog() {
-  const [posts, setPosts] = useState<BlogPost[]>([]);
-  const [categories, setCategories] = useState<Category[]>([]);
-  const [loading, setLoading] = useState(true);
   const [searchParams, setSearchParams] = useSearchParams();
   const activeCategory = searchParams.get("categoria") || "";
   const page = parseInt(searchParams.get("pagina") || "1");
+  const initialPosts = !activeCategory && page === 1 ? getPrerenderData<BlogPost[]>("blog:posts") : undefined;
+  const [posts, setPosts] = useState<BlogPost[]>(initialPosts ?? []);
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [loading, setLoading] = useState(!initialPosts);
 
   useEffect(() => {
     fetchCategories();

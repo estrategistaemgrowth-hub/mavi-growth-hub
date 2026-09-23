@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -45,12 +46,20 @@ function PageTracker() {
   return null;
 }
 
-const App = () => (
+// Providers e rotas separados do BrowserRouter para o prerender (src/entry-server.tsx)
+// renderizar a mesma árvore com StaticRouter.
+export const AppProviders = ({ children }: { children: ReactNode }) => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
       <Toaster />
       <Sonner />
-      <BrowserRouter>
+      {children}
+    </TooltipProvider>
+  </QueryClientProvider>
+);
+
+export const AppRoutes = () => (
+      <>
         <PageTracker />
         <ScrollToTop />
         <ScrollProgress />
@@ -97,9 +106,15 @@ const App = () => (
           <Route path="/admin/assessment" element={<AdminAssessment />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
-      </BrowserRouter>
-    </TooltipProvider>
-  </QueryClientProvider>
+      </>
+);
+
+const App = () => (
+  <AppProviders>
+    <BrowserRouter>
+      <AppRoutes />
+    </BrowserRouter>
+  </AppProviders>
 );
 
 export default App;

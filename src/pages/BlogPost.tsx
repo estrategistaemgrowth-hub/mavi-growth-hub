@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
+import { getPrerenderData } from "@/lib/prerender-data";
 import { Layout } from "@/components/Layout";
 import { SEO, generateBreadcrumbSchema } from "@/components/SEO";
 import { Calendar, User, ArrowLeft, Tag } from "lucide-react";
@@ -22,8 +23,9 @@ interface Post {
 
 export default function BlogPost() {
   const { slug } = useParams();
-  const [post, setPost] = useState<Post | null>(null);
-  const [loading, setLoading] = useState(true);
+  const initialPost = getPrerenderData<Post>(`post:${slug}`);
+  const [post, setPost] = useState<Post | null>(initialPost ?? null);
+  const [loading, setLoading] = useState(!initialPost);
 
   useEffect(() => {
     if (slug) fetchPost();
