@@ -18,7 +18,7 @@ const DEFAULT_LIGHT_COLORS = ["#ec0064", "#00e5ff", "#ff3ea5", "#7c3aed"];
 
 /**
  * Tubos 3D WebGL que seguem o cursor (lib threejs-components via CDN).
- * Canvas fixo na viewport pra capturar o mouse em qualquer scroll.
+ * Canvas preso ao hero (primeira dobra): o wrapper do HeroBackground recorta com overflow-hidden.
  */
 export const TubesCursor = ({
   initialColors = DEFAULT_COLORS,
@@ -66,7 +66,7 @@ export const TubesCursor = ({
   return (
     <canvas
       ref={canvasRef}
-      className={`fixed inset-0 w-screen h-screen pointer-events-none ${className}`}
+      className={`absolute inset-0 w-full h-full pointer-events-none ${className}`}
       style={{ zIndex: 1 }}
       aria-hidden="true"
     />
