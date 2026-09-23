@@ -7,42 +7,27 @@ type TubesCursorProps = {
   className?: string;
 };
 
-const SCRIPT_SRC =
+// A lib é um ES module (export default), então carrega via import(), não via <script>.
+const MODULE_SRC =
   "https://cdn.jsdelivr.net/npm/threejs-components@0.0.19/build/cursors/tubes1.min.js";
 
-function loadScript(src: string): Promise<any> {
-  return new Promise((resolve, reject) => {
-    const existing = document.querySelector(`script[data-src="${src}"]`) as HTMLScriptElement | null;
-    if (existing && (existing as any)._loaded) {
-      resolve((window as any).tubesCursor1 ?? (window as any).default);
-      return;
-    }
-    const s = existing ?? document.createElement("script");
-    s.src = src;
-    s.dataset.src = src;
-    s.async = true;
-    s.onload = () => {
-      (s as any)._loaded = true;
-      // a lib expõe window.tubesCursor1 (UMD)
-      resolve((window as any).tubesCursor1);
-    };
-    s.onerror = (e) => reject(e);
-    if (!existing) document.head.appendChild(s);
-  });
-}
+// Fora do componente: arrays criados no default dos props mudariam a cada render e
+// recriariam o WebGL pelo array de dependências do useEffect.
+const DEFAULT_COLORS = ["#ec0064", "#00e5ff", "#7c3aed"];
+const DEFAULT_LIGHT_COLORS = ["#ec0064", "#00e5ff", "#ff3ea5", "#7c3aed"];
 
 /**
  * Tubos 3D WebGL que seguem o cursor (lib threejs-components via CDN).
  * Canvas fixo na viewport pra capturar o mouse em qualquer scroll.
  */
 export const TubesCursor = ({
-  initialColors = ["#ec0064", "#00e5ff", "#7c3aed"],
-  lightColors = ["#ec0064", "#00e5ff", "#ff3ea5", "#7c3aed"],
+  initialColors = DEFAULT_COLORS,
+  lightColors = DEFAULT_LIGHT_COLORS,
   lightIntensity = 220,
   className = "",
 }: TubesCursorProps) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const appRef = useRef<any>(null);
+  const appRef = useRef<{ dispose?: () => void } | null>(null);
 
   useEffect(() => {
     let destroyed = false;
@@ -54,8 +39,8 @@ export const TubesCursor = ({
     const isSmall = window.innerWidth < 1024;
     if (isCoarse || isSmall) return;
 
-    loadScript(SCRIPT_SRC)
-      .then((Ctor) => {
+    import(/* @vite-ignore */ MODULE_SRC)
+      .then(({ default: Ctor }) => {
         if (!Ctor || !canvasRef.current || destroyed) return;
         const app = Ctor(canvasRef.current, {
           tubes: {
