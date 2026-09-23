@@ -69,7 +69,9 @@ async function main() {
     ssr: { noExternal: true },
     build: { ssr: "src/entry-server.tsx", outDir: ssrOut, emptyOutDir: true },
   });
-  // src/integrations/supabase/client.ts (gerado pelo Lovable) lê localStorage ao ser importado.
+  // src/integrations/supabase/client.ts (gerado pelo Lovable) lê localStorage e exige WebSocket
+  // (nativo só no Node 22+) ao ser importado; nada disso é usado durante o render.
+  globalThis.WebSocket ??= class {};
   const mem = new Map();
   globalThis.localStorage ??= {
     getItem: (k) => mem.get(k) ?? null,
