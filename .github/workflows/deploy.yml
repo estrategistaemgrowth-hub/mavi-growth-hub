@@ -52,3 +52,15 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+      # IndexNow: avisa Bing/Copilot (base do ChatGPT Search), Yandex e cia. das URLs do sitemap.
+      # Falha aqui não derruba o deploy.
+      - name: Ping IndexNow
+        continue-on-error: true
+        run: |
+          KEY=c7e34bc784a0e561bcdecac019e01dff
+          URLS=$(curl -fsSL https://www.agenciamavi.com.br/sitemap.xml | grep -o '<loc>[^<]*' | sed 's/<loc>//' | jq -R . | jq -s -c .)
+          curl -sS -X POST https://api.indexnow.org/indexnow -H 'Content-Type: application/json' \
+            -d "{\"host\":\"www.agenciamavi.com.br\",\"key\":\"$KEY\",\"keyLocation\":\"https://www.agenciamavi.com.br/$KEY.txt\",\"urlList\":$URLS}" \
+            -w '%{http_code}\n'
+

@@ -11,6 +11,8 @@ interface SEOProps {
 
 const BASE_URL = "https://www.agenciamavi.com.br";
 const DEFAULT_OG_IMAGE = `${BASE_URL}/og-image.png`;
+// Mesmo @id em todos os blocos (e no index.html): buscadores e IAs leem como uma entidade só.
+export const ORG_ID = `${BASE_URL}/#organization`;
 
 export function SEO({
   title,
@@ -20,7 +22,8 @@ export function SEO({
   noindex = false,
   schemaMarkup,
 }: SEOProps) {
-  const fullTitle = `${title} | MAVI Marketing Digital`;
+  // Google corta o título em ~60 caracteres; sufixo curto e sem repetir a marca.
+  const fullTitle = title.includes("MAVI") ? title : `${title} | MAVI`;
   const canonicalUrl = canonical ? `${BASE_URL}${canonical}` : undefined;
 
   return (
@@ -117,6 +120,7 @@ export function generateLocalBusinessSchema() {
   return {
     "@context": "https://schema.org",
     "@type": "MarketingAgency",
+    "@id": ORG_ID,
     "name": "MAVI Marketing Digital",
     "legalName": "MAVI Marketing Digital LTDA",
     "image": "https://www.agenciamavi.com.br/og-image.png",
@@ -251,6 +255,7 @@ export function generateOrganizationSchema() {
   return {
     "@context": "https://schema.org",
     "@type": "Organization",
+    "@id": ORG_ID,
     "name": "MAVI Marketing Digital",
     "url": "https://www.agenciamavi.com.br",
     "logo": "https://www.agenciamavi.com.br/og-image.png",
@@ -258,7 +263,7 @@ export function generateOrganizationSchema() {
     "foundingDate": "2020",
     "founder": {
       "@type": "Person",
-      "name": "MAVI Marketing Digital"
+      "name": "Robson Fernandes"
     },
     "contactPoint": {
       "@type": "ContactPoint",
@@ -303,11 +308,7 @@ export function generateCaseStudyListSchema(cases: {
         "name": c.title,
         "description": c.description,
         "abstract": c.result,
-        "publisher": {
-          "@type": "Organization",
-          "name": "MAVI Marketing Digital",
-          "url": "https://www.agenciamavi.com.br",
-        },
+        "publisher": { "@id": ORG_ID },
       },
     })),
   };
@@ -321,10 +322,7 @@ export function generateWebSiteSchema() {
     "name": "MAVI Marketing Digital",
     "url": "https://www.agenciamavi.com.br",
     "description": "Agência de marketing digital especializada em e-commerce, performance, automação e CRM em Jaraguá do Sul, SC.",
-    "publisher": {
-      "@type": "Organization",
-      "name": "MAVI Marketing Digital"
-    },
+    "publisher": { "@id": ORG_ID },
     "inLanguage": "pt-BR"
   };
 }

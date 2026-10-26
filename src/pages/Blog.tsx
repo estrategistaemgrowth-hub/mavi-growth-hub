@@ -7,6 +7,7 @@ import { SEO, generateBreadcrumbSchema } from "@/components/SEO";
 import { BlogCard } from "@/components/BlogCard";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { Newspaper } from "lucide-react";
 
 interface BlogPost {
   id: string;
@@ -115,7 +116,7 @@ export default function Blog() {
       {/* Hero */}
       <section className="section-dark pt-32 pb-16">
         <div className="container-mavi text-center">
-          <span className="badge-pill mb-4">📝 Blog</span>
+          <span className="badge-pill mb-4 inline-flex items-center gap-1.5"><Newspaper className="w-3.5 h-3.5" aria-hidden="true" /> Blog</span>
           <h1 className="text-4xl md:text-5xl font-bold mb-4">
             Blog <span className="gradient-text">MAVI</span>
           </h1>

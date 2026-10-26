@@ -173,7 +173,7 @@ export default function Servicos() {
   return (
     <Layout>
       <SEO
-        title="Serviços de Marketing Digital - E-commerce, Performance, CRM e Automação"
+        title="Serviços: E-commerce, Tráfego, CRM e Automação"
         description="Soluções completas de marketing digital: lojas virtuais, tráfego pago, redes sociais, marketplaces, sites e CRM com IA. Conheça nossos serviços."
         canonical="/servicos"
         schemaMarkup={combinedSchema}

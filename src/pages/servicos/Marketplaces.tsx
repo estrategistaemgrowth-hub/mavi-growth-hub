@@ -129,7 +129,7 @@ export default function ServicoMarketplaces() {
   return (
     <Layout>
       <SEO
-        title="Gestão de Marketplaces - Mercado Livre, Amazon, Shopee"
+        title="Gestão de Marketplaces: Mercado Livre, Amazon e Shopee"
         description="Gestão profissional de Mercado Livre, Amazon, Shopee, Magalu e mais. Integração com ERP, otimização de anúncios e +40% de crescimento médio."
         canonical="/servicos/marketplaces"
         schemaMarkup={combinedSchema}

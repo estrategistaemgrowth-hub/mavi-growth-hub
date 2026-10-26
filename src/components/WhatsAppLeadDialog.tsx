@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useState } from "react";
-import { MessageCircle } from "lucide-react";
+import { MessageCircle, Lock } from "lucide-react";
 import {
   Dialog,
   DialogContent,
@@ -228,8 +228,8 @@ export function WhatsAppLeadDialog({ open, onOpenChange }: WhatsAppLeadDialogPro
             {isSubmitting ? "Abrindo WhatsApp..." : "Falar no WhatsApp"}
           </Button>
 
-          <p className="text-center text-xs text-muted-foreground">
-            🔒 Seus dados estão seguros e não serão compartilhados.
+          <p className="flex items-center justify-center gap-1.5 text-xs text-muted-foreground">
+            <Lock className="w-3.5 h-3.5" aria-hidden="true" /> Seus dados estão seguros e não serão compartilhados.
           </p>
         </form>
       </DialogContent>

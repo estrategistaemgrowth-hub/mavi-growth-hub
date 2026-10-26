@@ -46,7 +46,14 @@ A MAVI é especializada em:
 | /servicos/marketplaces | Serviço | Gestão de marketplaces |
 | /servicos/automacao | Serviço | Chatbots e automação com IA |
 | /servicos/micro-saas | Serviço | Desenvolvimento Micro SaaS |
+| /servicos/redes-sociais | Serviço | Gestão de redes sociais e conteúdo |
+| /servicos/sites | Serviço | Criação de sites e landing pages |
+| /segmentos/imobiliarias | Segmento | Marketing para imobiliárias e corretoras |
+| /segmentos/industria | Segmento | Marketing para indústrias e B2B |
+| /segmentos/saude-estetica | Segmento | Marketing para clínicas, salões e spas |
 | /hubrs-crm | Produto | CRM HUBRS com WhatsApp e IA |
+| /assessment | Ferramenta | Diagnóstico gratuito de e-commerce em 7 pilares (21 perguntas) |
+| /diagnostico-gratuito | Ferramenta | Diagnóstico de growth gratuito de 30 minutos |
 | /cases | Casos | Cases de sucesso com resultados reais |
 | /blog | Blog | Artigos sobre marketing digital e e-commerce |
 | /sobre | Institucional | História e equipe da agência |
@@ -66,4 +73,4 @@ GPTBot, ChatGPT-User, PerplexityBot, ClaudeBot, anthropic-ai, Google-Extended, c
 
 ## Atualização
 
-Última atualização: 2026-05-04
+Última atualização: 2026-10-26

@@ -29,6 +29,7 @@ import {
   Star,
   Sparkles,
   Award,
+  Check,
 } from "lucide-react";
 
 const services = [
@@ -173,7 +174,7 @@ export default function Index() {
   return (
     <Layout>
       <SEO
-        title="MAVI · Performance para e-commerce, imobiliárias e indústrias"
+        title="Agência MAVI: tráfego pago, CRM e IA para e-commerce"
         description="MAVI faz tráfego pago, CRM, automação e Micro SaaS para e-commerce, imobiliárias, clínicas e indústrias. Sem promessa vazia. Resultado mensurável."
         canonical="/"
         schemaMarkup={combinedSchema}
@@ -323,7 +324,7 @@ export default function Index() {
                         <p className="text-2xl font-bold text-white">
                           <AnimatedCounter end={8.4} duration={1800} decimals={1} suffix="x" />
                         </p>
-                        <p className="text-green-400 text-xs mt-0.5">Meta: 5x ✓</p>
+                        <p className="text-green-400 text-xs mt-0.5">Meta: 5x <Check className="inline w-3 h-3 -mt-0.5" aria-hidden="true" /></p>
                       </div>
                       <div className="bg-white/5 rounded-xl p-4 border border-white/5">
                         <p className="text-white/50 text-xs mb-1">Leads/dia</p>
@@ -518,7 +519,7 @@ export default function Index() {
                       </div>
                     </div>
                     <span className="text-xs font-medium px-2.5 py-1 rounded-full bg-green-400/10 text-green-400 border border-green-400/20">
-                      Ativo ✓
+                      Ativo <Check className="inline w-3 h-3 -mt-0.5" aria-hidden="true" />
                     </span>
                   </div>
 

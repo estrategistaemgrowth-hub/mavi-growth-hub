@@ -179,7 +179,7 @@ export default function HubRSCRM() {
   return (
     <Layout>
       <SEO
-        title="HUBRS CRM - CRM com Automação de WhatsApp e IA para Vendas"
+        title="HUBRS CRM: Automação de WhatsApp e IA para Vendas"
         description="CRM desenvolvido pela MAVI com automação de WhatsApp, IA para atendimento 24/7 e integração com Meta Ads. Teste grátis por 7 dias."
         canonical="/hubrs-crm"
         schemaMarkup={combinedSchema}

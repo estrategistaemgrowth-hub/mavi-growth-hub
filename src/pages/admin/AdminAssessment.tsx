@@ -17,6 +17,7 @@ import {
   Search,
   RefreshCw,
 } from "lucide-react";
+import { personaIcon } from "@/lib/personaIcons";
 import {
   RadarChart,
   PolarGrid,
@@ -94,14 +95,8 @@ function getScoreBadgeVariant(score: number): "default" | "secondary" | "destruc
 }
 
 function PersonaEmoji({ label }: { label: string }) {
-  const map: Record<string, string> = {
-    "Loja em Construção": "🏗️",
-    "Loja em Crescimento": "🌱",
-    "Loja em Aceleração": "🚀",
-    "Loja Consolidada": "⚡",
-    "Loja de Alta Performance": "🏆",
-  };
-  return <span>{map[label] ?? "📊"}</span>;
+  const Icon = personaIcon(label);
+  return <Icon className="w-4 h-4 text-primary" aria-hidden="true" />;
 }
 
 // ─── Main Component ───────────────────────────────────────────────────────────

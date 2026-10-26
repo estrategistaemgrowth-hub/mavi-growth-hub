@@ -34,6 +34,7 @@ import {
   Store,
   Award,
   Loader2,
+  Lock,
 } from "lucide-react";
 import logoMavi from "@/assets/logo-mavi-branca.png";
 
@@ -290,7 +291,7 @@ export default function AssessoriaEcommerce() {
   return (
     <div className="bg-white">
       <SEO
-        title="Assessoria de E-commerce Gratuita: Diagnóstico de 30 Minutos"
+        title="Assessoria de E-commerce Gratuita em 30 Minutos"
         description="Agende um diagnóstico gratuito de 30 minutos com um especialista da MAVI. Analisamos seu e-commerce e mostramos onde estão as maiores oportunidades de crescimento."
         canonical="/assessoria-ecommerce"
       />
@@ -521,7 +522,7 @@ export default function AssessoriaEcommerce() {
                   <>Quero meu diagnóstico gratuito <ArrowRight className="w-4 h-4 ml-1.5" /></>
                 )}
               </Button>
-              <p className="text-center text-[11px] text-gray-400">🔒 Seus dados estão seguros e não serão compartilhados.</p>
+              <p className="flex items-center justify-center gap-1.5 text-[11px] text-gray-400"><Lock className="w-3 h-3" aria-hidden="true" /> Seus dados estão seguros e não serão compartilhados.</p>
             </form>
           </div>
         </div>

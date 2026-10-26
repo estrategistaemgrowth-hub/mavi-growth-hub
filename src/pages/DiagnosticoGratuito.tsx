@@ -25,7 +25,35 @@ import {
   ArrowLeft,
   Check,
   MessageCircle,
+  Ban,
+  Banknote,
+  Coins,
+  CreditCard,
+  Crosshair,
+  Factory,
+  Flame,
+  GraduationCap,
+  HeartCrack,
+  HeartPulse,
+  HelpCircle,
+  Home,
+  Leaf,
+  Mail,
+  Megaphone,
+  Music2,
+  PenLine,
+  RefreshCw,
+  Shapes,
+  ShoppingBag,
+  Sprout,
+  Star,
+  Store,
+  TrendingDown,
+  TrendingUp,
+  Trophy,
+  Wallet,
 } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 import {
   RadarChart,
   PolarGrid,
@@ -96,48 +124,48 @@ type AStep =
 const QUESTION_STEPS: AStep[] = ["segmento", "faturamento", "verba", "canais", "dor", "site"];
 
 const segmentoOpts = [
-  { emoji: "🛍️", label: "E-commerce / Varejo Online" },
-  { emoji: "🏪", label: "Varejo Físico + Online" },
-  { emoji: "💊", label: "Saúde e Beleza" },
-  { emoji: "🏗️", label: "Indústria / B2B" },
-  { emoji: "🏠", label: "Imobiliária" },
-  { emoji: "🎓", label: "Infoprodutos / Serviços" },
-  { emoji: "🔄", label: "Outro segmento" },
+  { icon: ShoppingBag, label: "E-commerce / Varejo Online" },
+  { icon: Store, label: "Varejo Físico + Online" },
+  { icon: HeartPulse, label: "Saúde e Beleza" },
+  { icon: Factory, label: "Indústria / B2B" },
+  { icon: Home, label: "Imobiliária" },
+  { icon: GraduationCap, label: "Infoprodutos / Serviços" },
+  { icon: Shapes, label: "Outro segmento" },
 ];
 
 const faturamentoOpts = [
-  { emoji: "🌱", label: "Menos de R$30k/mês" },
-  { emoji: "📈", label: "R$30k a R$100k/mês" },
-  { emoji: "💰", label: "R$100k a R$300k/mês" },
-  { emoji: "🏆", label: "R$300k a R$1M/mês" },
-  { emoji: "🔥", label: "Mais de R$1M/mês" },
+  { icon: Sprout, label: "Menos de R$30k/mês" },
+  { icon: TrendingUp, label: "R$30k a R$100k/mês" },
+  { icon: Wallet, label: "R$100k a R$300k/mês" },
+  { icon: Trophy, label: "R$300k a R$1M/mês" },
+  { icon: Flame, label: "Mais de R$1M/mês" },
 ];
 
 const verbaOpts = [
-  { emoji: "🚫", label: "Não invisto em tráfego" },
-  { emoji: "💵", label: "Até R$3k/mês" },
-  { emoji: "💳", label: "R$3k a R$15k/mês" },
-  { emoji: "📊", label: "R$15k a R$50k/mês" },
-  { emoji: "💸", label: "Mais de R$50k/mês" },
+  { icon: Ban, label: "Não invisto em tráfego" },
+  { icon: Banknote, label: "Até R$3k/mês" },
+  { icon: CreditCard, label: "R$3k a R$15k/mês" },
+  { icon: BarChart3, label: "R$15k a R$50k/mês" },
+  { icon: Coins, label: "Mais de R$50k/mês" },
 ];
 
 const canaisOpts = [
-  { emoji: "📘", label: "Meta Ads" },
-  { emoji: "🔍", label: "Google Ads" },
-  { emoji: "🎵", label: "TikTok Ads" },
-  { emoji: "📧", label: "E-mail Marketing" },
-  { emoji: "📝", label: "SEO / Blog" },
-  { emoji: "💬", label: "WhatsApp Marketing" },
-  { emoji: "⭐", label: "Influenciadores" },
-  { emoji: "🌿", label: "Só orgânico" },
+  { icon: Megaphone, label: "Meta Ads" },
+  { icon: Search, label: "Google Ads" },
+  { icon: Music2, label: "TikTok Ads" },
+  { icon: Mail, label: "E-mail Marketing" },
+  { icon: PenLine, label: "SEO / Blog" },
+  { icon: MessageCircle, label: "WhatsApp Marketing" },
+  { icon: Star, label: "Influenciadores" },
+  { icon: Leaf, label: "Só orgânico" },
 ];
 
 const dorOpts = [
-  { emoji: "❓", label: "Invisto em anúncios mas não sei se funciona de verdade" },
-  { emoji: "💔", label: "Meu ROAS parece bom, mas o caixa não reflete" },
-  { emoji: "🔄", label: "Já troquei de agência e o resultado é o mesmo" },
-  { emoji: "📉", label: "Escalo o budget mas o ROAS despenca" },
-  { emoji: "🎯", label: "Não consigo atribuir os resultados corretamente" },
+  { icon: HelpCircle, label: "Invisto em anúncios mas não sei se funciona de verdade" },
+  { icon: HeartCrack, label: "Meu ROAS parece bom, mas o caixa não reflete" },
+  { icon: RefreshCw, label: "Já troquei de agência e o resultado é o mesmo" },
+  { icon: TrendingDown, label: "Escalo o budget mas o ROAS despenca" },
+  { icon: Crosshair, label: "Não consigo atribuir os resultados corretamente" },
 ];
 
 const WA_NUMBER = "5547996810630";
@@ -250,12 +278,12 @@ const formatBRL = (v: number) =>
   v.toLocaleString("pt-BR", { style: "currency", currency: "BRL", maximumFractionDigits: 0 });
 
 function OptionCard({
-  emoji,
+  icon: Icon,
   label,
   selected,
   onClick,
 }: {
-  emoji: string;
+  icon: LucideIcon;
   label: string;
   selected: boolean;
   onClick: () => void;
@@ -272,7 +300,7 @@ function OptionCard({
         }`}
     >
       {selected && <Check className="absolute top-2 right-2 w-4 h-4 text-primary" />}
-      <span className="text-2xl leading-none">{emoji}</span>
+      <Icon className="w-6 h-6 text-primary" strokeWidth={1.75} aria-hidden="true" />
       <span className="text-xs sm:text-sm font-medium leading-tight">{label}</span>
     </button>
   );
@@ -723,7 +751,7 @@ export default function DiagnosticoGratuito() {
                         {segmentoOpts.map((o) => (
                           <OptionCard
                             key={o.label}
-                            emoji={o.emoji}
+                            icon={o.icon}
                             label={o.label}
                             selected={respostas.segmento === o.label}
                             onClick={() => handleSingleSelect("segmento", o.label, "faturamento")}
@@ -741,7 +769,7 @@ export default function DiagnosticoGratuito() {
                         {faturamentoOpts.map((o) => (
                           <OptionCard
                             key={o.label}
-                            emoji={o.emoji}
+                            icon={o.icon}
                             label={o.label}
                             selected={respostas.faturamento === o.label}
                             onClick={() => handleSingleSelect("faturamento", o.label, "verba")}
@@ -759,7 +787,7 @@ export default function DiagnosticoGratuito() {
                         {verbaOpts.map((o) => (
                           <OptionCard
                             key={o.label}
-                            emoji={o.emoji}
+                            icon={o.icon}
                             label={o.label}
                             selected={respostas.verba === o.label}
                             onClick={() => handleSingleSelect("verba", o.label, "canais")}
@@ -778,7 +806,7 @@ export default function DiagnosticoGratuito() {
                         {canaisOpts.map((o) => (
                           <OptionCard
                             key={o.label}
-                            emoji={o.emoji}
+                            icon={o.icon}
                             label={o.label}
                             selected={respostas.canais.includes(o.label)}
                             onClick={() => toggleCanal(o.label)}
@@ -806,7 +834,7 @@ export default function DiagnosticoGratuito() {
                         {dorOpts.map((o) => (
                           <OptionCard
                             key={o.label}
-                            emoji={o.emoji}
+                            icon={o.icon}
                             label={o.label}
                             selected={respostas.dor === o.label}
                             onClick={() => handleSingleSelect("dor", o.label, "site")}

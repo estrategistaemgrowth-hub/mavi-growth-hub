@@ -123,6 +123,12 @@ async function main() {
     path.join(dist, "sitemap.xml"),
     `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>\n`,
   );
+  // llms.txt: acrescenta os posts publicados para os LLMs acharem os artigos sem rastrear o /blog.
+  const llms = path.join(dist, "llms.txt");
+  if (blog.posts.length && fs.existsSync(llms)) {
+    const items = blog.posts.map((p) => `- [${p.title}](${SITE}/blog/${p.slug})${p.excerpt ? `: ${p.excerpt}` : ""}`);
+    fs.appendFileSync(llms, `\n## Artigos do blog\n\n${items.join("\n")}\n`);
+  }
   fs.rmSync(ssrOut, { recursive: true, force: true });
   console.log(`[prerender] ${done.length}/${pages.length} rotas geradas; sitemap com ${done.length} URLs`);
 }

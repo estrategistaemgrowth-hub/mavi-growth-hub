@@ -3,7 +3,7 @@ import { useParams, Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { getPrerenderData } from "@/lib/prerender-data";
 import { Layout } from "@/components/Layout";
-import { SEO, generateBreadcrumbSchema } from "@/components/SEO";
+import { SEO, generateBreadcrumbSchema, ORG_ID } from "@/components/SEO";
 import { Calendar, User, ArrowLeft, Tag } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -18,6 +18,7 @@ interface Post {
   author_name: string;
   published_at: string | null;
   created_at: string;
+  updated_at?: string | null;
   blog_categories: { name: string; slug: string } | null;
 }
 
@@ -76,16 +77,9 @@ export default function BlogPost() {
       "@type": "Person",
       "name": post.author_name,
     },
-    "publisher": {
-      "@type": "Organization",
-      "name": "MAVI Marketing Digital",
-      "logo": {
-        "@type": "ImageObject",
-        "url": "https://www.agenciamavi.com.br/og-image.png",
-      },
-    },
+    "publisher": { "@id": ORG_ID },
     "datePublished": post.published_at,
-    "dateModified": post.published_at,
+    "dateModified": post.updated_at || post.published_at,
     "mainEntityOfPage": {
       "@type": "WebPage",
       "@id": `https://www.agenciamavi.com.br/blog/${post.slug}`,
@@ -167,7 +161,7 @@ export default function BlogPost() {
           {/* Content */}
           <div
             className="prose prose-lg max-w-none prose-headings:text-foreground prose-p:text-muted-foreground prose-a:text-primary prose-strong:text-foreground prose-blockquote:border-primary prose-img:rounded-xl"
-            dangerouslySetInnerHTML={{ __html: post.content || "" }}
+            dangerouslySetInnerHTML={{ __html: (post.content || "").replace(/<(\/?)h1\b/gi, "<$1h2") }}
           />
 
           {/* Back */}

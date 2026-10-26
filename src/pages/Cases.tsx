@@ -114,7 +114,7 @@ export default function Cases() {
   return (
     <Layout>
       <SEO
-        title="Cases de Sucesso - Resultados Reais de Clientes MAVI"
+        title="Cases de Sucesso: Resultados Reais de Clientes"
         description="Veja resultados reais de e-commerces, imobiliárias, clínicas e indústrias que cresceram com a MAVI. +R$50M em vendas geradas. Conheça nossos cases."
         canonical="/cases"
         schemaMarkup={combinedSchema}

@@ -111,7 +111,7 @@ const Segmentos = () => {
   return (
     <Layout>
       <SEO
-        title="Segmentos Atendidos - E-commerce, Imobiliárias, Indústria e Mais"
+        title="Segmentos: E-commerce, Imobiliárias e Indústria"
         description="Marketing digital especializado por segmento. Soluções personalizadas para e-commerce, imobiliárias, indústrias, saúde e serviços locais. Conheça nossos cases."
         canonical="/segmentos"
         schemaMarkup={breadcrumbSchema}

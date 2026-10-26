@@ -125,7 +125,7 @@ export default function Sobre() {
         "@type": "Person",
         "name": "Robson Fernandes",
         "jobTitle": "Fundador e Estrategista de Growth",
-        "worksFor": { "@type": "Organization", "name": "MAVI Marketing Digital" },
+        "worksFor": { "@id": "https://www.agenciamavi.com.br/#organization" },
         "knowsAbout": ["Growth Marketing", "E-commerce", "Micro SaaS", "Tráfego Pago", "CRM"],
         "url": "https://www.agenciamavi.com.br/sobre"
       }
@@ -140,7 +140,7 @@ export default function Sobre() {
   return (
     <Layout>
       <SEO
-        title="Sobre a MAVI - Agência de Marketing Digital em Jaraguá do Sul SC"
+        title="Sobre a MAVI: Agência de Marketing em Jaraguá do Sul"
         description="Conheça a MAVI Marketing Digital. +5 anos de experiência, +500 clientes atendidos. Especialistas em performance e e-commerce em Jaraguá do Sul."
         canonical="/sobre"
         schemaMarkup={combinedSchema}

@@ -135,7 +135,7 @@ export default function ServicoEcommerce() {
   return (
     <Layout>
       <SEO
-        title="Criação de Lojas Virtuais e E-commerce | Especialistas Tray"
+        title="Criação de Lojas Virtuais | Especialistas Tray"
         description="Implantação de lojas virtuais na plataforma Tray. Integração com ERP, marketplaces e meios de pagamento. Lojas prontas em até 30 dias. Solicite proposta."
         canonical="/servicos/ecommerce"
         schemaMarkup={combinedSchema}

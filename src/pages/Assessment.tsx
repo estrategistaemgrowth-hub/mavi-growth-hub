@@ -210,6 +210,7 @@ import logoMavi from "@/assets/logo-mavi-colorida.png";
 import camilaAvatar from "@/assets/camila-avatar.jpg";
 import { CyclingTypewriter } from "@/components/CyclingTypewriter";
 import { User, Target } from "lucide-react";
+import { personaIcon } from "@/lib/personaIcons";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -698,7 +699,6 @@ const TOTAL_QUESTIONS = PILLARS.reduce((acc, p) => acc + p.questions.length, 0);
 
 type PersonaData = {
   label: string;
-  emoji: string;
   description: string;
   colorClass: string;
 };
@@ -707,7 +707,6 @@ function getPersona(avgScore: number): PersonaData {
   if (avgScore < 30)
     return {
       label: "Loja em Construção",
-      emoji: "🏗️",
       description:
         "Você está dando os primeiros passos. A base ainda precisa ser estruturada para crescer com consistência e sem desperdiçar investimento.",
       colorClass: "text-red-600",
@@ -715,7 +714,6 @@ function getPersona(avgScore: number): PersonaData {
   if (avgScore < 50)
     return {
       label: "Loja em Crescimento",
-      emoji: "🌱",
       description:
         "Sua loja tem potencial, mas pontos críticos estão travando o crescimento e custando vendas — e dinheiro — todo mês.",
       colorClass: "text-orange-600",
@@ -723,7 +721,6 @@ function getPersona(avgScore: number): PersonaData {
   if (avgScore < 65)
     return {
       label: "Loja em Aceleração",
-      emoji: "🚀",
       description:
         "Você já tem uma base. Os gaps identificados custam receita real. Corrigi-los é o caminho mais rápido para crescer com consistência.",
       colorClass: "text-yellow-600",
@@ -731,14 +728,12 @@ function getPersona(avgScore: number): PersonaData {
   if (avgScore < 80)
     return {
       label: "Loja Consolidada",
-      emoji: "⚡",
       description:
         "Sua operação é sólida. O foco agora é escalar com eficiência e fechar os gaps que ainda limitam seu teto de crescimento.",
       colorClass: "text-blue-600",
     };
   return {
     label: "Loja de Alta Performance",
-    emoji: "🏆",
     description:
       "Você opera no topo. Pequenos ajustes nos pontos mais fracos podem gerar grandes saltos de resultado.",
     colorClass: "text-green-600",
@@ -877,23 +872,23 @@ type AnswerRecord = { pillar: string; question: string; answer: string; score: n
 type MsgType = "question" | "answer" | "system";
 
 const INTRO_MESSAGES = [
-  "Oi! 👋 Eu sou a Camila, vou te acompanhar nesse diagnóstico do seu e-commerce.",
+  "Oi! Eu sou a Camila, vou te acompanhar nesse diagnóstico do seu e-commerce.",
   "São 21 perguntas rápidas sobre 7 áreas da sua loja — leva menos de 5 minutos, prometo.",
-  "Vai sendo sincero(a) nas respostas — quanto mais real, melhor o diagnóstico no final. Bora? 🚀",
+  "Vai sendo sincero(a) nas respostas — quanto mais real, melhor o diagnóstico no final. Bora?",
 ];
 
 const PILLAR_TRANSITIONS: Record<string, string> = {
-  "redes-sociais": "✅ Produto avaliado! Agora vamos ver suas redes sociais.",
+  "redes-sociais": "Produto avaliado! Agora vamos ver suas redes sociais.",
   marketplaces: "Ótimo! Agora vamos checar sua presença em Shopee, Mercado Livre e TikTok Shop.",
   seo: "Anotado! Vamos ver como sua loja aparece no Google.",
   "trafego-pago": "Certo! Agora vamos falar sobre seus anúncios pagos.",
-  "investimentos-midia": "Quase lá! 💪 Vamos analisar como você investe em marketing.",
-  "design-layout": "Última parte! 🏁 Vamos avaliar o design e a experiência da sua loja.",
+  "investimentos-midia": "Quase lá! Vamos analisar como você investe em marketing.",
+  "design-layout": "Última parte! Vamos avaliar o design e a experiência da sua loja.",
 };
 
 const MILESTONE_MESSAGES: Record<number, string> = {
-  7: "Você está indo muito bem! Continue assim 💪",
-  14: "Mais da metade! Estamos quase no final 🚀",
+  7: "Você está indo muito bem! Continue assim.",
+  14: "Mais da metade! Estamos quase no final.",
   18: "Faltam só 3 perguntas — quase lá!",
 };
 
@@ -1430,7 +1425,7 @@ export default function Assessment() {
       setIsTransitioning(true);
       chainMessages(
         [
-          { type: "system" as MsgType, text: "✅ Perfeito! Todas as respostas foram registradas." },
+          { type: "system" as MsgType, text: "Perfeito! Todas as respostas foram registradas." },
           { type: "question" as MsgType, text: "Só mais uma pergunta: qual é o faturamento mensal médio da sua loja?" },
         ],
         () => setChatPhase("faturamento")
@@ -1464,7 +1459,7 @@ export default function Assessment() {
     setMessages((prev) => [...prev, { type: "answer", text: label }]);
     setIsTransitioning(true);
     chainMessages(
-      [{ type: "system" as MsgType, text: "Ótimo! Vou preparar seu diagnóstico completo agora. 🎯" }],
+      [{ type: "system" as MsgType, text: "Ótimo! Vou preparar seu diagnóstico completo agora." }],
       () => setPhase("gate")
     );
   }
@@ -1561,7 +1556,7 @@ export default function Assessment() {
     return (
       <div className="bg-white">
         <SEO
-          title="Diagnóstico Gratuito de E-commerce — Avalie sua Loja Virtual em 5 Minutos"
+          title="Diagnóstico Gratuito de E-commerce em 5 Minutos"
           description="Descubra gratuitamente as falhas do seu e-commerce. Assessment em 7 dimensões: produtos, redes sociais, Shopee, Mercado Livre, TikTok Shop, SEO, tráfego pago e design. Score por área + pontos de melhoria. Resultado imediato."
           canonical="/assessment"
           schemaMarkup={ASSESSMENT_SCHEMA}
@@ -2347,7 +2342,7 @@ export default function Assessment() {
               <p className="text-[10px] uppercase tracking-wider text-gray-400 mb-1">Persona</p>
               {livePersona ? (
                 <div className="flex items-center gap-2">
-                  <span className="text-lg">{livePersona.emoji}</span>
+                  {(() => { const I = personaIcon(livePersona.label); return <I className={`w-5 h-5 ${livePersona.colorClass}`} aria-hidden="true" />; })()}
                   <span className={`text-xs font-semibold ${livePersona.colorClass}`}>
                     {livePersona.label}
                   </span>
@@ -2451,7 +2446,7 @@ export default function Assessment() {
             {/* Score + radar */}
             <div className="grid lg:grid-cols-3 gap-5">
               <div className="bg-white border border-gray-200 rounded-2xl p-6 flex flex-col items-center justify-center text-center shadow-sm">
-                <div className="text-4xl mb-2">{finalPersona.emoji}</div>
+                {(() => { const I = personaIcon(finalPersona.label); return <I className={`w-10 h-10 mb-2 ${finalPersona.colorClass}`} strokeWidth={1.5} aria-hidden="true" />; })()}
                 <div className={`text-base font-bold mb-2 ${finalPersona.colorClass}`}>{finalPersona.label}</div>
                 <div className="text-5xl font-extrabold mb-1" style={{ color: overallColor }}>
                   {finalAvg}<span className="text-2xl text-gray-300">/100</span>
@@ -2536,7 +2531,7 @@ export default function Assessment() {
 
               {/* Score teaser compacto — 1 linha */}
               <div className="flex items-center gap-3 mb-4 px-3 py-2 bg-gray-50 rounded-xl border border-gray-100">
-                <span className="text-xl">{finalPersona.emoji}</span>
+                {(() => { const I = personaIcon(finalPersona.label); return <I className={`w-6 h-6 shrink-0 ${finalPersona.colorClass}`} aria-hidden="true" />; })()}
                 <div className="flex items-baseline gap-1">
                   <span className="text-xl font-extrabold" style={{ color: overallColor }}>{finalAvg}</span>
                   <span className="text-xs text-gray-300">/100</span>
@@ -2648,7 +2643,7 @@ export default function Assessment() {
           <div className="bg-white border border-gray-200 rounded-2xl p-6 flex flex-col items-center justify-center text-center shadow-sm">
             <ScoreRing score={finalAvg} color={overallColor} />
             <div className={`text-lg font-bold mt-3 mb-2 ${finalPersona.colorClass}`}>
-              {finalPersona.emoji} {finalPersona.label}
+              <span className="inline-flex items-center gap-2">{(() => { const I = personaIcon(finalPersona.label); return <I className="w-5 h-5" aria-hidden="true" />; })()}{finalPersona.label}</span>
             </div>
             <div className="text-xs text-gray-400 mb-4">Score geral do e-commerce</div>
             <p className="text-sm text-gray-500 leading-relaxed">{finalPersona.description}</p>
