@@ -14,12 +14,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
+import { FaqBlock } from "@/components/service/ServiceBlocks";
 import {
   Zap,
   Star,
@@ -288,55 +283,65 @@ export default function AssessoriaEcommerce() {
     }
   }
 
+  const fieldClass = (hasError?: string) =>
+    `h-12 rounded-xl bg-background text-base focus-visible:border-primary focus-visible:ring-primary/30 ${hasError ? "border-red-500" : "border-input"}`;
+  const labelClass = "mb-1.5 block text-sm font-semibold text-foreground";
+  const errorClass = "mt-1.5 text-xs font-medium text-red-600";
+  const pillLabel = "mb-4 inline-flex w-fit rounded-full bg-primary/10 px-3.5 py-1.5 text-sm font-semibold text-primary";
+  const sectionTitle = "text-3xl font-extrabold leading-[1.08] tracking-tight text-foreground text-balance md:text-4xl";
+
   return (
-    <div className="bg-white">
+    <div className="bg-background">
       <SEO
         title="Assessoria de E-commerce Gratuita em 30 Minutos"
         description="Agende um diagnóstico gratuito de 30 minutos com um especialista da MAVI. Analisamos seu e-commerce e mostramos onde estão as maiores oportunidades de crescimento."
         canonical="/assessoria-ecommerce"
       />
 
-      {/* ══════════════════════════════════════════════════════
-          HERO
-      ══════════════════════════════════════════════════════ */}
-      <section className="relative bg-background overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-background" />
-
-        <div className="relative z-10 flex items-center justify-between px-6 md:px-12 py-5">
-          <img src={logoMavi} alt="MAVI" className="h-6" />
-          <div className="flex items-center gap-1.5">
-            <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-            <span className="text-muted-foreground text-xs">Diagnóstico gratuito</span>
+      {/* HERO */}
+      <section className="relative overflow-hidden bg-background">
+        <div className="container-mavi flex items-center justify-between py-5">
+          <img src={logoMavi} alt="MAVI" className="h-7 w-auto" />
+          <div className="flex items-center gap-2 rounded-full border border-border bg-card px-3 py-1.5">
+            <span className="h-2 w-2 rounded-full bg-green-600 ring-[3px] ring-green-600/20" />
+            <span className="text-xs font-medium text-muted-foreground">Diagnóstico gratuito</span>
           </div>
         </div>
 
-        <div className="relative z-10 max-w-5xl mx-auto px-6 md:px-12 pt-6 pb-14 md:pt-10 md:pb-20 text-center">
+        <div className="container-mavi pb-14 pt-8 text-center md:pb-20 md:pt-14">
           <motion.span
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.4 }}
-            className="inline-flex items-center gap-2 px-3 py-1.5 text-xs font-semibold tracking-wider uppercase rounded-full border border-primary/40 text-primary bg-primary/10 mb-5"
+            className="mb-6 inline-flex items-center gap-2 rounded-full border border-border bg-card py-1.5 pl-2 pr-3.5 text-[13px] font-semibold text-muted-foreground"
           >
-            <Zap className="w-3 h-3" /> Growth Marketing para E-commerce
+            <span className="grid h-6 w-6 place-items-center rounded-full bg-primary/10 text-primary">
+              <Zap className="h-3.5 w-3.5" />
+            </span>
+            Growth Marketing para E-commerce
           </motion.span>
 
           <motion.h1
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="text-[32px] leading-[1.1] md:text-5xl lg:text-[54px] font-extrabold text-foreground tracking-tight mb-4"
+            className="mx-auto mb-5 max-w-4xl text-[2.25rem] font-extrabold leading-[1.06] tracking-[-0.03em] text-foreground text-balance sm:text-5xl lg:text-[4rem]"
           >
             Sua loja pode vender muito mais
-            <span className="block min-h-[1.1em] text-primary">
-              <CyclingTypewriter
-                phrases={[
-                  "sem depender de promoção",
-                  "com ROAS de verdade",
-                  "todo mês, não só na Black Friday",
-                ]}
-                speed={36}
-                holdMs={2400}
-              />
+            {/* A frase mais longa invisível reserva a altura: a troca não empurra o layout */}
+            <span className="grid text-primary">
+              <span className="invisible col-start-1 row-start-1" aria-hidden="true">todo mês, não só na Black Friday</span>
+              <span className="col-start-1 row-start-1">
+                <CyclingTypewriter
+                  phrases={[
+                    "sem depender de promoção",
+                    "com ROAS de verdade",
+                    "todo mês, não só na Black Friday",
+                  ]}
+                  speed={36}
+                  holdMs={2400}
+                />
+              </span>
             </span>
           </motion.h1>
 
@@ -344,7 +349,7 @@ export default function AssessoriaEcommerce() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="text-muted-foreground text-base md:text-lg leading-relaxed max-w-2xl mx-auto mb-8"
+            className="mx-auto mb-9 max-w-2xl text-lg leading-relaxed text-muted-foreground md:text-xl"
           >
             Em <strong className="text-foreground">30 minutos</strong>, um especialista da MAVI analisa seu e-commerce
             e mostra exatamente onde estão as maiores oportunidades de crescimento. <strong className="text-foreground">De graça.</strong>
@@ -357,116 +362,114 @@ export default function AssessoriaEcommerce() {
           >
             <button
               onClick={scrollToForm}
-              className="relative w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-primary hover:bg-primary/90 text-white font-bold text-base rounded-xl py-4 px-8 transition-colors touch-manipulation"
+              className="group relative inline-flex min-h-14 w-full touch-manipulation items-center justify-center gap-2 whitespace-normal rounded-full bg-primary px-8 py-4 text-base font-bold text-white shadow-magenta transition-[background-color,transform] duration-300 hover:-translate-y-0.5 hover:bg-primary/90 sm:w-auto"
             >
-              <Zap className="w-4 h-4" />
+              <Zap className="h-4 w-4 shrink-0" />
               Quero meu diagnóstico gratuito de 30 minutos
-              <ArrowRight className="w-4 h-4" />
+              <ArrowRight className="h-4 w-4 shrink-0 transition-transform duration-300 group-hover:translate-x-1" />
             </button>
           </motion.div>
 
-          <div className="flex items-center justify-center gap-2 mt-5">
-            <div className="flex gap-0.5">
+          <div className="mt-6 flex items-center justify-center gap-2">
+            <div className="flex gap-0.5 text-amber-500">
               {[1, 2, 3, 4, 5].map((i) => (
-                <Star key={i} className="w-3.5 h-3.5 fill-yellow-400 text-yellow-400" />
+                <Star key={i} className="h-3.5 w-3.5 fill-current" />
               ))}
             </div>
-            <p className="text-muted-foreground text-xs font-medium">+200 e-commerces já analisados pela MAVI</p>
+            <p className="text-[13px] font-medium text-muted-foreground">+200 e-commerces já analisados pela MAVI</p>
           </div>
         </div>
 
-        <div className="relative z-10 pb-10">
+        <div className="border-y border-border bg-card py-8">
           <LogoCarousel />
         </div>
       </section>
 
-      {/* ══════════════════════════════════════════════════════
-          FORMULÁRIO
-      ══════════════════════════════════════════════════════ */}
-      <section id="form-diagnostico" className="bg-background border-t border-border py-12 md:py-24">
-        <div className="max-w-5xl mx-auto px-6 md:px-12 grid lg:grid-cols-2 gap-10 items-center">
+      {/* FORMULÁRIO */}
+      <section id="form-diagnostico" className="bg-background py-16 md:py-28">
+        <div className="container-mavi grid items-center gap-12 lg:grid-cols-[1fr,1.05fr] lg:gap-20">
           <div>
-            <span className="inline-block text-[11px] font-semibold uppercase tracking-wider text-primary mb-3">
-              Diagnóstico gratuito
-            </span>
-            <h2 className="text-2xl md:text-3xl font-bold text-foreground leading-tight mb-4">
-              Agende seu diagnóstico gratuito de 30 minutos
-            </h2>
-            <p className="text-muted-foreground text-sm md:text-base leading-relaxed mb-8">
+            <span className={pillLabel}>Diagnóstico gratuito</span>
+            <h2 className={sectionTitle}>Agende seu diagnóstico gratuito de 30 minutos</h2>
+            <p className="mt-4 max-w-[52ch] text-lg leading-relaxed text-muted-foreground">
               Um especialista vai analisar seu e-commerce e te mostrar exatamente onde estão as maiores
               oportunidades de crescimento.
             </p>
 
-            <div className="space-y-4">
-              <div className="flex items-start gap-3 bg-card rounded-xl p-4">
-                <span className="flex-shrink-0 w-6 h-6 rounded-full bg-primary/20 text-primary text-xs font-bold flex items-center justify-center">1</span>
-                <div>
-                  <p className="text-foreground text-sm font-semibold">Complete o formulário</p>
-                  <p className="text-muted-foreground text-xs mt-0.5">Leva menos de 1 minuto. Seus dados ficam protegidos.</p>
+            {/* Dois passos em sequência real, ligados por uma linha */}
+            <ol className="relative mt-9 grid gap-6 pl-0">
+              <span className="absolute bottom-6 left-[19px] top-6 w-px bg-border" aria-hidden="true" />
+              <li className="relative flex items-start gap-4">
+                <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-primary text-sm font-bold text-white">1</span>
+                <div className="pt-1.5">
+                  <p className="font-bold text-foreground">Complete o formulário</p>
+                  <p className="mt-0.5 text-[15px] text-muted-foreground">Leva menos de 1 minuto. Seus dados ficam protegidos.</p>
                 </div>
-              </div>
-              <div className="flex items-start gap-3 bg-card rounded-xl p-4">
-                <span className="flex-shrink-0 w-6 h-6 rounded-full bg-primary/20 text-primary text-xs font-bold flex items-center justify-center">2</span>
-                <div>
-                  <p className="text-foreground text-sm font-semibold">Agende seus 30 minutos de diagnóstico</p>
-                  <p className="text-muted-foreground text-xs mt-0.5">Um especialista da MAVI chama no WhatsApp pra marcar o melhor horário.</p>
+              </li>
+              <li className="relative flex items-start gap-4">
+                <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full border-2 border-primary bg-background text-sm font-bold text-primary">2</span>
+                <div className="pt-1.5">
+                  <p className="font-bold text-foreground">Agende seus 30 minutos de diagnóstico</p>
+                  <p className="mt-0.5 text-[15px] text-muted-foreground">Um especialista da MAVI chama no WhatsApp pra marcar o melhor horário.</p>
                 </div>
-              </div>
-            </div>
+              </li>
+            </ol>
           </div>
 
-          <div className="bg-white rounded-2xl overflow-hidden shadow-2xl" style={{ borderTop: "4px solid #E6007E" }}>
-            <form onSubmit={handleSubmit} className="p-6 md:p-7 space-y-3.5">
+          <div className="overflow-hidden rounded-2xl border border-border border-t-4 border-t-primary bg-card shadow-[0_2px_2px_hsl(325_25%_9%/0.03),0_8px_8px_-4px_hsl(325_25%_9%/0.08)]">
+            <form onSubmit={handleSubmit} className="space-y-4 p-6 md:p-8">
               <div>
-                <Label className="text-gray-600 text-xs mb-1 block">Seu nome</Label>
+                <Label className={labelClass}>Seu nome</Label>
                 <Input
                   value={nome}
                   onChange={(e) => setNome(e.target.value)}
                   placeholder="Seu nome completo"
-                  className={`h-11 ${errors.nome ? "border-red-400" : "border-gray-200"}`}
+                  className={fieldClass(errors.nome)}
                 />
-                {errors.nome && <p className="text-[11px] text-red-500 mt-1">{errors.nome}</p>}
+                {errors.nome && <p className={errorClass}>{errors.nome}</p>}
               </div>
 
               <div>
-                <Label className="text-gray-600 text-xs mb-1 block">Seu melhor e-mail</Label>
+                <Label className={labelClass}>Seu melhor e-mail</Label>
                 <Input
                   type="email"
                   value={email}
                   onChange={(e) => { setEmail(e.target.value); setErrors((p) => ({ ...p, email: undefined })); }}
                   placeholder="voce@email.com"
-                  className={`h-11 ${errors.email ? "border-red-400" : "border-gray-200"}`}
+                  className={fieldClass(errors.email)}
                 />
-                {errors.email && <p className="text-[11px] text-red-500 mt-1">{errors.email}</p>}
+                {errors.email && <p className={errorClass}>{errors.email}</p>}
+              </div>
+
+              <div className="grid gap-4 sm:grid-cols-2">
+                <div>
+                  <Label className={labelClass}>WhatsApp</Label>
+                  <Input
+                    type="tel"
+                    value={whatsapp}
+                    onChange={(e) => { setWhatsapp(formatWhatsApp(e.target.value)); setErrors((p) => ({ ...p, whatsapp: undefined })); }}
+                    placeholder="(47) 99999-9999"
+                    className={fieldClass(errors.whatsapp)}
+                  />
+                  {errors.whatsapp && <p className={errorClass}>{errors.whatsapp}</p>}
+                </div>
+
+                <div>
+                  <Label className={labelClass}>Nome da sua empresa</Label>
+                  <Input
+                    value={empresa}
+                    onChange={(e) => { setEmpresa(e.target.value); setErrors((p) => ({ ...p, empresa: undefined })); }}
+                    placeholder="Nome da loja"
+                    className={fieldClass(errors.empresa)}
+                  />
+                  {errors.empresa && <p className={errorClass}>{errors.empresa}</p>}
+                </div>
               </div>
 
               <div>
-                <Label className="text-gray-600 text-xs mb-1 block">WhatsApp</Label>
-                <Input
-                  type="tel"
-                  value={whatsapp}
-                  onChange={(e) => { setWhatsapp(formatWhatsApp(e.target.value)); setErrors((p) => ({ ...p, whatsapp: undefined })); }}
-                  placeholder="(47) 99999-9999"
-                  className={`h-11 ${errors.whatsapp ? "border-red-400" : "border-gray-200"}`}
-                />
-                {errors.whatsapp && <p className="text-[11px] text-red-500 mt-1">{errors.whatsapp}</p>}
-              </div>
-
-              <div>
-                <Label className="text-gray-600 text-xs mb-1 block">Nome da sua empresa</Label>
-                <Input
-                  value={empresa}
-                  onChange={(e) => { setEmpresa(e.target.value); setErrors((p) => ({ ...p, empresa: undefined })); }}
-                  placeholder="Nome da loja"
-                  className={`h-11 ${errors.empresa ? "border-red-400" : "border-gray-200"}`}
-                />
-                {errors.empresa && <p className="text-[11px] text-red-500 mt-1">{errors.empresa}</p>}
-              </div>
-
-              <div>
-                <Label className="text-gray-600 text-xs mb-1 block">Qual o segmento da sua loja?</Label>
+                <Label className={labelClass}>Qual o segmento da sua loja?</Label>
                 <Select value={segmento} onValueChange={(v) => { setSegmento(v); setErrors((p) => ({ ...p, segmento: undefined })); }}>
-                  <SelectTrigger className={`h-11 ${errors.segmento ? "border-red-400" : "border-gray-200"}`}>
+                  <SelectTrigger className={fieldClass(errors.segmento)}>
                     <SelectValue placeholder="Selecione" />
                   </SelectTrigger>
                   <SelectContent>
@@ -475,26 +478,26 @@ export default function AssessoriaEcommerce() {
                     ))}
                   </SelectContent>
                 </Select>
-                {errors.segmento && <p className="text-[11px] text-red-500 mt-1">{errors.segmento}</p>}
+                {errors.segmento && <p className={errorClass}>{errors.segmento}</p>}
               </div>
 
               {showOutroInput && (
                 <div>
-                  <Label className="text-gray-600 text-xs mb-1 block">Qual o segmento, então?</Label>
+                  <Label className={labelClass}>Qual o segmento, então?</Label>
                   <Input
                     value={outroSegmento}
                     onChange={(e) => { setOutroSegmento(e.target.value); setErrors((p) => ({ ...p, outroSegmento: undefined })); }}
                     placeholder="Ex: Livros, Artigos religiosos..."
-                    className={`h-11 ${errors.outroSegmento ? "border-red-400" : "border-gray-200"}`}
+                    className={fieldClass(errors.outroSegmento)}
                   />
-                  {errors.outroSegmento && <p className="text-[11px] text-red-500 mt-1">{errors.outroSegmento}</p>}
+                  {errors.outroSegmento && <p className={errorClass}>{errors.outroSegmento}</p>}
                 </div>
               )}
 
               <div>
-                <Label className="text-gray-600 text-xs mb-1 block">Quanto você fatura no mês?</Label>
+                <Label className={labelClass}>Quanto você fatura no mês?</Label>
                 <Select value={faturamento} onValueChange={(v) => { setFaturamento(v); setErrors((p) => ({ ...p, faturamento: undefined })); }}>
-                  <SelectTrigger className={`h-11 ${errors.faturamento ? "border-red-400" : "border-gray-200"}`}>
+                  <SelectTrigger className={fieldClass(errors.faturamento)}>
                     <SelectValue placeholder="Selecione" />
                   </SelectTrigger>
                   <SelectContent>
@@ -503,14 +506,14 @@ export default function AssessoriaEcommerce() {
                     ))}
                   </SelectContent>
                 </Select>
-                {errors.faturamento && <p className="text-[11px] text-red-500 mt-1">{errors.faturamento}</p>}
+                {errors.faturamento && <p className={errorClass}>{errors.faturamento}</p>}
               </div>
 
               <Button
                 type="submit"
                 variant="hero"
                 disabled={isSubmitting}
-                className="w-full h-12 mt-2 touch-manipulation font-semibold"
+                className="mt-2 h-14 w-full touch-manipulation rounded-full text-base font-bold"
               >
                 {isSubmitting ? (
                   <><Loader2 className="w-4 h-4 mr-2 animate-spin" />Enviando...</>
@@ -518,127 +521,117 @@ export default function AssessoriaEcommerce() {
                   <>Quero meu diagnóstico gratuito <ArrowRight className="w-4 h-4 ml-1.5" /></>
                 )}
               </Button>
-              <p className="flex items-center justify-center gap-1.5 text-[11px] text-muted-foreground"><Lock className="w-3 h-3" aria-hidden="true" /> Seus dados estão seguros e não serão compartilhados.</p>
+              <p className="flex items-center justify-center gap-1.5 text-xs text-muted-foreground"><Lock className="w-3 h-3" aria-hidden="true" /> Seus dados estão seguros e não serão compartilhados.</p>
             </form>
           </div>
         </div>
       </section>
 
-      {/* ══════════════════════════════════════════════════════
-          O QUE FAZEMOS
-      ══════════════════════════════════════════════════════ */}
-      <section className="py-12 md:py-24 px-6 md:px-12">
-        <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-12">
-            <span className="inline-block text-[11px] font-semibold uppercase tracking-wider text-primary mb-2">
-              O que fazemos
-            </span>
-            <h2 className="text-2xl md:text-3xl font-bold text-gray-900">
-              Marketing de e-commerce com foco em vendas de verdade
-            </h2>
+      {/* O QUE FAZEMOS: diferenciais em linhas, sem cards */}
+      <section className="border-y border-border bg-card py-16 md:py-28">
+        <div className="container-mavi grid gap-12 lg:grid-cols-[0.8fr,1.2fr] lg:gap-20">
+          <div>
+            <span className={pillLabel}>O que fazemos</span>
+            <h2 className={sectionTitle}>Marketing de e-commerce com foco em vendas de verdade</h2>
           </div>
-          <div className="grid sm:grid-cols-2 gap-5">
+          <div className="grid border-t-2 border-foreground sm:grid-cols-2 sm:gap-x-10">
             {DIFERENCIAIS.map((d) => (
-              <div key={d.title} className="bg-gray-50 border border-gray-100 rounded-2xl p-6">
-                <div className="w-11 h-11 rounded-xl bg-primary/10 flex items-center justify-center mb-4">
-                  <d.icon className="w-5 h-5 text-primary" />
+              <div key={d.title} className="group flex gap-4 border-b border-border py-6">
+                <d.icon className="mt-0.5 h-6 w-6 shrink-0 text-primary transition-transform duration-300 group-hover:scale-110" strokeWidth={1.8} />
+                <div>
+                  <h3 className="text-lg font-bold tracking-tight text-foreground">{d.title}</h3>
+                  <p className="mt-1 text-[15px] leading-relaxed text-muted-foreground">{d.desc}</p>
                 </div>
-                <h3 className="font-bold text-gray-900 mb-1.5">{d.title}</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">{d.desc}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ══════════════════════════════════════════════════════
-          O QUE ENTREGAMOS NA PRÁTICA
-      ══════════════════════════════════════════════════════ */}
-      <section className="py-12 md:py-24 px-6 md:px-12 bg-gray-50">
-        <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-12">
-            <span className="inline-block text-[11px] font-semibold uppercase tracking-wider text-primary mb-2">
-              O que entregamos na prática
-            </span>
-            <h2 className="text-2xl md:text-3xl font-bold text-gray-900">
-              Tudo que sua loja precisa pra vender todo dia
-            </h2>
+      {/* O QUE ENTREGAMOS NA PRÁTICA: links em linha */}
+      <section className="bg-background py-16 md:py-28">
+        <div className="container-mavi grid items-start gap-12 lg:grid-cols-[0.8fr,1.2fr] lg:gap-20">
+          <div>
+            <span className={pillLabel}>O que entregamos na prática</span>
+            <h2 className={sectionTitle}>Tudo que sua loja precisa pra vender todo dia</h2>
           </div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-4">
+          <div className="border-t border-border">
             {ENTREGAS.map((e) => (
               <a
                 key={e.label}
                 href={e.href}
-                className="bg-white border border-gray-200 rounded-xl p-5 text-center hover:border-primary/40 hover:shadow-md transition-all"
+                className="group flex items-center gap-4 border-b border-border py-5 text-lg font-semibold text-foreground"
               >
-                <e.icon className="w-6 h-6 text-primary mx-auto mb-3" />
-                <p className="text-sm font-semibold text-gray-800">{e.label}</p>
+                <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-primary/10 text-primary transition-colors duration-300 group-hover:bg-primary group-hover:text-white">
+                  <e.icon className="h-5 w-5" />
+                </span>
+                <span className="transition-transform duration-300 ease-out group-hover:translate-x-1">{e.label}</span>
+                <ArrowRight className="ml-auto h-5 w-5 text-muted-foreground transition-[color,transform] duration-300 group-hover:translate-x-1 group-hover:text-primary" />
               </a>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ══════════════════════════════════════════════════════
-          QUEM SOMOS
-      ══════════════════════════════════════════════════════ */}
-      <section className="py-12 md:py-24 px-6 md:px-12 bg-background">
-        <div className="max-w-4xl mx-auto text-center">
-          <span className="inline-block text-[11px] font-semibold uppercase tracking-wider text-primary mb-3">
-            Quem somos
-          </span>
-          <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-6 leading-tight">
-            Especialistas em e-commerce, não uma agência genérica de anúncios
-          </h2>
-          <p className="text-muted-foreground text-sm md:text-base leading-relaxed mb-12 max-w-2xl mx-auto">
-            Há mais de 5 anos ajudamos lojas virtuais a vender mais, do pequeno negócio que está começando
-            até marcas que já faturam milhões por mês. Resultado não se promete, se constrói.
-          </p>
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
-            {[
-              { n: "+500", label: "Clientes atendidos" },
-              { n: "R$50M+", label: "Em vendas geradas" },
-              { n: "8.4x", label: "ROAS médio" },
-              { n: "127%", label: "Crescimento médio" },
-            ].map((s) => (
-              <div key={s.label}>
-                <p className="text-3xl md:text-4xl font-extrabold text-primary mb-1">{s.n}</p>
-                <p className="text-muted-foreground text-xs md:text-sm">{s.label}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ══════════════════════════════════════════════════════
-          RESULTADOS / CASES
-      ══════════════════════════════════════════════════════ */}
-      <section className="py-12 md:py-24 px-6 md:px-12">
-        <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-12">
-            <span className="inline-block text-[11px] font-semibold uppercase tracking-wider text-primary mb-2">
-              Cases
-            </span>
-            <h2 className="text-2xl md:text-3xl font-bold text-gray-900">
-              Resultados reais de e-commerces que passaram pelo diagnóstico
+      {/* QUEM SOMOS: bloco magenta com os números */}
+      <section className="bg-background pb-16 md:pb-28">
+        <div className="container-mavi">
+          <div className="rounded-2xl bg-primary px-6 py-12 text-white md:px-14 md:py-16">
+            <span className="mb-4 inline-flex w-fit rounded-full bg-white/15 px-3.5 py-1.5 text-sm font-semibold">Quem somos</span>
+            <h2 className="max-w-3xl text-3xl font-extrabold leading-[1.08] tracking-tight text-balance md:text-4xl">
+              Especialistas em e-commerce, não uma agência genérica de anúncios
             </h2>
-          </div>
-          <div className="grid md:grid-cols-3 gap-5">
-            {CASES.map((c) => (
-              <div key={c.title} className="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm">
-                <div className="flex items-center gap-2 mb-3">
-                  <Award className="w-4 h-4 text-primary" />
-                  <span className="text-xs font-semibold text-primary uppercase tracking-wide">Case de Sucesso</span>
+            <p className="mt-4 max-w-2xl text-lg leading-relaxed text-white/90">
+              Há mais de 5 anos ajudamos lojas virtuais a vender mais, do pequeno negócio que está começando
+              até marcas que já faturam milhões por mês. Resultado não se promete, se constrói.
+            </p>
+            <div className="mt-10 grid grid-cols-2 gap-px overflow-hidden rounded-xl bg-white/25 lg:grid-cols-4">
+              {[
+                { n: "+500", label: "Clientes atendidos" },
+                { n: "R$50M+", label: "Em vendas geradas" },
+                { n: "8.4x", label: "ROAS médio" },
+                { n: "127%", label: "Crescimento médio" },
+              ].map((s) => (
+                <div key={s.label} className="bg-primary px-5 py-5">
+                  <p className="text-3xl font-extrabold tracking-tight md:text-4xl">{s.n}</p>
+                  <p className="mt-1 text-sm text-white/85">{s.label}</p>
                 </div>
-                <h3 className="font-bold text-gray-900 mb-2">{c.title}</h3>
-                <p className="text-xs text-muted-foreground leading-relaxed mb-4">{c.challenge}</p>
-                <div className="space-y-2 pt-3 border-t border-gray-100">
-                  {c.results.map((r) => (
-                    <div key={r} className="flex items-start gap-2">
-                      <TrendingUp className="w-3.5 h-3.5 text-primary flex-shrink-0 mt-0.5" />
-                      <span className="text-xs font-medium text-gray-700">{r}</span>
-                    </div>
-                  ))}
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CASES: desafio à esquerda, resultados em destaque à direita */}
+      <section className="border-y border-border bg-card py-16 md:py-28">
+        <div className="container-mavi">
+          <span className={pillLabel}>Cases</span>
+          <h2 className={`${sectionTitle} mb-12 max-w-3xl`}>Resultados reais de e-commerces que passaram pelo diagnóstico</h2>
+          <div className="border-t-2 border-foreground">
+            {CASES.map((c) => (
+              <div key={c.title} className="grid gap-6 border-b border-border py-8 md:grid-cols-[1.1fr,1fr] md:gap-14">
+                <div className="flex gap-4">
+                  <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-primary/10 text-primary">
+                    <c.icon className="h-5 w-5" />
+                  </span>
+                  <div>
+                    <p className="mb-1 flex items-center gap-1.5 text-sm font-semibold text-primary">
+                      <Award className="h-4 w-4" /> Case de Sucesso
+                    </p>
+                    <h3 className="text-xl font-bold tracking-tight text-foreground">{c.title}</h3>
+                    <p className="mt-2 text-[15px] leading-relaxed text-muted-foreground">{c.challenge}</p>
+                  </div>
+                </div>
+                <div>
+                  <p className="text-2xl font-extrabold leading-tight tracking-tight text-primary md:text-3xl">{c.results[0]}</p>
+                  <ul className="mt-3 grid gap-1.5">
+                    {c.results.slice(1).map((r) => (
+                      <li key={r} className="flex items-start gap-2 text-[15px] font-medium text-foreground">
+                        <TrendingUp className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+                        {r}
+                      </li>
+                    ))}
+                  </ul>
                 </div>
               </div>
             ))}
@@ -646,53 +639,26 @@ export default function AssessoriaEcommerce() {
         </div>
       </section>
 
-      {/* ══════════════════════════════════════════════════════
-          FAQ
-      ══════════════════════════════════════════════════════ */}
-      <section className="py-12 md:py-24 px-6 md:px-12 bg-gray-50">
-        <div className="max-w-2xl mx-auto">
-          <div className="text-center mb-10">
-            <h2 className="text-2xl md:text-3xl font-bold text-gray-900">Perguntas Frequentes</h2>
-          </div>
-          <Accordion type="single" collapsible className="space-y-3">
-            {FAQS.map((faq, i) => (
-              <AccordionItem
-                key={i}
-                value={`item-${i}`}
-                className="bg-white border border-gray-200 rounded-xl px-5 data-[state=open]:border-primary/30"
-              >
-                <AccordionTrigger className="text-sm font-semibold text-gray-900 hover:no-underline py-4">
-                  {faq.question}
-                </AccordionTrigger>
-                <AccordionContent className="text-sm text-muted-foreground leading-relaxed pb-4">
-                  {faq.answer}
-                </AccordionContent>
-              </AccordionItem>
-            ))}
-          </Accordion>
-        </div>
-      </section>
+      <FaqBlock title="Perguntas Frequentes" faqs={FAQS} />
 
-      {/* ══════════════════════════════════════════════════════
-          CTA FINAL
-      ══════════════════════════════════════════════════════ */}
-      <section className="py-12 md:py-20 px-6 md:px-12 bg-background text-center">
-        <div className="max-w-2xl mx-auto">
-          <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-3">
+      {/* CTA FINAL */}
+      <section className="border-t border-primary/15 bg-primary/5 py-16 text-center md:py-24">
+        <div className="container-mavi">
+          <h2 className="mx-auto max-w-3xl text-3xl font-extrabold leading-[1.08] tracking-tight text-foreground text-balance md:text-5xl">
             Pronto pra descobrir onde sua loja está perdendo venda?
           </h2>
-          <p className="text-muted-foreground text-sm md:text-base mb-8">
+          <p className="mx-auto mb-9 mt-5 max-w-xl text-lg text-muted-foreground">
             30 minutos, sem custo, sem compromisso. Só clareza sobre o que fazer agora.
           </p>
           <button
             onClick={scrollToForm}
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-primary hover:bg-primary/90 text-white font-bold text-base rounded-xl py-4 px-8 transition-colors touch-manipulation"
+            className="group inline-flex min-h-14 w-full touch-manipulation items-center justify-center gap-2 whitespace-normal rounded-full bg-primary px-8 py-4 text-base font-bold text-white shadow-magenta transition-[background-color,transform] duration-300 hover:-translate-y-0.5 hover:bg-primary/90 sm:w-auto"
           >
-            Agendar meu diagnóstico gratuito <ArrowRight className="w-4 h-4" />
+            Agendar meu diagnóstico gratuito <ArrowRight className="h-4 w-4 shrink-0 transition-transform duration-300 group-hover:translate-x-1" />
           </button>
-          <div className="flex items-center justify-center gap-2 mt-6">
-            <CheckCircle2 className="w-3.5 h-3.5 text-green-500" />
-            <span className="text-muted-foreground text-xs">Sem compromisso · Resposta em horário comercial</span>
+          <div className="mt-6 flex items-center justify-center gap-2">
+            <CheckCircle2 className="h-4 w-4 text-green-600" />
+            <span className="text-sm text-muted-foreground">Sem compromisso · Resposta em horário comercial</span>
           </div>
         </div>
       </section>

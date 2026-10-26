@@ -6,9 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Layout } from "@/components/Layout";
 import { SEO, generateBreadcrumbSchema, generateFAQSchema } from "@/components/SEO";
-import { HeroBackground } from "@/components/HeroBackground";
 import { AnimatedSection } from "@/components/AnimatedSection";
-import { SplitText } from "@/components/SplitText";
 import { toast } from "sonner";
 import {
   CheckCircle2,
@@ -19,11 +17,12 @@ import {
   BarChart3,
   Target,
   Rocket,
-  ChevronDown,
   ShieldCheck,
   Award,
+  ArrowDown,
   ArrowLeft,
   Check,
+  Plus,
   MessageCircle,
   Ban,
   Banknote,
@@ -292,16 +291,20 @@ function OptionCard({
     <button
       type="button"
       onClick={onClick}
-      className={`relative flex flex-col items-center justify-center gap-2 p-4 rounded-xl border text-center transition-all duration-200 cursor-pointer min-h-[90px]
+      aria-pressed={selected}
+      className={`flex w-full min-h-[60px] cursor-pointer items-center gap-3 rounded-xl border px-3.5 py-3 text-left transition-[border-color,background-color,transform] duration-300 ease-out hover:translate-x-1
         ${
           selected
-            ? "border-primary bg-primary/15 text-mavi-white"
-            : "border-mavi-white/10 bg-mavi-black hover:border-primary/50 hover:bg-primary/5 text-mavi-white/80"
+            ? "border-primary bg-primary/5 text-foreground"
+            : "border-input bg-background text-foreground hover:border-primary hover:bg-primary/5"
         }`}
     >
-      {selected && <Check className="absolute top-2 right-2 w-4 h-4 text-primary" />}
-      <Icon className="w-6 h-6 text-primary" strokeWidth={1.75} aria-hidden="true" />
-      <span className="text-xs sm:text-sm font-medium leading-tight">{label}</span>
+      <span
+        className={`grid h-9 w-9 shrink-0 place-items-center rounded-lg transition-colors duration-300 ${selected ? "bg-primary text-primary-foreground" : "bg-primary/10 text-primary"}`}
+      >
+        {selected ? <Check className="h-[18px] w-[18px]" strokeWidth={2.6} aria-hidden="true" /> : <Icon className="h-[18px] w-[18px]" strokeWidth={1.9} aria-hidden="true" />}
+      </span>
+      <span className="text-sm font-medium leading-snug sm:text-[15px]">{label}</span>
     </button>
   );
 }
@@ -444,9 +447,9 @@ export default function DiagnosticoGratuito() {
 
   const maturidadeColor =
     (resultado?.maturidade ?? 0) < 50
-      ? "text-red-400"
+      ? "text-red-600"
       : (resultado?.maturidade ?? 0) < 70
-      ? "text-yellow-400"
+      ? "text-amber-600"
       : "text-primary";
 
   const maturidadeMsg =
@@ -466,123 +469,120 @@ export default function DiagnosticoGratuito() {
       />
 
       {/* HERO */}
-      <section className="relative pt-32 pb-20 md:pt-40 md:pb-28 bg-mavi-black overflow-hidden">
-        <HeroBackground intensity="medium" />
-        <div className="absolute top-1/4 -right-20 w-[500px] h-[500px] bg-primary/15 rounded-full blur-[120px]" />
-        <div className="container-mavi relative z-10">
-          <div className="max-w-4xl mx-auto text-center">
-            <div className="section-accent-bar mx-auto mb-6" />
-            <span className="inline-block px-4 py-1.5 mb-6 text-xs font-semibold tracking-wider uppercase rounded-full border border-primary/40 text-primary bg-primary/5">
+      <section className="relative overflow-hidden bg-background pb-16 pt-32 md:pb-24 md:pt-40">
+        <div
+          className="pointer-events-none absolute inset-x-0 top-0 h-80"
+          style={{ background: "linear-gradient(180deg, hsl(336 100% 45% / 0.035), transparent)" }}
+          aria-hidden="true"
+        />
+        <div className="container-mavi relative">
+          <AnimatedSection animation="fadeInUp" className="mx-auto max-w-4xl text-center">
+            <span className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-3.5 py-1.5 text-[13px] font-semibold text-muted-foreground">
+              <span className="h-1.5 w-1.5 rounded-full bg-primary" aria-hidden="true" />
               Diagnóstico Gratuito · 30 a 45 min
             </span>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-mavi-white leading-[1.05] mb-6">
-              <SplitText stagger={35} duration={700}>
-                Descubra onde sua verba de anúncios está sendo desperdiçada em 30 minutos, de graça.
-              </SplitText>
+            <h1 className="mb-6 mt-6 text-[2.4rem] font-extrabold leading-[1.05] tracking-[-0.03em] text-foreground text-balance sm:text-5xl lg:text-[3.8rem]">
+              Descubra onde sua verba de anúncios está sendo desperdiçada em 30 minutos, de graça.
             </h1>
-            <p className="text-lg md:text-xl text-mavi-white/70 leading-relaxed max-w-2xl mx-auto mb-8 animate-fade-in-up animation-delay-200">
+            <p className="mx-auto mb-8 max-w-2xl text-lg leading-relaxed text-muted-foreground md:text-xl">
               Um estrategista da MAVI analisa sua conta ao vivo. Sem custo. Sem enrolação. Sem proposta empurrada no final.
             </p>
-            <Button size="xl" variant="hero" onClick={scrollToForm} className="animate-fade-in-up animation-delay-300">
+            <Button size="xl" variant="hero" onClick={scrollToForm} className="group h-auto min-h-14 w-full whitespace-normal rounded-full py-3 sm:w-auto">
               Quero meu Diagnóstico Gratuito
+              <ArrowDown className="ml-1 h-4 w-4 transition-transform duration-300 group-hover:translate-y-0.5" aria-hidden="true" />
             </Button>
-            <div className="mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-mavi-white/60 animate-fade-in-up animation-delay-400">
-              <span className="flex items-center gap-2"><Award className="w-4 h-4 text-primary" /> Google Premier Partner</span>
-              <span className="text-mavi-white/30">·</span>
-              <span>8,4× ROAS médio</span>
-              <span className="text-mavi-white/30">·</span>
-              <span>+500 clientes atendidos</span>
+            <div className="mt-10 flex flex-wrap items-center justify-center gap-x-7 gap-y-3 border-t border-border pt-6 text-sm text-muted-foreground">
+              <span className="flex items-center gap-2 font-medium text-foreground"><Award className="h-4 w-4 text-primary" aria-hidden="true" /> Google Premier Partner</span>
+              <span><b className="text-lg font-extrabold tracking-tight text-foreground">8,4×</b> ROAS médio</span>
+              <span><b className="text-lg font-extrabold tracking-tight text-foreground">+500</b> clientes atendidos</span>
             </div>
-          </div>
+          </AnimatedSection>
         </div>
       </section>
 
       {/* PROBLEMA */}
-      <section className="py-20 md:py-28 bg-card text-mavi-white border-y border-border">
-        <div className="container-mavi">
+      <section className="border-y border-border bg-card py-20 md:py-28">
+        <div className="container-mavi grid items-start gap-12 lg:grid-cols-[0.9fr,1.1fr] lg:gap-20">
           <AnimatedSection>
-            <div className="max-w-3xl mx-auto text-center mb-12">
-              <div className="section-accent-bar mx-auto mb-4" />
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight mb-4">
-                Você investe em anúncios. Mas sabe se está funcionando <span className="text-primary">de verdade?</span>
-              </h2>
-            </div>
+            <h2 className="text-3xl font-extrabold leading-[1.06] tracking-tight text-foreground text-balance md:text-4xl lg:text-5xl">
+              Você investe em anúncios. Mas sabe se está funcionando <span className="text-primary">de verdade?</span>
+            </h2>
+            <p className="mt-6 text-lg leading-relaxed text-muted-foreground md:text-xl">
+              A maioria dos e-commerces deixa <span className="font-semibold text-primary">30% a 50% do ROAS na mesa</span> sem saber.
+              Não por falta de verba, e sim por falta de leitura correta dos dados.
+            </p>
           </AnimatedSection>
-          <div className="max-w-3xl mx-auto grid gap-4">
+          <div className="border-t-2 border-foreground">
             {dores.map((dor, i) => (
               <AnimatedSection key={dor} delay={i * 100}>
-                <div className="flex items-start gap-4 p-5 rounded-xl bg-mavi-black border border-mavi-white/10">
-                  <XCircle className="w-6 h-6 text-red-500 flex-shrink-0 mt-0.5" />
-                  <p className="text-lg text-mavi-white/85">{dor}</p>
+                <div className="flex items-start gap-4 border-b border-border py-5">
+                  <XCircle className="mt-0.5 h-6 w-6 shrink-0 text-red-600" aria-hidden="true" />
+                  <p className="text-lg font-medium text-foreground">{dor}</p>
                 </div>
               </AnimatedSection>
             ))}
           </div>
-          <AnimatedSection delay={400}>
-            <p className="max-w-3xl mx-auto mt-10 text-center text-lg md:text-xl text-mavi-white/70 leading-relaxed">
-              A maioria dos e-commerces deixa <span className="text-primary font-semibold">30% a 50% do ROAS na mesa</span> sem saber.
-              Não por falta de verba, e sim por falta de leitura correta dos dados.
-            </p>
-          </AnimatedSection>
         </div>
       </section>
 
-      {/* PROCESSO */}
-      <section className="py-20 md:py-28 bg-mavi-black text-mavi-white">
+      {/* PROCESSO: 5 etapas em sequência */}
+      <section className="bg-background py-20 md:py-28">
         <div className="container-mavi">
-          <AnimatedSection>
-            <div className="max-w-3xl mx-auto text-center mb-16">
-              <div className="section-accent-bar mx-auto mb-4" />
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight">
-                30 minutos que podem mudar o resultado do <span className="text-primary">próximo mês</span>
-              </h2>
-            </div>
+          <AnimatedSection className="mb-14 max-w-3xl">
+            <h2 className="text-3xl font-extrabold leading-[1.06] tracking-tight text-foreground text-balance md:text-4xl lg:text-5xl">
+              30 minutos que podem mudar o resultado do <span className="text-primary">próximo mês</span>
+            </h2>
           </AnimatedSection>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6 max-w-6xl mx-auto">
+          <ol className="relative grid gap-8 md:grid-cols-5 md:gap-6">
+            <span className="absolute left-5 top-5 hidden h-px w-[calc(100%-2.5rem)] bg-border md:block" aria-hidden="true" />
             {etapas.map((etapa, i) => {
               const Icon = etapa.icon;
               return (
                 <AnimatedSection key={etapa.title} delay={i * 100}>
-                  <div className="relative h-full p-6 rounded-xl bg-background border border-mavi-white/10 border-t-2 border-t-primary hover:shadow-magenta transition-all duration-300 hover:-translate-y-1">
-                    <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
-                      <Icon className="w-6 h-6 text-primary" />
+                  <li className="relative flex gap-4 md:block">
+                    <span className="relative z-10 grid h-10 w-10 shrink-0 place-items-center rounded-full bg-primary text-sm font-bold text-primary-foreground ring-4 ring-background">
+                      {i + 1}
+                    </span>
+                    <div className="md:mt-5">
+                      <div className="mb-2 flex items-center gap-2 text-xs font-semibold text-primary">
+                        <Icon className="h-4 w-4" aria-hidden="true" />
+                        ETAPA {i + 1}
+                      </div>
+                      <h3 className="mb-1.5 text-lg font-bold tracking-tight text-foreground">{etapa.title}</h3>
+                      <p className="text-[15px] leading-relaxed text-muted-foreground">{etapa.desc}</p>
                     </div>
-                    <div className="text-xs font-semibold text-primary mb-2">ETAPA {i + 1}</div>
-                    <h3 className="text-lg font-bold text-mavi-white mb-2">{etapa.title}</h3>
-                    <p className="text-sm text-mavi-white/65 leading-relaxed">{etapa.desc}</p>
-                  </div>
+                  </li>
                 </AnimatedSection>
               );
             })}
-          </div>
+          </ol>
         </div>
       </section>
 
-      {/* CASES */}
-      <section className="py-20 md:py-28 bg-card text-mavi-white border-y border-border">
+      {/* CASES: ROAS em destaque, em linhas */}
+      <section className="border-y border-border bg-card py-20 md:py-28">
         <div className="container-mavi">
-          <AnimatedSection>
-            <div className="max-w-3xl mx-auto text-center mb-12">
-              <div className="section-accent-bar mx-auto mb-4" />
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight mb-4">
-                O que acontece <span className="text-primary">depois</span> do Diagnóstico MAVI
-              </h2>
-              <p className="text-mavi-white/60">Resultados reais de clientes (jan. a mar. 2025).</p>
-            </div>
+          <AnimatedSection className="mb-12 max-w-3xl">
+            <h2 className="text-3xl font-extrabold leading-[1.06] tracking-tight text-foreground text-balance md:text-4xl lg:text-5xl">
+              O que acontece <span className="text-primary">depois</span> do Diagnóstico MAVI
+            </h2>
+            <p className="mt-4 text-lg text-muted-foreground">Resultados reais de clientes (jan. a mar. 2025).</p>
           </AnimatedSection>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5 max-w-6xl mx-auto">
+          <div className="border-t-2 border-foreground">
             {cases.map((c, i) => (
               <AnimatedSection key={i} delay={i * 80}>
-                <div className="h-full p-6 rounded-xl bg-mavi-black border border-mavi-white/10 border-t-2 border-t-primary text-center hover:shadow-magenta transition-all duration-300 hover:-translate-y-1">
-                  <div className="text-4xl md:text-5xl font-extrabold text-primary mb-2 tracking-tight">{c.roas}</div>
-                  <div className="text-xs uppercase tracking-wider text-mavi-white/50 mb-3">ROAS</div>
-                  <div className="text-sm font-semibold text-mavi-white mb-1">{c.segmento}</div>
+                <div className="grid grid-cols-[auto,1fr] items-center gap-x-6 gap-y-1 border-b border-border py-5 sm:grid-cols-[150px,1fr,auto] md:gap-x-10">
+                  <div className="row-span-2 text-4xl font-extrabold tabular-nums tracking-tight text-primary sm:row-span-1 md:text-5xl">
+                    {c.roas}
+                    <span className="ml-1.5 align-middle text-xs font-semibold uppercase tracking-wider text-muted-foreground">ROAS</span>
+                  </div>
+                  <div className="text-lg font-bold text-foreground">{c.segmento}</div>
                   {c.retorno !== "—" && (
-                    <div className="text-xs text-mavi-white/60 mt-3 leading-relaxed">
-                      Retorno: <span className="text-mavi-white">{c.retorno}</span><br />
-                      Invest.: <span className="text-mavi-white">{c.invest}</span>
+                    <div className="text-sm leading-relaxed text-muted-foreground sm:text-right">
+                      Retorno: <span className="font-semibold text-foreground">{c.retorno}</span><br />
+                      Invest.: <span className="font-semibold text-foreground">{c.invest}</span>
                     </div>
                   )}
                 </div>
@@ -593,63 +593,58 @@ export default function DiagnosticoGratuito() {
       </section>
 
       {/* POR QUE GRATUITO */}
-      <section className="py-20 md:py-28 bg-mavi-black text-mavi-white">
-        <div className="container-mavi">
-          <div className="max-w-3xl mx-auto">
-            <AnimatedSection>
-              <div className="section-accent-bar mb-4" />
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight mb-8">
-                Se é grátis, <span className="text-primary">por que fazemos isso?</span>
-              </h2>
-            </AnimatedSection>
-            <AnimatedSection delay={150}>
-              <blockquote className="border-l-4 border-primary pl-6 py-2 text-xl md:text-2xl text-mavi-white/85 italic leading-relaxed">
-                "O diagnóstico é gratuito porque é a nossa forma de mostrar o trabalho antes de cobrar por ele. Se você não sair com pelo menos 3 ações concretas para melhorar sua operação, a gente falhou."
-              </blockquote>
-            </AnimatedSection>
-            <AnimatedSection delay={300}>
-              <div className="mt-10 grid sm:grid-cols-3 gap-4">
-                {["Sem proposta empurrada", "Sem contrato", "Sem pegadinha"].map((g) => (
-                  <div key={g} className="flex items-center gap-3 p-4 rounded-lg bg-background border border-mavi-white/10">
-                    <CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0" />
-                    <span className="text-sm font-medium">{g}</span>
-                  </div>
-                ))}
-              </div>
-            </AnimatedSection>
-          </div>
+      <section className="relative overflow-hidden bg-primary py-20 text-white md:py-28">
+        <div className="container-mavi grid items-center gap-10 lg:grid-cols-[1fr,1.2fr] lg:gap-20">
+          <AnimatedSection>
+            <h2 className="text-3xl font-extrabold leading-[1.06] tracking-tight text-balance md:text-4xl lg:text-5xl">
+              Se é grátis, <span className="underline decoration-white/55 decoration-4 underline-offset-8">por que fazemos isso?</span>
+            </h2>
+          </AnimatedSection>
+          <AnimatedSection delay={150}>
+            <span className="block text-7xl font-extrabold leading-[0.5] text-white/40" aria-hidden="true">&ldquo;</span>
+            <blockquote className="mt-2 text-xl font-semibold leading-snug tracking-tight md:text-2xl">
+              "O diagnóstico é gratuito porque é a nossa forma de mostrar o trabalho antes de cobrar por ele. Se você não sair com pelo menos 3 ações concretas para melhorar sua operação, a gente falhou."
+            </blockquote>
+            <div className="mt-8 flex flex-wrap gap-2.5">
+              {["Sem proposta empurrada", "Sem contrato", "Sem pegadinha"].map((g) => (
+                <div key={g} className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-semibold text-primary">
+                  <CheckCircle2 className="h-4 w-4 shrink-0" aria-hidden="true" />
+                  <span>{g}</span>
+                </div>
+              ))}
+            </div>
+          </AnimatedSection>
         </div>
       </section>
 
       {/* QUEM */}
-      <section className="py-20 md:py-28 bg-card text-mavi-white border-y border-border">
+      <section className="bg-background py-20 md:py-28">
         <div className="container-mavi">
           <AnimatedSection>
-            <div className="max-w-3xl mx-auto text-center mb-12">
-              <div className="section-accent-bar mx-auto mb-4" />
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight mb-4">
+            <div className="mx-auto mb-10 max-w-3xl text-center">
+              <h2 className="mb-4 text-3xl font-extrabold leading-[1.06] tracking-tight text-foreground text-balance md:text-4xl lg:text-5xl">
                 Você não vai falar com <span className="text-primary">estagiário</span>
               </h2>
-              <p className="text-lg text-mavi-white/70 leading-relaxed">
+              <p className="text-lg leading-relaxed text-muted-foreground">
                 O Diagnóstico é conduzido por um estrategista sênior do time de growth da MAVI: gente que opera contas reais com verba real todo mês.
               </p>
             </div>
           </AnimatedSection>
           <AnimatedSection delay={200}>
-            <div className="flex flex-wrap items-center justify-center gap-3 max-w-3xl mx-auto">
+            <div className="mx-auto flex max-w-3xl flex-wrap items-center justify-center gap-2.5">
               {[
                 "Google Premier Partner 2025",
                 "Meta Business Partner",
                 "Tray Diamante",
                 "RD Station Partner",
               ].map((cert) => (
-                <div key={cert} className="flex items-center gap-2 px-4 py-2 rounded-full bg-mavi-black border border-primary/30">
-                  <ShieldCheck className="w-4 h-4 text-primary" />
-                  <span className="text-sm font-medium">{cert}</span>
+                <div key={cert} className="flex items-center gap-2 rounded-full border border-border bg-card px-4 py-2">
+                  <ShieldCheck className="h-4 w-4 text-primary" aria-hidden="true" />
+                  <span className="text-sm font-semibold text-foreground">{cert}</span>
                 </div>
               ))}
             </div>
-            <p className="text-center text-sm text-mavi-white/50 mt-6">
+            <p className="mt-6 text-center text-sm text-muted-foreground">
               +5 anos de mercado · Fundada em 2019 · Jaraguá do Sul/SC · Atende todo o Brasil
             </p>
           </AnimatedSection>
@@ -657,30 +652,34 @@ export default function DiagnosticoGratuito() {
       </section>
 
       {/* FAQ */}
-      <section className="py-20 md:py-28 bg-mavi-black text-mavi-white">
+      <section className="border-y border-border bg-card py-20 md:py-28">
         <div className="container-mavi">
           <AnimatedSection>
-            <div className="max-w-3xl mx-auto text-center mb-12">
-              <div className="section-accent-bar mx-auto mb-4" />
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight">
+            <div className="mx-auto mb-10 max-w-3xl text-center">
+              <h2 className="text-3xl font-extrabold leading-[1.06] tracking-tight text-foreground text-balance md:text-4xl lg:text-5xl">
                 Perguntas <span className="text-primary">frequentes</span>
               </h2>
             </div>
           </AnimatedSection>
-          <div className="max-w-3xl mx-auto space-y-3">
+          <div className="mx-auto max-w-[860px] border-t border-input">
             {faqs.map((faq, i) => {
               const isOpen = openFaq === i;
               return (
-                <div key={i} className="rounded-xl bg-background border border-mavi-white/10 overflow-hidden">
+                <div key={i} className="border-b border-input">
                   <button
                     onClick={() => setOpenFaq(isOpen ? null : i)}
-                    className="w-full flex items-center justify-between gap-4 p-5 text-left hover:bg-mavi-white/5 transition-colors"
+                    aria-expanded={isOpen}
+                    className="flex w-full items-center justify-between gap-4 py-5 text-left"
                   >
-                    <span className="font-semibold text-mavi-white">{faq.question}</span>
-                    <ChevronDown className={`w-5 h-5 text-primary flex-shrink-0 transition-transform ${isOpen ? "rotate-180" : ""}`} />
+                    <span className="text-lg font-semibold tracking-tight text-foreground">{faq.question}</span>
+                    <span
+                      className={`grid h-8 w-8 shrink-0 place-items-center rounded-full border transition-all duration-300 ease-out ${isOpen ? "rotate-45 border-primary bg-primary text-white" : "border-input text-foreground"}`}
+                    >
+                      <Plus className="h-4 w-4" aria-hidden="true" />
+                    </span>
                   </button>
                   {isOpen && (
-                    <div className="px-5 pb-5 text-mavi-white/70 leading-relaxed animate-fade-in-up">
+                    <div className="pb-6 pr-12 leading-relaxed text-muted-foreground animate-chat-pop">
                       {faq.answer}
                     </div>
                   )}
@@ -694,40 +693,41 @@ export default function DiagnosticoGratuito() {
       {/* ASSESSMENT INTERATIVO */}
       <section
         id="assessment-diagnostico"
-        className="relative py-20 md:py-28 bg-mavi-black text-mavi-white overflow-hidden"
+        className="relative overflow-hidden bg-background py-20 md:py-28"
       >
         <div className="container-mavi relative z-10">
-          <div className="max-w-2xl mx-auto">
+          <div className="mx-auto max-w-2xl">
 
-            {/* Header — visible on question steps only */}
+            {/* Header: só nas perguntas */}
             {QUESTION_STEPS.includes(aStep) && (
-              <div className="text-center mb-10">
-                <div className="section-accent-bar mx-auto mb-4" />
-                <h2 className="text-3xl md:text-4xl font-bold leading-tight mb-3">
+              <div className="mb-8 text-center">
+                <h2 className="mb-3 text-3xl font-extrabold leading-[1.06] tracking-tight text-foreground md:text-4xl">
                   Faça o <span className="text-primary">Diagnóstico Agora</span>
                 </h2>
-                <p className="text-mavi-white/60 text-sm">
+                <p className="text-muted-foreground">
                   Responda 6 perguntas rápidas e veja onde seu dinheiro está parado.
                 </p>
               </div>
             )}
 
-            <div className="rounded-2xl bg-background border border-mavi-white/10 border-t-2 border-t-primary p-6 md:p-8 shadow-magenta min-h-[420px] flex flex-col">
+            <div className="flex min-h-[420px] flex-col rounded-2xl border border-border bg-card p-6 shadow-[0_2px_2px_hsl(325_25%_9%/0.03),0_8px_8px_-4px_hsl(325_25%_9%/0.06)] md:p-8">
 
               {/* QUESTION STEPS */}
               {QUESTION_STEPS.includes(aStep) && (
                 <>
-                  {/* Progress bar */}
+                  {/* Progresso: um segmento por pergunta */}
                   <div className="mb-6">
-                    <div className="flex justify-between text-xs text-mavi-white/40 mb-2">
+                    <div className="mb-2 flex justify-between text-xs font-semibold text-muted-foreground">
                       <span>Pergunta {stepIndex + 1} de {QUESTION_STEPS.length}</span>
-                      <span>{Math.round(progressPct)}%</span>
+                      <span className="tabular-nums text-primary">{Math.round(progressPct)}%</span>
                     </div>
-                    <div className="h-1.5 rounded-full bg-mavi-white/10 overflow-hidden">
-                      <div
-                        className="h-full bg-primary rounded-full transition-all duration-500"
-                        style={{ width: `${progressPct}%` }}
-                      />
+                    <div className="flex gap-1.5" aria-hidden="true">
+                      {QUESTION_STEPS.map((s, i) => (
+                        <span
+                          key={s}
+                          className={`h-1.5 flex-1 rounded-full transition-colors duration-500 ${i <= stepIndex ? "bg-primary" : "bg-border"}`}
+                        />
+                      ))}
                     </div>
                   </div>
 
@@ -736,7 +736,7 @@ export default function DiagnosticoGratuito() {
                     <button
                       type="button"
                       onClick={() => setAStep(QUESTION_STEPS[stepIndex - 1])}
-                      className="flex items-center gap-1.5 text-sm text-mavi-white/40 hover:text-mavi-white/70 mb-4 transition-colors w-fit"
+                      className="mb-4 flex w-fit items-center gap-1.5 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
                     >
                       <ArrowLeft className="w-4 h-4" /> Voltar
                     </button>
@@ -744,9 +744,9 @@ export default function DiagnosticoGratuito() {
 
                   {/* SEGMENTO */}
                   {aStep === "segmento" && (
-                    <div className="flex-1">
-                      <p className="text-lg font-semibold mb-5">Qual o segmento do seu negócio?</p>
-                      <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                    <div className="flex-1 animate-chat-pop">
+                      <p className="mb-5 text-xl font-bold tracking-tight text-foreground">Qual o segmento do seu negócio?</p>
+                      <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2">
                         {segmentoOpts.map((o) => (
                           <OptionCard
                             key={o.label}
@@ -762,9 +762,9 @@ export default function DiagnosticoGratuito() {
 
                   {/* FATURAMENTO */}
                   {aStep === "faturamento" && (
-                    <div className="flex-1">
-                      <p className="text-lg font-semibold mb-5">Qual o faturamento mensal aproximado do seu negócio?</p>
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div className="flex-1 animate-chat-pop">
+                      <p className="mb-5 text-xl font-bold tracking-tight text-foreground">Qual o faturamento mensal aproximado do seu negócio?</p>
+                      <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2">
                         {faturamentoOpts.map((o) => (
                           <OptionCard
                             key={o.label}
@@ -780,9 +780,9 @@ export default function DiagnosticoGratuito() {
 
                   {/* VERBA */}
                   {aStep === "verba" && (
-                    <div className="flex-1">
-                      <p className="text-lg font-semibold mb-5">Quanto você investe por mês em tráfego pago?</p>
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div className="flex-1 animate-chat-pop">
+                      <p className="mb-5 text-xl font-bold tracking-tight text-foreground">Quanto você investe por mês em tráfego pago?</p>
+                      <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2">
                         {verbaOpts.map((o) => (
                           <OptionCard
                             key={o.label}
@@ -798,10 +798,10 @@ export default function DiagnosticoGratuito() {
 
                   {/* CANAIS */}
                   {aStep === "canais" && (
-                    <div className="flex-1 flex flex-col">
-                      <p className="text-lg font-semibold mb-2">Quais canais de marketing você usa atualmente?</p>
-                      <p className="text-sm text-mavi-white/50 mb-5">Selecione todos que se aplicam.</p>
-                      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 flex-1">
+                    <div className="flex flex-1 flex-col animate-chat-pop">
+                      <p className="mb-1.5 text-xl font-bold tracking-tight text-foreground">Quais canais de marketing você usa atualmente?</p>
+                      <p className="mb-5 text-sm text-muted-foreground">Selecione todos que se aplicam.</p>
+                      <div className="grid flex-1 grid-cols-1 gap-2.5 sm:grid-cols-2">
                         {canaisOpts.map((o) => (
                           <OptionCard
                             key={o.label}
@@ -818,7 +818,7 @@ export default function DiagnosticoGratuito() {
                         size="lg"
                         disabled={respostas.canais.length === 0}
                         onClick={() => setAStep("dor")}
-                        className="w-full mt-6"
+                        className="mt-6 w-full rounded-full"
                       >
                         Continuar
                       </Button>
@@ -827,9 +827,9 @@ export default function DiagnosticoGratuito() {
 
                   {/* DOR */}
                   {aStep === "dor" && (
-                    <div className="flex-1">
-                      <p className="text-lg font-semibold mb-5">Qual é o seu maior desafio de marketing hoje?</p>
-                      <div className="grid grid-cols-1 gap-3">
+                    <div className="flex-1 animate-chat-pop">
+                      <p className="mb-5 text-xl font-bold tracking-tight text-foreground">Qual é o seu maior desafio de marketing hoje?</p>
+                      <div className="grid grid-cols-1 gap-2.5">
                         {dorOpts.map((o) => (
                           <OptionCard
                             key={o.label}
@@ -845,15 +845,15 @@ export default function DiagnosticoGratuito() {
 
                   {/* SITE */}
                   {aStep === "site" && (
-                    <div className="flex-1 flex flex-col">
-                      <p className="text-lg font-semibold mb-2">Qual é o endereço do seu site ou loja virtual?</p>
-                      <p className="text-sm text-mavi-white/50 mb-5">Opcional, mas nos ajuda a preparar sua análise.</p>
-                      <div className="space-y-2 flex-1">
+                    <div className="flex flex-1 flex-col animate-chat-pop">
+                      <p className="mb-1.5 text-xl font-bold tracking-tight text-foreground">Qual é o endereço do seu site ou loja virtual?</p>
+                      <p className="mb-5 text-sm text-muted-foreground">Opcional, mas nos ajuda a preparar sua análise.</p>
+                      <div className="flex-1 space-y-2">
                         <Input
                           value={respostas.site}
                           onChange={(e) => setRespostas((prev) => ({ ...prev, site: e.target.value }))}
                           placeholder="https://sualoja.com.br"
-                          className="bg-mavi-black border-mavi-white/15 text-mavi-white"
+                          className="h-12 border-input bg-background text-foreground focus-visible:ring-primary"
                         />
                       </div>
                       <Button
@@ -861,7 +861,7 @@ export default function DiagnosticoGratuito() {
                         variant="hero"
                         size="lg"
                         onClick={() => setAStep("loading")}
-                        className="w-full mt-6"
+                        className="mt-6 w-full rounded-full"
                       >
                         Analisar minha operação
                       </Button>
@@ -872,18 +872,18 @@ export default function DiagnosticoGratuito() {
 
               {/* LOADING */}
               {aStep === "loading" && (
-                <div className="flex-1 flex flex-col items-center justify-center gap-6 py-4">
+                <div className="flex flex-1 flex-col items-center justify-center gap-6 py-4">
                   <div className="text-center">
-                    <p className="text-xl font-bold mb-1">Analisando sua operação...</p>
-                    <p className="text-sm text-mavi-white/50">Calculando seu índice de maturidade de performance</p>
+                    <p className="mb-1 text-xl font-bold text-foreground">Analisando sua operação...</p>
+                    <p className="text-sm text-muted-foreground">Calculando seu índice de maturidade de performance</p>
                   </div>
                   <div className="w-full max-w-xs">
                     <ResponsiveContainer width="100%" height={220}>
                       <RadarChart data={loadingData}>
-                        <PolarGrid stroke="rgba(255,255,255,0.08)" />
+                        <PolarGrid stroke="rgba(29,17,24,0.12)" />
                         <PolarAngleAxis
                           dataKey="subject"
-                          tick={{ fill: "rgba(255,255,255,0.5)", fontSize: 10 }}
+                          tick={{ fill: "rgba(29,17,24,0.65)", fontSize: 10 }}
                         />
                         <Radar
                           dataKey="A"
@@ -895,7 +895,7 @@ export default function DiagnosticoGratuito() {
                       </RadarChart>
                     </ResponsiveContainer>
                   </div>
-                  <div className="flex items-center gap-2 text-sm text-mavi-white/40">
+                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
                     <Loader2 className="w-4 h-4 animate-spin text-primary" />
                     Processando respostas...
                   </div>
@@ -904,33 +904,33 @@ export default function DiagnosticoGratuito() {
 
               {/* LEAD CAPTURE */}
               {aStep === "lead" && (
-                <form onSubmit={handleLeadSubmit} className="flex-1 flex flex-col">
-                  <div className="text-center mb-8">
-                    <div className="w-14 h-14 rounded-full bg-primary/15 border border-primary/40 flex items-center justify-center mx-auto mb-4">
-                      <CheckCircle2 className="w-7 h-7 text-primary" />
+                <form onSubmit={handleLeadSubmit} className="flex flex-1 flex-col animate-chat-pop">
+                  <div className="mb-8 text-center">
+                    <div className="mx-auto mb-4 grid h-14 w-14 place-items-center rounded-full bg-primary text-primary-foreground">
+                      <CheckCircle2 className="w-7 h-7" />
                     </div>
-                    <p className="text-xl font-bold mb-2">Análise concluída!</p>
-                    <p className="text-mavi-white/60 text-sm">Para revelar seu resultado personalizado, precisamos saber quem você é.</p>
+                    <p className="mb-2 text-xl font-bold text-foreground">Análise concluída!</p>
+                    <p className="text-sm text-muted-foreground">Para revelar seu resultado personalizado, precisamos saber quem você é.</p>
                   </div>
-                  <div className="space-y-4 flex-1">
+                  <div className="flex-1 space-y-4">
                     <div className="space-y-2">
-                      <Label className="text-mavi-white">Seu nome *</Label>
+                      <Label className="font-semibold text-foreground">Seu nome *</Label>
                       <Input
                         required
                         value={respostas.nome}
                         onChange={(e) => setRespostas((prev) => ({ ...prev, nome: e.target.value }))}
                         placeholder="Como você se chama?"
-                        className="bg-mavi-black border-mavi-white/15 text-mavi-white"
+                        className="h-12 border-input bg-background text-foreground focus-visible:ring-primary"
                       />
                     </div>
                     <div className="space-y-2">
-                      <Label className="text-mavi-white">WhatsApp *</Label>
+                      <Label className="font-semibold text-foreground">WhatsApp *</Label>
                       <Input
                         required
                         value={respostas.whatsapp}
                         onChange={(e) => setRespostas((prev) => ({ ...prev, whatsapp: e.target.value }))}
                         placeholder="(47) 99999-9999"
-                        className="bg-mavi-black border-mavi-white/15 text-mavi-white"
+                        className="h-12 border-input bg-background text-foreground focus-visible:ring-primary"
                       />
                     </div>
                   </div>
@@ -939,7 +939,7 @@ export default function DiagnosticoGratuito() {
                     variant="hero"
                     size="lg"
                     disabled={isSubmittingLead}
-                    className="w-full mt-6"
+                    className="mt-6 w-full rounded-full"
                   >
                     {isSubmittingLead ? (
                       <><Loader2 className="w-4 h-4 mr-2 animate-spin" /> Gerando resultado...</>
@@ -947,7 +947,7 @@ export default function DiagnosticoGratuito() {
                       "Ver meu resultado →"
                     )}
                   </Button>
-                  <p className="text-center text-xs text-mavi-white/40 mt-3">
+                  <p className="mt-3 text-center text-xs text-muted-foreground">
                     Sem spam. Sem proposta empurrada.
                   </p>
                 </form>
@@ -955,23 +955,23 @@ export default function DiagnosticoGratuito() {
 
               {/* RESULTADO */}
               {aStep === "resultado" && resultado && (
-                <div className="flex-1 flex flex-col gap-6">
+                <div className="flex flex-1 flex-col gap-6 animate-chat-pop">
                   {/* Header */}
                   <div className="text-center">
-                    <p className="text-sm text-mavi-white/50 mb-1">Diagnóstico de {respostas.nome}</p>
-                    <h3 className="text-2xl font-bold">Seu Resultado de Performance</h3>
+                    <p className="mb-1 text-sm text-muted-foreground">Diagnóstico de {respostas.nome}</p>
+                    <h3 className="text-2xl font-extrabold tracking-tight text-foreground">Seu Resultado de Performance</h3>
                   </div>
 
                   {/* Score + Radar */}
-                  <div className="flex flex-col sm:flex-row items-center gap-6">
-                    <div className="flex flex-col items-center justify-center gap-1 min-w-[120px]">
-                      <span className={`text-6xl font-extrabold leading-none ${maturidadeColor}`}>
+                  <div className="flex flex-col items-center gap-6 sm:flex-row">
+                    <div className="flex min-w-[120px] flex-col items-center justify-center gap-1">
+                      <span className={`text-6xl font-extrabold leading-none tabular-nums ${maturidadeColor}`}>
                         {resultado.maturidade}
                       </span>
-                      <span className="text-xs text-mavi-white/40 uppercase tracking-wider">de 100</span>
-                      <span className={`text-xs font-semibold mt-1 ${maturidadeColor}`}>{maturidadeLabel}</span>
+                      <span className="text-xs uppercase tracking-wider text-muted-foreground">de 100</span>
+                      <span className={`mt-1 text-xs font-semibold ${maturidadeColor}`}>{maturidadeLabel}</span>
                     </div>
-                    <div className="flex-1 w-full">
+                    <div className="w-full flex-1">
                       <ResponsiveContainer width="100%" height={220}>
                         <RadarChart
                           data={resultado.pilares.map((p) => ({
@@ -980,10 +980,10 @@ export default function DiagnosticoGratuito() {
                             fullMark: 100,
                           }))}
                         >
-                          <PolarGrid stroke="rgba(255,255,255,0.08)" />
+                          <PolarGrid stroke="rgba(29,17,24,0.12)" />
                           <PolarAngleAxis
                             dataKey="subject"
-                            tick={{ fill: "rgba(255,255,255,0.65)", fontSize: 10 }}
+                            tick={{ fill: "rgba(29,17,24,0.7)", fontSize: 10 }}
                           />
                           <Radar
                             dataKey="A"
@@ -998,33 +998,33 @@ export default function DiagnosticoGratuito() {
                   </div>
 
                   {/* Interpretação */}
-                  <p className="text-sm text-mavi-white/70 leading-relaxed text-center">{maturidadeMsg}</p>
+                  <p className="text-center text-[15px] leading-relaxed text-muted-foreground">{maturidadeMsg}</p>
 
                   {/* Dinheiro na mesa */}
-                  <div className="rounded-xl border border-primary/30 bg-primary/8 p-5 text-center">
-                    <p className="text-xs uppercase tracking-wider text-mavi-white/50 mb-1">Estimativa de receita não capturada</p>
-                    <p className="text-4xl font-extrabold text-primary">{formatBRL(resultado.dinheiroNaMesa)}</p>
-                    <p className="text-xs text-mavi-white/40 mt-1">por mês, dinheiro que está na mesa</p>
+                  <div className="rounded-xl bg-primary p-5 text-center text-white">
+                    <p className="mb-1 text-xs font-semibold uppercase tracking-wider text-white/85">Estimativa de receita não capturada</p>
+                    <p className="text-4xl font-extrabold tabular-nums tracking-tight">{formatBRL(resultado.dinheiroNaMesa)}</p>
+                    <p className="mt-1 text-xs text-white/85">por mês, dinheiro que está na mesa</p>
                   </div>
 
                   {/* Pillar breakdown */}
-                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                  <div className="grid grid-cols-2 gap-x-6 border-t border-border sm:grid-cols-3">
                     {resultado.pilares.map((p) => {
                       const color =
-                        p.score <= 3 ? "text-red-400" : p.score <= 6 ? "text-yellow-400" : "text-green-400";
+                        p.score <= 3 ? "text-red-600" : p.score <= 6 ? "text-amber-600" : "text-green-700";
                       return (
                         <div
                           key={p.label}
-                          className="rounded-lg bg-mavi-white/5 border border-mavi-white/8 p-3"
+                          className="border-b border-border py-3"
                         >
-                          <div className="flex items-center justify-between mb-1">
-                            <span className="text-xs text-mavi-white/60 truncate">{p.short}</span>
-                            <span className={`text-sm font-bold ${color}`}>{p.score}/10</span>
+                          <div className="mb-1.5 flex items-center justify-between">
+                            <span className="truncate text-xs font-medium text-muted-foreground">{p.short}</span>
+                            <span className={`text-sm font-bold tabular-nums ${color}`}>{p.score}/10</span>
                           </div>
-                          <div className="h-1 rounded-full bg-mavi-white/10 overflow-hidden">
+                          <div className="h-1.5 overflow-hidden rounded-full bg-border">
                             <div
                               className="h-full rounded-full bg-primary"
-                              style={{ width: `${p.score * 10}%`, opacity: 0.7 }}
+                              style={{ width: `${p.score * 10}%` }}
                             />
                           </div>
                         </div>
@@ -1034,12 +1034,12 @@ export default function DiagnosticoGratuito() {
 
                   {/* CTA WhatsApp */}
                   <a href={waUrl} target="_blank" rel="noopener noreferrer" className="block">
-                    <Button variant="hero" size="lg" className="w-full gap-2">
+                    <Button variant="hero" size="lg" className="w-full gap-2 rounded-full">
                       <MessageCircle className="w-5 h-5" />
                       Agendar minha sessão gratuita
                     </Button>
                   </a>
-                  <p className="text-center text-xs text-mavi-white/40">
+                  <p className="text-center text-xs text-muted-foreground">
                     Um estrategista sênior da MAVI analisa sua conta ao vivo, sem compromisso.
                   </p>
                 </div>
@@ -1047,9 +1047,9 @@ export default function DiagnosticoGratuito() {
             </div>
 
             {aStep !== "resultado" && (
-              <p className="text-center text-sm text-mavi-white/50 mt-8">
+              <p className="mt-8 text-center text-sm text-muted-foreground">
                 Prefere conversar antes?{" "}
-                <Link to="/contato" className="text-primary hover:underline">
+                <Link to="/contato" className="font-semibold text-primary hover:underline">
                   Fale com a gente
                 </Link>
                 .

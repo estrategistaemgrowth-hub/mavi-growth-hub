@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { SEO } from "@/components/SEO";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, MotionConfig, useReducedMotion } from "framer-motion";
 
 // ─── SEO / GEO / AIO Schemas ──────────────────────────────────────────────────
 const ASSESSMENT_SCHEMA = {
@@ -1028,6 +1028,8 @@ function validateLeadWhatsapp(raw: string): string | undefined {
 }
 
 export default function Assessment() {
+  // Só visual: desliga os loops infinitos de animação para quem pede menos movimento
+  const reduceMotion = useReducedMotion();
   const [phase, setPhase] = useState<Phase>("url-input");
   const [lojaUrl, setLojaUrl] = useState("");
   const [urlError, setUrlError] = useState<string | undefined>();
@@ -1554,7 +1556,8 @@ export default function Assessment() {
     ];
 
     return (
-      <div className="bg-white">
+      <MotionConfig reducedMotion="user">
+      <div className="bg-background">
         <SEO
           title="Diagnóstico Gratuito de E-commerce em 5 Minutos"
           description="Descubra gratuitamente as falhas do seu e-commerce. Assessment em 7 dimensões: produtos, redes sociais, Shopee, Mercado Livre, TikTok Shop, SEO, tráfego pago e design. Score por área + pontos de melhoria. Resultado imediato."
@@ -1567,18 +1570,15 @@ export default function Assessment() {
             DOBRA 1 — HERO
         ══════════════════════════════════════════════════════ */}
         <section className="relative flex flex-col overflow-hidden bg-background lg:min-h-[640px]">
-          {/* Background */}
-          <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-background" />
-          {/* Grid pattern */}
-          <div className="absolute inset-0 opacity-[0.04]"
-            style={{ backgroundImage: "linear-gradient(rgba(255,255,255,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.5) 1px, transparent 1px)", backgroundSize: "60px 60px" }} />
+          {/* Véu quase imperceptível da marca no topo (fundo limpo) */}
+          <div className="absolute inset-x-0 top-0 h-80 pointer-events-none" style={{ background: "linear-gradient(180deg, hsl(336 100% 45% / 0.035), transparent)" }} />
 
           {/* Nav */}
-          <div className="relative z-10 flex items-center justify-between px-6 md:px-12 py-5 flex-shrink-0">
-            <img src={logoMavi} alt="MAVI" className="h-6" />
-            <div className="flex items-center gap-1.5">
-              <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-              <span className="text-muted-foreground text-xs">Diagnóstico online</span>
+          <div className="relative z-10 flex items-center justify-between px-6 md:px-12 py-5 flex-shrink-0 border-b border-border/70">
+            <img src={logoMavi} alt="MAVI" className="h-7" />
+            <div className="flex items-center gap-2 rounded-full border border-border bg-card px-3 py-1">
+              <span className="w-2 h-2 rounded-full bg-green-600 ring-[3px] ring-green-600/20" />
+              <span className="text-muted-foreground text-xs font-medium">Diagnóstico online</span>
             </div>
           </div>
 
@@ -1594,7 +1594,7 @@ export default function Assessment() {
                   transition={{ duration: 0.6 }}
                 >
                   <motion.span
-                    className="inline-flex items-center gap-2 px-3 py-1.5 text-xs font-semibold tracking-wider uppercase rounded-full border border-primary/40 text-primary bg-primary/10 mb-3 lg:mb-6"
+                    className="inline-flex items-center gap-2 px-3 py-1.5 text-xs font-semibold rounded-full border border-border text-muted-foreground bg-card mb-3 lg:mb-6 [&>svg]:text-primary"
                     initial={{ scale: 0.9, opacity: 0 }}
                     animate={{ scale: 1, opacity: 1 }}
                     transition={{ delay: 0.2 }}
@@ -1602,9 +1602,11 @@ export default function Assessment() {
                     <Zap className="w-3 h-3" /> Assessment · E-commerce · Gratuito
                   </motion.span>
 
-                  <h1 className="text-[30px] leading-[1.1] md:text-5xl lg:text-[54px] font-extrabold text-foreground tracking-tight mb-2.5 lg:mb-5">
+                  <h1 className="text-[32px] leading-[1.06] md:text-5xl lg:text-[58px] font-extrabold text-foreground tracking-[-0.03em] mb-2.5 lg:mb-5">
                     Descubra o que está
-                    <span className="block min-h-[1.1em]">
+                    {/* A frase mais longa invisível reserva a altura: a troca não empurra o layout */}
+                    <span className="grid">
+                      <span className="invisible col-start-1 row-start-1" aria-hidden="true">limitando crescimento</span>
                       <CyclingTypewriter
                         phrases={[
                           "travando vendas",
@@ -1612,7 +1614,7 @@ export default function Assessment() {
                           "custando lucro",
                           "limitando crescimento",
                         ]}
-                        className="text-primary"
+                        className="text-primary col-start-1 row-start-1"
                         speed={36}
                         holdMs={2400}
                       />
@@ -1624,14 +1626,14 @@ export default function Assessment() {
                   </p>
 
                   {/* Stats — só desktop; no mobile o card de captura entra logo em seguida */}
-                  <div className="hidden lg:flex flex-wrap items-center gap-6">
+                  <div className="hidden lg:flex flex-wrap items-center gap-x-8 gap-y-2 border-t border-border pt-6">
                     {[
                       { n: "200+", label: "e-commerces analisados" },
                       { n: "7", label: "dimensões avaliadas" },
                       { n: "5min", label: "para o resultado" },
-                    ].map((s) => (
+                    ].map((s, i) => (
                       <div key={s.label}>
-                        <p className="text-2xl font-extrabold text-foreground">{s.n}</p>
+                        <p className={`text-3xl font-extrabold tracking-tight tabular-nums ${i === 0 ? "text-primary" : "text-foreground"}`}>{s.n}</p>
                         <p className="text-xs text-muted-foreground">{s.label}</p>
                       </div>
                     ))}
@@ -1645,19 +1647,19 @@ export default function Assessment() {
                   transition={{ duration: 0.6, delay: 0.2 }}
                   ref={lpFormRef}
                 >
-                  <div className="bg-white rounded-2xl overflow-hidden shadow-2xl" style={{ borderTop: "4px solid #E6007E" }}>
-                    <div className="p-7">
+                  <div className="bg-card rounded-2xl overflow-hidden border border-border shadow-[0_2px_2px_hsl(325_25%_9%/0.03),0_8px_8px_-4px_hsl(325_25%_9%/0.06)]">
+                    <div className="p-6 sm:p-7">
                       <div className="flex items-center gap-3 mb-5">
-                        <img src={logoMavi} alt="MAVI" className="h-8 object-contain flex-shrink-0" />
+                        <img src={camilaAvatar} alt="" className="h-10 w-10 rounded-full object-cover flex-shrink-0" />
                         <div>
-                          <p className="font-bold text-gray-900 text-sm">Diagnóstico de E-commerce</p>
+                          <p className="font-bold text-foreground text-sm">Diagnóstico de E-commerce</p>
                           <p className="text-xs text-muted-foreground">Resultado gratuito e imediato</p>
                         </div>
                       </div>
 
                       <form onSubmit={handleUrlSubmit} className="space-y-4">
                         <div>
-                          <Label className="text-gray-700 text-sm flex items-center gap-2 mb-1.5">
+                          <Label className="text-foreground text-sm font-semibold flex items-center gap-2 mb-1.5">
                             <Globe className="w-3.5 h-3.5 text-primary" />
                             URL da sua loja virtual
                           </Label>
@@ -1667,10 +1669,10 @@ export default function Assessment() {
                             value={lojaUrl}
                             onChange={(e) => { setLojaUrl(e.target.value); setUrlError(undefined); }}
                             placeholder="https://sualoja.com.br"
-                            className={`bg-gray-50 text-gray-900 placeholder:text-muted-foreground h-11 ${urlError ? "border-red-400 focus:border-red-400" : "border-gray-200 focus:border-primary"}`}
+                            className={`bg-background text-foreground placeholder:text-muted-foreground h-12 rounded-xl text-base focus-visible:ring-primary/30 ${urlError ? "border-red-500 focus:border-red-500" : "border-input focus:border-primary"}`}
                           />
                           {urlError ? (
-                            <p className="text-[11px] text-red-500 mt-1 flex items-center gap-1"><span>!</span>{urlError}</p>
+                            <p className="text-xs text-red-600 mt-1.5 flex items-center gap-1 font-medium"><span>!</span>{urlError}</p>
                           ) : (
                             <p className="text-[11px] text-muted-foreground mt-1">
                               Usaremos sua URL para fazer o diagnóstico
@@ -1681,29 +1683,19 @@ export default function Assessment() {
                         {/* CTA animado */}
                         <motion.div className="relative" whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
                           {/* Anel pulsante — chama atenção pro CTA sem ser infantil */}
-                          <motion.div
-                            className="absolute inset-0 rounded-xl border-2 border-primary pointer-events-none"
-                            initial={{ opacity: 0.5, scale: 1 }}
-                            animate={{ opacity: [0.5, 0], scale: [1, 1.06] }}
-                            transition={{ duration: 1.6, repeat: Infinity, ease: [0.16, 1, 0.3, 1] }}
-                          />
-                          <motion.div
-                            className="absolute inset-0 rounded-xl blur-sm"
-                            style={{ background: "linear-gradient(135deg, #E6007E, #ff4db8)" }}
-                            animate={{ opacity: [0.4, 0.75, 0.4] }}
-                            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-                          />
+                          {!reduceMotion && (
+                            <motion.div
+                              className="absolute inset-0 rounded-full border-2 border-primary pointer-events-none"
+                              initial={{ opacity: 0.5, scale: 1 }}
+                              animate={{ opacity: [0.5, 0], scale: [1, 1.06] }}
+                              transition={{ duration: 1.6, repeat: Infinity, ease: [0.16, 1, 0.3, 1] }}
+                            />
+                          )}
                           <button
                             type="submit"
                             disabled={isCheckingUrl}
-                            className="relative w-full flex items-center justify-center gap-2 bg-primary hover:bg-primary/90 text-white font-bold text-base rounded-xl py-4 transition-colors touch-manipulation overflow-hidden disabled:opacity-70"
+                            className="relative w-full flex items-center justify-center gap-2 bg-primary hover:bg-primary/90 text-white font-bold text-base rounded-full py-4 min-h-[56px] transition-colors touch-manipulation overflow-hidden disabled:opacity-70 shadow-[0_6px_8px_-6px_hsl(336_100%_45%/0.6)]"
                           >
-                            <motion.div
-                              className="absolute inset-0"
-                              style={{ background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent)" }}
-                              animate={{ x: ["-100%", "200%"] }}
-                              transition={{ duration: 1.8, repeat: Infinity, repeatDelay: 1.2 }}
-                            />
                             {isCheckingUrl ? (
                               <>
                                 <Loader2 className="w-4 h-4 animate-spin" />
@@ -1713,7 +1705,7 @@ export default function Assessment() {
                               <>
                                 <Zap className="w-4 h-4" />
                                 Analisar minha loja gratuitamente
-                                <motion.span animate={{ x: [0, 4, 0] }} transition={{ duration: 1, repeat: Infinity }}>
+                                <motion.span animate={reduceMotion ? undefined : { x: [0, 4, 0] }} transition={{ duration: 1, repeat: Infinity }}>
                                   →
                                 </motion.span>
                               </>
@@ -1723,19 +1715,19 @@ export default function Assessment() {
                       </form>
 
                       {/* Social proof */}
-                      <div className="flex items-center gap-2 mt-4 pt-4 border-t border-gray-100">
+                      <div className="flex items-center gap-2 mt-4 pt-4 border-t border-border">
                         <div className="flex gap-0.5">
-                          {[1,2,3,4,5].map(i => <Star key={i} className="w-3 h-3 fill-yellow-400 text-yellow-400" />)}
+                          {[1,2,3,4,5].map(i => <Star key={i} className="w-3.5 h-3.5 fill-amber-500 text-amber-500" />)}
                         </div>
-                        <p className="text-[11px] text-muted-foreground font-medium">+200 e-commerces já analisados</p>
+                        <p className="text-xs text-muted-foreground font-medium">+200 e-commerces já analisados</p>
                       </div>
                     </div>
 
                     {/* Garantias */}
-                    <div className="bg-gray-50 border-t border-gray-100 px-7 py-3 flex flex-wrap gap-x-5 gap-y-1">
+                    <div className="bg-background border-t border-border px-6 sm:px-7 py-3 flex flex-wrap gap-x-5 gap-y-1">
                       {["100% gratuito", "Sem cadastro", "Resultado imediato"].map((g) => (
-                        <span key={g} className="flex items-center gap-1 text-[11px] text-muted-foreground">
-                          <CheckCircle2 className="w-3 h-3 text-green-500" />
+                        <span key={g} className="flex items-center gap-1.5 text-xs text-muted-foreground">
+                          <CheckCircle2 className="w-3.5 h-3.5 text-green-600" />
                           {g}
                         </span>
                       ))}
@@ -1744,22 +1736,22 @@ export default function Assessment() {
 
                   {/* Depoimento */}
                   <motion.div
-                    className="mt-4 bg-card border border-border rounded-xl p-4 flex items-start gap-3"
+                    className="mt-4 bg-card border border-border rounded-2xl p-4 flex items-start gap-3"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.7 }}
                   >
-                    <div className="w-8 h-8 rounded-full bg-card flex items-center justify-center flex-shrink-0">
-                      <User className="w-4 h-4 text-muted-foreground" />
+                    <div className="w-9 h-9 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                      <User className="w-4 h-4 text-primary" />
                     </div>
                     <div>
                       <div className="flex gap-0.5 mb-1">
-                        {[1,2,3,4,5].map(i => <Star key={i} className="w-2.5 h-2.5 fill-yellow-400 text-yellow-400" />)}
+                        {[1,2,3,4,5].map(i => <Star key={i} className="w-3 h-3 fill-amber-500 text-amber-500" />)}
                       </div>
-                      <p className="text-foreground/80 text-xs leading-relaxed">
+                      <p className="text-foreground text-sm leading-relaxed">
                         "Em 5 minutos soube exatamente o que estava freando meu e-commerce. Mudei o foco e as vendas subiram 40% em 2 meses."
                       </p>
-                      <p className="text-muted-foreground text-[10px] mt-1">Ana P. · Loja de moda feminina</p>
+                      <p className="text-muted-foreground text-xs mt-1">Ana P. · Loja de moda feminina</p>
                     </div>
                   </motion.div>
                 </motion.div>
@@ -1770,11 +1762,11 @@ export default function Assessment() {
           {/* Scroll cue */}
           <motion.div
             className="relative z-10 flex flex-col items-center pb-6 flex-shrink-0 cursor-pointer"
-            animate={{ y: [0, 6, 0] }}
+            animate={reduceMotion ? undefined : { y: [0, 6, 0] }}
             transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
             onClick={scrollToForm}
           >
-            <span className="text-muted-foreground text-[10px] uppercase tracking-widest mb-1">Saiba mais</span>
+            <span className="text-muted-foreground text-[11px] uppercase tracking-widest mb-1">Saiba mais</span>
             <ChevronRight className="w-4 h-4 text-muted-foreground rotate-90" />
           </motion.div>
         </section>
@@ -1782,28 +1774,28 @@ export default function Assessment() {
         {/* ══════════════════════════════════════════════════════
             DOBRA 2, O QUE VOCÊ VAI DESCOBRIR
         ══════════════════════════════════════════════════════ */}
-        <section className="py-20 md:py-28 bg-gray-50">
-          <div className="max-w-5xl mx-auto px-6 md:px-8">
+        <section className="py-20 md:py-28 bg-card border-y border-border">
+          <div className="max-w-6xl mx-auto px-6 md:px-8">
             <motion.div
-              className="text-center mb-14"
+              className="mb-12"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
             >
-              <span className="inline-block text-[11px] font-semibold uppercase tracking-wider text-primary mb-3">
+              <span className="inline-block text-sm font-semibold text-primary mb-3">
                 Resultados reais de clientes MAVI
               </span>
-              <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 mb-4 leading-tight">
+              <h2 className="text-3xl md:text-5xl font-extrabold text-foreground mb-4 leading-[1.06] tracking-tight text-balance">
                 Quem usou o diagnóstico<br />transformou o resultado
               </h2>
-              <p className="text-muted-foreground text-base max-w-xl mx-auto">
+              <p className="text-muted-foreground text-lg max-w-[58ch]">
                 Veja o que acontece quando você sabe exatamente onde focar cada real investido.
               </p>
             </motion.div>
 
-            {/* Social proof cards */}
-            <div className="grid sm:grid-cols-3 gap-6 mb-14">
+            {/* Prova social em linhas: segmento, número em destaque e depoimento */}
+            <div className="border-t-2 border-foreground mb-14">
               {[
                 {
                   segment: "E-commerce · Moda",
@@ -1832,32 +1824,30 @@ export default function Assessment() {
               ].map((c, i) => (
                 <motion.div
                   key={c.segment}
-                  className="bg-white border border-gray-200 rounded-2xl p-6 flex flex-col shadow-sm hover:shadow-md hover:border-primary/20 transition-all duration-200"
+                  className="grid gap-4 border-b border-border py-7 md:grid-cols-[220px,200px,1fr] md:items-center md:gap-10"
                   initial={{ opacity: 0, y: 16 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.1, duration: 0.4 }}
                 >
-                  <div className="flex items-center justify-between mb-5">
-                    {/* Placeholder borrado — identidade preservada */}
-                    <div className="flex items-center gap-2">
-                      <div className="w-7 h-7 rounded-lg bg-gray-200" style={{ filter: "blur(3px)" }} />
-                      <div className="h-3 w-20 rounded bg-gray-200" style={{ filter: "blur(3px)" }} />
-                    </div>
-                    <span className="text-[10px] font-bold uppercase tracking-wider text-primary bg-primary/10 px-2 py-1 rounded-full">{c.roas}</span>
+                  <div>
+                    <p className="text-sm font-semibold text-foreground mb-2">{c.segment}</p>
+                    <span className="inline-block text-xs font-bold text-primary bg-primary/10 px-2.5 py-1 rounded-full">{c.roas}</span>
                   </div>
-                  <p className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground mb-3">{c.segment}</p>
-                  <div className="mb-4">
-                    <p className="text-3xl font-extrabold text-gray-900">{c.metric}</p>
-                    <p className="text-xs text-muted-foreground">{c.metricLabel}</p>
+                  <div>
+                    <p className="text-4xl md:text-5xl font-extrabold tracking-tight text-primary tabular-nums">{c.metric}</p>
+                    <p className="text-sm text-muted-foreground">{c.metricLabel}</p>
                   </div>
-                  <p className="text-sm text-gray-600 leading-relaxed italic flex-1">"{c.quote}"</p>
-                  <div className="flex items-center gap-2 mt-4 pt-4 border-t border-gray-100">
-                    <div className="flex gap-0.5">
-                      {[1,2,3,4,5].map(j => <Star key={j} className="w-3 h-3 fill-yellow-400 text-yellow-400" />)}
+                  <div>
+                    <p className="text-base text-foreground leading-relaxed">"{c.quote}"</p>
+                    <div className="flex items-center gap-2 mt-3">
+                      <div className="flex gap-0.5">
+                        {[1,2,3,4,5].map(j => <Star key={j} className="w-3 h-3 fill-amber-500 text-amber-500" />)}
+                      </div>
+                      <p className="text-xs text-muted-foreground">{c.role}</p>
+                      {/* Identidade do cliente preservada (borrada) */}
+                      <span className="text-xs text-muted-foreground" style={{ filter: "blur(3px)" }}>· Cliente MAVI</span>
                     </div>
-                    <p className="text-[10px] text-muted-foreground">{c.role}</p>
-                    <span className="text-[10px] text-foreground/80 ml-1" style={{ filter: "blur(3px)" }}>· Cliente MAVI</span>
                   </div>
                 </motion.div>
               ))}
@@ -1865,13 +1855,13 @@ export default function Assessment() {
 
             {/* Resultado preview */}
             <motion.div
-              className="bg-white border border-gray-200 rounded-2xl p-6 md:p-8 shadow-sm max-w-2xl mx-auto"
+              className="bg-background border border-border rounded-2xl p-6 md:p-8 max-w-2xl mx-auto"
               initial={{ opacity: 0, scale: 0.97 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
             >
-              <p className="text-[11px] text-muted-foreground uppercase tracking-wider mb-4">Preview do resultado</p>
+              <p className="text-sm font-semibold text-foreground mb-4">Preview do resultado</p>
               <div className="space-y-3">
                 {[
                   { label: "Produto & Catálogo", pct: 82, color: "#16a34a" },
@@ -1888,8 +1878,8 @@ export default function Assessment() {
                     viewport={{ once: true }}
                     transition={{ delay: i * 0.08 }}
                   >
-                    <span className="text-sm text-gray-600 w-36 flex-shrink-0">{bar.label}</span>
-                    <div className="flex-1 h-2 bg-gray-100 rounded-full overflow-hidden">
+                    <span className="text-sm text-muted-foreground w-32 sm:w-36 flex-shrink-0">{bar.label}</span>
+                    <div className="flex-1 h-2 bg-border rounded-full overflow-hidden">
                       <motion.div
                         className="h-full rounded-full"
                         style={{ background: bar.color }}
@@ -1903,8 +1893,8 @@ export default function Assessment() {
                   </motion.div>
                 ))}
               </div>
-              <div className="mt-5 pt-4 border-t border-gray-100 text-center">
-                <p className="text-xs text-muted-foreground">Este é apenas um exemplo. Você recebe o diagnóstico real da <strong className="text-gray-700">sua loja</strong>.</p>
+              <div className="mt-5 pt-4 border-t border-border text-center">
+                <p className="text-sm text-muted-foreground">Este é apenas um exemplo. Você recebe o diagnóstico real da <strong className="text-foreground">sua loja</strong>.</p>
               </div>
             </motion.div>
           </div>
@@ -1925,10 +1915,10 @@ export default function Assessment() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.5 }}
               >
-                <span className="inline-block text-[11px] font-semibold uppercase tracking-wider text-primary mb-4">
+                <span className="inline-block text-sm font-semibold text-primary mb-3">
                   Simples assim
                 </span>
-                <h2 className="text-3xl md:text-4xl font-extrabold text-foreground mb-10 leading-tight">
+                <h2 className="text-3xl md:text-4xl font-extrabold text-foreground mb-10 leading-[1.08] tracking-tight text-balance">
                   3 passos para descobrir o gargalo do seu e-commerce
                 </h2>
 
@@ -1964,14 +1954,14 @@ export default function Assessment() {
                         transition={{ delay: i * 0.12 }}
                       >
                         <div className="flex-shrink-0 flex flex-col items-center">
-                          <div className="w-10 h-10 rounded-xl bg-primary/20 border border-primary/30 flex items-center justify-center">
-                            <Icon className="w-5 h-5 text-primary" />
+                          <div className="w-11 h-11 rounded-full bg-primary text-white flex items-center justify-center">
+                            <Icon className="w-5 h-5" />
                           </div>
-                          {i < 2 && <div className="w-px flex-1 mt-2 bg-primary/20 min-h-[24px]" />}
+                          {i < 2 && <div className="w-0.5 flex-1 mt-2 bg-primary/25 min-h-[24px]" />}
                         </div>
                         <div className="pb-6">
-                          <span className="text-[10px] font-bold text-primary/60 uppercase tracking-widest">{step.n}</span>
-                          <p className="text-foreground font-bold text-base mt-0.5 mb-1">{step.title}</p>
+                          <span className="text-xs font-bold text-primary tabular-nums">{step.n}</span>
+                          <p className="text-foreground font-bold text-lg mt-0.5 mb-1">{step.title}</p>
                           <p className="text-muted-foreground text-sm leading-relaxed">{step.desc}</p>
                         </div>
                       </motion.div>
@@ -1987,10 +1977,10 @@ export default function Assessment() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: 0.2 }}
               >
-                <div className="bg-card border border-border rounded-2xl p-7 backdrop-blur-sm">
+                <div className="bg-primary/5 border border-primary/20 rounded-2xl p-7">
                   <div className="text-center mb-6">
-                    <div className="w-12 h-12 rounded-xl bg-primary/15 flex items-center justify-center mx-auto mb-3">
-                      <Target className="w-6 h-6 text-primary" />
+                    <div className="w-12 h-12 rounded-full bg-primary flex items-center justify-center mx-auto mb-3">
+                      <Target className="w-6 h-6 text-white" />
                     </div>
                     <h3 className="text-xl font-bold text-foreground mb-2">
                       Pronto para descobrir o que está freando suas vendas?
@@ -2001,19 +1991,13 @@ export default function Assessment() {
                   </div>
 
                   <motion.div className="relative" whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
-                    <motion.div
-                      className="absolute inset-0 rounded-xl blur-md"
-                      style={{ background: "linear-gradient(135deg, #E6007E, #ff4db8)" }}
-                      animate={{ opacity: [0.5, 0.9, 0.5] }}
-                      transition={{ duration: 2, repeat: Infinity }}
-                    />
                     <button
                       onClick={scrollToForm}
-                      className="relative w-full flex items-center justify-center gap-2 bg-primary text-white font-bold text-base rounded-xl py-4 hover:bg-primary/90 transition-colors touch-manipulation"
+                      className="relative w-full flex items-center justify-center gap-2 bg-primary text-white font-bold text-base rounded-full py-4 min-h-[56px] hover:bg-primary/90 transition-colors touch-manipulation shadow-[0_6px_8px_-6px_hsl(336_100%_45%/0.6)]"
                     >
                       <Zap className="w-4 h-4" />
                       Começar diagnóstico gratuito
-                      <motion.span animate={{ x: [0, 4, 0] }} transition={{ duration: 1, repeat: Infinity }}>→</motion.span>
+                      <motion.span animate={reduceMotion ? undefined : { x: [0, 4, 0] }} transition={{ duration: 1, repeat: Infinity }}>→</motion.span>
                     </button>
                   </motion.div>
 
@@ -2024,21 +2008,21 @@ export default function Assessment() {
                       "Diagnóstico personalizado para sua loja",
                     ].map((g) => (
                       <div key={g} className="flex items-center gap-2">
-                        <CheckCircle2 className="w-3.5 h-3.5 text-green-400 flex-shrink-0" />
-                        <p className="text-muted-foreground text-xs">{g}</p>
+                        <CheckCircle2 className="w-4 h-4 text-green-600 flex-shrink-0" />
+                        <p className="text-foreground text-sm">{g}</p>
                       </div>
                     ))}
                   </div>
 
-                  <div className="mt-5 pt-5 border-t border-border flex items-start gap-3">
+                  <div className="mt-5 pt-5 border-t border-primary/15 flex items-start gap-3">
                     <div className="flex gap-0.5 flex-shrink-0 pt-0.5">
-                      {[1,2,3,4,5].map(i => <Star key={i} className="w-3 h-3 fill-yellow-400 text-yellow-400" />)}
+                      {[1,2,3,4,5].map(i => <Star key={i} className="w-3 h-3 fill-amber-500 text-amber-500" />)}
                     </div>
                     <div>
-                      <p className="text-foreground/80 text-xs leading-relaxed italic">
+                      <p className="text-foreground text-sm leading-relaxed">
                         "Identifiquei 3 áreas críticas que nunca teria percebido sozinha. Em 60 dias minha taxa de conversão dobrou."
                       </p>
-                      <p className="text-muted-foreground text-[10px] mt-1">Carla M. · E-commerce de cosméticos</p>
+                      <p className="text-muted-foreground text-xs mt-1">Carla M. · E-commerce de cosméticos</p>
                     </div>
                   </div>
                 </div>
@@ -2048,49 +2032,53 @@ export default function Assessment() {
         </section>
 
         {/* SEO content — visível para crawlers, discreta para usuário */}
-        <div className="max-w-3xl mx-auto px-6 py-16 space-y-10 border-t border-gray-100">
+        <div className="max-w-3xl mx-auto px-6 py-16 md:py-20 space-y-12 border-t border-border">
           <section aria-labelledby="o-que-e">
-            <h2 id="o-que-e" className="text-lg font-bold text-gray-900 mb-3">O que é um diagnóstico de e-commerce?</h2>
-            <p className="text-muted-foreground text-sm leading-relaxed">
+            <h2 id="o-que-e" className="text-2xl font-extrabold tracking-tight text-foreground mb-3">O que é um diagnóstico de e-commerce?</h2>
+            <p className="text-muted-foreground text-base leading-relaxed">
               Um <strong>diagnóstico de e-commerce</strong> é uma avaliação estruturada que analisa as principais dimensões de uma loja virtual para identificar falhas no desempenho, gargalos de crescimento e oportunidades inexploradas. A ferramenta da MAVI avalia <strong>7 dimensões críticas</strong>, catálogo de produtos, redes sociais, marketplaces (Shopee, Mercado Livre, TikTok Shop), SEO orgânico, tráfego pago, investimento em mídia e design, gerando um <strong>score por área e um plano de prioridades</strong>.
             </p>
           </section>
           <section aria-labelledby="faq-lp">
-            <h2 id="faq-lp" className="text-lg font-bold text-gray-900 mb-4">Perguntas frequentes</h2>
-            <div className="space-y-3">
+            <h2 id="faq-lp" className="text-2xl font-extrabold tracking-tight text-foreground mb-4">Perguntas frequentes</h2>
+            <div className="border-t border-input">
               {[
                 { q: "O diagnóstico é realmente gratuito?", a: "Sim, 100% gratuito. Sem cartão, sem assinatura." },
                 { q: "Preciso de conhecimento técnico?", a: "Não. As perguntas usam linguagem simples. Qualquer dono de e-commerce consegue responder." },
                 { q: "Quanto tempo leva?", a: "Em média 5 minutos. São 21 perguntas com opções de resposta direta." },
                 { q: "O que recebo no relatório?", a: "Score por dimensão, mapa de maturidade em radar, pontos de melhoria e próximos passos." },
               ].map((item) => (
-                <details key={item.q} className="bg-gray-50 border border-gray-200 rounded-xl overflow-hidden">
-                  <summary className="px-5 py-3 cursor-pointer font-semibold text-gray-800 text-sm list-none">{item.q}</summary>
-                  <p className="px-5 pb-3 text-sm text-muted-foreground">{item.a}</p>
+                <details key={item.q} className="group border-b border-input">
+                  <summary className="flex items-center justify-between gap-4 py-4 cursor-pointer font-semibold text-foreground text-base list-none [&::-webkit-details-marker]:hidden">
+                    {item.q}
+                    <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full border border-input text-lg leading-none transition-all duration-300 group-open:rotate-45 group-open:border-primary group-open:bg-primary group-open:text-white" aria-hidden="true">+</span>
+                  </summary>
+                  <p className="pb-4 pr-10 text-sm text-muted-foreground leading-relaxed">{item.a}</p>
                 </details>
               ))}
             </div>
           </section>
         </div>
       </div>
+      </MotionConfig>
     );
   }
 
   // ── Phase: Analyzing ─────────────────────────────────────────────────────────
   if (phase === "analyzing") {
     return (
-      <div className="min-h-[100dvh] bg-gray-50 flex flex-col items-center justify-center p-6">
+      <div className="min-h-[100dvh] bg-background flex flex-col items-center justify-center p-6">
         <div className="text-center max-w-md w-full">
           <img src={logoMavi} alt="MAVI" className="h-7 mx-auto mb-10" />
-          <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto mb-6">
-            <BarChart3 className="w-8 h-8 text-primary animate-pulse" />
+          <div className="w-16 h-16 rounded-full bg-primary flex items-center justify-center mx-auto mb-6">
+            <BarChart3 className="w-8 h-8 text-white motion-safe:animate-pulse" />
           </div>
           <p className="text-muted-foreground text-sm mb-1">Analisando</p>
-          <p className="text-gray-900 font-semibold text-base truncate max-w-xs mx-auto mb-8">
+          <p className="text-foreground font-bold text-lg truncate max-w-xs mx-auto mb-8">
             {lojaUrl}
           </p>
 
-          <div className="space-y-2.5 text-left max-w-xs mx-auto">
+          <div className="space-y-3 text-left max-w-xs mx-auto rounded-2xl border border-border bg-card p-5">
             {ANALYZING_STEPS.map((step, i) => (
               <div
                 key={i}
@@ -2099,13 +2087,13 @@ export default function Assessment() {
                 }`}
               >
                 {i < analyzingStep ? (
-                  <CheckCircle2 className="w-4 h-4 text-green-500 flex-shrink-0" />
+                  <CheckCircle2 className="w-4 h-4 text-green-600 flex-shrink-0" />
                 ) : i === analyzingStep ? (
                   <Loader2 className="w-4 h-4 text-primary animate-spin flex-shrink-0" />
                 ) : (
-                  <div className="w-4 h-4 rounded-full border border-gray-300 flex-shrink-0" />
+                  <div className="w-4 h-4 rounded-full border border-input flex-shrink-0" />
                 )}
-                <span className={`text-sm ${i <= analyzingStep ? "text-gray-700" : "text-foreground/80"}`}>
+                <span className={`text-sm ${i <= analyzingStep ? "text-foreground font-medium" : "text-muted-foreground"}`}>
                   {step}
                 </span>
               </div>
@@ -2125,7 +2113,7 @@ export default function Assessment() {
         : null;
 
     return (
-      <div className="h-[100dvh] bg-white flex overflow-hidden">
+      <div className="h-[100dvh] bg-background flex overflow-hidden">
         <SEO
           title="Assessment de E-commerce | MAVI"
           description="Avaliação gratuita do seu e-commerce em 7 dimensões."
@@ -2133,21 +2121,21 @@ export default function Assessment() {
         />
 
         {/* Left: Chat — conteúdo centralizado e contido */}
-        <div className="flex-1 flex flex-col h-full min-w-0 bg-white overflow-hidden">
+        <div className="flex-1 flex flex-col h-full min-w-0 bg-background overflow-hidden">
           {/* Coluna interna com max-width para não ocupar toda a tela */}
-          <div className="flex flex-col h-full w-full max-w-2xl mx-auto border-x border-gray-100">
+          <div className="flex flex-col h-full w-full max-w-2xl mx-auto border-x border-border bg-card">
 
             {/* Header */}
-            <div className="flex-shrink-0 px-5 py-3.5 border-b border-gray-200 bg-white">
+            <div className="flex-shrink-0 px-5 py-3.5 border-b border-border bg-card">
               <div className="flex items-center justify-between mb-2.5">
-                <img src={logoMavi} alt="MAVI" className="h-5" />
+                <img src={logoMavi} alt="MAVI" className="h-6" />
                 {currentPillar && (
                   <div className="flex items-center gap-1.5 text-muted-foreground">
                     <currentPillar.icon className="w-3.5 h-3.5 text-primary" />
                     <span className="text-xs font-medium">{currentPillar.label}</span>
                   </div>
                 )}
-                <span className="text-xs text-primary font-bold tabular-nums">{progress}%</span>
+                <span className="text-xs font-bold tabular-nums text-primary bg-primary/10 rounded-full px-2.5 py-0.5">{progress}%</span>
               </div>
               {/* Progresso segmentado por pilar — mostra estrutura real (7 pilares), não só um número */}
               <div className="flex items-center gap-1">
@@ -2158,12 +2146,12 @@ export default function Assessment() {
                   return (
                     <div
                       key={p.id}
-                      className="h-1.5 flex-1 bg-gray-200 rounded-full overflow-hidden"
+                      className="h-2 flex-1 bg-border rounded-full overflow-hidden"
                       title={p.label}
                     >
                       <div
-                        className={`h-full rounded-full transition-all duration-500 ${
-                          isCurrent ? "bg-primary" : "bg-primary/70"
+                        className={`h-full rounded-full transition-[width] duration-500 ease-out ${
+                          isCurrent ? "bg-primary" : "bg-primary/60"
                         }`}
                         style={{ width: `${Math.round((answered / total) * 100)}%` }}
                       />
@@ -2189,16 +2177,16 @@ export default function Assessment() {
                       <img
                         src={camilaAvatar}
                         alt="Camila"
-                        className="w-7 h-7 rounded-full flex-shrink-0 object-cover mt-0.5 shadow-sm"
+                        className="w-8 h-8 rounded-full flex-shrink-0 object-cover mt-0.5"
                       />
                     )}
                     <div
-                      className={`max-w-[78%] px-4 py-2.5 rounded-2xl text-sm leading-relaxed ${
+                      className={`max-w-[80%] px-4 py-2.5 rounded-2xl text-[15px] leading-relaxed ${
                         msg.type === "answer"
-                          ? "bg-primary text-white rounded-tr-sm"
+                          ? "bg-primary text-white rounded-br-md"
                           : msg.type === "system"
-                          ? "bg-primary/8 text-gray-600 rounded-tl-sm border border-primary/10"
-                          : "bg-gray-100 text-gray-800 rounded-tl-sm"
+                          ? "bg-primary/5 text-foreground rounded-bl-md border border-primary/15 font-medium"
+                          : "bg-background text-foreground rounded-bl-md border border-border"
                       }`}
                     >
                       {msg.text}
@@ -2212,13 +2200,13 @@ export default function Assessment() {
                     <img
                       src={camilaAvatar}
                       alt="Camila"
-                      className="w-7 h-7 rounded-full flex-shrink-0 object-cover shadow-sm"
+                      className="w-8 h-8 rounded-full flex-shrink-0 object-cover"
                     />
-                    <div className="px-4 py-3 rounded-2xl bg-gray-100 rounded-tl-sm">
+                    <div className="px-4 py-3.5 rounded-2xl bg-background border border-border rounded-bl-md">
                       <div className="flex items-center gap-1">
-                        <span className="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: "0ms" }} />
-                        <span className="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: "160ms" }} />
-                        <span className="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: "320ms" }} />
+                        <span className="w-1.5 h-1.5 bg-muted-foreground rounded-full animate-chat-dot" style={{ animationDelay: "0ms" }} />
+                        <span className="w-1.5 h-1.5 bg-muted-foreground rounded-full animate-chat-dot" style={{ animationDelay: "150ms" }} />
+                        <span className="w-1.5 h-1.5 bg-muted-foreground rounded-full animate-chat-dot" style={{ animationDelay: "300ms" }} />
                       </div>
                     </div>
                   </div>
@@ -2232,8 +2220,8 @@ export default function Assessment() {
             {!isTransitioning && (
               <>
                 {chatPhase === "faturamento" ? (
-                  <div className="flex-shrink-0 border-t border-gray-200 px-5 pt-4 pb-5 bg-gray-50">
-                    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 text-[10px] font-semibold tracking-wide uppercase rounded-full border border-primary/30 text-primary bg-primary/10 mb-3">
+                  <div className="flex-shrink-0 border-t border-border px-5 pt-4 pb-5 bg-background">
+                    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-semibold rounded-full text-primary bg-primary/10 mb-3">
                       <DollarSign className="w-3 h-3" />
                       Faturamento mensal
                     </span>
@@ -2251,17 +2239,17 @@ export default function Assessment() {
                             key={opt.value}
                             onClick={() => selectFaturamento(opt.value, opt.label, i)}
                             disabled={selectedIdx !== null}
-                            className={`w-full flex items-center gap-3 text-left px-4 py-3 rounded-xl border text-sm transition-all duration-150 active:scale-[0.99] touch-manipulation min-h-[44px] ${
+                            className={`w-full flex items-center gap-3 text-left px-4 py-3 rounded-xl border text-[15px] font-medium transition-[border-color,background-color,color,transform] duration-200 ease-out active:scale-[0.99] touch-manipulation min-h-[48px] ${
                               isSelected
                                 ? "border-primary bg-primary text-white"
-                                : "border-gray-200 bg-white text-gray-700 hover:border-primary/50 hover:bg-primary/5 hover:text-gray-900"
+                                : "border-input bg-card text-foreground hover:border-primary hover:bg-primary/5 hover:translate-x-0.5"
                             }`}
                           >
                             <span
-                              className={`flex-shrink-0 w-6 h-6 rounded-full border flex items-center justify-center text-[11px] font-bold ${
+                              className={`flex-shrink-0 w-7 h-7 rounded-full border flex items-center justify-center text-xs font-bold ${
                                 isSelected
-                                  ? "border-border text-foreground"
-                                  : "border-gray-300 text-muted-foreground"
+                                  ? "border-white/70 bg-white text-primary"
+                                  : "border-input text-muted-foreground"
                               }`}
                             >
                               {isSelected ? <Check className="w-3.5 h-3.5" /> : String.fromCharCode(65 + i)}
@@ -2273,8 +2261,8 @@ export default function Assessment() {
                     </div>
                   </div>
                 ) : currentPillar && currentQuestion ? (
-                  <div className="flex-shrink-0 border-t border-gray-200 px-5 pt-4 pb-5 bg-gray-50">
-                    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 text-[10px] font-semibold tracking-wide uppercase rounded-full border border-primary/30 text-primary bg-primary/10 mb-3">
+                  <div className="flex-shrink-0 border-t border-border px-5 pt-4 pb-5 bg-background">
+                    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-semibold rounded-full text-primary bg-primary/10 mb-3">
                       <currentPillar.icon className="w-3 h-3" />
                       {currentPillar.label}
                     </span>
@@ -2286,17 +2274,17 @@ export default function Assessment() {
                             key={i}
                             onClick={() => selectAnswer(opt, i)}
                             disabled={selectedIdx !== null}
-                            className={`w-full flex items-center gap-3 text-left px-4 py-3 rounded-xl border text-sm transition-all duration-150 active:scale-[0.99] touch-manipulation min-h-[44px] ${
+                            className={`w-full flex items-center gap-3 text-left px-4 py-3 rounded-xl border text-[15px] font-medium transition-[border-color,background-color,color,transform] duration-200 ease-out active:scale-[0.99] touch-manipulation min-h-[48px] ${
                               isSelected
                                 ? "border-primary bg-primary text-white"
-                                : "border-gray-200 bg-white text-gray-700 hover:border-primary/50 hover:bg-primary/5 hover:text-gray-900"
+                                : "border-input bg-card text-foreground hover:border-primary hover:bg-primary/5 hover:translate-x-0.5"
                             }`}
                           >
                             <span
-                              className={`flex-shrink-0 w-6 h-6 rounded-full border flex items-center justify-center text-[11px] font-bold ${
+                              className={`flex-shrink-0 w-7 h-7 rounded-full border flex items-center justify-center text-xs font-bold ${
                                 isSelected
-                                  ? "border-border text-foreground"
-                                  : "border-gray-300 text-muted-foreground"
+                                  ? "border-white/70 bg-white text-primary"
+                                  : "border-input text-muted-foreground"
                               }`}
                             >
                               {isSelected ? <Check className="w-3.5 h-3.5" /> : String.fromCharCode(65 + i)}
@@ -2314,8 +2302,8 @@ export default function Assessment() {
         </div>
 
         {/* Right: Live Panel (desktop only) */}
-        <div className="hidden lg:flex w-72 xl:w-80 flex-col bg-gray-50 border-l border-gray-200 h-full overflow-y-auto flex-shrink-0">
-          <div className="p-4 border-b border-gray-200">
+        <div className="hidden lg:flex w-72 xl:w-80 flex-col bg-background border-l border-border h-full overflow-y-auto flex-shrink-0">
+          <div className="p-4 border-b border-border">
             <div className="flex items-center justify-between mb-0.5">
               <span className="text-[10px] font-semibold tracking-widest uppercase text-primary">
                 Self-Assessment
@@ -2329,10 +2317,10 @@ export default function Assessment() {
             <p className="text-[11px] text-muted-foreground">Diagnóstico de E-commerce</p>
           </div>
 
-          <div className="p-4 border-b border-gray-200 space-y-3">
+          <div className="p-4 border-b border-border space-y-3">
             <div>
               <p className="text-[10px] uppercase tracking-wider text-muted-foreground mb-0.5">Loja</p>
-              <p className="text-xs text-gray-600 truncate">{lojaUrl}</p>
+              <p className="text-sm font-medium text-foreground truncate">{lojaUrl}</p>
             </div>
             <div>
               <p className="text-[10px] uppercase tracking-wider text-muted-foreground mb-1">Persona</p>
@@ -2353,7 +2341,7 @@ export default function Assessment() {
           </div>
 
           {/* Radar */}
-          <div className="p-4 border-b border-gray-200">
+          <div className="p-4 border-b border-border">
             <div className="flex items-center justify-between mb-2">
               <p className="text-[10px] uppercase tracking-wider text-muted-foreground">Radar</p>
               <span className="text-[10px] text-foreground/80">7 pilares</span>
@@ -2391,7 +2379,7 @@ export default function Assessment() {
                     <span className="text-[10px] text-muted-foreground w-16 flex-shrink-0 truncate">
                       {p.shortLabel}
                     </span>
-                    <div className="flex-1 h-1 bg-gray-200 rounded-full overflow-hidden">
+                    <div className="flex-1 h-1.5 bg-border rounded-full overflow-hidden">
                       <div
                         className="h-full rounded-full transition-all duration-700"
                         style={{
@@ -2418,7 +2406,7 @@ export default function Assessment() {
 
   if (phase === "gate") {
     return (
-      <div className="min-h-[100dvh] bg-gray-50 text-gray-900 relative">
+      <div className="min-h-[100dvh] bg-background text-foreground relative">
         <SEO
           title="Seu Diagnóstico | MAVI"
           description="Desbloqueie o diagnóstico completo do seu e-commerce."
@@ -2510,62 +2498,61 @@ export default function Assessment() {
           style={{ background: "rgba(249,250,251,0.75)", backdropFilter: "blur(4px)" }}
         >
           <div
-            className="w-full max-w-sm bg-white rounded-2xl shadow-2xl overflow-hidden"
-            style={{ borderTop: "4px solid #E6007E" }}
+            className="w-full max-w-sm bg-card rounded-2xl border border-border shadow-[0_2px_2px_hsl(325_25%_9%/0.04),0_8px_8px_-4px_hsl(325_25%_9%/0.1)] overflow-hidden"
           >
-            <div className="p-5">
+            <div className="p-5 sm:p-6">
               {/* Cabeçalho compacto */}
               <div className="flex items-center gap-3 mb-4">
-                <div className="w-9 h-9 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
-                  <Lock className="w-4 h-4 text-primary" />
+                <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center flex-shrink-0">
+                  <Lock className="w-4 h-4 text-white" />
                 </div>
                 <div>
-                  <h2 className="text-base font-bold text-gray-900 leading-tight">Seu diagnóstico está pronto!</h2>
+                  <h2 className="text-lg font-extrabold tracking-tight text-foreground leading-tight">Seu diagnóstico está pronto!</h2>
                   <p className="text-xs text-muted-foreground mt-0.5">Preencha para desbloquear o relatório completo</p>
                 </div>
               </div>
 
               {/* Score teaser compacto — 1 linha */}
-              <div className="flex items-center gap-3 mb-4 px-3 py-2 bg-gray-50 rounded-xl border border-gray-100">
+              <div className="flex items-center gap-3 mb-4 px-3 py-2.5 bg-primary/5 rounded-xl border border-primary/15">
                 {(() => { const I = personaIcon(finalPersona.label); return <I className={`w-6 h-6 shrink-0 ${finalPersona.colorClass}`} aria-hidden="true" />; })()}
                 <div className="flex items-baseline gap-1">
                   <span className="text-xl font-extrabold" style={{ color: overallColor }}>{finalAvg}</span>
                   <span className="text-xs text-foreground/80">/100</span>
                 </div>
-                <div className="w-px h-5 bg-gray-200" />
+                <div className="w-px h-5 bg-border" />
                 <span className={`text-xs font-bold ${finalPersona.colorClass}`}>{finalPersona.label}</span>
               </div>
 
-              <form onSubmit={handleLeadSubmit} className="space-y-2.5">
+              <form onSubmit={handleLeadSubmit} className="space-y-3">
                 <div>
-                  <Label className="text-muted-foreground text-[11px] mb-1 block">Nome *</Label>
+                  <Label className="text-foreground text-xs font-semibold mb-1 block">Nome *</Label>
                   <Input required value={nome} onChange={(e) => setNome(e.target.value)} placeholder="Seu nome"
-                    className="bg-white border-gray-200 text-gray-900 h-9 text-sm touch-manipulation" />
+                    className="bg-background border-input text-foreground h-11 text-base rounded-xl touch-manipulation" />
                 </div>
                 <div>
-                  <Label className="text-muted-foreground text-[11px] mb-1 block">E-mail *</Label>
+                  <Label className="text-foreground text-xs font-semibold mb-1 block">E-mail *</Label>
                   <Input required type="email" value={email}
                     onChange={(e) => { setEmail(e.target.value); setLeadErrors((p) => ({ ...p, email: undefined })); }}
                     placeholder="seu@email.com"
-                    className={`bg-white h-9 text-sm touch-manipulation ${leadErrors.email ? "border-red-400 focus:border-red-400" : "border-gray-200"} text-gray-900`} />
-                  {leadErrors.email && <p className="text-[10px] text-red-500 mt-0.5 flex items-center gap-1"><span>!</span>{leadErrors.email}</p>}
+                    className={`bg-background h-11 text-base rounded-xl touch-manipulation ${leadErrors.email ? "border-red-500 focus:border-red-500" : "border-input"} text-foreground`} />
+                  {leadErrors.email && <p className="text-xs text-red-600 font-medium mt-1 flex items-center gap-1"><span>!</span>{leadErrors.email}</p>}
                 </div>
                 <div>
-                  <Label className="text-muted-foreground text-[11px] mb-1 block">WhatsApp *</Label>
+                  <Label className="text-foreground text-xs font-semibold mb-1 block">WhatsApp *</Label>
                   <Input required type="tel" value={whatsapp}
                     onChange={(e) => { setWhatsapp(e.target.value); setLeadErrors((p) => ({ ...p, whatsapp: undefined })); }}
                     placeholder="(47) 99999-9999"
-                    className={`bg-white h-9 text-sm touch-manipulation ${leadErrors.whatsapp ? "border-red-400 focus:border-red-400" : "border-gray-200"} text-gray-900`} />
-                  {leadErrors.whatsapp && <p className="text-[10px] text-red-500 mt-0.5 flex items-center gap-1"><span>!</span>{leadErrors.whatsapp}</p>}
+                    className={`bg-background h-11 text-base rounded-xl touch-manipulation ${leadErrors.whatsapp ? "border-red-500 focus:border-red-500" : "border-input"} text-foreground`} />
+                  {leadErrors.whatsapp && <p className="text-xs text-red-600 font-medium mt-1 flex items-center gap-1"><span>!</span>{leadErrors.whatsapp}</p>}
                 </div>
-                <Button type="submit" variant="hero" className="w-full min-h-[44px] touch-manipulation font-semibold" disabled={isSubmitting}>
+                <Button type="submit" variant="hero" className="w-full min-h-[52px] text-base touch-manipulation font-bold" disabled={isSubmitting}>
                   {isSubmitting ? (
                     <><Loader2 className="w-4 h-4 mr-2 animate-spin" />Processando...</>
                   ) : (
                     <>Ver diagnóstico completo <ArrowRight className="w-4 h-4 ml-1.5" /></>
                   )}
                 </Button>
-                <p className="text-center text-[10px] text-muted-foreground">Sem spam · Seus dados são protegidos</p>
+                <p className="text-center text-xs text-muted-foreground">Sem spam · Seus dados são protegidos</p>
               </form>
             </div>
           </div>
@@ -2576,7 +2563,8 @@ export default function Assessment() {
 
   // ── Phase: Result (completo) ──────────────────────────────────────────────────
   return (
-    <div className="min-h-[100dvh] bg-gray-50 text-gray-900">
+    <MotionConfig reducedMotion="user">
+    <div className="min-h-[100dvh] bg-background text-foreground">
       <SEO
         title="Diagnóstico Completo do seu E-commerce | MAVI"
         description="Confira o diagnóstico completo do seu e-commerce em 7 dimensões."
@@ -2584,7 +2572,7 @@ export default function Assessment() {
       />
 
       {/* Header */}
-      <div className="bg-white border-b border-gray-200 px-4 py-3 sticky top-0 z-10">
+      <div className="bg-card/90 backdrop-blur border-b border-border px-4 py-3 sticky top-0 z-10">
         <div className="max-w-5xl mx-auto flex items-center justify-between">
           <img src={logoMavi} alt="MAVI" className="h-5" />
           <div className="flex items-center gap-3">
@@ -2596,7 +2584,7 @@ export default function Assessment() {
             </div>
             <motion.button
               onClick={downloadPDF}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-gray-200 bg-white text-gray-600 text-xs font-medium hover:border-primary/40 hover:text-primary hover:bg-primary/5 transition-colors touch-manipulation"
+              className="flex items-center gap-1.5 px-3.5 py-2 rounded-full border border-input bg-card text-foreground text-xs font-semibold hover:border-primary hover:text-primary transition-colors touch-manipulation min-h-[36px]"
               whileHover={{ scale: 1.04 }}
               whileTap={{ scale: 0.96 }}
               title="Baixar relatório em PDF"
@@ -2616,14 +2604,14 @@ export default function Assessment() {
       >
         {/* Autenticidade — mostra que a análise foi feita em cima dos dados reais da pessoa */}
         <motion.div
-          className="bg-white border border-gray-200 rounded-xl px-4 py-3 flex items-center gap-2.5 shadow-sm"
+          className="bg-card border border-border rounded-full px-4 py-2.5 flex items-center gap-2.5 w-fit max-w-full"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.4 }}
         >
-          <CheckCircle2 className="w-4 h-4 text-green-500 flex-shrink-0" />
+          <CheckCircle2 className="w-4 h-4 text-green-600 flex-shrink-0" />
           <p className="text-xs text-muted-foreground leading-snug">
-            Analisamos <strong className="text-gray-700">{lojaUrl.replace(/^https?:\/\//, "")}</strong>
+            Analisamos <strong className="text-foreground">{lojaUrl.replace(/^https?:\/\//, "")}</strong>
             {" · "}{TOTAL_QUESTIONS}/{TOTAL_QUESTIONS} perguntas respondidas{" · "}
             {new Date().toLocaleDateString("pt-BR")}
           </p>
@@ -2636,7 +2624,7 @@ export default function Assessment() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.1 }}
         >
-          <div className="bg-white border border-gray-200 rounded-2xl p-6 flex flex-col items-center justify-center text-center shadow-sm">
+          <div className="bg-card border border-border rounded-2xl p-6 flex flex-col items-center justify-center text-center">
             <ScoreRing score={finalAvg} color={overallColor} />
             <div className={`text-lg font-bold mt-3 mb-2 ${finalPersona.colorClass}`}>
               <span className="inline-flex items-center gap-2">{(() => { const I = personaIcon(finalPersona.label); return <I className="w-5 h-5" aria-hidden="true" />; })()}{finalPersona.label}</span>
@@ -2645,8 +2633,8 @@ export default function Assessment() {
             <p className="text-sm text-muted-foreground leading-relaxed">{finalPersona.description}</p>
           </div>
 
-          <div className="lg:col-span-2 bg-white border border-gray-200 rounded-2xl p-6 shadow-sm">
-            <p className="text-[10px] uppercase tracking-wider text-muted-foreground mb-4">
+          <div className="lg:col-span-2 bg-card border border-border rounded-2xl p-6">
+            <p className="text-base font-bold tracking-tight text-foreground mb-4">
               Mapa de Maturidade: 7 Dimensões
             </p>
             <div className="h-64">
@@ -2674,20 +2662,20 @@ export default function Assessment() {
         {/* Dinheiro na mesa */}
         {dinheiraNaMesa > 0 && (
           <motion.div
-            className="bg-background border border-border rounded-2xl px-6 py-7 text-center relative overflow-hidden"
+            className="bg-primary text-white rounded-2xl px-6 py-8 md:py-10 text-center relative overflow-hidden"
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.15 }}
           >
             <div className="relative z-10">
-              <p className="text-[10px] uppercase tracking-widest text-muted-foreground mb-3 font-semibold">
+              <p className="text-xs uppercase tracking-widest text-white/85 mb-3 font-semibold">
                 Estimativa de Receita Não Capturada
               </p>
-              <p className="text-5xl md:text-6xl font-extrabold text-primary mb-2">
+              <p className="text-5xl md:text-6xl font-extrabold tracking-tight text-white mb-2 tabular-nums">
                 R$ {dinheiraNaMesa.toLocaleString("pt-BR")}
               </p>
-              <p className="text-sm text-muted-foreground mb-4">por mês, dinheiro que está na mesa</p>
-              <p className="text-xs text-gray-600">
+              <p className="text-base text-white/90 mb-4">por mês, dinheiro que está na mesa</p>
+              <p className="text-sm text-white/85 max-w-xl mx-auto">
                 Calculado com base no seu faturamento e score de maturidade ({finalAvg}/100). <br />
                 Com as otimizações certas, esse valor pode ser capturado nos próximos 90 dias.
               </p>
@@ -2697,12 +2685,12 @@ export default function Assessment() {
 
         {/* Pillar bars */}
         <motion.div
-          className="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm"
+          className="bg-card border border-border rounded-2xl p-6"
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
         >
-          <p className="text-[10px] uppercase tracking-wider text-muted-foreground mb-5">Score por Dimensão</p>
+          <p className="text-base font-bold tracking-tight text-foreground mb-5">Score por Dimensão</p>
           <div className="space-y-4">
             {PILLARS.map((p, i) => {
               const s = pillarScores[i];
@@ -2711,8 +2699,8 @@ export default function Assessment() {
               return (
                 <div key={p.id} className="flex items-center gap-3">
                   <Icon className="w-4 h-4 text-primary flex-shrink-0" />
-                  <span className="text-sm text-gray-600 w-32 sm:w-40 flex-shrink-0">{p.label}</span>
-                  <div className="flex-1 h-2 bg-gray-100 rounded-full overflow-hidden">
+                  <span className="text-sm text-foreground w-32 sm:w-40 flex-shrink-0">{p.label}</span>
+                  <div className="flex-1 h-2.5 bg-border rounded-full overflow-hidden">
                     <motion.div
                       className="h-full rounded-full"
                       style={{ background: color }}
@@ -2726,14 +2714,14 @@ export default function Assessment() {
               );
             })}
           </div>
-          <p className="text-xs text-muted-foreground mt-5 pt-4 border-t border-gray-100">
-            A MAVI já ajudou <strong className="text-gray-600">mais de 200 lojas</strong> a evoluir exatamente nesses pontos.
+          <p className="text-sm text-muted-foreground mt-5 pt-4 border-t border-border">
+            A MAVI já ajudou <strong className="text-foreground">mais de 200 lojas</strong> a evoluir exatamente nesses pontos.
           </p>
         </motion.div>
 
         {/* Insights por pilar */}
         <div>
-          <p className="text-xs uppercase tracking-wider text-muted-foreground mb-4">
+          <p className="text-2xl font-extrabold tracking-tight text-foreground mb-5">
             Diagnóstico Detalhado: Pontos de Melhoria
           </p>
 
@@ -2749,7 +2737,7 @@ export default function Assessment() {
                   const Icon = p.icon;
                   const svc = PILLAR_SERVICE_MAP[p.id];
                   return (
-                    <div key={p.id} className="bg-gradient-to-br from-primary/5 to-primary/10 border-2 border-primary rounded-xl p-5 shadow-md relative">
+                    <div key={p.id} className="bg-primary/5 border border-primary rounded-2xl p-5 relative">
 
                       <div className="flex items-center gap-2 mb-3">
                         <Icon className="w-4 h-4 text-primary flex-shrink-0" />
@@ -2759,7 +2747,7 @@ export default function Assessment() {
                       </div>
                       <ul className="space-y-2 mb-4">
                         {insight.points.map((pt, j) => (
-                          <li key={j} className="flex items-start gap-2 text-xs text-gray-700 leading-relaxed font-medium">
+                          <li key={j} className="flex items-start gap-2 text-sm text-foreground leading-relaxed font-medium">
                             <span className="text-primary mt-0.5 flex-shrink-0">→</span>
                             {pt}
                           </li>
@@ -2770,7 +2758,7 @@ export default function Assessment() {
                           href={`https://wa.me/5547999293541?text=${encodeURIComponent(svc.waText)}`}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="flex items-center justify-center gap-1.5 bg-primary text-white text-xs font-bold py-2.5 px-4 rounded-xl hover:bg-primary/90 transition-colors touch-manipulation w-full"
+                          className="flex items-center justify-center gap-1.5 bg-primary text-white text-sm font-bold py-3 px-4 rounded-full hover:bg-primary/90 transition-colors touch-manipulation w-full min-h-[44px]"
                         >
                           Quero resolver isso agora <ArrowRight className="w-3.5 h-3.5" />
                         </a>
@@ -2789,11 +2777,12 @@ export default function Assessment() {
               const s = pillarScores[i];
               const insight = p.insight(s);
               const Icon = p.icon;
-              const borderColor = s >= 70 ? "border-green-500/30" : s >= 50 ? "border-yellow-500/30" : "border-red-500/30";
+              const borderColor = s >= 70 ? "bg-green-600" : s >= 50 ? "bg-amber-500" : "bg-red-600";
               const labelColor = s >= 70 ? "text-green-700" : s >= 50 ? "text-yellow-700" : "text-red-700";
               return (
-                <div key={p.id} className={`bg-white border border-t-2 ${borderColor} rounded-xl p-5 shadow-sm`}>
+                <div key={p.id} className="bg-card border border-border rounded-2xl p-5">
                   <div className="flex items-center gap-2 mb-3">
+                    <span className={`h-2 w-2 rounded-full flex-shrink-0 ${borderColor}`} aria-hidden="true" />
                     <Icon className="w-4 h-4 text-primary flex-shrink-0" />
                     <span className={`text-xs font-bold uppercase tracking-wide ${labelColor}`}>
                       {insight.title}
@@ -2801,15 +2790,15 @@ export default function Assessment() {
                   </div>
                   <ul className="space-y-2 mb-4">
                     {insight.points.map((pt, j) => (
-                      <li key={j} className="flex items-start gap-2 text-xs text-gray-600 leading-relaxed">
+                      <li key={j} className="flex items-start gap-2 text-sm text-muted-foreground leading-relaxed">
                         <span className="text-primary mt-0.5 flex-shrink-0">→</span>
                         {pt}
                       </li>
                     ))}
                   </ul>
-                  <div className="pt-3 border-t border-gray-100 flex items-center gap-2">
-                    <span className="text-[10px] text-muted-foreground uppercase tracking-wider">Área de foco:</span>
-                    <span className="text-[10px] text-primary font-semibold">{insight.cta}</span>
+                  <div className="pt-3 border-t border-border flex items-center gap-2">
+                    <span className="text-xs text-muted-foreground">Área de foco:</span>
+                    <span className="text-xs text-primary font-semibold">{insight.cta}</span>
                   </div>
                 </div>
               );
@@ -2831,7 +2820,7 @@ export default function Assessment() {
                 <p className="text-[10px] uppercase tracking-wider text-muted-foreground mb-1">
                   Próximos Passos
                 </p>
-                <h2 className="text-xl font-bold text-gray-900">
+                <h2 className="text-2xl md:text-3xl font-extrabold tracking-tight text-foreground">
                   Como a MAVI pode ajudar seu e-commerce
                 </h2>
                 <p className="text-sm text-muted-foreground mt-1">
@@ -2844,9 +2833,9 @@ export default function Assessment() {
                   const Icon = pillar.icon;
                   const priorityLabel = idx === 0 ? "Prioridade Alta" : idx === 1 ? "Prioridade Média" : "Prioridade";
                   const priorityColor = idx === 0 ? "bg-red-50 text-red-700 border-red-200" : idx === 1 ? "bg-yellow-50 text-yellow-700 border-yellow-200" : "bg-blue-50 text-blue-700 border-blue-200";
-                  const borderTop = idx === 0 ? "border-t-red-500" : idx === 1 ? "border-t-yellow-500" : "border-t-blue-500";
+                  const borderTop = idx === 0 ? "border-primary" : "border-border";
                   return (
-                    <div key={pillar.id} className={`bg-white border border-t-2 ${borderTop} border-gray-200 rounded-2xl p-5 shadow-sm flex flex-col`}>
+                    <div key={pillar.id} className={`bg-card border ${borderTop} rounded-2xl p-5 flex flex-col`}>
                       <div className="flex items-start justify-between gap-2 mb-3">
                         <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
                           <Icon className="w-5 h-5 text-primary" />
@@ -2855,21 +2844,21 @@ export default function Assessment() {
                           {priorityLabel}
                         </span>
                       </div>
-                      <h3 className="text-sm font-bold text-gray-900 mb-0.5">{svc.service}</h3>
-                      <p className="text-[11px] text-primary font-semibold mb-2">{svc.tagline}</p>
-                      <p className="text-xs text-muted-foreground leading-relaxed flex-1 mb-4">{svc.description}</p>
+                      <h3 className="text-base font-bold text-foreground mb-0.5">{svc.service}</h3>
+                      <p className="text-xs text-primary font-semibold mb-2">{svc.tagline}</p>
+                      <p className="text-sm text-muted-foreground leading-relaxed flex-1 mb-4">{svc.description}</p>
                       <div className="flex flex-col gap-2 mt-auto">
                         <a
                           href={`https://wa.me/5547999293541?text=${encodeURIComponent(svc.waText)}`}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="flex items-center justify-center gap-1.5 bg-primary text-white text-xs font-semibold py-2.5 px-4 rounded-xl hover:bg-primary/90 transition-colors touch-manipulation"
+                          className="flex items-center justify-center gap-1.5 bg-primary text-white text-sm font-semibold py-2.5 px-4 rounded-full hover:bg-primary/90 transition-colors touch-manipulation min-h-[44px]"
                         >
                           Quero saber mais <ArrowRight className="w-3.5 h-3.5" />
                         </a>
                         <a
                           href={svc.href}
-                          className="text-center text-xs text-muted-foreground hover:text-primary transition-colors"
+                          className="text-center text-sm font-medium text-muted-foreground hover:text-primary transition-colors py-1"
                         >
                           Ver serviço →
                         </a>
@@ -2883,10 +2872,10 @@ export default function Assessment() {
         })()}
 
         {/* CTA */}
-        <div className="relative bg-card border border-border border-t-2 border-t-primary rounded-2xl p-6 md:p-8 overflow-hidden">
+        <div className="relative bg-primary/5 border border-primary/20 rounded-2xl p-6 md:p-10 overflow-hidden">
           <div className="relative z-10 max-w-2xl mx-auto text-center">
             <BarChart3 className="w-8 h-8 text-primary mx-auto mb-4" />
-            <h2 className="text-xl md:text-2xl font-bold text-foreground mb-2">
+            <h2 className="text-2xl md:text-3xl font-extrabold tracking-tight text-foreground mb-2 text-balance">
               Quer um plano de ação para esses resultados?
             </h2>
             <p className="text-muted-foreground text-sm leading-relaxed mb-6">
@@ -2911,21 +2900,21 @@ export default function Assessment() {
 
         {/* ── Baixar PDF ── */}
         <motion.div
-          className="bg-white border border-gray-200 rounded-2xl p-5 flex flex-col sm:flex-row items-center gap-4 shadow-sm"
+          className="bg-card border border-border rounded-2xl p-5 flex flex-col sm:flex-row items-center gap-4"
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
         >
-          <div className="w-10 h-10 rounded-xl bg-gray-100 flex items-center justify-center flex-shrink-0">
-            <FileText className="w-5 h-5 text-muted-foreground" />
+          <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+            <FileText className="w-5 h-5 text-primary" />
           </div>
           <div className="flex-1 text-center sm:text-left">
-            <p className="text-sm font-semibold text-gray-800">Salve seu diagnóstico em PDF</p>
+            <p className="text-sm font-bold text-foreground">Salve seu diagnóstico em PDF</p>
             <p className="text-xs text-muted-foreground mt-0.5">Baixe o relatório completo com scores e recomendações por área</p>
           </div>
           <motion.button
             onClick={downloadPDF}
-            className="flex-shrink-0 flex items-center gap-2 px-4 py-2.5 rounded-xl border border-gray-200 bg-white text-gray-700 text-sm font-semibold hover:border-primary/40 hover:text-primary hover:bg-primary/5 transition-colors touch-manipulation whitespace-nowrap"
+            className="flex-shrink-0 flex items-center gap-2 px-5 py-2.5 rounded-full border border-input bg-card text-foreground text-sm font-semibold hover:border-primary hover:text-primary transition-colors touch-manipulation whitespace-nowrap min-h-[44px]"
             whileHover={{ scale: 1.04 }}
             whileTap={{ scale: 0.96 }}
           >
@@ -2941,5 +2930,6 @@ export default function Assessment() {
         </p>
       </motion.div>
     </div>
+    </MotionConfig>
   );
 }
