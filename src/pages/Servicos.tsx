@@ -1,10 +1,11 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Layout } from "@/components/Layout";
-import { Section, SectionHeader } from "@/components/Section";
+import { AnimatedSection } from "@/components/AnimatedSection";
+import { FinalCta } from "@/components/service/ServiceBlocks";
+import { cn } from "@/lib/utils";
+import { Check } from "lucide-react";
 import { SEO, generateBreadcrumbSchema, generateFAQSchema } from "@/components/SEO";
-import { SplitText } from "@/components/SplitText";
-import { HeroBackground } from "@/components/HeroBackground";
 import {
   ShoppingCart,
   TrendingUp,
@@ -15,7 +16,6 @@ import {
   Cpu,
   MessageSquare,
   ArrowRight,
-  CheckCircle2,
 } from "lucide-react";
 
 const services = [
@@ -178,108 +178,87 @@ export default function Servicos() {
         canonical="/servicos"
         schemaMarkup={combinedSchema}
       />
+
       {/* Hero */}
-      <section className="relative pt-32 pb-16 bg-mavi-black overflow-hidden">
-        <HeroBackground intensity="subtle" />
+      <section className="bg-background pb-12 pt-32 md:pb-16 md:pt-40">
         <div className="container-mavi">
-          <div className="max-w-3xl">
-            <h1 className="text-4xl md:text-5xl font-bold text-mavi-white mb-2 leading-[1.05]"><SplitText stagger={45} duration={750}>Nossos <span className="text-primary">Serviços</span></SplitText></h1>
-            <p className="text-xl text-mavi-white/70 leading-relaxed animate-fade-in-up animation-delay-200">
-              Soluções completas para e-commerces e negócios que querem crescer com estratégia, 
+          <AnimatedSection animation="fadeInUp" className="max-w-3xl">
+            <h1 className="mb-5 text-[2.5rem] font-extrabold leading-[1.04] tracking-[-0.03em] text-foreground sm:text-5xl lg:text-6xl">
+              Nossos <span className="text-primary">Serviços</span>
+            </h1>
+            <p className="max-w-[56ch] text-lg leading-relaxed text-muted-foreground md:text-xl">
+              Soluções completas para e-commerces e negócios que querem crescer com estratégia,
               tecnologia e performance de verdade.
             </p>
-          </div>
+          </AnimatedSection>
         </div>
       </section>
 
-      {/* Services */}
-      <Section>
-        <div className="space-y-16">
-          {services.map((service, index) => (
-            <div
-              key={service.id}
-              id={service.id}
-              className={`grid lg:grid-cols-2 gap-12 items-center ${
-                index % 2 === 1 ? "lg:grid-flow-dense" : ""
-              }`}
-            >
-              <div className={index % 2 === 1 ? "lg:col-start-2" : ""}>
-                <div className={`inline-flex items-center gap-2 px-4 py-2 rounded-full mb-4 ${
-                  service.highlight 
-                    ? "bg-primary/10 text-primary" 
-                    : "bg-muted text-muted-foreground"
-                }`}>
-                  <service.icon className="w-5 h-5" />
-                  <span className="text-sm font-medium">
+      {/* Serviços em linhas: resumo à esquerda, o que inclui à direita */}
+      <section className="bg-background pb-20 md:pb-28">
+        <div className="container-mavi border-t-2 border-foreground">
+          {services.map((service) => (
+            <AnimatedSection key={service.id}>
+              <div
+                id={service.id}
+                className={cn(
+                  "grid scroll-mt-28 gap-8 border-b border-border py-12 lg:grid-cols-[1.1fr,0.9fr] lg:gap-16 md:py-14",
+                )}
+              >
+                <div>
+                  <span
+                    className={cn(
+                      "mb-5 inline-flex items-center gap-2 rounded-full px-3.5 py-1.5 text-sm font-semibold",
+                      service.highlight ? "bg-primary text-primary-foreground" : "bg-primary/10 text-primary",
+                    )}
+                  >
+                    <service.icon className="h-4 w-4" aria-hidden="true" />
                     {service.highlight ? "Solução própria MAVI" : "Serviço"}
                   </span>
-                </div>
-                <h2 className="text-3xl font-bold text-foreground mb-4">{service.title}</h2>
-                <p className="text-muted-foreground leading-relaxed mb-6">
-                  {service.description}
-                </p>
-                <div className="space-y-3 mb-8">
-                  {service.benefits.map((benefit, i) => (
-                    <div key={i} className="flex items-center gap-3">
-                      <CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0" />
-                      <span className="text-foreground">{benefit}</span>
-                    </div>
-                  ))}
-                </div>
-                <div className="flex flex-wrap gap-4">
-                  <Button asChild>
-                    <Link to="/contato">Solicitar Proposta</Link>
-                  </Button>
-                  <Button asChild variant="outline">
-                    <Link to={service.href}>
-                      Ver detalhes
-                      <ArrowRight className="w-4 h-4" />
-                    </Link>
-                  </Button>
-                </div>
-              </div>
-              <div className={`${index % 2 === 1 ? "lg:col-start-1 lg:row-start-1" : ""}`}>
-                <div className={`rounded-2xl p-8 ${
-                  service.highlight 
-                    ? "bg-gradient-to-br from-primary/20 to-primary/5 border border-primary/30" 
-                    : "bg-mavi-gray border border-border"
-                }`}>
-                  <service.icon className={`w-16 h-16 mb-6 ${
-                    service.highlight ? "text-primary" : "text-primary/70"
-                  }`} />
-                  <div className="space-y-3">
-                    {service.benefits.slice(0, 3).map((benefit, i) => (
-                      <div
-                        key={i}
-                        className="flex items-center gap-3 bg-background/50 rounded-lg p-3"
-                      >
-                        <div className="w-2 h-2 rounded-full bg-primary" />
-                        <span className="text-sm text-foreground">{benefit}</span>
-                      </div>
-                    ))}
+                  <h2 className="mb-4 text-3xl font-extrabold tracking-tight text-foreground md:text-4xl">{service.title}</h2>
+                  <p className="mb-8 max-w-[52ch] text-lg leading-relaxed text-muted-foreground">{service.description}</p>
+                  <div className="flex flex-wrap gap-3">
+                    <Button asChild variant="hero" size="lg" className="group">
+                      <Link to="/contato">Solicitar Proposta</Link>
+                    </Button>
+                    <Button asChild variant="outline" size="lg" className="group">
+                      <Link to={service.href}>
+                        Ver detalhes
+                        <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+                      </Link>
+                    </Button>
                   </div>
                 </div>
+                <ul
+                  className={cn(
+                    "self-start rounded-2xl p-6 md:p-8",
+                    service.highlight ? "bg-primary text-white" : "border border-border bg-card",
+                  )}
+                >
+                  {service.benefits.map((benefit) => (
+                    <li
+                      key={benefit}
+                      className={cn(
+                        "flex items-center gap-3 border-b py-3 font-medium last:border-0",
+                        service.highlight ? "border-white/25" : "border-border text-foreground",
+                      )}
+                    >
+                      <Check className={cn("h-4 w-4 shrink-0", service.highlight ? "text-white" : "text-primary")} strokeWidth={2.6} aria-hidden="true" />
+                      {benefit}
+                    </li>
+                  ))}
+                </ul>
               </div>
-            </div>
+            </AnimatedSection>
           ))}
         </div>
-      </Section>
+      </section>
 
-      {/* CTA */}
-      <Section variant="dark">
-        <div className="text-center max-w-2xl mx-auto">
-          <h2 className="text-3xl font-bold text-mavi-white mb-4">
-            Não sabe por onde começar?
-          </h2>
-          <p className="text-mavi-white/70 mb-8">
-            Agende um diagnóstico gratuito e nossa equipe vai identificar as melhores oportunidades 
-            para o seu negócio.
-          </p>
-          <Button asChild variant="hero" size="lg">
-            <Link to="/diagnostico-gratuito">Agendar Diagnóstico Gratuito</Link>
-          </Button>
-        </div>
-      </Section>
+      <FinalCta
+        title="Não sabe por onde começar?"
+        text="Agende um diagnóstico gratuito e nossa equipe vai identificar as melhores oportunidades para o seu negócio."
+        primary={{ label: "Agendar Diagnóstico Gratuito", href: "/diagnostico-gratuito" }}
+      />
     </Layout>
   );
 }

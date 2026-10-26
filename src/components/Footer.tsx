@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { Phone, Mail, MapPin, Instagram, Facebook, Linkedin } from "lucide-react";
-import logoMavi from "@/assets/logo-mavi-branca.png";
+import logoMavi from "@/assets/logo-mavi-colorida.png";
 import seloMeta from "@/assets/selos/meta-partner.webp";
 import seloGoogle from "@/assets/selos/google-premier-partner.png";
 import seloRD from "@/assets/selos/rd-station-partner.webp";
@@ -39,7 +39,7 @@ export function Footer() {
   };
 
   return (
-    <footer className="bg-mavi-black text-mavi-white">
+    <footer className="bg-card text-mavi-white border-t border-border">
       <div className="container-mavi py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Logo & About */}

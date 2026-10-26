@@ -117,6 +117,23 @@ export default {
           "0%": { transform: "translateX(-50%)" },
           "100%": { transform: "translateX(0)" },
         },
+        "chat-pop": {
+          from: { opacity: "0", transform: "translateY(8px) scale(0.98)" },
+          to: { opacity: "1", transform: "none" },
+        },
+        "chat-dot": {
+          "0%, 60%, 100%": { transform: "none", opacity: "0.4" },
+          "30%": { transform: "translateY(-4px)", opacity: "1" },
+        },
+        "panel-in": {
+          from: { opacity: "0", transform: "translateY(10px)", filter: "blur(4px)" },
+          to: { opacity: "1", transform: "none", filter: "none" },
+        },
+        fill: { to: { width: "100%" } },
+        draw: { from: { strokeDashoffset: "260" }, to: { strokeDashoffset: "0" } },
+        "logo-slide": {
+          to: { transform: "translateX(-50%)" },
+        },
         "icon-bounce": {
           "0%, 100%": { transform: "scale(1) rotate(0deg)" },
           "25%": { transform: "scale(1.1) rotate(-5deg)" },
@@ -162,6 +179,9 @@ export default {
         },
       },
       animation: {
+        "chat-pop": "chat-pop 0.5s cubic-bezier(.22,1,.36,1) both",
+        "chat-dot": "chat-dot 1s cubic-bezier(.22,1,.36,1) infinite",
+        "panel-in": "panel-in 0.5s cubic-bezier(.22,1,.36,1) both",
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         "pulse-glow": "pulse-glow 2s ease-in-out infinite",

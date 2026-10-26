@@ -297,7 +297,7 @@ export function generateCaseStudyListSchema(cases: {
   return {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    "name": "Cases de Sucesso — MAVI Marketing Digital",
+    "name": "Cases de Sucesso: MAVI Marketing Digital",
     "description": "Resultados reais de clientes que cresceram com a MAVI Marketing Digital.",
     "numberOfItems": cases.length,
     "itemListElement": cases.map((c, index) => ({

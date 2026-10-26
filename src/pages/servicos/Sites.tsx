@@ -1,14 +1,13 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Layout } from "@/components/Layout";
-import { Section, SectionHeader } from "@/components/Section";
 import { AnimatedCounter } from "@/components/AnimatedCounter";
+import { AnimatedSection } from "@/components/AnimatedSection";
+import { ServiceHero, ProblemPicker, DeliverablesBenefits, FaqBlock, FinalCta, BlockHead } from "@/components/service/ServiceBlocks";
+import { Check } from "lucide-react";
 import { SEO, generateBreadcrumbSchema, generateFAQSchema, generateServiceSchema } from "@/components/SEO";
-import { SplitText } from "@/components/SplitText";
-import { HeroBackground } from "@/components/HeroBackground";
 import { 
   Globe, 
-  CheckCircle2,
   ArrowRight,
   AlertCircle,
   Clock,
@@ -22,12 +21,6 @@ import {
   FileText,
   Code
 } from "lucide-react";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
 
 const problems = [
   { icon: Clock, title: "Site desatualizado?", description: "Design antigo que passa imagem de empresa amadora." },
@@ -141,282 +134,156 @@ export default function ServicoSites() {
         schemaMarkup={combinedSchema}
       />
 
-      {/* Hero Section */}
-      <section className="pt-32 pb-20 bg-mavi-black relative overflow-hidden">
-        <HeroBackground intensity="subtle" />
-        
-        <div className="container-mavi relative z-10">
-          <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/20 text-primary mb-6">
-              <Globe className="w-4 h-4" />
-              <span className="text-sm font-medium">Sites e Landing Pages</span>
-            </div>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-mavi-white mb-2 leading-[1.05]"><SplitText stagger={45} duration={750}>Sites que{" "}
-              <span className="text-primary">convertem visitantes em clientes</span></SplitText></h1>
-            <p className="text-xl text-mavi-white/70 leading-relaxed mb-8 animate-fade-in-up animation-delay-200">
-              Páginas pensadas para converter. Sites institucionais profissionais e landing pages 
-              otimizadas para suas campanhas de mídia paga.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 animate-fade-in-up animation-delay-300">
-              <Button asChild variant="hero" size="xl">
-                <Link to="/contato">Quero criar meu site</Link>
-              </Button>
-              <Button asChild variant="heroOutline" size="lg">
-                <Link to="/servicos/performance">
-                  Preciso de tráfego pago
-                  <ArrowRight className="w-4 h-4" />
-                </Link>
-              </Button>
-            </div>
-          </div>
-        </div>
-      </section>
+      <ServiceHero
+        icon={Globe}
+        badge="Sites e Landing Pages"
+        title={<>Sites que <span className="text-primary">convertem visitantes em clientes</span></>}
+        lead="Páginas pensadas para converter. Sites institucionais profissionais e landing pages otimizadas para suas campanhas de mídia paga."
+        primary={{ label: "Quero criar meu site", href: "/contato" }}
+        secondary={{ label: "Preciso de tráfego pago", href: "/servicos/performance" }}
+        stats={stats.map((s) => ({
+          value: <AnimatedCounter end={s.end} prefix={s.prefix} suffix={s.suffix} />,
+          label: s.label,
+        }))}
+      />
 
-      {/* Stats Bar */}
-      <section className="py-8 bg-primary">
+      <ProblemPicker
+        title="Reconhece algum desses problemas?"
+        subtitle="Se você enfrenta alguma dessas situações, podemos ajudar."
+        problems={problems}
+      />
+
+      {/* Tipos de projeto: colunas comparáveis, separadas por linhas */}
+      <section className="bg-background py-20 md:py-28">
         <div className="container-mavi">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {stats.map((stat, index) => (
-              <div key={index} className="text-center">
-                <AnimatedCounter 
-                  end={stat.end}
-                  prefix={stat.prefix}
-                  suffix={stat.suffix}
-                  className="text-3xl md:text-4xl font-bold text-primary-foreground" 
-                />
-                <p className="text-primary-foreground/80 text-sm">{stat.label}</p>
-              </div>
+          <BlockHead title="Tipos de projeto" subtitle="Escolha a solução ideal para o seu negócio." />
+          <div className="grid border-t-2 border-foreground md:grid-cols-3">
+            {pageTypes.map((type) => (
+              <AnimatedSection key={type.title} className="border-b border-border py-8 md:border-b-0 md:border-r md:px-8 md:first:pl-0 md:last:border-r-0 md:last:pr-0">
+                <type.icon className="mb-5 h-8 w-8 text-primary" strokeWidth={1.6} aria-hidden="true" />
+                <h3 className="text-2xl font-extrabold tracking-tight text-foreground">{type.title}</h3>
+                <p className="mb-5 mt-2 text-muted-foreground">{type.description}</p>
+                <ul className="grid gap-2">
+                  {type.features.map((feature) => (
+                    <li key={feature} className="flex items-center gap-2.5 font-medium text-foreground">
+                      <Check className="h-4 w-4 shrink-0 text-primary" strokeWidth={2.6} aria-hidden="true" />
+                      {feature}
+                    </li>
+                  ))}
+                </ul>
+              </AnimatedSection>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* Problems Section */}
-      <Section>
-        <SectionHeader
-          title="Reconhece algum desses problemas?"
-          subtitle="Se você enfrenta alguma dessas situações, podemos ajudar."
-        />
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {problems.map((problem, index) => (
-            <div key={index} className="p-6 rounded-xl bg-destructive/5 border border-destructive/20 hover:border-destructive/40 transition-colors card-glow">
-              <problem.icon className="w-10 h-10 text-destructive mb-4 icon-hover" />
-              <h3 className="text-lg font-semibold text-foreground mb-2">{problem.title}</h3>
-              <p className="text-muted-foreground text-sm">{problem.description}</p>
-            </div>
-          ))}
-        </div>
-      </Section>
-
-      {/* Page Types */}
-      <Section variant="gray">
-        <SectionHeader
-          title="Tipos de projeto"
-          subtitle="Escolha a solução ideal para o seu negócio."
-        />
-        <div className="grid md:grid-cols-3 gap-6">
-          {pageTypes.map((type, index) => (
-            <div key={index} className="bg-card rounded-xl p-6 border border-border hover:border-primary/30 transition-colors card-glow">
-              <type.icon className="w-12 h-12 text-primary mb-4 icon-hover" />
-              <h3 className="text-xl font-semibold text-foreground mb-2">{type.title}</h3>
-              <p className="text-muted-foreground mb-4">{type.description}</p>
-              <ul className="space-y-2">
-                {type.features.map((feature, idx) => (
-                  <li key={idx} className="flex items-center gap-2 text-sm text-foreground">
-                    <CheckCircle2 className="w-4 h-4 text-primary flex-shrink-0" />
-                    {feature}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
-        <div className="text-center mt-8">
-          <Button asChild size="lg">
-            <Link to="/contato">Solicitar Orçamento</Link>
+          <Button asChild variant="hero" size="lg" className="group mt-10">
+            <Link to="/contato">
+              Solicitar Orçamento
+              <ArrowRight className="ml-1 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+            </Link>
           </Button>
         </div>
-      </Section>
+      </section>
 
-      {/* Process */}
-      <Section>
-        <SectionHeader
-          title="Como trabalhamos"
-          subtitle="Processo simples e transparente do início ao fim."
-        />
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {process.map((step, index) => (
-            <div key={index} className="relative">
-              <div className="text-center">
-                <div className="w-16 h-16 rounded-full bg-primary flex items-center justify-center mx-auto mb-4">
-                  <span className="text-2xl font-bold text-primary-foreground">{step.step}</span>
-                </div>
-                <h3 className="text-lg font-semibold text-foreground mb-2">{step.title}</h3>
-                <p className="text-sm text-muted-foreground">{step.description}</p>
-              </div>
-              {index < process.length - 1 && (
-                <div className="hidden lg:block absolute top-8 left-[60%] w-[80%] h-0.5 bg-primary/20" />
-              )}
-            </div>
-          ))}
-        </div>
-      </Section>
-
-      {/* Features + Benefits */}
-      <Section variant="dark">
-        <div className="grid lg:grid-cols-2 gap-12 items-start">
-          <div>
-            <SectionHeader
-              title="O que entregamos"
-              subtitle="Design e desenvolvimento focados em resultado."
-              centered={false}
-              light
-            />
-            <div className="space-y-3 mb-8">
-              {features.map((feature, index) => (
-                <div key={index} className="flex items-center gap-3">
-                  <CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0" />
-                  <span className="text-mavi-white/80">{feature}</span>
-                </div>
-              ))}
-            </div>
-            <Button asChild variant="hero" size="lg">
-              <Link to="/contato">Solicitar Proposta</Link>
-            </Button>
-          </div>
-          <div className="space-y-4">
-            <h3 className="text-2xl font-bold text-mavi-white mb-2 leading-[1.05]">Benefícios para o seu negócio</h3>
-            {benefits.map((benefit, index) => (
-              <div key={index} className="flex gap-4 p-4 rounded-xl bg-mavi-white/5 border border-mavi-white/10 hover:border-primary/30 transition-colors card-glow">
-                <div className="w-12 h-12 rounded-lg bg-primary/20 flex items-center justify-center flex-shrink-0">
-                  <benefit.icon className="w-6 h-6 text-primary icon-hover" />
-                </div>
-                <div>
-                  <h4 className="font-semibold text-mavi-white mb-1">{benefit.title}</h4>
-                  <p className="text-sm text-mavi-white/60">{benefit.description}</p>
-                </div>
-              </div>
+      {/* Processo: sequência real, então os passos são numerados */}
+      <section className="border-y border-border bg-card py-20 md:py-28">
+        <div className="container-mavi">
+          <BlockHead title="Como trabalhamos" subtitle="Processo simples e transparente do início ao fim." />
+          <ol className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6">
+            {process.map((step) => (
+              <AnimatedSection key={step.title}>
+                <li className="border-t-2 border-primary pt-6">
+                  <span className="text-5xl font-extrabold leading-none tracking-tight text-primary">{step.step}</span>
+                  <h3 className="mb-2 mt-4 text-lg font-bold tracking-tight text-foreground">{step.title}</h3>
+                  <p className="text-[15px] leading-relaxed text-muted-foreground">{step.description}</p>
+                </li>
+              </AnimatedSection>
             ))}
-          </div>
+          </ol>
         </div>
-      </Section>
+      </section>
 
-      {/* Integration with Ads */}
-      <Section>
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          <div>
-            <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/20 text-primary text-sm font-medium mb-4">
+      <DeliverablesBenefits
+        title="O que entregamos"
+        subtitle="Design e desenvolvimento focados em resultado."
+        features={features}
+        cta={{ label: "Solicitar Proposta", href: "/contato" }}
+        benefitsTitle="Benefícios para o seu negócio"
+        benefits={benefits}
+      />
+
+      {/* Integração com anúncios + tecnologias */}
+      <section className="border-y border-border bg-card py-20 md:py-28">
+        <div className="container-mavi grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
+          <AnimatedSection animation="fadeInUp">
+            <span className="mb-4 inline-flex items-center gap-2 rounded-full bg-primary/10 px-3.5 py-1.5 text-sm font-semibold text-primary">
               Integração completa
             </span>
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">
+            <h2 className="text-3xl font-extrabold leading-[1.06] tracking-tight text-foreground text-balance md:text-4xl lg:text-5xl">
               Sites prontos para suas campanhas
             </h2>
-            <p className="text-muted-foreground mb-6 leading-relaxed">
-              Todos os nossos sites já são entregues com pixels e tags configurados, 
-              prontos para receber tráfego de campanhas de Meta Ads e Google Ads 
-              com rastreamento completo de conversões.
+            <p className="mt-4 max-w-[58ch] text-lg leading-relaxed text-muted-foreground">
+              Todos os nossos sites já são entregues com pixels e tags configurados, prontos para receber tráfego de campanhas de Meta Ads e Google Ads com rastreamento completo de conversões.
             </p>
-            <ul className="space-y-3 mb-8">
+            <ul className="mb-8 mt-7 grid gap-3">
               {[
                 "Pixel do Facebook/Meta instalado",
                 "Google Analytics 4 configurado",
                 "Google Tag Manager implementado",
                 "Eventos de conversão configurados",
-                "Integração com CRM (opcional)"
-              ].map((item, index) => (
-                <li key={index} className="flex items-center gap-3 text-foreground">
-                  <CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0" />
+                "Integração com CRM (opcional)",
+              ].map((item) => (
+                <li key={item} className="flex items-center gap-3 font-medium text-foreground">
+                  <span className="grid h-[26px] w-[26px] shrink-0 place-items-center rounded-full bg-primary/10 text-primary">
+                    <Check className="h-3.5 w-3.5" strokeWidth={2.6} aria-hidden="true" />
+                  </span>
                   {item}
                 </li>
               ))}
             </ul>
-            <div className="flex flex-wrap gap-4">
-              <Button asChild size="lg">
-                <Link to="/contato">Criar meu site otimizado</Link>
-              </Button>
-              <Button asChild variant="outline">
-                <Link to="/servicos/performance">
-                  Ver serviço de Performance
-                  <ArrowRight className="w-4 h-4" />
+            <div className="flex flex-col gap-3 sm:flex-row">
+              <Button asChild variant="hero" size="lg" className="group">
+                <Link to="/contato">
+                  Criar meu site otimizado
+                  <ArrowRight className="ml-1 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
                 </Link>
               </Button>
+              <Button asChild variant="outline" size="lg" className="rounded-full">
+                <Link to="/servicos/performance">Ver serviço de Performance</Link>
+              </Button>
             </div>
-          </div>
-          <div className="bg-card rounded-2xl p-8 border border-border">
-            <Code className="w-12 h-12 text-primary mb-6" />
-            <h3 className="text-xl font-bold text-foreground mb-4">Tecnologias modernas</h3>
-            <p className="text-muted-foreground mb-6">
-              Usamos as tecnologias mais modernas do mercado para garantir 
-              velocidade, segurança e facilidade de manutenção.
-            </p>
-            <div className="grid grid-cols-2 gap-4">
-              <div className="bg-background rounded-lg p-4 text-center">
-                <p className="font-semibold text-foreground">WordPress</p>
-                <p className="text-sm text-muted-foreground">Sites dinâmicos</p>
-              </div>
-              <div className="bg-background rounded-lg p-4 text-center">
-                <p className="font-semibold text-foreground">React</p>
-                <p className="text-sm text-muted-foreground">Landing pages</p>
-              </div>
-              <div className="bg-background rounded-lg p-4 text-center">
-                <p className="font-semibold text-foreground">Next.js</p>
-                <p className="text-sm text-muted-foreground">Alta performance</p>
-              </div>
-              <div className="bg-background rounded-lg p-4 text-center">
-                <p className="font-semibold text-foreground">Tailwind</p>
-                <p className="text-sm text-muted-foreground">Design moderno</p>
-              </div>
+          </AnimatedSection>
+          <AnimatedSection animation="fadeInUp" delay={100}>
+            <div className="rounded-2xl bg-primary p-8 text-white md:p-10">
+              <Code className="mb-6 h-10 w-10" strokeWidth={1.6} aria-hidden="true" />
+              <h3 className="text-2xl font-extrabold tracking-tight">Tecnologias modernas</h3>
+              <p className="mb-6 mt-3 leading-relaxed text-white/90">
+                Usamos as tecnologias mais modernas do mercado para garantir velocidade, segurança e facilidade de manutenção.
+              </p>
+              <dl className="grid">
+                {[
+                  { name: "WordPress", use: "Sites dinâmicos" },
+                  { name: "React", use: "Landing pages" },
+                  { name: "Next.js", use: "Alta performance" },
+                  { name: "Tailwind", use: "Design moderno" },
+                ].map((t) => (
+                  <div key={t.name} className="flex items-center justify-between gap-4 border-b border-white/25 py-3 last:border-0">
+                    <dt className="font-bold">{t.name}</dt>
+                    <dd className="text-sm text-white/85">{t.use}</dd>
+                  </div>
+                ))}
+              </dl>
             </div>
-          </div>
+          </AnimatedSection>
         </div>
-      </Section>
+      </section>
 
-      {/* FAQ Section */}
-      <Section variant="gray">
-        <SectionHeader
-          title="Perguntas frequentes"
-          subtitle="Tire suas dúvidas sobre criação de sites."
-        />
-        <div className="max-w-3xl mx-auto">
-          <Accordion type="single" collapsible className="space-y-4">
-            {faqs.map((faq, index) => (
-              <AccordionItem 
-                key={index} 
-                value={`item-${index}`}
-                className="bg-card border border-border rounded-xl px-6 data-[state=open]:border-primary/50"
-              >
-                <AccordionTrigger className="text-left hover:no-underline py-4">
-                  <span className="font-semibold text-foreground">{faq.question}</span>
-                </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground pb-4">
-                  {faq.answer}
-                </AccordionContent>
-              </AccordionItem>
-            ))}
-          </Accordion>
-        </div>
-      </Section>
+      <FaqBlock title="Perguntas frequentes" subtitle="Tire suas dúvidas sobre criação de sites." faqs={faqs} />
 
-      {/* Final CTA */}
-      <Section variant="dark">
-        <div className="text-center max-w-3xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-bold text-mavi-white mb-4">
-            Precisa de um site ou landing page?
-          </h2>
-          <p className="text-lg text-mavi-white/70 mb-8">
-            Entre em contato e receba uma proposta personalizada para o seu projeto. 
-            Sites a partir de 15 dias úteis.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button asChild variant="hero" size="xl">
-              <Link to="/contato">Solicitar Proposta</Link>
-            </Button>
-            <Button asChild variant="heroOutline" size="lg">
-              <Link to="/servicos">Ver outros serviços</Link>
-            </Button>
-          </div>
-        </div>
-      </Section>
+      <FinalCta
+        title="Precisa de um site ou landing page?"
+        text="Entre em contato e receba uma proposta personalizada para o seu projeto. Sites a partir de 15 dias úteis."
+        primary={{ label: "Solicitar Proposta", href: "/contato" }}
+        secondary={{ label: "Ver outros serviços", href: "/servicos" }}
+      />
     </Layout>
   );
 }

@@ -1,12 +1,12 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Layout } from "@/components/Layout";
-import { Section, SectionHeader } from "@/components/Section";
+import { useState } from "react";
+import { FaqBlock, FinalCta, BlockHead } from "@/components/service/ServiceBlocks";
+import { cn } from "@/lib/utils";
+import { Check } from "lucide-react";
 import { SEO, generateBreadcrumbSchema, generateFAQSchema, generateServiceSchema } from "@/components/SEO";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { AnimatedSection } from "@/components/AnimatedSection";
-import { SplitText } from "@/components/SplitText";
-import { HeroBackground } from "@/components/HeroBackground";
 import { 
   Cpu, CheckCircle2, ArrowRight, Zap, Brain, RefreshCw, Shield, 
   Users, Target, Workflow, MessageSquare, BarChart, FileText,
@@ -119,259 +119,255 @@ export default function ServicoMicroSaas() {
         schemaMarkup={combinedSchema}
       />
 
-      {/* Hero Section */}
-      <section className="relative bg-mavi-black pt-32 pb-20 overflow-hidden">
-        <HeroBackground intensity="subtle" />
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="max-w-4xl mx-auto text-center">
-            <AnimatedSection animation="fadeInUp">
-              <div className="inline-flex items-center gap-2 bg-primary/20 text-primary px-4 py-2 rounded-full text-sm font-medium mb-6">
-                <Cpu className="w-4 h-4" />
-                Micro SaaS Sob Medida
+      {/* Hero: promessa à esquerda, o "sistema da empresa" montado à direita (mesma linguagem do card da home) */}
+      <section className="relative overflow-hidden bg-background pb-16 pt-32 md:pb-24 md:pt-40">
+        <div
+          className="pointer-events-none absolute inset-x-0 top-0 h-80"
+          style={{ background: "linear-gradient(180deg, hsl(336 100% 45% / 0.035), transparent)" }}
+          aria-hidden="true"
+        />
+        <div className="container-mavi relative grid items-center gap-12 lg:grid-cols-[1.15fr,0.85fr] lg:gap-20">
+          <AnimatedSection animation="fadeInUp">
+            <span className="inline-flex items-center gap-2 rounded-full border border-border bg-card py-1.5 pl-2.5 pr-3.5 text-[13px] font-semibold text-muted-foreground">
+              <span className="grid h-6 w-6 place-items-center rounded-full bg-primary/10 text-primary">
+                <Cpu className="h-3.5 w-3.5" aria-hidden="true" />
+              </span>
+              Micro SaaS Sob Medida
+            </span>
+            <h1 className="mb-5 mt-6 text-[2.5rem] font-extrabold leading-[1.04] tracking-[-0.03em] text-foreground text-balance sm:text-5xl lg:text-[4rem]">
+              Desenvolvimento de Micro SaaS, <span className="text-primary">do jeito do seu negócio</span>
+            </h1>
+            <p className="max-w-[54ch] text-lg leading-relaxed text-muted-foreground md:text-xl">
+              Chega de planilha eterna e processo manual. A gente transforma sua operação num sistema leve e sob medida, com integrações e painel personalizado. Usamos IA no nosso processo para entregar mais rápido e com mais qualidade.
+            </p>
+            <Button asChild variant="hero" size="xl" className="group mt-8">
+              <Link to="/contato">
+                Quero construir meu Micro SaaS
+                <ArrowRight className="ml-1 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+              </Link>
+            </Button>
+          </AnimatedSection>
+
+          <AnimatedSection animation="fadeInUp" delay={200} className="hidden lg:block">
+            <div className="rotate-[1.2deg] rounded-2xl border border-border bg-card p-6 shadow-[0_8px_8px_-6px_hsl(325_25%_9%/0.1)] transition-transform duration-700 ease-out hover:rotate-0" aria-hidden="true">
+              <div className="mb-3 flex items-center gap-2.5">
+                <span className="grid h-9 w-9 place-items-center rounded-xl bg-primary text-primary-foreground">
+                  <Cpu className="h-5 w-5" />
+                </span>
+                <p className="text-sm font-semibold text-foreground">Micro SaaS Sob Medida</p>
               </div>
-            </AnimatedSection>
-            <AnimatedSection animation="fadeInUp" delay={100}>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-mavi-white mb-2 leading-[1.05]"><SplitText stagger={45} duration={750}>Desenvolvimento de Micro SaaS — do jeito do seu negócio</SplitText></h1>
-            </AnimatedSection>
-            <AnimatedSection animation="fadeInUp" delay={200}>
-              <p className="text-xl text-mavi-gray-light mb-8 max-w-3xl mx-auto">
-                Chega de planilha eterna e processo manual. A gente transforma sua operação num sistema leve e sob medida, com integrações e painel personalizado. Usamos IA no nosso processo para entregar mais rápido e com mais qualidade.
-              </p>
-            </AnimatedSection>
-            <AnimatedSection animation="fadeInUp" delay={300}>
-              <Button asChild size="xl" variant="hero" className="animate-pulse-glow">
-                <Link to="/contato">
-                  Quero construir meu Micro SaaS
-                  <ArrowRight className="ml-2 w-5 h-5" />
-                </Link>
-              </Button>
-            </AnimatedSection>
+              {examples.slice(0, 4).map((e) => (
+                <div key={e.title} className="mt-2 flex items-center justify-between rounded-xl bg-background px-4 py-3 text-sm">
+                  <span className="flex items-center gap-2.5 text-muted-foreground">
+                    <e.icon className="h-4 w-4 text-primary" />
+                    {e.title}
+                  </span>
+                  <CheckCircle2 className="h-4 w-4 text-green-600" />
+                </div>
+              ))}
+            </div>
+          </AnimatedSection>
+        </div>
+      </section>
+
+      {/* O que é um Micro SaaS: catálogo em linhas, a última ("Sua ideia") em destaque */}
+      <section className="border-y border-border bg-card py-20 md:py-28">
+        <div className="container-mavi">
+          <BlockHead title="O que é um Micro SaaS (na prática)" subtitle="Veja alguns tipos de sistema que já criamos:" />
+          <div className="grid gap-x-12 border-t-2 border-foreground md:grid-cols-2">
+            {examples.map((ex, i) => {
+              const last = i === examples.length - 1;
+              return (
+                <AnimatedSection key={ex.title}>
+                  <div
+                    className={cn(
+                      "group flex items-start gap-4 border-b border-border py-5 transition-transform duration-300 ease-out hover:translate-x-1",
+                      last && "-mx-4 rounded-xl border-0 bg-primary px-4 text-primary-foreground hover:translate-x-0",
+                    )}
+                  >
+                    <ex.icon className={cn("mt-0.5 h-6 w-6 shrink-0", last ? "text-primary-foreground" : "text-primary")} strokeWidth={1.8} aria-hidden="true" />
+                    <div>
+                      <h3 className={cn("text-lg font-bold tracking-tight", last ? "text-primary-foreground" : "text-foreground")}>{ex.title}</h3>
+                      <p className={cn("mt-0.5 text-[15px] leading-relaxed", last ? "text-white/90" : "text-muted-foreground")}>{ex.description}</p>
+                    </div>
+                  </div>
+                </AnimatedSection>
+              );
+            })}
           </div>
         </div>
       </section>
 
-      {/* O que é um Micro SaaS */}
-      <Section>
-        <AnimatedSection animation="fadeInUp">
-          <SectionHeader
-            title="O que é um Micro SaaS (na prática)"
-            subtitle="Veja alguns tipos de sistema que já criamos:"
-          />
-        </AnimatedSection>
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {examples.map((example, index) => (
-            <AnimatedSection 
-              key={index} 
-              animation="fadeInUp" 
-              delay={(index % 4) * 100 as 0 | 100 | 200 | 300}
-            >
-              <div className="bg-mavi-white border border-mavi-gray-light/20 rounded-xl p-6 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group h-full">
-                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/20 group-hover:scale-110 transition-all duration-300">
-                  <example.icon className="w-6 h-6 text-primary" />
-                </div>
-                <h3 className="text-lg font-semibold text-mavi-black mb-2">
-                  {example.title}
-                </h3>
-                <p className="text-muted-foreground text-sm">{example.description}</p>
-              </div>
-            </AnimatedSection>
-          ))}
-        </div>
-      </Section>
-
-      {/* Como usamos IA no desenvolvimento */}
-      <Section variant="gray">
-        <AnimatedSection animation="fadeInUp">
-          <SectionHeader
-            title="Como usamos IA no desenvolvimento"
-            subtitle="IA é uma ferramenta interna — usamos pra entregar mais rápido e com menos bugs"
-          />
-        </AnimatedSection>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {devMethodCards.map((card, index) => (
-            <AnimatedSection 
-              key={index} 
-              animation="scaleIn" 
-              delay={(index % 3) * 100 as 0 | 100 | 200}
-            >
-              <div className="bg-mavi-white border border-mavi-gray-light/20 rounded-xl p-6 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group h-full">
-                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/20 group-hover:scale-110 transition-all duration-300">
-                  <card.icon className="w-6 h-6 text-primary" />
-                </div>
-                <h3 className="text-lg font-semibold text-mavi-black mb-2">
-                  {card.title}
-                </h3>
-                <p className="text-muted-foreground">{card.description}</p>
-              </div>
-            </AnimatedSection>
-          ))}
-        </div>
-      </Section>
-
-      {/* O que você recebe */}
-      <Section>
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          <AnimatedSection animation="fadeInLeft">
-            <div>
-              <h2 className="text-3xl font-bold text-foreground mb-4">O que você recebe (entregáveis)</h2>
-              <p className="text-muted-foreground mb-6">Tudo personalizado de acordo com a sua necessidade. Esta é uma base que ajustamos conforme o projeto:</p>
-              <ul className="space-y-4">
-                {deliverables.map((item, index) => (
-                  <li key={index} className="flex items-start gap-3 group">
-                    <CheckCircle2 className="w-5 h-5 text-primary mt-0.5 flex-shrink-0 group-hover:scale-110 transition-transform" />
-                    <span className="text-muted-foreground">{item}</span>
-                  </li>
-                ))}
-              </ul>
-              <div className="mt-8">
-                <Button asChild size="lg" className="group">
-                  <Link to="/contato">
-                    Solicitar Proposta
-                    <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                  </Link>
-                </Button>
-              </div>
-            </div>
+      {/* Como usamos IA: faixa magenta, eco do "Pare de ser refém" da home */}
+      <section className="bg-primary py-20 text-white md:py-28">
+        <div className="container-mavi grid items-start gap-12 lg:grid-cols-[0.8fr,1.2fr] lg:gap-20">
+          <AnimatedSection animation="fadeInUp">
+            <span className="grid h-12 w-12 place-items-center rounded-2xl bg-white/15" aria-hidden="true">
+              <Brain className="h-6 w-6" />
+            </span>
+            <h2 className="mb-4 mt-5text-3xl font-extrabold leading-[1.06] tracking-tight text-balance md:text-4xl lg:text-5xl">
+              Como usamos IA no desenvolvimento
+            </h2>
+            <p className="max-w-[44ch] text-lg leading-relaxed text-white/90">
+              IA é uma ferramenta interna: usamos pra entregar mais rápido e com menos bugs
+            </p>
           </AnimatedSection>
-          <AnimatedSection animation="fadeInRight" delay={200}>
-            <div className="bg-gradient-to-br from-primary/10 to-primary/5 rounded-2xl p-8 lg:p-12 animate-float">
-              <div className="grid grid-cols-2 gap-6">
-                <div className="text-center">
-                  <div className="text-4xl font-bold text-primary mb-2">100%</div>
-                  <div className="text-sm text-muted-foreground">Sob medida</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-4xl font-bold text-primary mb-2">LGPD</div>
-                  <div className="text-sm text-muted-foreground">Compliance</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-4xl font-bold text-primary mb-2">API</div>
-                  <div className="text-sm text-muted-foreground">Integrações</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-4xl font-bold text-primary mb-2">IA</div>
-                  <div className="text-sm text-muted-foreground">Quando faz sentido</div>
-                </div>
-              </div>
-            </div>
-          </AnimatedSection>
-        </div>
-      </Section>
-
-      {/* Como é o projeto */}
-      <Section variant="gray">
-        <AnimatedSection animation="fadeInUp">
-          <SectionHeader
-            title="Como é o projeto (passo a passo)"
-            subtitle="Metodologia ágil com entregas rápidas e evolução contínua"
-          />
-        </AnimatedSection>
-        <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-6">
-          {process.map((item, index) => (
-            <AnimatedSection 
-              key={index} 
-              animation="fadeInUp" 
-              delay={(index * 100) as 0 | 100 | 200 | 300 | 400}
-            >
-              <div className="relative h-full">
-                <div className="bg-mavi-white rounded-xl p-6 h-full border border-mavi-gray-light/20 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group">
-                  <div className="w-10 h-10 rounded-full bg-primary text-mavi-white flex items-center justify-center font-bold text-lg mb-4 group-hover:scale-110 transition-transform">
-                    {item.step}
+          <div className="border-t border-white/40">
+            {devMethodCards.map((card) => (
+              <AnimatedSection key={card.title}>
+                <div className="group flex gap-4 border-b border-white/25 py-5">
+                  <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-white/15 transition-colors duration-300 group-hover:bg-white group-hover:text-primary">
+                    <card.icon className="h-5 w-5" aria-hidden="true" />
+                  </span>
+                  <div>
+                    <h3 className="text-lg font-bold tracking-tight">{card.title}</h3>
+                    <p className="mt-0.5 leading-relaxed text-white/90">{card.description}</p>
                   </div>
-                  <h3 className="text-lg font-semibold text-mavi-black mb-2">
-                    {item.title}
-                  </h3>
-                  <p className="text-sm text-muted-foreground">{item.description}</p>
                 </div>
-                {index < process.length - 1 && (
-                  <div className="hidden lg:block absolute top-1/2 -right-3 transform -translate-y-1/2">
-                    <ArrowRight className="w-6 h-6 text-primary/30" />
-                  </div>
-                )}
-              </div>
-            </AnimatedSection>
-          ))}
-        </div>
-      </Section>
-
-      {/* Pra quem isso é perfeito */}
-      <Section>
-        <AnimatedSection animation="fadeInUp">
-          <SectionHeader
-            title="Pra quem isso é perfeito"
-            subtitle="Se você se identificar com algum desses cenários, a gente pode ajudar"
-          />
-        </AnimatedSection>
-        <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-          {targetAudience.map((item, index) => (
-            <AnimatedSection 
-              key={index} 
-              animation="fadeInUp" 
-              delay={(index * 100) as 0 | 100 | 200 | 300}
-            >
-              <div className="flex items-center gap-4 bg-mavi-white border border-mavi-gray-light/20 rounded-xl p-6 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group">
-                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0 group-hover:bg-primary/20 group-hover:scale-110 transition-all duration-300">
-                  <item.icon className="w-6 h-6 text-primary" />
-                </div>
-                <p className="text-foreground font-medium">{item.text}</p>
-              </div>
-            </AnimatedSection>
-          ))}
-        </div>
-      </Section>
-
-      {/* FAQ */}
-      <Section variant="gray">
-        <AnimatedSection animation="fadeInUp">
-          <SectionHeader
-            title="Perguntas frequentes"
-            subtitle="Tire suas dúvidas sobre o desenvolvimento de Micro SaaS"
-          />
-        </AnimatedSection>
-        <div className="max-w-3xl mx-auto">
-          <Accordion type="single" collapsible className="space-y-4">
-            {faqs.map((faq, index) => (
-              <AnimatedSection 
-                key={index} 
-                animation="fadeInUp" 
-                delay={(index * 100) as 0 | 100 | 200 | 300 | 400}
-              >
-                <AccordionItem
-                  value={`item-${index}`}
-                  className="bg-mavi-white border border-mavi-gray-light/20 rounded-xl px-6 data-[state=open]:shadow-lg transition-all duration-300"
-                >
-                  <AccordionTrigger className="text-left font-semibold text-mavi-black hover:no-underline py-5">
-                    {faq.question}
-                  </AccordionTrigger>
-                  <AccordionContent className="text-muted-foreground pb-5">
-                    {faq.answer}
-                  </AccordionContent>
-                </AccordionItem>
               </AnimatedSection>
             ))}
-          </Accordion>
+          </div>
         </div>
-      </Section>
+      </section>
 
-      {/* CTA Final */}
-      <Section variant="dark">
-        <AnimatedSection animation="scaleIn">
-          <div className="text-center max-w-3xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold text-mavi-white mb-6">
-              Vamos tirar seu processo da unha e colocar num sistema de verdade?
+      {/* O que você recebe */}
+      <section className="bg-background py-20 md:py-28">
+        <div className="container-mavi grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
+          <AnimatedSection animation="fadeInUp">
+            <h2 className="text-3xl font-extrabold leading-[1.06] tracking-tight text-foreground text-balance md:text-4xl lg:text-5xl">
+              O que você recebe (entregáveis)
             </h2>
-            <p className="text-xl text-mavi-gray-light mb-8">
-              Conta pra gente seu cenário e a gente te devolve um plano de MVP com prioridades, tempo e caminho de evolução.
+            <p className="mb-7 mt-4 max-w-[54ch] text-lg leading-relaxed text-muted-foreground">
+              Tudo personalizado de acordo com a sua necessidade. Esta é uma base que ajustamos conforme o projeto:
             </p>
-            <Button asChild size="xl" variant="hero" className="animate-pulse-glow group">
+            <ul className="mb-8 grid gap-3">
+              {deliverables.map((item) => (
+                <li key={item} className="flex items-start gap-3 font-medium text-foreground">
+                  <span className="mt-0.5 grid h-[26px] w-[26px] shrink-0 place-items-center rounded-full bg-primary/10 text-primary">
+                    <Check className="h-3.5 w-3.5" strokeWidth={2.6} aria-hidden="true" />
+                  </span>
+                  {item}
+                </li>
+              ))}
+            </ul>
+            <Button asChild variant="hero" size="lg" className="group">
               <Link to="/contato">
-                Solicitar diagnóstico do Micro SaaS
-                <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                Solicitar Proposta
+                <ArrowRight className="ml-1 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
               </Link>
             </Button>
-          </div>
-        </AnimatedSection>
-      </Section>
+          </AnimatedSection>
+          <AnimatedSection animation="fadeInUp" delay={100}>
+            <div className="grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-border bg-border">
+              {[
+                { v: "100%", l: "Sob medida" },
+                { v: "LGPD", l: "Compliance" },
+                { v: "API", l: "Integrações" },
+                { v: "IA", l: "Quando faz sentido" },
+              ].map((s, i) => (
+                <div key={s.v} className={cn("px-6 py-8 md:px-8 md:py-10", i === 0 ? "bg-primary text-primary-foreground" : "bg-card")}>
+                  <p className={cn("text-4xl font-extrabold tracking-tight md:text-5xl", i === 0 ? "text-primary-foreground" : "text-primary")}>{s.v}</p>
+                  <p className={cn("mt-1 text-sm", i === 0 ? "text-white/90" : "text-muted-foreground")}>{s.l}</p>
+                </div>
+              ))}
+            </div>
+          </AnimatedSection>
+        </div>
+      </section>
+
+      {/* Como é o projeto: sequência real, linha do tempo numerada */}
+      <section className="border-y border-border bg-card py-20 md:py-28">
+        <div className="container-mavi">
+          <BlockHead title="Como é o projeto (passo a passo)" subtitle="Metodologia ágil com entregas rápidas e evolução contínua" />
+          <ol className="relative grid gap-8 lg:grid-cols-5 lg:gap-6">
+            <span className="absolute left-5 top-5 hidden h-0.5 w-[calc(100%-2.5rem)] bg-border lg:block" aria-hidden="true" />
+            <span className="absolute bottom-5 left-5 top-5 w-0.5 bg-border lg:hidden" aria-hidden="true" />
+            {process.map((item) => (
+              <AnimatedSection key={item.step}>
+                <li className="relative flex gap-5 lg:block">
+                  <span className="relative z-10 grid h-10 w-10 shrink-0 place-items-center rounded-full bg-primary text-lg font-bold text-primary-foreground ring-8 ring-card">
+                    {item.step}
+                  </span>
+                  <div className="lg:mt-5">
+                    <h3 className="text-lg font-bold tracking-tight text-foreground">{item.title}</h3>
+                    <p className="mt-1 text-[15px] leading-relaxed text-muted-foreground">{item.description}</p>
+                  </div>
+                </li>
+              </AnimatedSection>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      <AudiencePicker />
+
+      <FaqBlock title="Perguntas frequentes" subtitle="Tire suas dúvidas sobre o desenvolvimento de Micro SaaS" faqs={faqs} />
+
+      <FinalCta
+        title="Vamos tirar seu processo da unha e colocar num sistema de verdade?"
+        text="Conta pra gente seu cenário e a gente te devolve um plano de MVP com prioridades, tempo e caminho de evolução."
+        primary={{ label: "Solicitar diagnóstico do Micro SaaS", href: "/contato" }}
+      />
     </Layout>
+  );
+}
+
+/** "Pra quem isso é perfeito": o visitante marca os cenários que vive, como no bloco de problemas. */
+function AudiencePicker() {
+  const [on, setOn] = useState<number[]>([]);
+  const toggle = (i: number) => setOn((cur) => (cur.includes(i) ? cur.filter((x) => x !== i) : [...cur, i]));
+  const n = on.length;
+
+  return (
+    <section className="bg-background py-20 md:py-28">
+      <div className="container-mavi">
+        <BlockHead title="Pra quem isso é perfeito" subtitle="Se você se identificar com algum desses cenários, a gente pode ajudar" />
+        <div className="grid gap-3 sm:grid-cols-2">
+          {targetAudience.map((item, i) => {
+            const pressed = on.includes(i);
+            return (
+              <div
+                key={item.text}
+                role="button"
+                tabIndex={0}
+                aria-pressed={pressed}
+                onClick={() => toggle(i)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    toggle(i);
+                  }
+                }}
+                className={cn(
+                  "flex cursor-pointer items-center gap-4 rounded-2xl border p-4 text-left transition-[border-color,background-color,transform] duration-300 ease-out hover:-translate-y-0.5 md:p-5",
+                  pressed ? "border-primary bg-primary/5" : "border-border bg-card hover:border-primary/50",
+                )}
+              >
+                <span
+                  className={cn(
+                    "grid h-11 w-11 shrink-0 place-items-center rounded-xl transition-colors duration-300",
+                    pressed ? "bg-primary text-primary-foreground" : "bg-primary/10 text-primary",
+                  )}
+                >
+                  {pressed ? <Check className="h-5 w-5" strokeWidth={2.6} aria-hidden="true" /> : <item.icon className="h-5 w-5" aria-hidden="true" />}
+                </span>
+                <p className="font-medium text-foreground">{item.text}</p>
+              </div>
+            );
+          })}
+        </div>
+        <div className="mt-6 flex min-h-12 flex-wrap items-center gap-x-5 gap-y-3" aria-live="polite">
+          <p className="font-semibold text-foreground">
+            {n === 0 ? "Toque nos que acontecem com você." : `${n} de ${targetAudience.length}. Isso tem conserto, e a primeira conversa é gratuita.`}
+          </p>
+          {n > 0 && (
+            <Link to="/contato" className="inline-flex items-center gap-1.5 font-semibold text-primary animate-chat-pop hover:underline">
+              Falar com a MAVI
+              <ArrowRight className="h-4 w-4" aria-hidden="true" />
+            </Link>
+          )}
+        </div>
+      </div>
+    </section>
   );
 }

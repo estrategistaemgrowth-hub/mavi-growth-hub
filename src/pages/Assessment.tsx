@@ -15,7 +15,7 @@ const ASSESSMENT_SCHEMA = {
       "@type": "WebPage",
       "@id": "https://www.agenciamavi.com.br/assessment",
       "url": "https://www.agenciamavi.com.br/assessment",
-      "name": "Diagnóstico Gratuito de E-commerce — Assessment MAVI",
+      "name": "Diagnóstico Gratuito de E-commerce: Assessment MAVI",
       "description":
         "Descubra gratuitamente as falhas do seu e-commerce. Avaliação em 7 dimensões: produtos, redes sociais, marketplaces (Shopee, Mercado Livre, TikTok Shop), SEO, tráfego pago, investimentos e design. Score por área + pontos de melhoria em 5 minutos.",
       "breadcrumb": {
@@ -45,7 +45,7 @@ const ASSESSMENT_SCHEMA = {
         "Diagnóstico de Desempenho de E-commerce",
       ],
       "description":
-        "Ferramenta gratuita de diagnóstico que avalia 7 dimensões críticas de qualquer e-commerce: catálogo de produtos, redes sociais, presença em marketplaces como Shopee e Mercado Livre, SEO orgânico, tráfego pago, investimento em mídia e design da loja. O assessment identifica falhas no desempenho, pontos de melhoria e oportunidades de crescimento — com score por dimensão e recomendações práticas.",
+        "Ferramenta gratuita de diagnóstico que avalia 7 dimensões críticas de qualquer e-commerce: catálogo de produtos, redes sociais, presença em marketplaces como Shopee e Mercado Livre, SEO orgânico, tráfego pago, investimento em mídia e design da loja. O assessment identifica falhas no desempenho, pontos de melhoria e oportunidades de crescimento, com score por dimensão e recomendações práticas.",
       "provider": {
         "@type": "MarketingAgency",
         "name": "MAVI Marketing Digital",
@@ -105,7 +105,7 @@ const ASSESSMENT_SCHEMA = {
           "name": "O que é um diagnóstico de e-commerce?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Um diagnóstico de e-commerce é uma avaliação estruturada que analisa as principais dimensões de uma loja virtual — como catálogo de produtos, redes sociais, presença em marketplaces, SEO, tráfego pago, gestão de mídia e design — para identificar falhas, gargalos e oportunidades de crescimento. O resultado é um relatório com pontuação por área e recomendações práticas de melhoria.",
+            "text": "Um diagnóstico de e-commerce é uma avaliação estruturada que analisa as principais dimensões de uma loja virtual, como catálogo de produtos, redes sociais, presença em marketplaces, SEO, tráfego pago, gestão de mídia e design, para identificar falhas, gargalos e oportunidades de crescimento. O resultado é um relatório com pontuação por área e recomendações práticas de melhoria.",
           },
         },
         {
@@ -145,7 +145,7 @@ const ASSESSMENT_SCHEMA = {
           "name": "O diagnóstico de e-commerce da MAVI é gratuito?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Sim. O assessment de e-commerce da MAVI Marketing Digital é 100% gratuito. Você responde 21 perguntas simples sobre 7 dimensões da sua loja e recebe um relatório completo com score por área, mapa de maturidade e os principais pontos de melhoria — sem custo e sem compromisso.",
+            "text": "Sim. O assessment de e-commerce da MAVI Marketing Digital é 100% gratuito. Você responde 21 perguntas simples sobre 7 dimensões da sua loja e recebe um relatório completo com score por área, mapa de maturidade e os principais pontos de melhoria, sem custo e sem compromisso.",
           },
         },
         {
@@ -161,7 +161,7 @@ const ASSESSMENT_SCHEMA = {
           "name": "O que é avaliado no assessment de e-commerce da MAVI?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "O assessment de e-commerce da MAVI avalia 7 dimensões: (1) Catálogo de Produtos — qualidade de fotos, descrições e gestão do mix; (2) Redes Sociais — frequência, tipo de conteúdo e análise de métricas; (3) Marketplaces — presença e otimização no Shopee, Mercado Livre e TikTok Shop; (4) SEO Orgânico — visibilidade no Google e produção de conteúdo; (5) Tráfego Pago — investimento em anúncios e mensuração de retorno; (6) Investimento em Mídia — controle de verba e diversificação de canais; (7) Design e Layout — aparência profissional, performance no mobile e elementos de conversão.",
+            "text": "O assessment de e-commerce da MAVI avalia 7 dimensões: (1) Catálogo de Produtos: qualidade de fotos, descrições e gestão do mix; (2) Redes Sociais: frequência, tipo de conteúdo e análise de métricas; (3) Marketplaces: presença e otimização no Shopee, Mercado Livre e TikTok Shop; (4) SEO Orgânico: visibilidade no Google e produção de conteúdo; (5) Tráfego Pago: investimento em anúncios e mensuração de retorno; (6) Investimento em Mídia: controle de verba e diversificação de canais; (7) Design e Layout: aparência profissional, performance no mobile e elementos de conversão.",
           },
         },
         {
@@ -169,7 +169,7 @@ const ASSESSMENT_SCHEMA = {
           "name": "Serve para qualquer tipo de e-commerce?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Sim. O diagnóstico de e-commerce da MAVI funciona para qualquer loja virtual, independentemente do segmento ou tamanho — desde quem está começando até lojas com alto volume de vendas. As perguntas são simples e não exigem conhecimento técnico, e o relatório é personalizado de acordo com o nível atual do negócio.",
+            "text": "Sim. O diagnóstico de e-commerce da MAVI funciona para qualquer loja virtual, independentemente do segmento ou tamanho, desde quem está começando até lojas com alto volume de vendas. As perguntas são simples e não exigem conhecimento técnico, e o relatório é personalizado de acordo com o nível atual do negócio.",
           },
         },
       ],
@@ -245,7 +245,7 @@ const PILLARS: Pillar[] = [
         ],
       },
       {
-        text: "E as descrições — como você conta pro cliente por que vale a pena comprar?",
+        text: "E as descrições: como você conta pro cliente por que vale a pena comprar?",
         options: [
           { label: "Copio o texto do fornecedor sem editar", score: 0 },
           { label: "Escrevo o básico: nome, tamanho e preço", score: 33 },
@@ -256,7 +256,7 @@ const PILLARS: Pillar[] = [
       {
         text: "Uma mais estratégica agora: como você decide o que continua no catálogo e o que sai?",
         options: [
-          { label: "Nunca removo produtos — mantenho tudo que tenho", score: 0 },
+          { label: "Nunca removo produtos, mantenho tudo que tenho", score: 0 },
           { label: "Só tiro o que claramente não vende nada", score: 33 },
           { label: "Analiso as vendas de vez em quando para decidir", score: 66 },
           { label: "Acompanho regularmente o que mais vende e o que dá mais lucro", score: 100 },
@@ -266,7 +266,7 @@ const PILLARS: Pillar[] = [
     insight: (score) => {
       if (score < 40)
         return {
-          title: "Catálogo — Atenção crítica",
+          title: "Catálogo: Atenção crítica",
           points: [
             "Fotos amadoras reduzem a taxa de conversão em até 40%",
             "Descrições sem estratégia fazem o cliente abandonar na decisão de compra",
@@ -276,7 +276,7 @@ const PILLARS: Pillar[] = [
         };
       if (score < 70)
         return {
-          title: "Catálogo — Oportunidade de ganho",
+          title: "Catálogo: Oportunidade de ganho",
           points: [
             "Melhorar consistência visual pode aumentar conversão em 20-30%",
             "Descrições com gatilhos de venda aceleram a decisão de compra",
@@ -285,7 +285,7 @@ const PILLARS: Pillar[] = [
           cta: "Otimização de catálogo e conversão",
         };
       return {
-        title: "Catálogo — Base sólida",
+        title: "Catálogo: Base sólida",
         points: [
           "Vídeos curtos de produto aumentam engajamento e conversão",
           "Testar variações de fotos e textos revela o que converte mais",
@@ -311,12 +311,12 @@ const PILLARS: Pillar[] = [
         ],
       },
       {
-        text: "E o que você costuma postar — é só produto e promoção, ou tem mais variedade?",
+        text: "E o que você costuma postar: é só produto e promoção ou tem mais variedade?",
         options: [
           { label: "Só fotos de produto e promoções", score: 0 },
           { label: "Promoções e alguns posts variados, mas sem planejamento", score: 33 },
           { label: "Mistura de conteúdo útil e de venda, com algum planejamento", score: 66 },
-          { label: "Conteúdos que ensinam, engajam e vendem — com calendário organizado", score: 100 },
+          { label: "Conteúdos que ensinam, engajam e vendem, com calendário organizado", score: 100 },
         ],
       },
       {
@@ -332,7 +332,7 @@ const PILLARS: Pillar[] = [
     insight: (score) => {
       if (score < 40)
         return {
-          title: "Redes Sociais — Ponto crítico",
+          title: "Redes Sociais: Ponto crítico",
           points: [
             "Sem presença ativa, você perde alcance gratuito todos os dias",
             "Conteúdo só de promoção cansa o público e reduz o alcance dos posts",
@@ -342,7 +342,7 @@ const PILLARS: Pillar[] = [
         };
       if (score < 70)
         return {
-          title: "Redes Sociais — Há muito a ganhar",
+          title: "Redes Sociais: Há muito a ganhar",
           points: [
             "Postar com regularidade e planejamento dobra o alcance orgânico",
             "Conteúdo que educa e entretém aquece o público antes da venda",
@@ -351,7 +351,7 @@ const PILLARS: Pillar[] = [
           cta: "Social media com foco em conversão",
         };
       return {
-        title: "Redes Sociais — Boa base",
+        title: "Redes Sociais: Boa base",
         points: [
           "Incentivar clientes a postar sobre sua loja gera conteúdo autêntico e gratuito",
           "Combinar redes sociais com anúncios reduz o custo por venda",
@@ -380,13 +380,13 @@ const PILLARS: Pillar[] = [
         text: "Quando alguém procura algo parecido com o que você vende lá dentro, seu produto aparece?",
         options: [
           { label: "Meus produtos praticamente não aparecem nas buscas", score: 0 },
-          { label: "Aparecem pouco — uso só foto e nome básico", score: 33 },
+          { label: "Aparecem pouco, uso só foto e nome básico", score: 33 },
           { label: "Apareço em algumas buscas, mas poderia aparecer muito mais", score: 66 },
           { label: "Cuido dos títulos, fotos e palavras para aparecer no topo das buscas", score: 100 },
         ],
       },
       {
-        text: "E o TikTok especificamente — você já usa pra mostrar ou vender seus produtos?",
+        text: "E o TikTok especificamente: você já usa pra mostrar ou vender seus produtos?",
         options: [
           { label: "Não uso o TikTok de jeito nenhum", score: 0 },
           { label: "Tenho perfil, mas não vendo pelo TikTok", score: 33 },
@@ -398,7 +398,7 @@ const PILLARS: Pillar[] = [
     insight: (score) => {
       if (score < 40)
         return {
-          title: "Marketplaces — Canal inexplorado",
+          title: "Marketplaces: Canal inexplorado",
           points: [
             "Shopee, Mercado Livre e TikTok Shop concentram a maioria das compras online no Brasil",
             "Sem presença nesses canais, você perde vendas para concorrentes todos os dias",
@@ -408,16 +408,16 @@ const PILLARS: Pillar[] = [
         };
       if (score < 70)
         return {
-          title: "Marketplaces — Oportunidade de escala",
+          title: "Marketplaces: Oportunidade de escala",
           points: [
             "Cuidar dos títulos e palavras dos anúncios pode triplicar sua visibilidade",
-            "TikTok Shop combina conteúdo viral com venda direta — alto potencial",
+            "TikTok Shop combina conteúdo viral com venda direta: alto potencial",
             "Manter boa reputação e responder rápido é decisivo para vender mais no ML",
           ],
           cta: "Otimização e escala em marketplaces",
         };
       return {
-        title: "Marketplaces — Bem posicionado",
+        title: "Marketplaces: Bem posicionado",
         points: [
           "Anúncios patrocinados dentro dos marketplaces aceleram as vendas",
           "Lives de venda no TikTok Shop podem multiplicar resultados em datas especiais",
@@ -452,7 +452,7 @@ const PILLARS: Pillar[] = [
         ],
       },
       {
-        text: "E pra quem ainda não te conhece: você cria algum conteúdo — texto, vídeo — pra atrair essas pessoas?",
+        text: "E pra quem ainda não te conhece: você cria algum conteúdo (texto, vídeo) pra atrair essas pessoas?",
         options: [
           { label: "Não crio nenhum conteúdo além das redes sociais", score: 0 },
           { label: "Tenho um blog ou página de conteúdo, mas sem planejamento", score: 33 },
@@ -464,17 +464,17 @@ const PILLARS: Pillar[] = [
     insight: (score) => {
       if (score < 40)
         return {
-          title: "SEO — Tráfego gratuito desperdiçado",
+          title: "SEO: Tráfego gratuito desperdiçado",
           points: [
             "Sem aparecer no Google, você depende 100% de anúncios pagos para ter visitas",
             "Concorrentes que aparecem no Google tomam seu espaço sem pagar nada por isso",
             "Pequenos ajustes nas páginas da loja já podem fazer você aparecer nas buscas",
           ],
-          cta: "SEO para e-commerce — tráfego orgânico",
+          cta: "SEO para e-commerce: tráfego orgânico",
         };
       if (score < 70)
         return {
-          title: "SEO — Espaço grande para crescer",
+          title: "SEO: Espaço grande para crescer",
           points: [
             "Ajustar todas as páginas da loja pode dobrar o tráfego gratuito em poucos meses",
             "Criar conteúdo útil reduz a dependência de anúncios pagos ao longo do tempo",
@@ -483,7 +483,7 @@ const PILLARS: Pillar[] = [
           cta: "SEO técnico e de conteúdo para e-commerce",
         };
       return {
-        title: "SEO — Canal orgânico sólido",
+        title: "SEO: Canal orgânico sólido",
         points: [
           "Explore buscas mais específicas (nicho) para atrair quem está pronto para comprar",
           "Conseguir que outros sites falem da sua loja aumenta sua relevância no Google",
@@ -520,7 +520,7 @@ const PILLARS: Pillar[] = [
       {
         text: "Uma que eu adoro perguntar: o que você faz com quem visita a loja e não compra?",
         options: [
-          { label: "Não faço nada — perco o contato com elas", score: 0 },
+          { label: "Não faço nada, perco o contato com elas", score: 0 },
           { label: "Já tentei alcançá-las de novo, mas sem sistematizar", score: 33 },
           { label: "Tenho campanhas para reconquistar visitantes, mas são simples", score: 66 },
           { label: "Tenho estratégias diferentes para quem visitou, quem foi ao carrinho e quem comprou", score: 100 },
@@ -530,7 +530,7 @@ const PILLARS: Pillar[] = [
     insight: (score) => {
       if (score < 40)
         return {
-          title: "Tráfego Pago — Motor desligado",
+          title: "Tráfego Pago: Motor desligado",
           points: [
             "Sem anúncios estruturados, o crescimento depende só do orgânico e da sorte",
             "Anúncios bem gerenciados no Facebook e Google têm retorno médio de 8x",
@@ -540,7 +540,7 @@ const PILLARS: Pillar[] = [
         };
       if (score < 70)
         return {
-          title: "Tráfego Pago — Verba subaproveitada",
+          title: "Tráfego Pago: Verba subaproveitada",
           points: [
             "Sem medir direito o retorno, você pode estar cortando campanhas que funcionam",
             "Reconquistar quem visitou e não comprou é uma das ações mais baratas e eficientes",
@@ -549,7 +549,7 @@ const PILLARS: Pillar[] = [
           cta: "Otimização de campanhas e retorno real",
         };
       return {
-        title: "Tráfego Pago — Estrutura avançada",
+        title: "Tráfego Pago: Estrutura avançada",
         points: [
           "Campanhas automáticas do Google podem maximizar cobertura em mais canais",
           "Testar criativos completamente diferentes (não só formatos) revela oportunidades",
@@ -596,17 +596,17 @@ const PILLARS: Pillar[] = [
     insight: (score) => {
       if (score < 40)
         return {
-          title: "Investimento em Mídia — Sem visibilidade",
+          title: "Investimento em Mídia: Sem visibilidade",
           points: [
             "Sem controle por canal, você não sabe o que funciona e arrisca jogar dinheiro fora",
-            "Depender de um único canal é perigoso — qualquer mudança pode cortar suas vendas",
+            "Depender de um único canal é perigoso: qualquer mudança pode cortar suas vendas",
             "Sem calcular o retorno, crescer vira sorte e não estratégia",
           ],
           cta: "Gestão de mídia e alocação estratégica de verba",
         };
       if (score < 70)
         return {
-          title: "Investimento em Mídia — Controle parcial",
+          title: "Investimento em Mídia: Controle parcial",
           points: [
             "Analisar canal por canal permite mover verba do que não funciona para o que converte",
             "Diversificar onde você anuncia reduz risco e alcança novos públicos",
@@ -615,7 +615,7 @@ const PILLARS: Pillar[] = [
           cta: "Inteligência de mídia e performance",
         };
       return {
-        title: "Investimento em Mídia — Gestão madura",
+        title: "Investimento em Mídia: Gestão madura",
         points: [
           "Avaliar se os canais estão 'roubando' resultado um do outro revela oportunidades ocultas",
           "Modelos de atribuição mais precisos mostram o real impacto de cada canal",
@@ -634,14 +634,14 @@ const PILLARS: Pillar[] = [
       {
         text: "Quando alguém entra na sua loja pela primeira vez, ela passa confiança?",
         options: [
-          { label: "A loja parece amadora — ainda precisa de muito trabalho", score: 0 },
+          { label: "A loja parece amadora, ainda precisa de muito trabalho", score: 0 },
           { label: "Está ok, mas parece genérica e sem identidade própria", score: 33 },
           { label: "Parece boa, mas ainda falta um toque mais profissional", score: 66 },
           { label: "A loja transmite confiança, tem identidade visual e parece profissional", score: 100 },
         ],
       },
       {
-        text: "E no celular, que é onde a maioria compra — sua loja carrega rápido e é fácil de navegar?",
+        text: "E no celular, que é onde a maioria compra, sua loja carrega rápido e é fácil de navegar?",
         options: [
           { label: "Tem problemas sérios no celular ou demora muito para carregar", score: 0 },
           { label: "Funciona no celular, mas a navegação é confusa", score: 33 },
@@ -652,17 +652,17 @@ const PILLARS: Pillar[] = [
       {
         text: "Pra fechar: sua loja tem algo que ajuda o cliente a decidir comprar ali, na hora?",
         options: [
-          { label: "Não — a loja só mostra produto e preço, sem nada que incentive a compra", score: 0 },
+          { label: "Não, a loja só mostra produto e preço, sem nada que incentive a compra", score: 0 },
           { label: "Tenho botões de compra, mas nada que crie urgência ou mostre avaliações", score: 33 },
           { label: "Tenho avaliações de clientes e botões claros, mas não testo o que funciona melhor", score: 66 },
-          { label: "Uso avaliações, ofertas com prazo, botões estratégicos — e testo o que converte mais", score: 100 },
+          { label: "Uso avaliações, ofertas com prazo, botões estratégicos e testo o que converte mais", score: 100 },
         ],
       },
     ],
     insight: (score) => {
       if (score < 40)
         return {
-          title: "Design e Layout — Conversão comprometida",
+          title: "Design e Layout: Conversão comprometida",
           points: [
             "Uma loja com aparência amadora é a principal razão para o cliente desconfiar e não comprar",
             "Loja lenta ou ruim no celular perde até 70% dos visitantes antes da compra",
@@ -672,7 +672,7 @@ const PILLARS: Pillar[] = [
         };
       if (score < 70)
         return {
-          title: "Design e Layout — Espaço para converter mais",
+          title: "Design e Layout: Espaço para converter mais",
           points: [
             "Melhorar a velocidade da loja pode aumentar as vendas em até 25%",
             "Avaliações de clientes bem posicionadas eliminam a dúvida na hora de comprar",
@@ -681,7 +681,7 @@ const PILLARS: Pillar[] = [
           cta: "Otimização de experiência e taxa de conversão",
         };
       return {
-        title: "Design e Layout — Experiência sólida",
+        title: "Design e Layout: Experiência sólida",
         points: [
           "Personalizar a vitrine para cada tipo de visitante é o próximo nível de conversão",
           "Simplificar o processo de pagamento pode reduzir o abandono de carrinho em 20%",
@@ -715,7 +715,7 @@ function getPersona(avgScore: number): PersonaData {
     return {
       label: "Loja em Crescimento",
       description:
-        "Sua loja tem potencial, mas pontos críticos estão travando o crescimento e custando vendas — e dinheiro — todo mês.",
+        "Sua loja tem potencial, mas pontos críticos estão travando o crescimento e custando vendas (e dinheiro) todo mês.",
       colorClass: "text-orange-600",
     };
   if (avgScore < 65)
@@ -859,7 +859,7 @@ function ScoreRing({ score, color, size = 148, stroke = 11 }: { score: number; c
       </svg>
       <div className="absolute inset-0 flex flex-col items-center justify-center">
         <span className="text-4xl font-extrabold tabular-nums" style={{ color }}>{display}</span>
-        <span className="text-[10px] text-gray-400">/100</span>
+        <span className="text-[10px] text-muted-foreground">/100</span>
       </div>
     </div>
   );
@@ -873,8 +873,8 @@ type MsgType = "question" | "answer" | "system";
 
 const INTRO_MESSAGES = [
   "Oi! Eu sou a Camila, vou te acompanhar nesse diagnóstico do seu e-commerce.",
-  "São 21 perguntas rápidas sobre 7 áreas da sua loja — leva menos de 5 minutos, prometo.",
-  "Vai sendo sincero(a) nas respostas — quanto mais real, melhor o diagnóstico no final. Bora?",
+  "São 21 perguntas rápidas sobre 7 áreas da sua loja. Leva menos de 5 minutos, prometo.",
+  "Vai sendo sincero(a) nas respostas: quanto mais real, melhor o diagnóstico no final. Bora?",
 ];
 
 const PILLAR_TRANSITIONS: Record<string, string> = {
@@ -889,7 +889,7 @@ const PILLAR_TRANSITIONS: Record<string, string> = {
 const MILESTONE_MESSAGES: Record<number, string> = {
   7: "Você está indo muito bem! Continue assim.",
   14: "Mais da metade! Estamos quase no final.",
-  18: "Faltam só 3 perguntas — quase lá!",
+  18: "Faltam só 3 perguntas, quase lá!",
 };
 
 const FATURAMENTO_MIDPOINTS: Record<string, number> = {
@@ -968,9 +968,9 @@ async function checkDomainResolves(host: string): Promise<boolean> {
     };
 
     const a = await lookup("A");
-    if (!a) return true; // API indisponível — não bloqueia
+    if (!a) return true; // API indisponível, não bloqueia
     if (a.Status === 0 && Array.isArray(a.Answer) && a.Answer.length > 0) return true;
-    if (a.Status === 3) return false; // NXDOMAIN — domínio não existe
+    if (a.Status === 3) return false; // NXDOMAIN, domínio não existe
 
     // Sem registro A mas sem NXDOMAIN: confere NS antes de reprovar
     // (domínio pode responder só por MX/CNAME em subdomínios comuns).
@@ -979,7 +979,7 @@ async function checkDomainResolves(host: string): Promise<boolean> {
 
     return false;
   } catch {
-    return true; // erro de rede — não bloqueia por falha nossa
+    return true; // erro de rede, não bloqueia por falha nossa
   }
 }
 
@@ -1566,21 +1566,19 @@ export default function Assessment() {
         {/* ══════════════════════════════════════════════════════
             DOBRA 1 — HERO
         ══════════════════════════════════════════════════════ */}
-        <section className="relative flex flex-col overflow-hidden bg-gray-950 lg:min-h-[640px]">
+        <section className="relative flex flex-col overflow-hidden bg-background lg:min-h-[640px]">
           {/* Background */}
-          <div className="absolute inset-0 bg-gradient-to-br from-gray-950 via-[#0d0010] to-gray-950" />
-          <div className="absolute inset-0 opacity-30"
-            style={{ backgroundImage: "radial-gradient(circle at 20% 50%, rgba(230,0,126,0.15) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(230,0,126,0.08) 0%, transparent 40%)" }} />
+          <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-background" />
           {/* Grid pattern */}
           <div className="absolute inset-0 opacity-[0.04]"
             style={{ backgroundImage: "linear-gradient(rgba(255,255,255,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.5) 1px, transparent 1px)", backgroundSize: "60px 60px" }} />
 
           {/* Nav */}
           <div className="relative z-10 flex items-center justify-between px-6 md:px-12 py-5 flex-shrink-0">
-            <img src={logoMavi} alt="MAVI" className="h-6 brightness-0 invert" />
+            <img src={logoMavi} alt="MAVI" className="h-6" />
             <div className="flex items-center gap-1.5">
               <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-              <span className="text-white/50 text-xs">Diagnóstico online</span>
+              <span className="text-muted-foreground text-xs">Diagnóstico online</span>
             </div>
           </div>
 
@@ -1604,7 +1602,7 @@ export default function Assessment() {
                     <Zap className="w-3 h-3" /> Assessment · E-commerce · Gratuito
                   </motion.span>
 
-                  <h1 className="text-[30px] leading-[1.1] md:text-5xl lg:text-[54px] font-extrabold text-white tracking-tight mb-2.5 lg:mb-5">
+                  <h1 className="text-[30px] leading-[1.1] md:text-5xl lg:text-[54px] font-extrabold text-foreground tracking-tight mb-2.5 lg:mb-5">
                     Descubra o que está
                     <span className="block min-h-[1.1em]">
                       <CyclingTypewriter
@@ -1621,8 +1619,8 @@ export default function Assessment() {
                     </span>
                   </h1>
 
-                  <p className="text-white/60 text-sm md:text-lg leading-relaxed mb-4 lg:mb-10 max-w-lg">
-                    Diagnóstico em <strong className="text-white">7 dimensões</strong>, resultado em <strong className="text-white">5 minutos</strong>. Saiba exatamente onde focar para crescer.
+                  <p className="text-muted-foreground text-sm md:text-lg leading-relaxed mb-4 lg:mb-10 max-w-lg">
+                    Diagnóstico em <strong className="text-foreground">7 dimensões</strong>, resultado em <strong className="text-foreground">5 minutos</strong>. Saiba exatamente onde focar para crescer.
                   </p>
 
                   {/* Stats — só desktop; no mobile o card de captura entra logo em seguida */}
@@ -1633,8 +1631,8 @@ export default function Assessment() {
                       { n: "5min", label: "para o resultado" },
                     ].map((s) => (
                       <div key={s.label}>
-                        <p className="text-2xl font-extrabold text-white">{s.n}</p>
-                        <p className="text-xs text-white/40">{s.label}</p>
+                        <p className="text-2xl font-extrabold text-foreground">{s.n}</p>
+                        <p className="text-xs text-muted-foreground">{s.label}</p>
                       </div>
                     ))}
                   </div>
@@ -1653,7 +1651,7 @@ export default function Assessment() {
                         <img src={logoMavi} alt="MAVI" className="h-8 object-contain flex-shrink-0" />
                         <div>
                           <p className="font-bold text-gray-900 text-sm">Diagnóstico de E-commerce</p>
-                          <p className="text-xs text-gray-400">Resultado gratuito e imediato</p>
+                          <p className="text-xs text-muted-foreground">Resultado gratuito e imediato</p>
                         </div>
                       </div>
 
@@ -1669,12 +1667,12 @@ export default function Assessment() {
                             value={lojaUrl}
                             onChange={(e) => { setLojaUrl(e.target.value); setUrlError(undefined); }}
                             placeholder="https://sualoja.com.br"
-                            className={`bg-gray-50 text-gray-900 placeholder:text-gray-400 h-11 ${urlError ? "border-red-400 focus:border-red-400" : "border-gray-200 focus:border-primary"}`}
+                            className={`bg-gray-50 text-gray-900 placeholder:text-muted-foreground h-11 ${urlError ? "border-red-400 focus:border-red-400" : "border-gray-200 focus:border-primary"}`}
                           />
                           {urlError ? (
                             <p className="text-[11px] text-red-500 mt-1 flex items-center gap-1"><span>!</span>{urlError}</p>
                           ) : (
-                            <p className="text-[11px] text-gray-400 mt-1">
+                            <p className="text-[11px] text-muted-foreground mt-1">
                               Usaremos sua URL para fazer o diagnóstico
                             </p>
                           )}
@@ -1729,14 +1727,14 @@ export default function Assessment() {
                         <div className="flex gap-0.5">
                           {[1,2,3,4,5].map(i => <Star key={i} className="w-3 h-3 fill-yellow-400 text-yellow-400" />)}
                         </div>
-                        <p className="text-[11px] text-gray-500 font-medium">+200 e-commerces já analisados</p>
+                        <p className="text-[11px] text-muted-foreground font-medium">+200 e-commerces já analisados</p>
                       </div>
                     </div>
 
                     {/* Garantias */}
                     <div className="bg-gray-50 border-t border-gray-100 px-7 py-3 flex flex-wrap gap-x-5 gap-y-1">
                       {["100% gratuito", "Sem cadastro", "Resultado imediato"].map((g) => (
-                        <span key={g} className="flex items-center gap-1 text-[11px] text-gray-500">
+                        <span key={g} className="flex items-center gap-1 text-[11px] text-muted-foreground">
                           <CheckCircle2 className="w-3 h-3 text-green-500" />
                           {g}
                         </span>
@@ -1746,22 +1744,22 @@ export default function Assessment() {
 
                   {/* Depoimento */}
                   <motion.div
-                    className="mt-4 bg-white/8 border border-white/10 rounded-xl p-4 flex items-start gap-3"
+                    className="mt-4 bg-card border border-border rounded-xl p-4 flex items-start gap-3"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.7 }}
                   >
-                    <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center flex-shrink-0">
-                      <User className="w-4 h-4 text-white/60" />
+                    <div className="w-8 h-8 rounded-full bg-card flex items-center justify-center flex-shrink-0">
+                      <User className="w-4 h-4 text-muted-foreground" />
                     </div>
                     <div>
                       <div className="flex gap-0.5 mb-1">
                         {[1,2,3,4,5].map(i => <Star key={i} className="w-2.5 h-2.5 fill-yellow-400 text-yellow-400" />)}
                       </div>
-                      <p className="text-white/70 text-xs leading-relaxed">
+                      <p className="text-foreground/80 text-xs leading-relaxed">
                         "Em 5 minutos soube exatamente o que estava freando meu e-commerce. Mudei o foco e as vendas subiram 40% em 2 meses."
                       </p>
-                      <p className="text-white/40 text-[10px] mt-1">Ana P. · Loja de moda feminina</p>
+                      <p className="text-muted-foreground text-[10px] mt-1">Ana P. · Loja de moda feminina</p>
                     </div>
                   </motion.div>
                 </motion.div>
@@ -1776,13 +1774,13 @@ export default function Assessment() {
             transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
             onClick={scrollToForm}
           >
-            <span className="text-white/30 text-[10px] uppercase tracking-widest mb-1">Saiba mais</span>
-            <ChevronRight className="w-4 h-4 text-white/30 rotate-90" />
+            <span className="text-muted-foreground text-[10px] uppercase tracking-widest mb-1">Saiba mais</span>
+            <ChevronRight className="w-4 h-4 text-muted-foreground rotate-90" />
           </motion.div>
         </section>
 
         {/* ══════════════════════════════════════════════════════
-            DOBRA 2 — O QUE VOCÊ VAI DESCOBRIR
+            DOBRA 2, O QUE VOCÊ VAI DESCOBRIR
         ══════════════════════════════════════════════════════ */}
         <section className="py-20 md:py-28 bg-gray-50">
           <div className="max-w-5xl mx-auto px-6 md:px-8">
@@ -1799,7 +1797,7 @@ export default function Assessment() {
               <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 mb-4 leading-tight">
                 Quem usou o diagnóstico<br />transformou o resultado
               </h2>
-              <p className="text-gray-500 text-base max-w-xl mx-auto">
+              <p className="text-muted-foreground text-base max-w-xl mx-auto">
                 Veja o que acontece quando você sabe exatamente onde focar cada real investido.
               </p>
             </motion.div>
@@ -1848,18 +1846,18 @@ export default function Assessment() {
                     </div>
                     <span className="text-[10px] font-bold uppercase tracking-wider text-primary bg-primary/10 px-2 py-1 rounded-full">{c.roas}</span>
                   </div>
-                  <p className="text-[10px] font-semibold uppercase tracking-wider text-gray-400 mb-3">{c.segment}</p>
+                  <p className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground mb-3">{c.segment}</p>
                   <div className="mb-4">
                     <p className="text-3xl font-extrabold text-gray-900">{c.metric}</p>
-                    <p className="text-xs text-gray-500">{c.metricLabel}</p>
+                    <p className="text-xs text-muted-foreground">{c.metricLabel}</p>
                   </div>
                   <p className="text-sm text-gray-600 leading-relaxed italic flex-1">"{c.quote}"</p>
                   <div className="flex items-center gap-2 mt-4 pt-4 border-t border-gray-100">
                     <div className="flex gap-0.5">
                       {[1,2,3,4,5].map(j => <Star key={j} className="w-3 h-3 fill-yellow-400 text-yellow-400" />)}
                     </div>
-                    <p className="text-[10px] text-gray-400">{c.role}</p>
-                    <span className="text-[10px] text-gray-300 ml-1" style={{ filter: "blur(3px)" }}>· Cliente MAVI</span>
+                    <p className="text-[10px] text-muted-foreground">{c.role}</p>
+                    <span className="text-[10px] text-foreground/80 ml-1" style={{ filter: "blur(3px)" }}>· Cliente MAVI</span>
                   </div>
                 </motion.div>
               ))}
@@ -1873,7 +1871,7 @@ export default function Assessment() {
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
             >
-              <p className="text-[11px] text-gray-400 uppercase tracking-wider mb-4">Preview do resultado</p>
+              <p className="text-[11px] text-muted-foreground uppercase tracking-wider mb-4">Preview do resultado</p>
               <div className="space-y-3">
                 {[
                   { label: "Produto & Catálogo", pct: 82, color: "#16a34a" },
@@ -1906,7 +1904,7 @@ export default function Assessment() {
                 ))}
               </div>
               <div className="mt-5 pt-4 border-t border-gray-100 text-center">
-                <p className="text-xs text-gray-400">Este é apenas um exemplo. Você recebe o diagnóstico real da <strong className="text-gray-700">sua loja</strong>.</p>
+                <p className="text-xs text-muted-foreground">Este é apenas um exemplo. Você recebe o diagnóstico real da <strong className="text-gray-700">sua loja</strong>.</p>
               </div>
             </motion.div>
           </div>
@@ -1915,9 +1913,7 @@ export default function Assessment() {
         {/* ══════════════════════════════════════════════════════
             DOBRA 3 — COMO FUNCIONA + CTA FINAL
         ══════════════════════════════════════════════════════ */}
-        <section className="py-20 md:py-28 bg-gray-950 relative overflow-hidden">
-          <div className="absolute inset-0 opacity-20"
-            style={{ backgroundImage: "radial-gradient(circle at 70% 50%, rgba(230,0,126,0.2) 0%, transparent 60%)" }} />
+        <section className="py-20 md:py-28 bg-background relative overflow-hidden">
 
           <div className="relative z-10 max-w-5xl mx-auto px-6 md:px-8">
             <div className="grid lg:grid-cols-2 gap-16 items-center">
@@ -1932,7 +1928,7 @@ export default function Assessment() {
                 <span className="inline-block text-[11px] font-semibold uppercase tracking-wider text-primary mb-4">
                   Simples assim
                 </span>
-                <h2 className="text-3xl md:text-4xl font-extrabold text-white mb-10 leading-tight">
+                <h2 className="text-3xl md:text-4xl font-extrabold text-foreground mb-10 leading-tight">
                   3 passos para descobrir o gargalo do seu e-commerce
                 </h2>
 
@@ -1947,7 +1943,7 @@ export default function Assessment() {
                     {
                       n: "02",
                       title: "Responda 21 perguntas simples",
-                      desc: "Sem jargão técnico. Linguagem direta para quem está começando ou já escala — você encaixa em qualquer nível.",
+                      desc: "Sem jargão técnico. Linguagem direta para quem está começando ou já escala: você encaixa em qualquer nível.",
                       icon: Sparkles,
                     },
                     {
@@ -1975,8 +1971,8 @@ export default function Assessment() {
                         </div>
                         <div className="pb-6">
                           <span className="text-[10px] font-bold text-primary/60 uppercase tracking-widest">{step.n}</span>
-                          <p className="text-white font-bold text-base mt-0.5 mb-1">{step.title}</p>
-                          <p className="text-white/50 text-sm leading-relaxed">{step.desc}</p>
+                          <p className="text-foreground font-bold text-base mt-0.5 mb-1">{step.title}</p>
+                          <p className="text-muted-foreground text-sm leading-relaxed">{step.desc}</p>
                         </div>
                       </motion.div>
                     );
@@ -1991,15 +1987,15 @@ export default function Assessment() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: 0.2 }}
               >
-                <div className="bg-white/5 border border-white/10 rounded-2xl p-7 backdrop-blur-sm">
+                <div className="bg-card border border-border rounded-2xl p-7 backdrop-blur-sm">
                   <div className="text-center mb-6">
                     <div className="w-12 h-12 rounded-xl bg-primary/15 flex items-center justify-center mx-auto mb-3">
                       <Target className="w-6 h-6 text-primary" />
                     </div>
-                    <h3 className="text-xl font-bold text-white mb-2">
+                    <h3 className="text-xl font-bold text-foreground mb-2">
                       Pronto para descobrir o que está freando suas vendas?
                     </h3>
-                    <p className="text-white/50 text-sm">
+                    <p className="text-muted-foreground text-sm">
                       Gratuito, imediato, sem cadastro antecipado.
                     </p>
                   </div>
@@ -2029,20 +2025,20 @@ export default function Assessment() {
                     ].map((g) => (
                       <div key={g} className="flex items-center gap-2">
                         <CheckCircle2 className="w-3.5 h-3.5 text-green-400 flex-shrink-0" />
-                        <p className="text-white/60 text-xs">{g}</p>
+                        <p className="text-muted-foreground text-xs">{g}</p>
                       </div>
                     ))}
                   </div>
 
-                  <div className="mt-5 pt-5 border-t border-white/10 flex items-start gap-3">
+                  <div className="mt-5 pt-5 border-t border-border flex items-start gap-3">
                     <div className="flex gap-0.5 flex-shrink-0 pt-0.5">
                       {[1,2,3,4,5].map(i => <Star key={i} className="w-3 h-3 fill-yellow-400 text-yellow-400" />)}
                     </div>
                     <div>
-                      <p className="text-white/70 text-xs leading-relaxed italic">
+                      <p className="text-foreground/80 text-xs leading-relaxed italic">
                         "Identifiquei 3 áreas críticas que nunca teria percebido sozinha. Em 60 dias minha taxa de conversão dobrou."
                       </p>
-                      <p className="text-white/35 text-[10px] mt-1">Carla M. · E-commerce de cosméticos</p>
+                      <p className="text-muted-foreground text-[10px] mt-1">Carla M. · E-commerce de cosméticos</p>
                     </div>
                   </div>
                 </div>
@@ -2055,8 +2051,8 @@ export default function Assessment() {
         <div className="max-w-3xl mx-auto px-6 py-16 space-y-10 border-t border-gray-100">
           <section aria-labelledby="o-que-e">
             <h2 id="o-que-e" className="text-lg font-bold text-gray-900 mb-3">O que é um diagnóstico de e-commerce?</h2>
-            <p className="text-gray-500 text-sm leading-relaxed">
-              Um <strong>diagnóstico de e-commerce</strong> é uma avaliação estruturada que analisa as principais dimensões de uma loja virtual para identificar falhas no desempenho, gargalos de crescimento e oportunidades inexploradas. A ferramenta da MAVI avalia <strong>7 dimensões críticas</strong> — catálogo de produtos, redes sociais, marketplaces (Shopee, Mercado Livre, TikTok Shop), SEO orgânico, tráfego pago, investimento em mídia e design — gerando um <strong>score por área e um plano de prioridades</strong>.
+            <p className="text-muted-foreground text-sm leading-relaxed">
+              Um <strong>diagnóstico de e-commerce</strong> é uma avaliação estruturada que analisa as principais dimensões de uma loja virtual para identificar falhas no desempenho, gargalos de crescimento e oportunidades inexploradas. A ferramenta da MAVI avalia <strong>7 dimensões críticas</strong>, catálogo de produtos, redes sociais, marketplaces (Shopee, Mercado Livre, TikTok Shop), SEO orgânico, tráfego pago, investimento em mídia e design, gerando um <strong>score por área e um plano de prioridades</strong>.
             </p>
           </section>
           <section aria-labelledby="faq-lp">
@@ -2070,7 +2066,7 @@ export default function Assessment() {
               ].map((item) => (
                 <details key={item.q} className="bg-gray-50 border border-gray-200 rounded-xl overflow-hidden">
                   <summary className="px-5 py-3 cursor-pointer font-semibold text-gray-800 text-sm list-none">{item.q}</summary>
-                  <p className="px-5 pb-3 text-sm text-gray-500">{item.a}</p>
+                  <p className="px-5 pb-3 text-sm text-muted-foreground">{item.a}</p>
                 </details>
               ))}
             </div>
@@ -2089,7 +2085,7 @@ export default function Assessment() {
           <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto mb-6">
             <BarChart3 className="w-8 h-8 text-primary animate-pulse" />
           </div>
-          <p className="text-gray-500 text-sm mb-1">Analisando</p>
+          <p className="text-muted-foreground text-sm mb-1">Analisando</p>
           <p className="text-gray-900 font-semibold text-base truncate max-w-xs mx-auto mb-8">
             {lojaUrl}
           </p>
@@ -2109,7 +2105,7 @@ export default function Assessment() {
                 ) : (
                   <div className="w-4 h-4 rounded-full border border-gray-300 flex-shrink-0" />
                 )}
-                <span className={`text-sm ${i <= analyzingStep ? "text-gray-700" : "text-gray-300"}`}>
+                <span className={`text-sm ${i <= analyzingStep ? "text-gray-700" : "text-foreground/80"}`}>
                   {step}
                 </span>
               </div>
@@ -2146,7 +2142,7 @@ export default function Assessment() {
               <div className="flex items-center justify-between mb-2.5">
                 <img src={logoMavi} alt="MAVI" className="h-5" />
                 {currentPillar && (
-                  <div className="flex items-center gap-1.5 text-gray-500">
+                  <div className="flex items-center gap-1.5 text-muted-foreground">
                     <currentPillar.icon className="w-3.5 h-3.5 text-primary" />
                     <span className="text-xs font-medium">{currentPillar.label}</span>
                   </div>
@@ -2264,8 +2260,8 @@ export default function Assessment() {
                             <span
                               className={`flex-shrink-0 w-6 h-6 rounded-full border flex items-center justify-center text-[11px] font-bold ${
                                 isSelected
-                                  ? "border-white/60 text-white"
-                                  : "border-gray-300 text-gray-400"
+                                  ? "border-border text-foreground"
+                                  : "border-gray-300 text-muted-foreground"
                               }`}
                             >
                               {isSelected ? <Check className="w-3.5 h-3.5" /> : String.fromCharCode(65 + i)}
@@ -2299,8 +2295,8 @@ export default function Assessment() {
                             <span
                               className={`flex-shrink-0 w-6 h-6 rounded-full border flex items-center justify-center text-[11px] font-bold ${
                                 isSelected
-                                  ? "border-white/60 text-white"
-                                  : "border-gray-300 text-gray-400"
+                                  ? "border-border text-foreground"
+                                  : "border-gray-300 text-muted-foreground"
                               }`}
                             >
                               {isSelected ? <Check className="w-3.5 h-3.5" /> : String.fromCharCode(65 + i)}
@@ -2324,22 +2320,22 @@ export default function Assessment() {
               <span className="text-[10px] font-semibold tracking-widest uppercase text-primary">
                 Self-Assessment
               </span>
-              <span className="text-[10px] text-gray-400">
+              <span className="text-[10px] text-muted-foreground">
                 {new Date()
                   .toLocaleDateString("pt-BR", { month: "long", year: "numeric" })
                   .toUpperCase()}
               </span>
             </div>
-            <p className="text-[11px] text-gray-500">Diagnóstico de E-commerce</p>
+            <p className="text-[11px] text-muted-foreground">Diagnóstico de E-commerce</p>
           </div>
 
           <div className="p-4 border-b border-gray-200 space-y-3">
             <div>
-              <p className="text-[10px] uppercase tracking-wider text-gray-400 mb-0.5">Loja</p>
+              <p className="text-[10px] uppercase tracking-wider text-muted-foreground mb-0.5">Loja</p>
               <p className="text-xs text-gray-600 truncate">{lojaUrl}</p>
             </div>
             <div>
-              <p className="text-[10px] uppercase tracking-wider text-gray-400 mb-1">Persona</p>
+              <p className="text-[10px] uppercase tracking-wider text-muted-foreground mb-1">Persona</p>
               {livePersona ? (
                 <div className="flex items-center gap-2">
                   {(() => { const I = personaIcon(livePersona.label); return <I className={`w-5 h-5 ${livePersona.colorClass}`} aria-hidden="true" />; })()}
@@ -2348,9 +2344,9 @@ export default function Assessment() {
                   </span>
                 </div>
               ) : (
-                <div className="flex items-center gap-2 text-gray-300">
+                <div className="flex items-center gap-2 text-foreground/80">
                   <Sparkles className="w-3.5 h-3.5" />
-                  <span className="text-xs italic text-gray-400">Aparece ao finalizar</span>
+                  <span className="text-xs italic text-muted-foreground">Aparece ao finalizar</span>
                 </div>
               )}
             </div>
@@ -2359,8 +2355,8 @@ export default function Assessment() {
           {/* Radar */}
           <div className="p-4 border-b border-gray-200">
             <div className="flex items-center justify-between mb-2">
-              <p className="text-[10px] uppercase tracking-wider text-gray-400">Radar</p>
-              <span className="text-[10px] text-gray-300">7 pilares</span>
+              <p className="text-[10px] uppercase tracking-wider text-muted-foreground">Radar</p>
+              <span className="text-[10px] text-foreground/80">7 pilares</span>
             </div>
             <div className="h-48">
               <ResponsiveContainer width="100%" height="100%">
@@ -2385,14 +2381,14 @@ export default function Assessment() {
 
           {/* Scores */}
           <div className="p-4 flex-1">
-            <p className="text-[10px] uppercase tracking-wider text-gray-400 mb-3">Scores</p>
+            <p className="text-[10px] uppercase tracking-wider text-muted-foreground mb-3">Scores</p>
             <div className="space-y-2.5">
               {PILLARS.map((p, i) => {
                 const score = pillarScores[i];
                 const answered = (scores[p.id]?.length ?? 0) > 0;
                 return (
                   <div key={p.id} className="flex items-center gap-2">
-                    <span className="text-[10px] text-gray-500 w-16 flex-shrink-0 truncate">
+                    <span className="text-[10px] text-muted-foreground w-16 flex-shrink-0 truncate">
                       {p.shortLabel}
                     </span>
                     <div className="flex-1 h-1 bg-gray-200 rounded-full overflow-hidden">
@@ -2404,7 +2400,7 @@ export default function Assessment() {
                         }}
                       />
                     </div>
-                    <span className="text-[10px] text-gray-400 w-4 text-right">
+                    <span className="text-[10px] text-muted-foreground w-4 text-right">
                       {answered ? score : "—"}
                     </span>
                   </div>
@@ -2438,7 +2434,7 @@ export default function Assessment() {
           <div className="bg-white border-b border-gray-200 px-4 py-3">
             <div className="max-w-5xl mx-auto flex items-center justify-between">
               <img src={logoMavi} alt="MAVI" className="h-5" />
-              <span className="text-xs text-gray-400">Assessment · E-commerce</span>
+              <span className="text-xs text-muted-foreground">Assessment · E-commerce</span>
             </div>
           </div>
 
@@ -2449,12 +2445,12 @@ export default function Assessment() {
                 {(() => { const I = personaIcon(finalPersona.label); return <I className={`w-10 h-10 mb-2 ${finalPersona.colorClass}`} strokeWidth={1.5} aria-hidden="true" />; })()}
                 <div className={`text-base font-bold mb-2 ${finalPersona.colorClass}`}>{finalPersona.label}</div>
                 <div className="text-5xl font-extrabold mb-1" style={{ color: overallColor }}>
-                  {finalAvg}<span className="text-2xl text-gray-300">/100</span>
+                  {finalAvg}<span className="text-2xl text-foreground/80">/100</span>
                 </div>
-                <div className="text-xs text-gray-400">Score geral</div>
+                <div className="text-xs text-muted-foreground">Score geral</div>
               </div>
               <div className="lg:col-span-2 bg-white border border-gray-200 rounded-2xl p-6 shadow-sm">
-                <p className="text-[10px] uppercase tracking-wider text-gray-400 mb-3">Mapa de Maturidade</p>
+                <p className="text-[10px] uppercase tracking-wider text-muted-foreground mb-3">Mapa de Maturidade</p>
                 <div className="h-52">
                   <ResponsiveContainer width="100%" height="100%">
                     <RadarChart data={radarData} margin={{ top: 10, right: 30, bottom: 10, left: 30 }}>
@@ -2469,7 +2465,7 @@ export default function Assessment() {
 
             {/* Pillar bars */}
             <div className="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm">
-              <p className="text-[10px] uppercase tracking-wider text-gray-400 mb-4">Score por Dimensão</p>
+              <p className="text-[10px] uppercase tracking-wider text-muted-foreground mb-4">Score por Dimensão</p>
               <div className="space-y-3">
                 {PILLARS.map((p, i) => {
                   const s = pillarScores[i];
@@ -2525,7 +2521,7 @@ export default function Assessment() {
                 </div>
                 <div>
                   <h2 className="text-base font-bold text-gray-900 leading-tight">Seu diagnóstico está pronto!</h2>
-                  <p className="text-xs text-gray-400 mt-0.5">Preencha para desbloquear o relatório completo</p>
+                  <p className="text-xs text-muted-foreground mt-0.5">Preencha para desbloquear o relatório completo</p>
                 </div>
               </div>
 
@@ -2534,7 +2530,7 @@ export default function Assessment() {
                 {(() => { const I = personaIcon(finalPersona.label); return <I className={`w-6 h-6 shrink-0 ${finalPersona.colorClass}`} aria-hidden="true" />; })()}
                 <div className="flex items-baseline gap-1">
                   <span className="text-xl font-extrabold" style={{ color: overallColor }}>{finalAvg}</span>
-                  <span className="text-xs text-gray-300">/100</span>
+                  <span className="text-xs text-foreground/80">/100</span>
                 </div>
                 <div className="w-px h-5 bg-gray-200" />
                 <span className={`text-xs font-bold ${finalPersona.colorClass}`}>{finalPersona.label}</span>
@@ -2542,12 +2538,12 @@ export default function Assessment() {
 
               <form onSubmit={handleLeadSubmit} className="space-y-2.5">
                 <div>
-                  <Label className="text-gray-500 text-[11px] mb-1 block">Nome *</Label>
+                  <Label className="text-muted-foreground text-[11px] mb-1 block">Nome *</Label>
                   <Input required value={nome} onChange={(e) => setNome(e.target.value)} placeholder="Seu nome"
                     className="bg-white border-gray-200 text-gray-900 h-9 text-sm touch-manipulation" />
                 </div>
                 <div>
-                  <Label className="text-gray-500 text-[11px] mb-1 block">E-mail *</Label>
+                  <Label className="text-muted-foreground text-[11px] mb-1 block">E-mail *</Label>
                   <Input required type="email" value={email}
                     onChange={(e) => { setEmail(e.target.value); setLeadErrors((p) => ({ ...p, email: undefined })); }}
                     placeholder="seu@email.com"
@@ -2555,7 +2551,7 @@ export default function Assessment() {
                   {leadErrors.email && <p className="text-[10px] text-red-500 mt-0.5 flex items-center gap-1"><span>!</span>{leadErrors.email}</p>}
                 </div>
                 <div>
-                  <Label className="text-gray-500 text-[11px] mb-1 block">WhatsApp *</Label>
+                  <Label className="text-muted-foreground text-[11px] mb-1 block">WhatsApp *</Label>
                   <Input required type="tel" value={whatsapp}
                     onChange={(e) => { setWhatsapp(e.target.value); setLeadErrors((p) => ({ ...p, whatsapp: undefined })); }}
                     placeholder="(47) 99999-9999"
@@ -2569,7 +2565,7 @@ export default function Assessment() {
                     <>Ver diagnóstico completo <ArrowRight className="w-4 h-4 ml-1.5" /></>
                   )}
                 </Button>
-                <p className="text-center text-[10px] text-gray-400">Sem spam · Seus dados são protegidos</p>
+                <p className="text-center text-[10px] text-muted-foreground">Sem spam · Seus dados são protegidos</p>
               </form>
             </div>
           </div>
@@ -2593,8 +2589,8 @@ export default function Assessment() {
           <img src={logoMavi} alt="MAVI" className="h-5" />
           <div className="flex items-center gap-3">
             <div className="text-right hidden sm:block">
-              <p className="text-xs text-gray-500">Assessment de E-commerce</p>
-              <p className="text-xs text-gray-400">
+              <p className="text-xs text-muted-foreground">Assessment de E-commerce</p>
+              <p className="text-xs text-muted-foreground">
                 {nome} · {new Date().toLocaleDateString("pt-BR")}
               </p>
             </div>
@@ -2626,7 +2622,7 @@ export default function Assessment() {
           transition={{ duration: 0.4 }}
         >
           <CheckCircle2 className="w-4 h-4 text-green-500 flex-shrink-0" />
-          <p className="text-xs text-gray-500 leading-snug">
+          <p className="text-xs text-muted-foreground leading-snug">
             Analisamos <strong className="text-gray-700">{lojaUrl.replace(/^https?:\/\//, "")}</strong>
             {" · "}{TOTAL_QUESTIONS}/{TOTAL_QUESTIONS} perguntas respondidas{" · "}
             {new Date().toLocaleDateString("pt-BR")}
@@ -2645,13 +2641,13 @@ export default function Assessment() {
             <div className={`text-lg font-bold mt-3 mb-2 ${finalPersona.colorClass}`}>
               <span className="inline-flex items-center gap-2">{(() => { const I = personaIcon(finalPersona.label); return <I className="w-5 h-5" aria-hidden="true" />; })()}{finalPersona.label}</span>
             </div>
-            <div className="text-xs text-gray-400 mb-4">Score geral do e-commerce</div>
-            <p className="text-sm text-gray-500 leading-relaxed">{finalPersona.description}</p>
+            <div className="text-xs text-muted-foreground mb-4">Score geral do e-commerce</div>
+            <p className="text-sm text-muted-foreground leading-relaxed">{finalPersona.description}</p>
           </div>
 
           <div className="lg:col-span-2 bg-white border border-gray-200 rounded-2xl p-6 shadow-sm">
-            <p className="text-[10px] uppercase tracking-wider text-gray-400 mb-4">
-              Mapa de Maturidade — 7 Dimensões
+            <p className="text-[10px] uppercase tracking-wider text-muted-foreground mb-4">
+              Mapa de Maturidade: 7 Dimensões
             </p>
             <div className="h-64">
               <ResponsiveContainer width="100%" height="100%">
@@ -2678,20 +2674,19 @@ export default function Assessment() {
         {/* Dinheiro na mesa */}
         {dinheiraNaMesa > 0 && (
           <motion.div
-            className="bg-gray-950 border border-gray-800 rounded-2xl px-6 py-7 text-center relative overflow-hidden"
+            className="bg-background border border-border rounded-2xl px-6 py-7 text-center relative overflow-hidden"
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.15 }}
           >
-            <div className="absolute inset-0 opacity-30" style={{ backgroundImage: "radial-gradient(circle at 50% 80%, rgba(230,0,126,0.25) 0%, transparent 65%)" }} />
             <div className="relative z-10">
-              <p className="text-[10px] uppercase tracking-widest text-gray-500 mb-3 font-semibold">
+              <p className="text-[10px] uppercase tracking-widest text-muted-foreground mb-3 font-semibold">
                 Estimativa de Receita Não Capturada
               </p>
               <p className="text-5xl md:text-6xl font-extrabold text-primary mb-2">
                 R$ {dinheiraNaMesa.toLocaleString("pt-BR")}
               </p>
-              <p className="text-sm text-gray-400 mb-4">por mês — dinheiro que está na mesa</p>
+              <p className="text-sm text-muted-foreground mb-4">por mês, dinheiro que está na mesa</p>
               <p className="text-xs text-gray-600">
                 Calculado com base no seu faturamento e score de maturidade ({finalAvg}/100). <br />
                 Com as otimizações certas, esse valor pode ser capturado nos próximos 90 dias.
@@ -2707,7 +2702,7 @@ export default function Assessment() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
         >
-          <p className="text-[10px] uppercase tracking-wider text-gray-400 mb-5">Score por Dimensão</p>
+          <p className="text-[10px] uppercase tracking-wider text-muted-foreground mb-5">Score por Dimensão</p>
           <div className="space-y-4">
             {PILLARS.map((p, i) => {
               const s = pillarScores[i];
@@ -2731,15 +2726,15 @@ export default function Assessment() {
               );
             })}
           </div>
-          <p className="text-xs text-gray-400 mt-5 pt-4 border-t border-gray-100">
+          <p className="text-xs text-muted-foreground mt-5 pt-4 border-t border-gray-100">
             A MAVI já ajudou <strong className="text-gray-600">mais de 200 lojas</strong> a evoluir exatamente nesses pontos.
           </p>
         </motion.div>
 
         {/* Insights por pilar */}
         <div>
-          <p className="text-xs uppercase tracking-wider text-gray-400 mb-4">
-            Diagnóstico Detalhado — Pontos de Melhoria
+          <p className="text-xs uppercase tracking-wider text-muted-foreground mb-4">
+            Diagnóstico Detalhado: Pontos de Melhoria
           </p>
 
           {/* ── Destaques: Tráfego Pago + Investimento em Mídia (serviços principais MAVI) ── */}
@@ -2813,7 +2808,7 @@ export default function Assessment() {
                     ))}
                   </ul>
                   <div className="pt-3 border-t border-gray-100 flex items-center gap-2">
-                    <span className="text-[10px] text-gray-400 uppercase tracking-wider">Área de foco:</span>
+                    <span className="text-[10px] text-muted-foreground uppercase tracking-wider">Área de foco:</span>
                     <span className="text-[10px] text-primary font-semibold">{insight.cta}</span>
                   </div>
                 </div>
@@ -2833,13 +2828,13 @@ export default function Assessment() {
           return (
             <div>
               <div className="text-center mb-6">
-                <p className="text-[10px] uppercase tracking-wider text-gray-400 mb-1">
+                <p className="text-[10px] uppercase tracking-wider text-muted-foreground mb-1">
                   Próximos Passos
                 </p>
                 <h2 className="text-xl font-bold text-gray-900">
                   Como a MAVI pode ajudar seu e-commerce
                 </h2>
-                <p className="text-sm text-gray-500 mt-1">
+                <p className="text-sm text-muted-foreground mt-1">
                   Com base nos seus resultados, estas são as áreas com maior potencial de crescimento:
                 </p>
               </div>
@@ -2862,7 +2857,7 @@ export default function Assessment() {
                       </div>
                       <h3 className="text-sm font-bold text-gray-900 mb-0.5">{svc.service}</h3>
                       <p className="text-[11px] text-primary font-semibold mb-2">{svc.tagline}</p>
-                      <p className="text-xs text-gray-500 leading-relaxed flex-1 mb-4">{svc.description}</p>
+                      <p className="text-xs text-muted-foreground leading-relaxed flex-1 mb-4">{svc.description}</p>
                       <div className="flex flex-col gap-2 mt-auto">
                         <a
                           href={`https://wa.me/5547999293541?text=${encodeURIComponent(svc.waText)}`}
@@ -2874,7 +2869,7 @@ export default function Assessment() {
                         </a>
                         <a
                           href={svc.href}
-                          className="text-center text-xs text-gray-400 hover:text-primary transition-colors"
+                          className="text-center text-xs text-muted-foreground hover:text-primary transition-colors"
                         >
                           Ver serviço →
                         </a>
@@ -2888,17 +2883,16 @@ export default function Assessment() {
         })()}
 
         {/* CTA */}
-        <div className="relative bg-gray-900 border border-gray-800 border-t-2 border-t-primary rounded-2xl p-6 md:p-8 overflow-hidden">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(230,0,126,0.15),transparent_60%)]" />
+        <div className="relative bg-card border border-border border-t-2 border-t-primary rounded-2xl p-6 md:p-8 overflow-hidden">
           <div className="relative z-10 max-w-2xl mx-auto text-center">
             <BarChart3 className="w-8 h-8 text-primary mx-auto mb-4" />
-            <h2 className="text-xl md:text-2xl font-bold text-white mb-2">
+            <h2 className="text-xl md:text-2xl font-bold text-foreground mb-2">
               Quer um plano de ação para esses resultados?
             </h2>
-            <p className="text-white/60 text-sm leading-relaxed mb-6">
+            <p className="text-muted-foreground text-sm leading-relaxed mb-6">
               Um estrategista da MAVI analisa seu diagnóstico e monta um plano personalizado
-              para escalar seu e-commerce —{" "}
-              <strong className="text-white">sem custo e sem compromisso.</strong>
+              para escalar seu e-commerce,{" "}
+              <strong className="text-foreground">sem custo e sem compromisso.</strong>
             </p>
             <a
               href={`https://wa.me/5547999293541?text=Oi%21+Fiz+o+assessment+do+meu+e-commerce+e+quero+conversar+sobre+os+pr%C3%B3ximos+passos.+Score%3A+${finalAvg}%2F100+%E2%80%94+${encodeURIComponent(finalPersona.label)}.`}
@@ -2909,7 +2903,7 @@ export default function Assessment() {
                 Falar com um estrategista da MAVI <ArrowRight className="w-4 h-4 ml-2" />
               </Button>
             </a>
-            <p className="text-center text-xs text-white/30 mt-3">
+            <p className="text-center text-xs text-muted-foreground mt-3">
               Sem compromisso · Sem proposta empurrada · Em até 30 minutos
             </p>
           </div>
@@ -2923,11 +2917,11 @@ export default function Assessment() {
           transition={{ delay: 0.3 }}
         >
           <div className="w-10 h-10 rounded-xl bg-gray-100 flex items-center justify-center flex-shrink-0">
-            <FileText className="w-5 h-5 text-gray-500" />
+            <FileText className="w-5 h-5 text-muted-foreground" />
           </div>
           <div className="flex-1 text-center sm:text-left">
             <p className="text-sm font-semibold text-gray-800">Salve seu diagnóstico em PDF</p>
-            <p className="text-xs text-gray-400 mt-0.5">Baixe o relatório completo com scores e recomendações por área</p>
+            <p className="text-xs text-muted-foreground mt-0.5">Baixe o relatório completo com scores e recomendações por área</p>
           </div>
           <motion.button
             onClick={downloadPDF}
@@ -2940,7 +2934,7 @@ export default function Assessment() {
           </motion.button>
         </motion.div>
 
-        <p className="text-center text-xs text-gray-400 pb-8">
+        <p className="text-center text-xs text-muted-foreground pb-8">
           <Link to="/" className="hover:text-primary transition-colors">← Voltar ao site da MAVI</Link>
           {" · "}
           <Link to="/contato" className="hover:text-primary transition-colors">Fale com a gente</Link>

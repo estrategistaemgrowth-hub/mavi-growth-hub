@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Layout } from "@/components/Layout";
-import { Section, SectionHeader } from "@/components/Section";
 import { AnimatedCounter } from "@/components/AnimatedCounter";
+import { AnimatedSection } from "@/components/AnimatedSection";
+import { ServiceHero, ProblemPicker, DeliverablesBenefits, FaqBlock, AssessmentPromo, FinalCta, BlockHead } from "@/components/service/ServiceBlocks";
+import seloTray from "@/assets/selos/tray-diamante.png";
 import { SEO, generateBreadcrumbSchema, generateFAQSchema, generateServiceSchema } from "@/components/SEO";
-import { SplitText } from "@/components/SplitText";
-import { HeroBackground } from "@/components/HeroBackground";
 import { 
   ShoppingCart, 
   CheckCircle2, 
@@ -22,12 +22,6 @@ import {
   Zap,
   Package
 } from "lucide-react";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
 
 
 const problems = [
@@ -141,369 +135,158 @@ export default function ServicoEcommerce() {
         schemaMarkup={combinedSchema}
       />
 
-      {/* Hero Section */}
-      <section className="pt-32 pb-20 bg-mavi-black relative overflow-hidden">
-        <HeroBackground intensity="subtle" />
-        
-        <div className="container-mavi relative z-10">
-          <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/20 text-primary mb-6">
-              <ShoppingCart className="w-4 h-4" />
-              <span className="text-sm font-medium">E-commerce e Lojas Virtuais</span>
-            </div>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-mavi-white mb-2 leading-[1.05]"><SplitText stagger={45} duration={750}>Lojas virtuais que{" "}
-              <span className="text-primary">vendem de verdade</span></SplitText></h1>
-            <p className="text-xl text-mavi-white/70 leading-relaxed mb-8 animate-fade-in-up animation-delay-200">
-              Criação e implementação de e-commerces com foco em velocidade de lançamento, 
-              conversão e integração completa com todo o ecossistema de vendas.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 animate-fade-in-up animation-delay-300">
-              <Button asChild variant="hero" size="xl" className="animate-glow-pulse">
-                <Link to="/contato">Quero criar minha loja</Link>
-              </Button>
-              <Button asChild variant="heroOutline" size="lg">
-                <Link to="/servicos/performance">
-                  Preciso de tráfego pago
-                  <ArrowRight className="w-4 h-4" />
-                </Link>
-              </Button>
-            </div>
-          </div>
-        </div>
-      </section>
+      <ServiceHero
+        icon={ShoppingCart}
+        badge="E-commerce e Lojas Virtuais"
+        title={<>Lojas virtuais que <span className="text-primary">vendem de verdade</span></>}
+        lead="Criação e implementação de e-commerces com foco em velocidade de lançamento, conversão e integração completa com todo o ecossistema de vendas."
+        primary={{ label: "Quero criar minha loja", href: "/contato" }}
+        secondary={{ label: "Preciso de tráfego pago", href: "/servicos/performance" }}
+        stats={[
+          { value: <AnimatedCounter end={200} prefix="+" duration={2000} />, label: stats[0].label },
+          { value: stats[1].value, label: stats[1].label },
+          { value: <AnimatedCounter end={45} prefix="+" suffix="%" duration={2000} />, label: stats[2].label },
+          { value: <AnimatedCounter end={5} suffix="+" duration={1500} />, label: stats[3].label },
+        ]}
+      />
 
-      {/* Stats Bar */}
-      <section className="py-8 bg-primary">
-        <div className="container-mavi">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            <div className="text-center">
-              <p className="text-3xl md:text-4xl font-bold text-primary-foreground">
-                <AnimatedCounter end={200} prefix="+" duration={2000} />
-              </p>
-              <p className="text-primary-foreground/80 text-sm">Lojas criadas</p>
-            </div>
-            <div className="text-center">
-              <p className="text-3xl md:text-4xl font-bold text-primary-foreground">30 dias</p>
-              <p className="text-primary-foreground/80 text-sm">Tempo médio de lançamento</p>
-            </div>
-            <div className="text-center">
-              <p className="text-3xl md:text-4xl font-bold text-primary-foreground">
-                <AnimatedCounter end={45} prefix="+" suffix="%" duration={2000} />
-              </p>
-              <p className="text-primary-foreground/80 text-sm">Conversão média</p>
-            </div>
-            <div className="text-center">
-              <p className="text-3xl md:text-4xl font-bold text-primary-foreground">
-                <AnimatedCounter end={5} suffix="+" duration={1500} />
-              </p>
-              <p className="text-primary-foreground/80 text-sm">Anos de experiência Tray</p>
-            </div>
-          </div>
-        </div>
-      </section>
+      <ProblemPicker
+        title="Reconhece algum desses problemas?"
+        subtitle="Se alguma dessas situações soa familiar, vale uma conversa."
+        problems={problems}
+      />
 
-      {/* Problems Section */}
-      <Section>
-        <SectionHeader
-          title="Reconhece algum desses problemas?"
-          subtitle="Se alguma dessas situações soa familiar, vale uma conversa."
-        />
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {problems.map((problem, index) => (
-            <div key={index} className="group p-6 rounded-xl bg-destructive/5 border border-destructive/20 hover:border-destructive/40 transition-all duration-300 hover:-translate-y-2">
-              <problem.icon className="w-10 h-10 text-destructive mb-4 transition-all duration-300 group-hover:scale-110 group-hover:drop-shadow-[0_0_8px_hsl(0_84%_60%/0.5)]" />
-              <h3 className="text-lg font-semibold text-foreground mb-2">{problem.title}</h3>
-              <p className="text-muted-foreground text-sm">{problem.description}</p>
-            </div>
-          ))}
-        </div>
-      </Section>
+      <DeliverablesBenefits
+        title="O que entregamos"
+        subtitle="O que está incluso no serviço."
+        features={features}
+        cta={{ label: "Solicitar Proposta", href: "/contato" }}
+        benefitsTitle="Benefícios para o seu negócio"
+        benefits={benefits}
+      />
 
-      {/* Features + Benefits */}
-      <Section variant="gray">
-        <div className="grid lg:grid-cols-2 gap-12 items-start">
-          <div>
-            <SectionHeader
-              title="O que entregamos"
-              subtitle="O que está incluso no serviço."
-              centered={false}
-            />
-            <div className="space-y-3 mb-8">
-              {features.map((feature, index) => (
-                <div key={index} className="flex items-center gap-3">
-                  <CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0" />
-                  <span className="text-foreground">{feature}</span>
-                </div>
+      {/* Especialistas em Tray */}
+      <section className="border-y border-border bg-card py-20 md:py-28">
+        <div className="container-mavi grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
+          <AnimatedSection animation="fadeInUp">
+            <div className="rounded-2xl bg-primary p-8 text-white md:p-10">
+              <div className="mb-8 flex items-center justify-between gap-4">
+                <ShoppingCart className="h-12 w-12" strokeWidth={1.6} aria-hidden="true" />
+                <img src={seloTray} alt="Tray Parceiro Diamante" className="h-14 w-auto rounded-lg bg-white p-1.5" />
+              </div>
+              <h3 className="text-3xl font-extrabold tracking-tight">Especialistas em Tray</h3>
+              <p className="mt-1 font-semibold text-white/85">Parceiro Diamante Tray</p>
+              <p className="mt-4 max-w-[48ch] leading-relaxed text-white/90">
+                Somos referência em implementação de lojas Tray, com metodologia própria para lançamentos rápidos e integrações complexas. Conhecemos a plataforma profundamente para extrair o máximo de performance.
+              </p>
+              <div className="mt-8 grid grid-cols-2 gap-px overflow-hidden rounded-xl bg-white/25">
+                {[
+                  { v: "+200", l: "Lojas criadas" },
+                  { v: "5+ anos", l: "De parceria" },
+                ].map((s) => (
+                  <div key={s.l} className="bg-primary px-5 py-4">
+                    <p className="text-3xl font-extrabold tracking-tight">{s.v}</p>
+                    <p className="text-sm text-white/85">{s.l}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </AnimatedSection>
+          <AnimatedSection animation="fadeInUp" delay={100}>
+            <h3 className="mb-6 text-3xl font-extrabold tracking-tight text-foreground">Por que escolher Tray?</h3>
+            <ul className="grid gap-3">
+              {trayBenefits.map((b) => (
+                <li key={b} className="flex items-center gap-3 border-b border-border pb-3 font-medium text-foreground">
+                  <Zap className="h-4 w-4 shrink-0 text-primary" aria-hidden="true" />
+                  {b}
+                </li>
               ))}
-            </div>
-            <Button asChild size="lg">
-              <Link to="/contato">Solicitar Proposta</Link>
-            </Button>
-          </div>
-          <div className="space-y-4">
-            <h3 className="text-2xl font-bold text-foreground mb-6">Benefícios para o seu negócio</h3>
-            {benefits.map((benefit, index) => (
-              <div key={index} className="group flex gap-4 p-4 rounded-xl bg-card border border-border card-glow cursor-default">
-                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0 transition-all duration-300 group-hover:bg-primary/20 group-hover:animate-pulse-glow">
-                  <benefit.icon className="w-6 h-6 text-primary transition-transform duration-300 group-hover:scale-110" />
-                </div>
-                <div>
-                  <h4 className="font-semibold text-foreground mb-1">{benefit.title}</h4>
-                  <p className="text-sm text-muted-foreground">{benefit.description}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </Section>
-
-      {/* Tray Specialist */}
-      <Section>
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          <div className="bg-gradient-to-br from-primary/10 to-primary/5 rounded-2xl p-8 border border-primary/20">
-            <div className="flex items-start justify-between gap-4 mb-6">
-              <ShoppingCart className="w-16 h-16 text-primary" />
-            </div>
-            <h3 className="text-2xl font-bold text-foreground mb-2">Especialistas em Tray</h3>
-            <p className="text-sm text-primary font-medium mb-4">Parceiro Diamante Tray</p>
-            <p className="text-muted-foreground mb-6">
-              Somos referência em implementação de lojas Tray, com metodologia própria 
-              para lançamentos rápidos e integrações complexas. Conhecemos a plataforma 
-              profundamente para extrair o máximo de performance.
-            </p>
-            <div className="grid grid-cols-2 gap-4">
-              <div className="bg-background rounded-lg p-4 text-center">
-                <p className="text-2xl font-bold text-primary">+200</p>
-                <p className="text-sm text-muted-foreground">Lojas criadas</p>
-              </div>
-              <div className="bg-background rounded-lg p-4 text-center">
-                <p className="text-2xl font-bold text-primary">5+ anos</p>
-                <p className="text-sm text-muted-foreground">De parceria</p>
-              </div>
-            </div>
-          </div>
-          <div>
-            <h3 className="text-2xl font-bold text-foreground mb-6">Por que escolher Tray?</h3>
-            <div className="space-y-3">
-              {trayBenefits.map((benefit, index) => (
-                <div key={index} className="flex items-center gap-3">
-                  <CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0" />
-                  <span className="text-foreground">{benefit}</span>
-                </div>
-              ))}
-            </div>
-            <Button asChild className="mt-8" variant="outline">
+            </ul>
+            <Button asChild variant="outline" size="lg" className="group mt-8 rounded-full">
               <Link to="/contato">
                 Quero saber mais sobre Tray
-                <ArrowRight className="w-4 h-4" />
+                <ArrowRight className="ml-1 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
               </Link>
             </Button>
-          </div>
+          </AnimatedSection>
         </div>
-      </Section>
+      </section>
 
-      {/* Cases */}
-      <Section variant="dark">
-        <SectionHeader
-          title="Cases de E-commerce"
-          subtitle="Lojas que lançamos e o problema que resolvemos em cada uma."
-          light
-        />
-        <div className="grid md:grid-cols-3 gap-6">
-          {cases.map((caseItem, index) => (
-            <div key={index} className="bg-mavi-white/5 rounded-xl p-6 border border-mavi-white/10 hover:border-primary/30 transition-colors">
-              <span className="inline-block px-3 py-1 rounded-full bg-primary/20 text-primary text-sm font-medium mb-4">
-                {caseItem.niche}
-              </span>
-              <p className="text-mavi-white/70 text-sm mb-4">
-                <strong className="text-mavi-white">Desafio:</strong> {caseItem.challenge}
-              </p>
-              <div className="flex items-center gap-2 text-primary font-semibold">
-                <TrendingUp className="w-5 h-5" />
-                <span>{caseItem.result}</span>
-              </div>
-            </div>
-          ))}
-        </div>
-        <div className="text-center mt-8">
-          <Button asChild variant="heroOutline">
-            <Link to="/cases">Ver mais cases</Link>
+      {/* Cases: desafio no meio, resultado em destaque */}
+      <section className="bg-background py-20 md:py-28">
+        <div className="container-mavi">
+          <BlockHead title="Cases de E-commerce" subtitle="Lojas que lançamos e o problema que resolvemos em cada uma." />
+          <div className="border-t-2 border-foreground">
+            {cases.map((c) => (
+              <AnimatedSection key={c.niche}>
+                <div className="grid gap-3 border-b border-border py-7 md:grid-cols-[180px,1fr,1fr] md:items-center md:gap-10">
+                  <span className="w-fit rounded-full bg-primary/10 px-3 py-1 text-sm font-semibold text-primary">{c.niche}</span>
+                  <p className="text-muted-foreground">
+                    <strong className="text-foreground">Desafio:</strong> {c.challenge}
+                  </p>
+                  <p className="flex items-start gap-2 text-lg font-bold leading-snug tracking-tight text-foreground">
+                    <TrendingUp className="mt-1 h-5 w-5 shrink-0 text-primary" aria-hidden="true" />
+                    {c.result}
+                  </p>
+                </div>
+              </AnimatedSection>
+            ))}
+          </div>
+          <Button asChild variant="outline" size="lg" className="group mt-8 rounded-full">
+            <Link to="/cases">
+              Ver mais cases
+              <ArrowRight className="ml-1 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+            </Link>
           </Button>
         </div>
-      </Section>
+      </section>
 
-      {/* Integration Ecosystem */}
-      <Section>
-        <SectionHeader
-          title="Ecossistema completo de integrações"
-          subtitle="Sua loja conectada a tudo que você precisa para operar."
-        />
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          <div className="group p-6 rounded-xl bg-card border border-border text-center card-glow cursor-default">
-            <CreditCard className="w-12 h-12 text-primary mx-auto mb-4 transition-all duration-300 group-hover:scale-110 group-hover:drop-shadow-[0_0_12px_hsl(336_100%_45%/0.5)]" />
-            <h4 className="font-semibold text-foreground mb-2">Pagamentos</h4>
-            <p className="text-sm text-muted-foreground">PagSeguro, Mercado Pago, Pix, Cartões</p>
-          </div>
-          <div className="group p-6 rounded-xl bg-card border border-border text-center card-glow cursor-default">
-            <Truck className="w-12 h-12 text-primary mx-auto mb-4 transition-all duration-300 group-hover:scale-110 group-hover:drop-shadow-[0_0_12px_hsl(336_100%_45%/0.5)]" />
-            <h4 className="font-semibold text-foreground mb-2">Logística</h4>
-            <p className="text-sm text-muted-foreground">Correios, Melhor Envio, Jadlog, Sedex</p>
-          </div>
-          <div className="group p-6 rounded-xl bg-card border border-border text-center card-glow cursor-default">
-            <Package className="w-12 h-12 text-primary mx-auto mb-4 transition-all duration-300 group-hover:scale-110 group-hover:drop-shadow-[0_0_12px_hsl(336_100%_45%/0.5)]" />
-            <h4 className="font-semibold text-foreground mb-2">ERP</h4>
-            <p className="text-sm text-muted-foreground">Bling, Tiny, Omie, Conta Azul</p>
-          </div>
-          <div className="group p-6 rounded-xl bg-card border border-border text-center card-glow cursor-default">
-            <Layers className="w-12 h-12 text-primary mx-auto mb-4 transition-all duration-300 group-hover:scale-110 group-hover:drop-shadow-[0_0_12px_hsl(336_100%_45%/0.5)]" />
-            <h4 className="font-semibold text-foreground mb-2">Marketplaces</h4>
-            <p className="text-sm text-muted-foreground">Mercado Livre, Magalu, Amazon, Shopee</p>
-          </div>
-        </div>
-      </Section>
-
-      {/* FAQ Section */}
-      <Section variant="gray">
-        <SectionHeader
-          title="Perguntas frequentes"
-          subtitle="Tire suas dúvidas sobre criação de e-commerce."
-        />
-        <div className="max-w-3xl mx-auto">
-          <Accordion type="single" collapsible className="space-y-4">
-            {faqs.map((faq, index) => (
-              <AccordionItem 
-                key={index} 
-                value={`item-${index}`}
-                className="bg-card border border-border rounded-xl px-6 data-[state=open]:border-primary/50"
-              >
-                <AccordionTrigger className="text-left hover:no-underline py-4">
-                  <span className="font-semibold text-foreground">{faq.question}</span>
-                </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground pb-4">
-                  {faq.answer}
-                </AccordionContent>
-              </AccordionItem>
-            ))}
-          </Accordion>
-        </div>
-      </Section>
-
-      {/* ── Assessment CTA ── */}
-      <Section variant="gray">
-        <div className="max-w-5xl mx-auto">
-          <div className="grid lg:grid-cols-2 gap-10 items-center">
-            {/* Copy */}
-            <div>
-              <span className="inline-flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-wider text-primary bg-primary/10 px-3 py-1 rounded-full mb-4">
-                <BarChart3 className="w-3.5 h-3.5" /> Diagnóstico gratuito
-              </span>
-              <h2 className="text-3xl md:text-4xl font-bold text-mavi-white mb-4 leading-tight">
-                Antes de qualquer investimento, descubra onde está o gargalo
-              </h2>
-              <p className="text-mavi-white/70 text-base leading-relaxed mb-6">
-                Nosso assessment avalia seu e-commerce em 7 dimensões — produto, tráfego, marketplaces, SEO, redes sociais, design e investimento — e entrega um diagnóstico personalizado em menos de 5 minutos.
-              </p>
-              <ul className="space-y-2.5 mb-8">
-                {[
-                  "21 perguntas simples, resultado imediato",
-                  "Score por área + mapa de maturidade",
-                  "Recomendação dos próximos passos",
-                  "100% gratuito e sem compromisso",
-                ].map((item) => (
-                  <li key={item} className="flex items-center gap-2 text-sm text-mavi-white/80">
-                    <CheckCircle2 className="w-4 h-4 text-primary flex-shrink-0" />
-                    {item}
-                  </li>
-                ))}
-              </ul>
-              <Button asChild variant="hero" size="lg" className="group">
-                <Link to="/assessment">
-                  Fazer diagnóstico gratuito
-                  <ArrowRight className="w-4 h-4 ml-1 transition-transform duration-300 group-hover:translate-x-1" />
-                </Link>
-              </Button>
-              <p className="text-xs text-mavi-white/40 mt-3">Mais de 200 e-commerces já fizeram o diagnóstico</p>
-            </div>
-
-            {/* Mockup visual */}
-            <div className="relative hidden lg:block">
-              <div className="bg-white/5 border border-white/10 rounded-2xl overflow-hidden backdrop-blur-sm">
-                {/* Header mockup */}
-                <div className="bg-white/8 border-b border-white/10 px-4 py-3 flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <div className="w-5 h-5 rounded-full bg-primary flex items-center justify-center">
-                      <span className="text-white text-[9px] font-bold">M</span>
-                    </div>
-                    <span className="text-xs font-semibold text-mavi-white">Diagnóstico MAVI</span>
-                  </div>
-                  <span className="text-[10px] text-mavi-white/40">Assessment E-commerce</span>
+      {/* Ecossistema de integrações */}
+      <section className="border-y border-border bg-card py-20 md:py-28">
+        <div className="container-mavi">
+          <BlockHead title="Ecossistema completo de integrações" subtitle="Sua loja conectada a tudo que você precisa para operar." />
+          <div className="grid gap-x-8 sm:grid-cols-2 lg:grid-cols-4">
+            {[
+              { icon: CreditCard, title: "Pagamentos", items: ["PagSeguro", "Mercado Pago", "Pix", "Cartões"] },
+              { icon: Truck, title: "Logística", items: ["Correios", "Melhor Envio", "Jadlog", "Sedex"] },
+              { icon: Package, title: "ERP", items: ["Bling", "Tiny", "Omie", "Conta Azul"] },
+              { icon: Layers, title: "Marketplaces", items: ["Mercado Livre", "Magalu", "Amazon", "Shopee"] },
+            ].map((g) => (
+              <AnimatedSection key={g.title} className="border-t border-border py-6">
+                <div className="mb-4 flex items-center gap-3">
+                  <span className="grid h-10 w-10 place-items-center rounded-xl bg-primary/10 text-primary">
+                    <g.icon className="h-5 w-5" aria-hidden="true" />
+                  </span>
+                  <h4 className="text-lg font-bold text-foreground">{g.title}</h4>
                 </div>
-                {/* Chat mockup */}
-                <div className="p-4 space-y-3">
-                  {[
-                    { bot: true, text: "Olá! Vou analisar seu e-commerce em 7 áreas estratégicas. Pronto?" },
-                    { bot: false, text: "Vamos lá!" },
-                    { bot: true, text: "Como estão as fotos dos seus produtos nas páginas da loja?" },
-                  ].map((m, i) => (
-                    <div key={i} className={`flex ${m.bot ? "justify-start items-start gap-2" : "justify-end"}`}>
-                      {m.bot && (
-                        <div className="w-5 h-5 rounded-full bg-primary flex-shrink-0 flex items-center justify-center mt-0.5">
-                          <span className="text-white text-[8px] font-bold">M</span>
-                        </div>
-                      )}
-                      <div className={`max-w-[80%] px-3 py-2 rounded-xl text-xs ${m.bot ? "bg-white/10 text-mavi-white/90 rounded-tl-sm" : "bg-primary text-white rounded-tr-sm"}`}>
-                        {m.text}
-                      </div>
-                    </div>
+                <p className="flex flex-wrap gap-2">
+                  {g.items.map((it) => (
+                    <span key={it} className="rounded-full border border-border bg-background px-3 py-1 text-sm text-muted-foreground transition-colors hover:border-primary hover:text-foreground">
+                      {it}
+                    </span>
                   ))}
-                </div>
-                {/* Score preview */}
-                <div className="border-t border-white/10 px-4 py-3">
-                  <p className="text-[10px] uppercase tracking-wider text-mavi-white/40 mb-2">Preview do resultado</p>
-                  <div className="space-y-1.5">
-                    {[
-                      { label: "Produto & Catálogo", pct: 78, color: "#16a34a" },
-                      { label: "SEO Orgânico", pct: 35, color: "#dc2626" },
-                      { label: "Tráfego Pago", pct: 55, color: "#d97706" },
-                    ].map((bar) => (
-                      <div key={bar.label} className="flex items-center gap-2">
-                        <span className="text-[10px] text-mavi-white/50 w-28 flex-shrink-0">{bar.label}</span>
-                        <div className="flex-1 h-1.5 bg-white/10 rounded-full overflow-hidden">
-                          <div className="h-full rounded-full" style={{ width: `${bar.pct}%`, background: bar.color }} />
-                        </div>
-                        <span className="text-[10px] font-bold w-5 text-right" style={{ color: bar.color }}>{bar.pct}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-              <div className="absolute -top-2 -right-2 bg-primary text-white text-[10px] font-bold px-2.5 py-1 rounded-full shadow-lg">
-                Grátis
-              </div>
-            </div>
+                </p>
+              </AnimatedSection>
+            ))}
           </div>
         </div>
-      </Section>
+      </section>
 
-      {/* Final CTA */}
-      <Section variant="dark">
-        <div className="text-center max-w-3xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-bold text-mavi-white mb-4">
-            Quer colocar sua loja no ar?
-          </h2>
-          <p className="text-lg text-mavi-white/70 mb-8">
-            Na primeira conversa a gente define escopo, prazo e valor. Sem surpresa depois.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button asChild variant="hero" size="xl">
-              <Link to="/contato">Solicitar Proposta</Link>
-            </Button>
-            <Button asChild variant="heroOutline" size="lg">
-              <Link to="/servicos">Ver outros serviços</Link>
-            </Button>
-          </div>
-        </div>
-      </Section>
+      <FaqBlock title="Perguntas frequentes" subtitle="Tire suas dúvidas sobre criação de e-commerce." faqs={faqs} />
+
+      <AssessmentPromo
+        title="Antes de qualquer investimento, descubra onde está o gargalo"
+        text="Nosso assessment avalia seu e-commerce em 7 dimensões (produto, tráfego, marketplaces, SEO, redes sociais, design e investimento) e entrega um diagnóstico personalizado em menos de 5 minutos."
+        bullets={["21 perguntas simples, resultado imediato", "Score por área + mapa de maturidade", "Recomendação dos próximos passos", "100% gratuito e sem compromisso"]}
+        note="Mais de 200 e-commerces já fizeram o diagnóstico"
+      />
+
+      <FinalCta
+        title="Quer colocar sua loja no ar?"
+        text="Na primeira conversa a gente define escopo, prazo e valor. Sem surpresa depois."
+        primary={{ label: "Solicitar Proposta", href: "/contato" }}
+        secondary={{ label: "Ver outros serviços", href: "/servicos" }}
+      />
     </Layout>
   );
 }

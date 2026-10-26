@@ -1,17 +1,6 @@
-import { Link } from "react-router-dom";
 import { Layout } from "@/components/Layout";
-import { Section, SectionHeader } from "@/components/Section";
-import { Button } from "@/components/ui/button";
 import { SEO, generateBreadcrumbSchema, generateFAQSchema } from "@/components/SEO";
-import { WhatsAppLink } from "@/components/WhatsAppLink";
-import { SplitText } from "@/components/SplitText";
-import { HeroBackground } from "@/components/HeroBackground";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
+import { SegmentBody } from "@/components/segment/SegmentBlocks";
 import {
   Building2,
   Target,
@@ -20,10 +9,6 @@ import {
   BarChart3,
   Globe,
   Camera,
-  CheckCircle2,
-  ArrowRight,
-  Phone,
-  Mail,
   TrendingUp,
   Zap,
 } from "lucide-react";
@@ -183,276 +168,33 @@ const SegmentoImobiliarias = () => {
         schemaMarkup={combinedSchema}
       />
 
-      {/* Hero Section */}
-      <section className="relative min-h-[70vh] flex items-center pt-20 overflow-hidden">
-        <HeroBackground intensity="subtle" tone="dark" />
-
-        <div className="container-mavi relative z-10 py-20">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <span className="inline-block px-4 py-2 bg-primary/20 text-primary rounded-full text-sm font-medium mb-6">
-                Marketing para Imobiliárias
-              </span>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-mavi-white mb-2 leading-[1.05]"><SplitText stagger={45} duration={750}>Gere mais leads{" "}
-                <span className="text-primary">qualificados</span> para sua
-                imobiliária</SplitText></h1>
-              <p className="text-xl text-mavi-white/80 mb-8">
-                Estratégias de marketing digital que atraem clientes reais
-                interessados em comprar ou alugar. CRM especializado para
-                corretores e automação de follow-up.
-              </p>
-              <div className="flex flex-wrap gap-4">
-                <Button asChild variant="hero" size="lg">
-                  <Link to="/contato">Solicitar proposta</Link>
-                </Button>
-                <WhatsAppLink className="inline-flex">
-                  <Button variant="heroOutline" size="lg" className="pointer-events-none">
-                    Falar no WhatsApp
-                  </Button>
-                </WhatsAppLink>
-              </div>
-            </div>
-
-            <div className="hidden lg:block">
-              <div className="relative">
-                <div className="bg-gradient-to-br from-card to-card/50 rounded-3xl p-8 border border-border/50">
-                  <div className="flex items-center gap-3 mb-6">
-                    <Building2 className="w-8 h-8 text-primary" />
-                    <span className="text-xl font-bold text-foreground">
-                      Resultados para Imobiliárias
-                    </span>
-                  </div>
-                  <div className="space-y-4">
-                    <div className="flex items-center gap-3 p-4 bg-primary/10 rounded-xl">
-                      <TrendingUp className="w-6 h-6 text-primary" />
-                      <div>
-                        <div className="text-2xl font-bold text-foreground">
-                          3x mais leads
-                        </div>
-                        <div className="text-sm text-muted-foreground">
-                          Com a mesma verba de mídia
-                        </div>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-3 p-4 bg-primary/10 rounded-xl">
-                      <Zap className="w-6 h-6 text-primary" />
-                      <div>
-                        <div className="text-2xl font-bold text-foreground">
-                          70% menos tempo
-                        </div>
-                        <div className="text-sm text-muted-foreground">
-                          Em follow-up com automação
-                        </div>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-3 p-4 bg-primary/10 rounded-xl">
-                      <Users className="w-6 h-6 text-primary" />
-                      <div>
-                        <div className="text-2xl font-bold text-foreground">
-                          100% organizado
-                        </div>
-                        <div className="text-sm text-muted-foreground">
-                          Funil de vendas no CRM
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Problems Section */}
-      <Section>
-        <SectionHeader
-          title="Sua imobiliária enfrenta esses desafios?"
-          subtitle="Problemas que aparecem com frequência em imobiliárias que chegam até nós"
-        />
-
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {problems.map((problem, index) => (
-            <div
-              key={index}
-              className="bg-card p-6 rounded-2xl border border-border hover:border-primary/30 transition-colors"
-            >
-              <div className="w-12 h-12 rounded-xl bg-destructive/10 flex items-center justify-center mb-4">
-                <problem.icon className="w-6 h-6 text-destructive" />
-              </div>
-              <h3 className="text-lg font-semibold text-foreground mb-2">
-                {problem.title}
-              </h3>
-              <p className="text-muted-foreground text-sm">
-                {problem.description}
-              </p>
-            </div>
-          ))}
-        </div>
-      </Section>
-
-      {/* Solutions Section */}
-      <Section variant="muted">
-        <SectionHeader
-          title="Nossas soluções para Imobiliárias"
-          subtitle="O que fazemos para resolver cada um desses problemas"
-        />
-
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {solutions.map((solution, index) => (
-            <div
-              key={index}
-              className="bg-card p-8 rounded-2xl border border-border hover:shadow-lg transition-shadow"
-            >
-              <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mb-6">
-                <solution.icon className="w-7 h-7 text-primary" />
-              </div>
-              <h3 className="text-xl font-bold text-foreground mb-3">
-                {solution.title}
-              </h3>
-              <p className="text-muted-foreground">{solution.description}</p>
-            </div>
-          ))}
-        </div>
-      </Section>
-
-      {/* Benefits Section */}
-      <Section>
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          <div>
-            <span className="inline-block px-4 py-2 bg-primary/20 text-primary rounded-full text-sm font-medium mb-6">
-              Benefícios
-            </span>
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">
-              O que sua imobiliária ganha com a MAVI
-            </h2>
-            <p className="text-muted-foreground text-lg mb-8">
-              O que muda na prática quando trabalhamos juntos.
-            </p>
-
-            <ul className="space-y-4">
-              {benefits.map((benefit, index) => (
-                <li key={index} className="flex items-start gap-3">
-                  <CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
-                  <span className="text-foreground">{benefit}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div className="bg-gradient-to-br from-primary/20 to-primary/5 rounded-3xl p-8 lg:p-12">
-            <h3 className="text-2xl font-bold text-foreground mb-6 text-center">
-              Conheça o CRM HUBRS
-            </h3>
-            <p className="text-muted-foreground text-center mb-8">
-              Desenvolvido pela MAVI, o HUBRS é o CRM ideal para imobiliárias que
-              querem organizar leads, automatizar follow-up e acompanhar a
-              performance de cada corretor.
-            </p>
-            <div className="flex justify-center">
-              <Button asChild variant="default" size="lg">
-                <Link to="/hubrs-crm">
-                  Conhecer o HUBRS CRM
-                  <ArrowRight className="w-4 h-4 ml-2" />
-                </Link>
-              </Button>
-            </div>
-          </div>
-        </div>
-      </Section>
-
-      {/* Process Section */}
-      <Section variant="muted">
-        <SectionHeader
-          title="Como trabalhamos"
-          subtitle="Nosso processo para gerar resultados consistentes para imobiliárias"
-        />
-
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {process.map((step, index) => (
-            <div key={index} className="relative">
-              <div className="text-6xl font-bold text-primary/20 mb-4">
-                {step.step}
-              </div>
-              <h3 className="text-xl font-bold text-foreground mb-2">
-                {step.title}
-              </h3>
-              <p className="text-muted-foreground">{step.description}</p>
-              {index < process.length - 1 && (
-                <div className="hidden lg:block absolute top-8 right-0 w-8 text-primary/30">
-                  <ArrowRight className="w-8 h-8" />
-                </div>
-              )}
-            </div>
-          ))}
-        </div>
-      </Section>
-
-      {/* FAQ Section */}
-      <Section>
-        <SectionHeader
-          title="Perguntas Frequentes"
-          subtitle="Tire suas dúvidas sobre marketing digital para imobiliárias"
-        />
-
-        <div className="max-w-3xl mx-auto">
-          <Accordion type="single" collapsible className="w-full">
-            {faqs.map((faq, index) => (
-              <AccordionItem key={index} value={`item-${index}`}>
-                <AccordionTrigger className="text-left">
-                  {faq.question}
-                </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground">
-                  {faq.answer}
-                </AccordionContent>
-              </AccordionItem>
-            ))}
-          </Accordion>
-        </div>
-      </Section>
-
-      {/* CTA Section */}
-      <section className="relative py-20 overflow-hidden">
-        <div className="absolute inset-0 bg-mavi-black" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(230,0,126,0.18),transparent_60%)]" />
-
-        <div className="container-mavi relative z-10">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <h2 className="text-3xl md:text-4xl font-bold text-mavi-white mb-6">
-                Quer ver quanto custa um lead qualificado na sua região?
-              </h2>
-              <p className="text-xl text-mavi-white/80 mb-8">
-                A gente analisa seu mercado e mostra o que faria. Gratuito, sem compromisso.
-              </p>
-              <div className="flex flex-wrap gap-4">
-                <Button asChild variant="hero" size="lg">
-                  <Link to="/contato">Agendar consultoria gratuita</Link>
-                </Button>
-              </div>
-            </div>
-
-            <div className="bg-mavi-white/10 backdrop-blur-sm rounded-2xl p-8">
-              <h3 className="text-xl font-bold text-mavi-white mb-6">
-                Fale conosco agora
-              </h3>
-              <div className="space-y-4">
-                <WhatsAppLink className="flex items-center gap-3 text-mavi-white/80 hover:text-primary transition-colors cursor-pointer">
-                  <Phone className="w-5 h-5" />
-                  (47) 99681-0630
-                </WhatsAppLink>
-                <a
-                  href="mailto:agenciamavi@agenciamavi.com.br"
-                  className="flex items-center gap-3 text-mavi-white/80 hover:text-primary transition-colors"
-                >
-                  <Mail className="w-5 h-5" />
-                  agenciamavi@agenciamavi.com.br
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      <SegmentBody
+        badge="Marketing para Imobiliárias"
+        title={<>Gere mais leads <span className="text-primary">qualificados</span> para sua imobiliária</>}
+        lead="Estratégias de marketing digital que atraem clientes reais interessados em comprar ou alugar. CRM especializado para corretores e automação de follow-up."
+        resultsIcon={Building2}
+        resultsTitle="Resultados para Imobiliárias"
+        results={[
+          { icon: TrendingUp, value: "3x mais leads", label: "Com a mesma verba de mídia" },
+          { icon: Zap, value: "70% menos tempo", label: "Em follow-up com automação" },
+          { icon: Users, value: "100% organizado", label: "Funil de vendas no CRM" },
+        ]}
+        problemsTitle="Sua imobiliária enfrenta esses desafios?"
+        problemsSubtitle="Problemas que aparecem com frequência em imobiliárias que chegam até nós"
+        problems={problems}
+        solutionsTitle="Nossas soluções para Imobiliárias"
+        solutions={solutions}
+        benefitsTitle="O que sua imobiliária ganha com a MAVI"
+        benefits={benefits}
+        crmTitle="Conheça o CRM HUBRS"
+        crmText="Desenvolvido pela MAVI, o HUBRS é o CRM ideal para imobiliárias que querem organizar leads, automatizar follow-up e acompanhar a performance de cada corretor."
+        processSubtitle="Nosso processo para gerar resultados consistentes para imobiliárias"
+        process={process}
+        faqSubtitle="Tire suas dúvidas sobre marketing digital para imobiliárias"
+        faqs={faqs}
+        ctaTitle="Quer ver quanto custa um lead qualificado na sua região?"
+        ctaText="A gente analisa seu mercado e mostra o que faria. Gratuito, sem compromisso."
+      />
     </Layout>
   );
 };

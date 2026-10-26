@@ -78,7 +78,7 @@ function LogoRow({
             <img
               src={client.logo}
               alt={client.name}
-              className="h-10 md:h-14 w-auto object-contain max-w-[140px] md:max-w-[180px] mix-blend-lighten"
+              className="h-10 md:h-14 w-auto object-contain max-w-[140px] md:max-w-[180px] mix-blend-multiply"
               onError={(e) => {
                 const parent = (e.currentTarget.parentElement as HTMLElement | null);
                 if (parent) parent.style.display = "none";

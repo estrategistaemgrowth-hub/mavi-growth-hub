@@ -5,7 +5,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-semibold ring-offset-background transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 ripple-host",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full text-sm font-semibold ring-offset-background transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 ripple-host",
   {
     variants: {
       variant: {
@@ -15,16 +15,16 @@ const buttonVariants = cva(
         secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
-        hero: "bg-primary text-primary-foreground hover:bg-primary/90 shadow-magenta-lg hover:shadow-magenta",
-        heroOutline: "border-2 border-mavi-white bg-transparent text-mavi-white hover:bg-mavi-white hover:text-mavi-black",
+        hero: "rounded-full bg-primary text-primary-foreground hover:bg-primary/90 shadow-magenta-lg hover:shadow-magenta",
+        heroOutline: "rounded-full border border-mavi-white bg-transparent text-mavi-white hover:bg-mavi-white hover:text-mavi-black",
         dark: "bg-mavi-black text-mavi-white hover:bg-mavi-gray-dark border border-mavi-gray-dark",
         magenta: "bg-gradient-to-r from-primary to-primary/80 text-primary-foreground hover:opacity-90 shadow-magenta hover:shadow-magenta-lg",
       },
       size: {
         default: "h-10 px-6 py-2",
-        sm: "h-9 rounded-md px-4",
-        lg: "h-12 rounded-md px-8 text-base",
-        xl: "h-14 rounded-lg px-10 text-lg",
+        sm: "h-9 px-4",
+        lg: "h-12 px-8 text-base",
+        xl: "h-14 px-10 text-lg",
         icon: "h-10 w-10",
       },
     },

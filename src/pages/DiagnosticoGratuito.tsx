@@ -460,7 +460,7 @@ export default function DiagnosticoGratuito() {
     <Layout>
       <SEO
         title="Diagnóstico de Growth Gratuito | MAVI Marketing Digital"
-        description="Descubra onde sua verba de anúncios está sendo desperdiçada. Um estrategista da MAVI analisa sua conta ao vivo em 30 minutos — grátis e sem compromisso."
+        description="Descubra onde sua verba de anúncios está sendo desperdiçada. Um estrategista da MAVI analisa sua conta ao vivo em 30 minutos, grátis e sem compromisso."
         canonical="/diagnostico-gratuito"
         schemaMarkup={schema}
       />
@@ -477,7 +477,7 @@ export default function DiagnosticoGratuito() {
             </span>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-mavi-white leading-[1.05] mb-6">
               <SplitText stagger={35} duration={700}>
-                Descubra onde sua verba de anúncios está sendo desperdiçada — em 30 minutos, de graça.
+                Descubra onde sua verba de anúncios está sendo desperdiçada em 30 minutos, de graça.
               </SplitText>
             </h1>
             <p className="text-lg md:text-xl text-mavi-white/70 leading-relaxed max-w-2xl mx-auto mb-8 animate-fade-in-up animation-delay-200">
@@ -498,7 +498,7 @@ export default function DiagnosticoGratuito() {
       </section>
 
       {/* PROBLEMA */}
-      <section className="py-20 md:py-28 bg-[hsl(0_0%_5%)] text-mavi-white">
+      <section className="py-20 md:py-28 bg-card text-mavi-white border-y border-border">
         <div className="container-mavi">
           <AnimatedSection>
             <div className="max-w-3xl mx-auto text-center mb-12">
@@ -521,7 +521,7 @@ export default function DiagnosticoGratuito() {
           <AnimatedSection delay={400}>
             <p className="max-w-3xl mx-auto mt-10 text-center text-lg md:text-xl text-mavi-white/70 leading-relaxed">
               A maioria dos e-commerces deixa <span className="text-primary font-semibold">30% a 50% do ROAS na mesa</span> sem saber.
-              Não por falta de verba — por falta de leitura correta dos dados.
+              Não por falta de verba, e sim por falta de leitura correta dos dados.
             </p>
           </AnimatedSection>
         </div>
@@ -544,7 +544,7 @@ export default function DiagnosticoGratuito() {
               const Icon = etapa.icon;
               return (
                 <AnimatedSection key={etapa.title} delay={i * 100}>
-                  <div className="relative h-full p-6 rounded-xl bg-[hsl(0_0%_4%)] border border-mavi-white/10 border-t-2 border-t-primary hover:shadow-magenta transition-all duration-300 hover:-translate-y-1">
+                  <div className="relative h-full p-6 rounded-xl bg-background border border-mavi-white/10 border-t-2 border-t-primary hover:shadow-magenta transition-all duration-300 hover:-translate-y-1">
                     <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
                       <Icon className="w-6 h-6 text-primary" />
                     </div>
@@ -560,7 +560,7 @@ export default function DiagnosticoGratuito() {
       </section>
 
       {/* CASES */}
-      <section className="py-20 md:py-28 bg-[hsl(0_0%_5%)] text-mavi-white">
+      <section className="py-20 md:py-28 bg-card text-mavi-white border-y border-border">
         <div className="container-mavi">
           <AnimatedSection>
             <div className="max-w-3xl mx-auto text-center mb-12">
@@ -568,7 +568,7 @@ export default function DiagnosticoGratuito() {
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight mb-4">
                 O que acontece <span className="text-primary">depois</span> do Diagnóstico MAVI
               </h2>
-              <p className="text-mavi-white/60">Resultados reais de clientes — Jan a Mar 2025.</p>
+              <p className="text-mavi-white/60">Resultados reais de clientes (jan. a mar. 2025).</p>
             </div>
           </AnimatedSection>
 
@@ -610,7 +610,7 @@ export default function DiagnosticoGratuito() {
             <AnimatedSection delay={300}>
               <div className="mt-10 grid sm:grid-cols-3 gap-4">
                 {["Sem proposta empurrada", "Sem contrato", "Sem pegadinha"].map((g) => (
-                  <div key={g} className="flex items-center gap-3 p-4 rounded-lg bg-[hsl(0_0%_5%)] border border-mavi-white/10">
+                  <div key={g} className="flex items-center gap-3 p-4 rounded-lg bg-background border border-mavi-white/10">
                     <CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0" />
                     <span className="text-sm font-medium">{g}</span>
                   </div>
@@ -622,7 +622,7 @@ export default function DiagnosticoGratuito() {
       </section>
 
       {/* QUEM */}
-      <section className="py-20 md:py-28 bg-[hsl(0_0%_5%)] text-mavi-white">
+      <section className="py-20 md:py-28 bg-card text-mavi-white border-y border-border">
         <div className="container-mavi">
           <AnimatedSection>
             <div className="max-w-3xl mx-auto text-center mb-12">
@@ -631,7 +631,7 @@ export default function DiagnosticoGratuito() {
                 Você não vai falar com <span className="text-primary">estagiário</span>
               </h2>
               <p className="text-lg text-mavi-white/70 leading-relaxed">
-                O Diagnóstico é conduzido por um estrategista sênior do time de growth da MAVI — gente que opera contas reais com verba real todo mês.
+                O Diagnóstico é conduzido por um estrategista sênior do time de growth da MAVI: gente que opera contas reais com verba real todo mês.
               </p>
             </div>
           </AnimatedSection>
@@ -671,7 +671,7 @@ export default function DiagnosticoGratuito() {
             {faqs.map((faq, i) => {
               const isOpen = openFaq === i;
               return (
-                <div key={i} className="rounded-xl bg-[hsl(0_0%_5%)] border border-mavi-white/10 overflow-hidden">
+                <div key={i} className="rounded-xl bg-background border border-mavi-white/10 overflow-hidden">
                   <button
                     onClick={() => setOpenFaq(isOpen ? null : i)}
                     className="w-full flex items-center justify-between gap-4 p-5 text-left hover:bg-mavi-white/5 transition-colors"
@@ -696,7 +696,6 @@ export default function DiagnosticoGratuito() {
         id="assessment-diagnostico"
         className="relative py-20 md:py-28 bg-mavi-black text-mavi-white overflow-hidden"
       >
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(230,0,126,0.20),transparent_60%)]" />
         <div className="container-mavi relative z-10">
           <div className="max-w-2xl mx-auto">
 
@@ -713,7 +712,7 @@ export default function DiagnosticoGratuito() {
               </div>
             )}
 
-            <div className="rounded-2xl bg-[hsl(0_0%_4%)] border border-mavi-white/10 border-t-2 border-t-primary p-6 md:p-8 shadow-magenta min-h-[420px] flex flex-col">
+            <div className="rounded-2xl bg-background border border-mavi-white/10 border-t-2 border-t-primary p-6 md:p-8 shadow-magenta min-h-[420px] flex flex-col">
 
               {/* QUESTION STEPS */}
               {QUESTION_STEPS.includes(aStep) && (
@@ -1005,7 +1004,7 @@ export default function DiagnosticoGratuito() {
                   <div className="rounded-xl border border-primary/30 bg-primary/8 p-5 text-center">
                     <p className="text-xs uppercase tracking-wider text-mavi-white/50 mb-1">Estimativa de receita não capturada</p>
                     <p className="text-4xl font-extrabold text-primary">{formatBRL(resultado.dinheiroNaMesa)}</p>
-                    <p className="text-xs text-mavi-white/40 mt-1">por mês — dinheiro que está na mesa</p>
+                    <p className="text-xs text-mavi-white/40 mt-1">por mês, dinheiro que está na mesa</p>
                   </div>
 
                   {/* Pillar breakdown */}
@@ -1041,7 +1040,7 @@ export default function DiagnosticoGratuito() {
                     </Button>
                   </a>
                   <p className="text-center text-xs text-mavi-white/40">
-                    Um estrategista sênior da MAVI analisa sua conta ao vivo — sem compromisso.
+                    Um estrategista sênior da MAVI analisa sua conta ao vivo, sem compromisso.
                   </p>
                 </div>
               )}

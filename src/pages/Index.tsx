@@ -1,17 +1,19 @@
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Layout } from "@/components/Layout";
-import { Section, SectionHeader } from "@/components/Section";
-import { ServiceCard } from "@/components/ServiceCard";
-import { TestimonialCard } from "@/components/TestimonialCard";
 import { LogoCarousel } from "@/components/LogoCarousel";
 import { AnimatedCounter } from "@/components/AnimatedCounter";
 import { AnimatedSection, AnimatedChildren } from "@/components/AnimatedSection";
-import { HeroBackground } from "@/components/HeroBackground";
-import { TypewriterText } from "@/components/TypewriterText";
 import { CyclingTypewriter } from "@/components/CyclingTypewriter";
-import { SplitText } from "@/components/SplitText";
+import { PainChat } from "@/components/home/PainChat";
 import { SEO, generateBreadcrumbSchema, generateLocalBusinessSchema, generateOrganizationSchema, generateWebSiteSchema, generateFAQSchema } from "@/components/SEO";
+import { cn } from "@/lib/utils";
+import seloGoogle from "@/assets/selos/google-premier-partner.png";
+import seloMeta from "@/assets/selos/meta-partner.webp";
+import seloTray from "@/assets/selos/tray-diamante.png";
+import seloRd from "@/assets/selos/rd-station-partner.webp";
+import camilaAvatar from "@/assets/camila-avatar.jpg";
 import {
   ShoppingCart,
   TrendingUp,
@@ -23,16 +25,16 @@ import {
   Target,
   Zap,
   MessageSquare,
-  CheckCircle2,
+  MessageCircle,
+  Check,
   ArrowRight,
   Blocks,
   Star,
-  Sparkles,
-  Award,
-  Check,
+  Plus,
+  type LucideIcon,
 } from "lucide-react";
 
-const services = [
+const services: { title: string; description: string; icon: LucideIcon; href: string; highlight?: boolean; external?: boolean }[] = [
   {
     title: "E-commerce e Lojas Virtuais",
     description: "Criação, implantação e otimização de lojas virtuais com foco em vendas, especialmente na plataforma Tray e integrações com outros canais.",
@@ -82,6 +84,15 @@ const services = [
     icon: MessageSquare,
     href: "/hubrs-crm",
   },
+  {
+    // Texto da própria página do Zaptrix (zaptrix.agenciamavi.com.br)
+    title: "Zaptrix",
+    description: "IA que atende e vende pelo WhatsApp para lojistas. Cadastre o produto com foto, preço e link de pagamento: a IA manda a foto, confere o estoque, entende áudio e envia o link na hora da compra.",
+    icon: MessageCircle,
+    href: "https://zaptrix.agenciamavi.com.br",
+    highlight: true,
+    external: true,
+  },
 ];
 
 const differentials = [
@@ -89,25 +100,21 @@ const differentials = [
     title: "Especialistas em e-commerce",
     description: "Conhecimento profundo em Tray, marketplaces e operações de venda online.",
     icon: ShoppingCart,
-    number: "01",
   },
   {
     title: "Metodologia de performance",
     description: "Análise semanal de ROAS, CAC e LTV. Ajustes toda semana, não só no fim do mês.",
     icon: Target,
-    number: "02",
   },
   {
     title: "Integração completa",
     description: "Loja, anúncios, CRM e atendimento trabalhando juntos de forma eficiente.",
     icon: Zap,
-    number: "03",
   },
   {
     title: "Linguagem de negócio",
     description: "Time que entende seus desafios e fala a língua do dono de negócio.",
     icon: MessageSquare,
-    number: "04",
   },
 ];
 
@@ -132,7 +139,6 @@ const testimonials = [
   },
 ];
 
-
 const homeFaqs = [
   {
     question: "O que é a MAVI Marketing Digital?",
@@ -155,6 +161,219 @@ const homeFaqs = [
     answer: "Resultados em tráfego pago aparecem nas primeiras semanas. Estratégias de growth marketing e SEO têm retorno mais expressivo a partir do 3º mês. Trabalhamos com metas claras desde o início.",
   },
 ];
+
+const CYCLE_PHRASES = [
+  "pagos pelo seu ROAS.",
+  "para e-commerces.",
+  "para imobiliárias.",
+  "para clínicas e estéticas.",
+  "que fecham vendas.",
+  "orientados a dados.",
+];
+
+const microSaasPains = [
+  "Planilha que não escala",
+  "WhatsApp sem rastreabilidade",
+  "SaaS caro e genérico",
+  "Processo na cabeça das pessoas",
+  "Integrações que não conversam",
+];
+
+const sectionTitle = "text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight text-foreground leading-[1.06] text-balance";
+const sectionSub = "mt-4 max-w-[58ch] text-lg leading-relaxed text-muted-foreground";
+
+const usePrefersReducedMotion = () => {
+  const [reduced, setReduced] = useState(false);
+  useEffect(() => setReduced(window.matchMedia("(prefers-reduced-motion: reduce)").matches), []);
+  return reduced;
+};
+
+/** Lista de serviços com painel ao lado. Todos os painéis ficam no HTML (SEO); só o ativo aparece. */
+function ServicesExplorer() {
+  const [active, setActive] = useState(1);
+  const [auto, setAuto] = useState(true);
+  const reduced = usePrefersReducedMotion();
+
+  useEffect(() => {
+    if (!auto || reduced) return;
+    const id = window.setInterval(() => setActive((a) => (a + 1) % services.length), 4200);
+    return () => window.clearInterval(id);
+  }, [auto, reduced]);
+
+  const choose = (i: number) => {
+    setAuto(false);
+    setActive(i);
+  };
+
+  return (
+    <div className="grid items-start gap-8 lg:grid-cols-[0.9fr,1.1fr] lg:gap-16">
+      <div className="grid border-t border-border" role="tablist" aria-label="Soluções">
+        {services.map((s, i) => (
+          <button
+            key={s.title}
+            type="button"
+            role="tab"
+            aria-selected={active === i}
+            onMouseEnter={() => choose(i)}
+            onFocus={() => choose(i)}
+            onClick={() => choose(i)}
+            className={cn(
+              "group border-b border-border py-4 text-left text-lg font-semibold md:text-xl",
+              active === i ? "text-foreground" : "text-muted-foreground hover:text-foreground",
+            )}
+          >
+            {/* Só o conteúdo desliza; a linha divisória fica no lugar */}
+            <span className={cn("flex items-center gap-3.5 px-1 transition-transform duration-300 ease-out", active === i ? "translate-x-3" : "group-hover:translate-x-3")}>
+              <s.icon className={cn("h-5 w-5 shrink-0 transition-colors", active === i ? "text-primary" : "text-input group-hover:text-primary")} aria-hidden="true" />
+              {s.title}
+              {s.highlight && (
+                <span className="ml-auto mr-3 rounded-full bg-[hsl(280_70%_96%)] px-2.5 py-0.5 text-[11px] font-bold text-[hsl(275_60%_40%)]">Novo</span>
+              )}
+            </span>
+          </button>
+        ))}
+      </div>
+
+      <div className="relative grid overflow-hidden rounded-2xl border border-border bg-background lg:sticky lg:top-28">
+        {services.map((s, i) => (
+          <div
+            key={s.title}
+            role="tabpanel"
+            aria-hidden={active !== i}
+            className={cn(
+              "relative col-start-1 row-start-1 grid min-h-[380px] content-between gap-8 p-7 md:p-11",
+              active === i ? "visible animate-panel-in" : "invisible",
+            )}
+          >
+            {/* Ícone decorativo no canto de baixo, atrás do conteúdo */}
+            <s.icon className="pointer-events-none absolute -bottom-12 -right-10 z-0 h-56 w-56 text-primary/[0.07]" strokeWidth={0.8} aria-hidden="true" />
+            <div className="relative z-10">
+              <span className="grid h-16 w-16 place-items-center rounded-2xl bg-primary text-primary-foreground">
+                <s.icon className="h-8 w-8" strokeWidth={1.6} aria-hidden="true" />
+              </span>
+              <h3 className="mb-3 mt-6 text-2xl font-extrabold tracking-tight text-foreground md:text-3xl">{s.title}</h3>
+              <p className="max-w-[44ch] text-base leading-relaxed text-muted-foreground md:text-lg">{s.description}</p>
+            </div>
+            <Button asChild variant="hero" size="lg" className="group relative z-10 w-fit rounded-full" tabIndex={active === i ? 0 : -1}>
+              {s.external ? (
+                <a href={s.href} target="_blank" rel="noopener">
+                  Conhecer o Zaptrix
+                  <ArrowRight className="ml-1 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+                </a>
+              ) : (
+                <Link to={s.href}>
+                  Saiba mais
+                  <ArrowRight className="ml-1 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+                </Link>
+              )}
+            </Button>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/** Dores do Micro SaaS: o visitante marca o que vive e a frase reage. */
+function PainToggles() {
+  const [on, setOn] = useState<string[]>([]);
+  const toggle = (p: string) => setOn((cur) => (cur.includes(p) ? cur.filter((x) => x !== p) : [...cur, p]));
+  const n = on.length;
+  return (
+    <>
+      <div className="mt-7 flex flex-wrap gap-2.5">
+        {microSaasPains.map((pain) => {
+          const pressed = on.includes(pain);
+          return (
+            <button
+              key={pain}
+              type="button"
+              aria-pressed={pressed}
+              onClick={() => toggle(pain)}
+              className={cn(
+                "inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium transition-[background-color,color,border-color,transform] duration-300 ease-out hover:-translate-y-0.5",
+                pressed ? "border-white bg-white text-primary" : "border-white/40 text-white hover:border-white",
+              )}
+            >
+              <span className="grid h-4 w-4 place-items-center rounded-[5px] border-[1.5px] border-current">
+                <Check className={cn("h-3 w-3 transition-all duration-300", pressed ? "scale-100 opacity-100" : "scale-50 opacity-0")} strokeWidth={3} aria-hidden="true" />
+              </span>
+              {pain}
+            </button>
+          );
+        })}
+      </div>
+      <p className="mb-7 mt-3 min-h-6 text-sm font-semibold text-white" aria-live="polite">
+        {n === 0
+          ? "Marque o que acontece na sua empresa."
+          : n === 1
+            ? "1 dessas já custa caro todo mês. Um sistema próprio resolve na raiz."
+            : `${n} dessas ao mesmo tempo: é exatamente o caso para um sistema próprio.`}
+      </p>
+    </>
+  );
+}
+
+const initials = (name: string) =>
+  name.replace(/^Dra?\.\s*/, "").split(" ").map((w) => w[0]).join("").slice(0, 2).toUpperCase();
+
+/** Depoimentos um por vez, com troca automática. Todos ficam no HTML. */
+function TestimonialRotator() {
+  const [active, setActive] = useState(0);
+  const [cycle, setCycle] = useState(0);
+  const reduced = usePrefersReducedMotion();
+
+  useEffect(() => {
+    if (reduced) return;
+    const id = window.setTimeout(() => setActive((a) => (a + 1) % testimonials.length), 7000);
+    return () => window.clearTimeout(id);
+  }, [active, cycle, reduced]);
+
+  return (
+    <div className="grid items-start gap-8 md:grid-cols-[280px,1fr] md:gap-20">
+      <div className="grid grid-cols-3 gap-1.5 md:grid-cols-1" role="tablist" aria-label="Depoimentos">
+        {testimonials.map((t, i) => (
+          <button
+            key={t.author}
+            type="button"
+            role="tab"
+            aria-selected={active === i}
+            onClick={() => {
+              setActive(i);
+              setCycle((c) => c + 1);
+            }}
+            className={cn(
+              "flex flex-col items-center gap-3 rounded-xl p-3 text-center transition-colors md:flex-row md:text-left",
+              active === i ? "bg-card ring-1 ring-border" : "hover:bg-card",
+            )}
+          >
+            <span className={cn("grid h-11 w-11 shrink-0 place-items-center rounded-full text-[15px] font-bold", i === 1 ? "bg-[hsl(280_70%_96%)] text-[hsl(275_60%_40%)]" : "bg-primary/10 text-primary")}>
+              {initials(t.author)}
+            </span>
+            <span className="w-full">
+              <span className="block text-sm font-semibold text-foreground">{t.author}</span>
+              <span className="hidden text-xs text-muted-foreground md:block">{t.company}</span>
+              <span className="mt-2 block h-0.5 overflow-hidden rounded bg-border">
+                {active === i && !reduced && <span key={`${active}-${cycle}`} className="block h-full w-0 animate-[fill_7s_linear_forwards] bg-primary" />}
+              </span>
+            </span>
+          </button>
+        ))}
+      </div>
+      <div className="grid">
+        {testimonials.map((t, i) => (
+          <figure key={t.author} aria-hidden={active !== i} className={cn("col-start-1 row-start-1", active === i ? "visible animate-panel-in" : "invisible")}>
+            <span className="block text-6xl font-extrabold leading-[0.6] text-primary" aria-hidden="true">&ldquo;</span>
+            <blockquote className="mt-3 text-2xl font-semibold leading-snug tracking-tight text-foreground md:text-3xl">{t.quote}</blockquote>
+            <figcaption className="mt-6 text-[15px] text-muted-foreground">
+              <b className="text-foreground">{t.author}</b> · {t.role}, {t.company}
+            </figcaption>
+          </figure>
+        ))}
+      </div>
+    </div>
+  );
+}
 
 export default function Index() {
   const breadcrumbSchema = generateBreadcrumbSchema([
@@ -180,642 +399,386 @@ export default function Index() {
         schemaMarkup={combinedSchema}
       />
 
-      {/* ============================================================
-          HERO SECTION — REDESENHADO
-          ============================================================ */}
-      <section className="relative min-h-screen flex items-center bg-mavi-black overflow-hidden">
-
-        {/* Mesh dot grid */}
-        <div className="absolute inset-0 bg-mesh opacity-60" />
-
-        {/* Gradiente base */}
-        <div className="absolute inset-0 bg-gradient-to-br from-mavi-black via-[#0a0010] to-[#150010]" />
-
-        {/* Fundo animado: orbs orgânicos + aurora + grid + beam */}
-        <HeroBackground intensity="medium" />
-
-        {/* Linha diagonal decorativa */}
-        <div className="absolute top-0 right-1/3 w-px h-full bg-gradient-to-b from-transparent via-primary/20 to-transparent" />
-
-        <div className="container-mavi relative z-10 pt-24 pb-16">
-          <div className="grid xl:grid-cols-[1fr,420px] gap-16 items-center">
-
-            {/* LADO ESQUERDO */}
-            <AnimatedSection animation="fadeInUp" className="max-w-2xl">
-
-              {/* Badge topo */}
-              <div className="badge-pill mb-6 w-fit">
-                <Award className="w-4 h-4" />
+      {/* HERO: promessa à esquerda, Camila ligando dor a solução à direita */}
+      <section className="relative overflow-hidden bg-background pb-16 pt-32 md:pb-24 md:pt-40">
+        <div className="container-mavi relative">
+          <div className="grid items-center gap-12 xl:grid-cols-[1.08fr,0.92fr] xl:gap-16">
+            <AnimatedSection animation="fadeInUp">
+              <div className="inline-flex items-center gap-2 rounded-full border border-border bg-card py-1.5 pl-2 pr-3.5 text-[13px] font-semibold text-muted-foreground">
+                <img src={seloGoogle} alt="" className="h-5 w-auto" />
                 Agência premiada · Google Premier Partner 2025
               </div>
 
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-mavi-white leading-[1.05] mb-3 tracking-tight">
+              <h1 className="mb-5 mt-6 text-[2.5rem] font-extrabold leading-[1.04] tracking-[-0.03em] text-foreground text-balance sm:text-5xl lg:text-[4.2rem]">
                 Tráfego, CRM e automação{" "}
-                <CyclingTypewriter
-                  phrases={[
-                    "pagos pelo seu ROAS.",
-                    "para e-commerces.",
-                    "para imobiliárias.",
-                    "para clínicas e estéticas.",
-                    "que fecham vendas.",
-                    "orientados a dados.",
-                  ]}
-                  className="gradient-text"
-                  speed={32}
-                  holdMs={2600}
-                />
+                {/* A frase mais longa fica invisível e reserva a altura: a troca de frase não empurra o layout */}
+                <span className="grid text-primary">
+                  <span className="invisible col-start-1 row-start-1" aria-hidden="true">para clínicas e estéticas.</span>
+                  <CyclingTypewriter phrases={CYCLE_PHRASES} className="col-start-1 row-start-1" speed={32} holdMs={2600} />
+                </span>
               </h1>
 
-              <p className="text-lg md:text-xl text-mavi-white/65 mb-10 leading-relaxed">
-                <SplitText
-                  delay={1800}
-                  stagger={35}
-                  duration={800}
-                >
-                  Operamos tráfego, CRM e automação para e-commerce, imobiliárias, clínicas e indústrias. Métrica que importa: receita atribuída por real investido.
-                </SplitText>
+              <p className="max-w-[54ch] text-lg leading-relaxed text-muted-foreground md:text-xl">
+                Operamos tráfego, CRM e automação para e-commerce, imobiliárias, clínicas e indústrias. Métrica que importa: receita atribuída por real investido.
               </p>
 
-              <div className="flex flex-col sm:flex-row gap-4 relative z-30">
-                <Button asChild variant="hero" size="xl" className="btn-glow group">
+              <div className="relative z-30 mt-8 flex flex-col gap-3 sm:flex-row">
+                <Button asChild variant="hero" size="xl" className="group rounded-full">
                   <Link to="/contato">
                     Quero um diagnóstico gratuito
-                    <ArrowRight className="w-4 h-4 ml-1 transition-transform duration-300 group-hover:translate-x-1" />
+                    <ArrowRight className="ml-1 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
                   </Link>
                 </Button>
-                <Button asChild variant="heroOutline" size="xl">
+                <Button asChild variant="outline" size="xl" className="rounded-full">
                   <Link to="/servicos/micro-saas">Ter meu próprio sistema</Link>
                 </Button>
               </div>
 
-              {/* Stats */}
-              <div className="mt-14 flex items-center gap-3 flex-wrap">
-                <div className="stat-box">
-                  <p className="text-2xl font-bold text-primary">
-                    <AnimatedCounter end={5} prefix="+" duration={1500} />
-                  </p>
-                  <p className="text-xs text-mavi-white/50 mt-0.5">Anos de mercado</p>
-                </div>
-                <div className="w-px h-10 bg-mavi-white/10 hidden sm:block" />
-                <div className="stat-box">
-                  <p className="text-2xl font-bold text-primary">
-                    <AnimatedCounter end={500} prefix="+" duration={2000} />
-                  </p>
-                  <p className="text-xs text-mavi-white/50 mt-0.5">Clientes atendidos</p>
-                </div>
-                <div className="w-px h-10 bg-mavi-white/10 hidden sm:block" />
-                <div className="stat-box">
-                  <p className="text-2xl font-bold text-primary">
-                    R$<AnimatedCounter end={50} duration={2000} />M+
-                  </p>
-                  <p className="text-xs text-mavi-white/50 mt-0.5">Em vendas geradas</p>
-                </div>
-                <div className="w-px h-10 bg-mavi-white/10 hidden sm:block" />
-                <div className="stat-box">
-                  <p className="text-2xl font-bold text-primary">8.4x</p>
-                  <p className="text-xs text-mavi-white/50 mt-0.5">ROAS médio</p>
-                </div>
+              <div className="mt-10 flex flex-wrap gap-x-7 gap-y-2 border-t border-border pt-6">
+                {[
+                  { node: <AnimatedCounter end={5} prefix="+" duration={1500} />, label: "Anos de mercado" },
+                  { node: <AnimatedCounter end={500} prefix="+" duration={2000} />, label: "Clientes atendidos" },
+                  { node: <>R$<AnimatedCounter end={50} duration={2000} />M+</>, label: "Em vendas geradas" },
+                  { node: "8.4x", label: "ROAS médio" },
+                ].map((s) => (
+                  <div key={s.label} className="flex items-baseline gap-2">
+                    <span className="text-2xl font-extrabold tabular-nums tracking-tight text-foreground">{s.node}</span>
+                    <span className="text-[13px] text-muted-foreground">{s.label}</span>
+                  </div>
+                ))}
               </div>
             </AnimatedSection>
 
-            {/* LADO DIREITO — Dashboard card */}
-            <AnimatedSection animation="fadeInRight" delay={300} className="hidden xl:block relative z-0">
-              <div className="relative animate-float">
-
-                {/* Glow atrás do card */}
-                <div className="absolute -inset-4 rounded-3xl opacity-30 blur-2xl"
-                  style={{ background: "radial-gradient(circle, hsl(336 100% 45%) 0%, transparent 70%)" }}
-                />
-
-                <div className="relative glass-card-dark rounded-2xl p-6 border border-white/10 hover:border-primary/30 transition-colors pointer-events-none">
-
-                  {/* Chrome bar */}
-                  <div className="flex items-center gap-2 mb-5">
-                    <div className="w-3 h-3 rounded-full bg-red-500/80" />
-                    <div className="w-3 h-3 rounded-full bg-yellow-500/80" />
-                    <div className="w-3 h-3 rounded-full bg-green-500/80" />
-                    <div className="flex-1 h-5 mx-2 rounded bg-white/5 flex items-center px-2">
-                      <div className="w-2 h-2 rounded-full bg-green-400 mr-1.5" />
-                      <span className="text-white/30 text-[10px]">dashboard.mavi.io</span>
-                    </div>
-                  </div>
-
-                  <div className="space-y-3">
-                    {/* Faturamento */}
-                    <div className="bg-white/5 rounded-xl p-4 border border-white/5">
-                      <div className="flex items-center justify-between mb-2">
-                        <span className="text-white/60 text-xs font-medium">Faturamento Mensal</span>
-                        <span className="text-green-400 text-xs font-semibold bg-green-400/10 px-2 py-0.5 rounded-full">↑ +127%</span>
-                      </div>
-                      <p className="text-white text-xl font-bold mb-2">
-                        R$ <AnimatedCounter end={248500} duration={2400} thousandSeparator="." />
-                      </p>
-                      <div className="h-1.5 bg-white/8 rounded-full overflow-hidden">
-                        <div className="h-full w-3/4 rounded-full animate-shimmer"
-                          style={{ background: "linear-gradient(90deg, hsl(336 100% 45%), hsl(310 100% 55%))" }}
-                        />
-                      </div>
-                    </div>
-
-                    {/* Métricas 2 colunas */}
-                    <div className="grid grid-cols-2 gap-3">
-                      <div className="bg-white/5 rounded-xl p-4 border border-white/5">
-                        <p className="text-white/50 text-xs mb-1">ROAS</p>
-                        <p className="text-2xl font-bold text-white">
-                          <AnimatedCounter end={8.4} duration={1800} decimals={1} suffix="x" />
-                        </p>
-                        <p className="text-green-400 text-xs mt-0.5">Meta: 5x <Check className="inline w-3 h-3 -mt-0.5" aria-hidden="true" /></p>
-                      </div>
-                      <div className="bg-white/5 rounded-xl p-4 border border-white/5">
-                        <p className="text-white/50 text-xs mb-1">Leads/dia</p>
-                        <p className="text-2xl font-bold text-white">
-                          <AnimatedCounter end={47} duration={1800} />
-                        </p>
-                        <p className="text-green-400 text-xs mt-0.5">+22 vs ontem ↑</p>
-                      </div>
-                    </div>
-
-                    {/* Micro SaaS */}
-                    <div className="rounded-xl p-4 border border-primary/30"
-                      style={{ background: "linear-gradient(135deg, hsl(336 100% 45% / 0.12), hsl(336 100% 45% / 0.05))" }}>
-                      <div className="flex items-center gap-3">
-                        <div className="w-9 h-9 rounded-lg bg-primary/20 flex items-center justify-center">
-                          <Blocks className="w-4 h-4 text-primary" />
-                        </div>
-                        <div>
-                          <p className="text-white text-sm font-semibold">Meu Sistema · MAVI</p>
-                          <p className="text-white/50 text-xs">100% seu · sem mensalidade de SaaS</p>
-                        </div>
-                        <div className="ml-auto">
-                          <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+            <AnimatedSection animation="fadeInUp" delay={200}>
+              <PainChat />
             </AnimatedSection>
-
           </div>
         </div>
-
-        {/* Linha divisória inferior decorativa */}
-        <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
       </section>
 
-      {/* ============================================================
-          O QUE É A MAVI
-          ============================================================ */}
-      <Section variant="gray">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
+      {/* Selos de parceria */}
+      <div className="border-y border-border bg-card">
+        <div className="container-mavi flex flex-wrap items-center justify-between gap-6 py-5">
+          <p className="text-[13px] font-medium text-muted-foreground">Parcerias que garantem o padrão do trabalho</p>
+          <div className="flex flex-wrap items-center gap-6 md:gap-12">
+            {[
+              [seloGoogle, "Google Premier Partner"],
+              [seloMeta, "Meta Business Partner"],
+              [seloTray, "Tray Parceiro Diamante"],
+              [seloRd, "RD Station Partner"],
+            ].map(([src, alt]) => (
+              <img key={alt} src={src} alt={alt} className="h-9 w-auto opacity-75 grayscale transition duration-300 hover:opacity-100 hover:grayscale-0" />
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* O QUE É A MAVI */}
+      <section className="bg-background py-20 md:py-32">
+        <div className="container-mavi grid items-center gap-12 lg:grid-cols-2 lg:gap-24">
           <AnimatedSection animation="fadeInUp">
-            <SectionHeader
-              title="O que é a MAVI"
-              subtitle="Agência de performance que opera tráfego, CRM e automação. Cobrada pela receita gerada, não pelo relatório enviado."
-              centered={false}
-            />
-            <div className="space-y-4 mb-8">
+            <h2 className={sectionTitle}>O que é a MAVI</h2>
+            <p className={sectionSub}>Agência de performance que opera tráfego, CRM e automação. Cobrada pela receita gerada, não pelo relatório enviado.</p>
+            <ul className="mb-8 mt-7 grid gap-3">
               {[
                 "Decisão por dado: ROAS, CAC e LTV semanais",
                 "Time dedicado a mídia paga e funil",
                 "CRM e automação ligados direto na campanha",
                 "Google Premier Partner, Meta Business e Tray Diamante",
-              ].map((item, index) => (
-                <div key={index} className="flex items-center gap-3 group">
-                  <div className="w-6 h-6 rounded-full bg-primary/10 border border-primary/30 flex items-center justify-center flex-shrink-0 transition-all duration-300 group-hover:bg-primary/20 group-hover:border-primary/60">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-primary" />
-                  </div>
-                  <span className="text-foreground font-medium">{item}</span>
-                </div>
+              ].map((item) => (
+                <li key={item} className="flex items-center gap-3 font-medium text-foreground">
+                  <span className="grid h-[26px] w-[26px] shrink-0 place-items-center rounded-full bg-primary/10 text-primary">
+                    <Check className="h-3.5 w-3.5" strokeWidth={2.6} aria-hidden="true" />
+                  </span>
+                  {item}
+                </li>
               ))}
-            </div>
-            <Button asChild className="btn-glow group">
+            </ul>
+            <Button asChild variant="outline" size="lg" className="group rounded-full">
               <Link to="/sobre">
                 Conheça nossa história
-                <ArrowRight className="w-4 h-4 ml-1 transition-transform duration-300 group-hover:translate-x-1" />
+                <ArrowRight className="ml-1 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
               </Link>
             </Button>
           </AnimatedSection>
 
-          <AnimatedChildren className="grid grid-cols-2 gap-4">
-            {[
-              { icon: BarChart3, value: 5, prefix: "+", label: "Anos de experiência", suffix: "" },
-              { icon: Users, value: 500, prefix: "+", label: "Clientes atendidos", suffix: "" },
-              { icon: TrendingUp, value: 127, prefix: "", label: "Crescimento médio", suffix: "%" },
-              { icon: Target, value: null, prefix: "", label: "ROAS médio", suffix: "", fixed: "8.4x" },
-            ].map((item, index) => (
-              <div key={index} className="group metric-card cursor-default">
-                <div className="icon-container mb-4">
-                  <item.icon className="w-5 h-5 text-primary" />
+          <AnimatedSection animation="fadeInUp" delay={100}>
+            <div className="rounded-2xl border border-border bg-card px-7 py-2">
+              {[
+                { icon: BarChart3, label: "Anos de experiência", node: <AnimatedCounter end={5} prefix="+" duration={1800} /> },
+                { icon: Users, label: "Clientes atendidos", node: <AnimatedCounter end={500} prefix="+" duration={1800} /> },
+                { icon: TrendingUp, label: "Crescimento médio", node: <AnimatedCounter end={127} suffix="%" duration={1800} />, accent: true },
+                { icon: Target, label: "ROAS médio", node: "8.4x" },
+              ].map((m) => (
+                <div key={m.label} className="flex items-center justify-between gap-4 border-b border-dashed border-input py-5 last:border-0">
+                  <span className="flex items-center gap-2.5 font-medium text-muted-foreground">
+                    <m.icon className="h-[18px] w-[18px] text-primary" aria-hidden="true" />
+                    {m.label}
+                  </span>
+                  <span className={cn("text-3xl font-extrabold tabular-nums tracking-tight md:text-[2.6rem]", m.accent ? "text-primary" : "text-foreground")}>{m.node}</span>
                 </div>
-                <p className="text-3xl font-bold text-foreground mb-1">
-                  {item.fixed ? item.fixed : (
-                    <AnimatedCounter
-                      end={item.value!}
-                      prefix={item.prefix}
-                      suffix={item.suffix}
-                      duration={1800}
-                    />
-                  )}
-                </p>
-                <p className="text-muted-foreground text-sm">{item.label}</p>
+              ))}
+            </div>
+          </AnimatedSection>
+        </div>
+      </section>
+
+      {/* SOLUÇÕES */}
+      <section className="border-y border-border bg-card py-20 md:py-32">
+        <div className="container-mavi">
+          <AnimatedSection className="mb-12">
+            <h2 className={sectionTitle}>Soluções para o seu negócio</h2>
+            <p className={sectionSub}>Tráfego pago, e-commerce, CRM, automação e sistemas sob medida. Tudo no mesmo time.</p>
+          </AnimatedSection>
+          <ServicesExplorer />
+        </div>
+      </section>
+
+      {/* MICRO SAAS: faixa magenta */}
+      <section className="relative overflow-hidden bg-primary py-20 text-white md:py-32">
+        <div className="container-mavi relative grid items-center gap-12 lg:grid-cols-[1.1fr,0.9fr] lg:gap-20">
+          <AnimatedSection animation="fadeInUp">
+            <div className="inline-flex items-center gap-2 rounded-full bg-white/15 px-3.5 py-1.5 text-sm font-semibold">
+              <Blocks className="h-4 w-4" aria-hidden="true" />
+              Micro SaaS sob medida
+            </div>
+            <h2 className="mb-4 mt-5 text-3xl font-extrabold leading-[1.06] tracking-tight text-balance md:text-4xl lg:text-5xl">
+              Pare de ser{" "}
+              <span className="underline decoration-white/55 decoration-4 underline-offset-8">refém</span>{" "}
+              de software genérico.
+            </h2>
+            <p className="max-w-[54ch] text-lg leading-relaxed text-white/90">
+              Cada mensalidade de ferramenta que você paga é um pedaço do seu negócio que fica nas mãos de outra empresa. A MAVI cria o <strong className="text-white">sistema da sua empresa</strong>, com o seu processo, suas regras e sua marca, e você fica com o ativo.
+            </p>
+            <PainToggles />
+            <div className="flex flex-col gap-3 sm:flex-row">
+              <Button asChild size="xl" className="group rounded-full bg-white text-primary hover:bg-foreground hover:text-white">
+                <Link to="/servicos/micro-saas">
+                  Quero meu próprio sistema
+                  <ArrowRight className="ml-1 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+                </Link>
+              </Button>
+              <Button asChild size="xl" variant="ghost" className="rounded-full text-white ring-1 ring-white/55 hover:bg-white/10 hover:text-white hover:ring-white">
+                <Link to="/contato">Falar com a MAVI</Link>
+              </Button>
+            </div>
+          </AnimatedSection>
+
+          <AnimatedSection animation="fadeInUp" delay={200} className="hidden lg:block">
+            <div className="rotate-[1.2deg] rounded-2xl bg-white p-6 text-foreground shadow-[0_8px_8px_-6px_hsl(336_100%_20%/0.35)] transition-transform duration-700 ease-out hover:rotate-0">
+              <div className="mb-2 flex items-center justify-between">
+                <div className="flex items-center gap-2.5">
+                  <Blocks className="h-5 w-5 text-primary" aria-hidden="true" />
+                  <div>
+                    <p className="text-sm font-semibold">Meu Sistema</p>
+                    <p className="text-xs text-muted-foreground">by MAVI · 100% seu</p>
+                  </div>
+                </div>
+                <span className="inline-flex items-center gap-1 rounded-full bg-green-100 px-2.5 py-1 text-xs font-semibold text-green-700">
+                  Ativo <Check className="h-3 w-3" strokeWidth={3} aria-hidden="true" />
+                </span>
               </div>
+              {[
+                { label: "Painel de leads", value: "47 ativos", color: "bg-primary" },
+                { label: "Ordens de serviço", value: "12 abertas", color: "bg-[hsl(280_70%_55%)]" },
+                { label: "Portal do cliente", value: "98% uptime", color: "bg-green-600" },
+              ].map((item) => (
+                <div key={item.label} className="mt-2 flex items-center justify-between rounded-xl bg-background px-4 py-3 text-sm">
+                  <span className="flex items-center gap-2.5 text-muted-foreground">
+                    <span className={cn("h-2 w-2 rounded-full", item.color)} />
+                    {item.label}
+                  </span>
+                  <span className="font-semibold">{item.value}</span>
+                </div>
+              ))}
+              <div className="mt-3.5 rounded-xl bg-primary/5 p-4">
+                <p className="text-xs text-muted-foreground">Economia mensal vs SaaS</p>
+                <p className="text-3xl font-extrabold tracking-tight text-primary">
+                  R$ 2.400<span className="text-sm font-medium text-muted-foreground">/mês</span>
+                </p>
+                <p className="text-xs text-muted-foreground">Que fica no seu caixa, não no de terceiros</p>
+              </div>
+            </div>
+          </AnimatedSection>
+        </div>
+      </section>
+
+      {/* POR QUE A MAVI */}
+      <section className="bg-background py-20 md:py-32">
+        <div className="container-mavi">
+          <AnimatedSection className="mb-12">
+            <h2 className={sectionTitle}>Por que escolher a MAVI?</h2>
+            <p className={sectionSub}>Fazemos o que prometemos e medimos o que entregamos.</p>
+          </AnimatedSection>
+          <AnimatedChildren className="grid border-t-2 border-foreground sm:grid-cols-2 lg:grid-cols-4">
+            {differentials.map((item) => (
+              <article
+                key={item.title}
+                className="border-b border-border py-7 transition-transform duration-500 ease-out hover:-translate-y-1 sm:pr-6 lg:border-b-0 lg:border-r lg:last:border-r-0 lg:[&:not(:first-child)]:pl-6"
+              >
+                <item.icon className="mb-4 h-[30px] w-[30px] text-primary" strokeWidth={1.6} aria-hidden="true" />
+                <h3 className="mb-2 text-lg font-bold tracking-tight text-foreground">{item.title}</h3>
+                <p className="text-[15px] leading-relaxed text-muted-foreground">{item.description}</p>
+              </article>
             ))}
           </AnimatedChildren>
         </div>
-      </Section>
+      </section>
 
-      {/* ============================================================
-          SOLUÇÕES
-          ============================================================ */}
-      <Section>
-        <AnimatedSection>
-          <SectionHeader
-            title="Soluções para o seu negócio"
-            subtitle="Tráfego pago, e-commerce, CRM, automação e sistemas sob medida. Tudo no mesmo time."
-          />
-        </AnimatedSection>
-        <AnimatedChildren className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
-          {services.map((service) => (
-            <ServiceCard key={service.title} {...service} />
-          ))}
-        </AnimatedChildren>
-      </Section>
+      {/* CLIENTES & PARCEIROS */}
+      <section className="overflow-hidden border-y border-border bg-card py-20 md:py-28">
+        <div className="container-mavi">
+          <AnimatedSection className="mb-10">
+            <h2 className={sectionTitle}>Clientes &amp; Parceiros</h2>
+            <p className={sectionSub}>Pequenas lojas, clínicas, imobiliárias e indústrias. Todos chegam aqui pelo mesmo motivo: resultado.</p>
+          </AnimatedSection>
+        </div>
+        <LogoCarousel />
+      </section>
 
-      {/* ============================================================
-          MICRO SAAS — SEÇÃO "NÃO SEJA REFÉM"
-          ============================================================ */}
-      <section className="relative py-20 overflow-hidden bg-mavi-black">
-        {/* Gradiente e mesh */}
-        <div className="absolute inset-0 bg-gradient-to-br from-[#0d0020] via-mavi-black to-[#0a0010]" />
-        <div className="absolute inset-0 bg-mesh opacity-30" />
-        {/* Blob decorativo */}
-        <div className="absolute top-1/2 right-0 -translate-y-1/2 w-[500px] h-[500px] rounded-full opacity-15 pointer-events-none"
-          style={{ background: "radial-gradient(circle, hsl(336 100% 45%) 0%, transparent 65%)" }} />
+      {/* DEPOIMENTOS */}
+      <section className="bg-background py-20 md:py-32">
+        <div className="container-mavi">
+          <AnimatedSection className="mb-12">
+            <h2 className={sectionTitle}>O que dizem nossos clientes</h2>
+            <p className={sectionSub}>Resultados reais de quem confiou na MAVI para crescer.</p>
+          </AnimatedSection>
+          <AnimatedSection>
+            <TestimonialRotator />
+          </AnimatedSection>
+        </div>
+      </section>
 
-        <div className="container-mavi relative z-10">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
-
-            {/* Esquerda — copy */}
-            <AnimatedSection animation="fadeInUp">
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/15 border border-primary/30 text-primary text-sm font-medium mb-6 w-fit">
-                <Blocks className="w-4 h-4" />
-                Micro SaaS sob medida
-              </div>
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-mavi-white leading-[1.05] mb-3 tracking-tight">
-                Pare de ser{" "}
-                <span className="gradient-text">refém</span>{" "}
-                de software genérico.
-              </h2>
-              <p className="text-lg text-mavi-white/65 mb-8 leading-relaxed">
-                Cada mensalidade de ferramenta que você paga é um pedaço do seu negócio que fica nas mãos de outra empresa. A MAVI cria o <strong className="text-mavi-white/90">sistema da sua empresa</strong> — com o seu processo, suas regras, sua marca — e você fica com o ativo.
-              </p>
-
-              {/* Pills de pain points */}
-              <div className="flex flex-wrap gap-3 mb-10">
-                {[
-                  "Planilha que não escala",
-                  "WhatsApp sem rastreabilidade",
-                  "SaaS caro e genérico",
-                  "Processo na cabeça das pessoas",
-                  "Integrações que não conversam",
-                ].map((pain) => (
-                  <span key={pain} className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-mavi-white/60 text-sm">
-                    <span className="w-1.5 h-1.5 rounded-full bg-primary/70 flex-shrink-0" />
-                    {pain}
+      {/* FAQ: as respostas ficam no HTML mesmo fechadas */}
+      <section className="border-y border-border bg-card py-20 md:py-32">
+        <div className="container-mavi">
+          <AnimatedSection className="mb-10 text-center">
+            <h2 className={sectionTitle}>Perguntas frequentes</h2>
+            <p className={cn(sectionSub, "mx-auto")}>Respostas rápidas sobre a MAVI e nossos serviços.</p>
+          </AnimatedSection>
+          <div className="mx-auto max-w-[860px] border-t border-input">
+            {homeFaqs.map((faq, index) => (
+              <details key={faq.question} open={index === 0} className="group border-b border-input">
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 py-5 [&::-webkit-details-marker]:hidden">
+                  <h3 className="text-lg font-semibold leading-snug tracking-tight text-foreground">{faq.question}</h3>
+                  <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full border border-input transition-all duration-300 ease-out group-open:rotate-45 group-open:border-primary group-open:bg-primary group-open:text-white">
+                    <Plus className="h-4 w-4" aria-hidden="true" />
                   </span>
-                ))}
-              </div>
-
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Button asChild variant="hero" size="xl" className="btn-glow group">
-                  <Link to="/servicos/micro-saas">
-                    Quero meu próprio sistema
-                    <ArrowRight className="w-4 h-4 ml-1 transition-transform duration-300 group-hover:translate-x-1" />
-                  </Link>
-                </Button>
-                <Button asChild variant="heroOutline" size="xl">
-                  <Link to="/contato">Falar com a MAVI</Link>
-                </Button>
-              </div>
-            </AnimatedSection>
-
-            {/* Direita — card visual */}
-            <AnimatedSection animation="fadeInRight" delay={200} className="hidden lg:block">
-              <div className="relative">
-                <div className="absolute -inset-4 rounded-3xl opacity-20 blur-2xl"
-                  style={{ background: "radial-gradient(circle, hsl(336 100% 45%) 0%, transparent 70%)" }} />
-
-                <div className="relative glass-card-dark rounded-2xl p-6 border border-white/10 hover:border-primary/30 transition-colors">
-                  {/* Topo */}
-                  <div className="flex items-center justify-between mb-5">
-                    <div className="flex items-center gap-2">
-                      <div className="w-8 h-8 rounded-lg bg-primary/20 flex items-center justify-center">
-                        <Blocks className="w-4 h-4 text-primary" />
-                      </div>
-                      <div>
-                        <p className="text-mavi-white text-sm font-semibold">Meu Sistema</p>
-                        <p className="text-mavi-white/40 text-xs">by MAVI · 100% seu</p>
-                      </div>
-                    </div>
-                    <span className="text-xs font-medium px-2.5 py-1 rounded-full bg-green-400/10 text-green-400 border border-green-400/20">
-                      Ativo <Check className="inline w-3 h-3 -mt-0.5" aria-hidden="true" />
-                    </span>
-                  </div>
-
-                  {/* Módulos */}
-                  <div className="space-y-3 mb-4">
-                    {[
-                      { label: "Painel de leads", value: "47 ativos", color: "bg-primary" },
-                      { label: "Ordens de serviço", value: "12 abertas", color: "bg-blue-500" },
-                      { label: "Portal do cliente", value: "98% uptime", color: "bg-green-500" },
-                    ].map((item) => (
-                      <div key={item.label} className="flex items-center justify-between bg-white/5 rounded-xl px-4 py-3 border border-white/5">
-                        <div className="flex items-center gap-2.5">
-                          <div className={`w-2 h-2 rounded-full ${item.color}`} />
-                          <span className="text-mavi-white/70 text-sm">{item.label}</span>
-                        </div>
-                        <span className="text-mavi-white text-sm font-semibold">{item.value}</span>
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* Rodapé */}
-                  <div className="rounded-xl p-4 border border-primary/20"
-                    style={{ background: "linear-gradient(135deg, hsl(336 100% 45% / 0.1), transparent)" }}>
-                    <p className="text-mavi-white/50 text-xs mb-1">Economia mensal vs SaaS</p>
-                    <p className="text-2xl font-bold text-primary">R$ 2.400<span className="text-sm font-normal text-mavi-white/40">/mês</span></p>
-                    <p className="text-mavi-white/40 text-xs mt-0.5">Que fica no seu caixa, não no de terceiros</p>
-                  </div>
-                </div>
-              </div>
-            </AnimatedSection>
+                </summary>
+                <p className="pb-6 pr-12 leading-relaxed text-muted-foreground">{faq.answer}</p>
+              </details>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* ============================================================
-          POR QUE A MAVI — REDESENHADO
-          ============================================================ */}
-      <Section variant="dark">
-        {/* Fundo com mesh no dark */}
-        <div className="relative">
-          <div className="absolute inset-0 bg-mesh opacity-30 pointer-events-none" />
-
-          <AnimatedSection className="relative z-10">
-            <SectionHeader
-              title="Por que escolher a MAVI?"
-              subtitle="Fazemos o que prometemos e medimos o que entregamos."
-              light
-            />
-          </AnimatedSection>
-
-          <AnimatedChildren className="relative z-10 grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            {differentials.map((item) => (
-              <div
-                key={item.title}
-                className="group gradient-border-card p-6 rounded-2xl bg-white/4 border border-white/8 hover:bg-white/7 transition-all duration-300 hover:-translate-y-1"
-              >
-                {/* Número + ícone */}
-                <div className="flex items-start justify-between mb-5">
-                  <div className="icon-container-lg">
-                    <item.icon className="w-6 h-6 text-primary" />
-                  </div>
-                  <span className="text-white/15 font-black text-3xl leading-none">{item.number}</span>
-                </div>
-                <h3 className="text-base font-semibold text-mavi-white mb-2 leading-snug">{item.title}</h3>
-                <p className="text-mavi-white/55 text-sm leading-relaxed">{item.description}</p>
-              </div>
-            ))}
-          </AnimatedChildren>
-        </div>
-      </Section>
-
-      {/* ============================================================
-          CLIENTES & PARCEIROS
-          ============================================================ */}
-      <Section variant="gray">
-        <AnimatedSection>
-          <SectionHeader
-            title="Clientes & Parceiros"
-            subtitle="Pequenas lojas, clínicas, imobiliárias e indústrias. Todos chegam aqui pelo mesmo motivo: resultado."
-          />
-        </AnimatedSection>
-        <LogoCarousel />
-      </Section>
-
-      {/* ============================================================
-          DEPOIMENTOS — REDESENHADO
-          ============================================================ */}
-      <Section>
-        <AnimatedSection>
-          <SectionHeader
-            title="O que dizem nossos clientes"
-            subtitle="Resultados reais de quem confiou na MAVI para crescer."
-          />
-        </AnimatedSection>
-        <AnimatedChildren className="grid md:grid-cols-3 gap-6">
-          {testimonials.map((testimonial, index) => (
-            <TestimonialCard key={index} {...testimonial} />
-          ))}
-        </AnimatedChildren>
-      </Section>
-
-      {/* ============================================================
-          FAQ HOME
-          ============================================================ */}
-      <Section variant="gray">
-        <AnimatedSection animation="fadeInUp">
-          <SectionHeader
-            title="Perguntas frequentes"
-            subtitle="Respostas rápidas sobre a MAVI e nossos serviços."
-          />
-        </AnimatedSection>
-        <AnimatedChildren className="grid md:grid-cols-2 gap-4 max-w-4xl mx-auto">
-          {homeFaqs.map((faq, index) => (
-            <div key={index} className="bg-card rounded-xl p-5 border border-border hover:border-primary/30 transition-colors card-shine">
-              <h3 className="font-semibold text-foreground mb-2 text-sm">{faq.question}</h3>
-              <p className="text-muted-foreground text-sm leading-relaxed">{faq.answer}</p>
-            </div>
-          ))}
-        </AnimatedChildren>
-      </Section>
-
-      {/* ============================================================
-          ASSESSMENT — DIAGNÓSTICO E-COMMERCE
-          ============================================================ */}
-      <Section variant="gray">
-        <AnimatedSection animation="fadeInUp">
-          <div className="max-w-5xl mx-auto">
-            <div className="grid lg:grid-cols-2 gap-10 items-center">
-              {/* Copy */}
-              <div>
-                <span className="inline-flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-wider text-primary bg-primary/10 px-3 py-1 rounded-full mb-4">
-                  <BarChart3 className="w-3.5 h-3.5" /> Diagnóstico gratuito
-                </span>
-                <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 leading-tight">
-                  Descubra o que está travando as vendas do seu e-commerce
-                </h2>
-                <p className="text-muted-foreground text-base leading-relaxed mb-6">
-                  Em menos de 5 minutos, nosso assessment avalia seu negócio em 7 dimensões — produto, tráfego, marketplaces, SEO, redes sociais, design e investimento — e entrega um diagnóstico personalizado com os pontos exatos que impedem seu crescimento.
-                </p>
-                <ul className="space-y-2.5 mb-8">
-                  {[
-                    "21 perguntas simples, sem jargão técnico",
-                    "Score individual para cada área do negócio",
-                    "Relatório com próximos passos e serviços indicados",
-                    "100% gratuito e sem compromisso",
-                  ].map((item) => (
-                    <li key={item} className="flex items-center gap-2 text-sm text-foreground">
-                      <CheckCircle2 className="w-4 h-4 text-primary flex-shrink-0" />
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-                <Button asChild variant="hero" size="lg" className="group">
-                  <Link to="/assessment">
-                    Fazer diagnóstico gratuito
-                    <ArrowRight className="w-4 h-4 ml-1 transition-transform duration-300 group-hover:translate-x-1" />
-                  </Link>
-                </Button>
-                <p className="text-xs text-muted-foreground mt-3">Mais de 200 e-commerces já fizeram o diagnóstico</p>
-              </div>
-
-              {/* Mockup */}
-              <div className="relative">
-                <div className="bg-white border border-gray-200 rounded-2xl shadow-xl overflow-hidden">
-                  {/* Mockup header */}
-                  <div className="bg-white border-b border-gray-100 px-4 py-3 flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <div className="w-5 h-5 rounded-full bg-primary flex items-center justify-center">
-                        <span className="text-white text-[9px] font-bold">M</span>
-                      </div>
-                      <span className="text-xs font-semibold text-gray-800">Diagnóstico MAVI</span>
-                    </div>
-                    <span className="text-[10px] text-gray-400">Assessment E-commerce</span>
-                  </div>
-
-                  {/* Mockup chat */}
-                  <div className="p-4 space-y-3 bg-gray-50">
-                    <div className="flex items-start gap-2">
-                      <div className="w-6 h-6 rounded-full bg-primary flex-shrink-0 flex items-center justify-center mt-0.5">
-                        <span className="text-white text-[9px] font-bold">M</span>
-                      </div>
-                      <div className="bg-white rounded-xl rounded-tl-sm px-3 py-2 shadow-sm max-w-[80%]">
-                        <p className="text-xs text-gray-700">Olá! Vou analisar seu e-commerce em 7 áreas. Pronto para descobrir onde estão os gargalos?</p>
-                      </div>
-                    </div>
-                    <div className="flex justify-end">
-                      <div className="bg-primary/10 rounded-xl px-3 py-2 max-w-[75%]">
-                        <p className="text-xs text-primary font-medium">Vamos lá!</p>
-                      </div>
-                    </div>
-                    <div className="flex items-start gap-2">
-                      <div className="w-6 h-6 rounded-full bg-primary flex-shrink-0 flex items-center justify-center mt-0.5">
-                        <span className="text-white text-[9px] font-bold">M</span>
-                      </div>
-                      <div className="bg-white rounded-xl rounded-tl-sm px-3 py-2 shadow-sm max-w-[85%]">
-                        <p className="text-xs text-gray-700">Como estão as fotos dos seus produtos? Elas mostram detalhes, vários ângulos e o produto em uso?</p>
-                      </div>
-                    </div>
-                    <div className="grid grid-cols-2 gap-1.5 pl-8">
-                      {["Sim, muito bem", "Básicas mas ok", "Precisam melhorar"].map((opt, i) => (
-                        <div key={opt} className={`px-2.5 py-1.5 rounded-lg border text-[10px] font-medium text-center cursor-pointer transition-colors ${i === 0 ? "border-primary/30 bg-primary/5 text-primary" : "border-gray-200 bg-white text-gray-600"}`}>
-                          {opt}
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Mockup result preview */}
-                  <div className="border-t border-gray-100 px-4 py-3">
-                    <p className="text-[10px] uppercase tracking-wider text-gray-400 mb-2">Preview do resultado</p>
-                    <div className="space-y-1.5">
-                      {[
-                        { label: "Produto & Catálogo", pct: 82, color: "#16a34a" },
-                        { label: "Tráfego Pago", pct: 54, color: "#d97706" },
-                        { label: "SEO Orgânico", pct: 31, color: "#dc2626" },
-                      ].map((bar) => (
-                        <div key={bar.label} className="flex items-center gap-2">
-                          <span className="text-[10px] text-gray-500 w-28 flex-shrink-0">{bar.label}</span>
-                          <div className="flex-1 h-1.5 bg-gray-100 rounded-full overflow-hidden">
-                            <div className="h-full rounded-full" style={{ width: `${bar.pct}%`, background: bar.color }} />
-                          </div>
-                          <span className="text-[10px] font-bold w-6 text-right" style={{ color: bar.color }}>{bar.pct}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-
-                {/* Badge flutuante */}
-                <div className="absolute -top-3 -right-3 bg-primary text-white text-[10px] font-bold px-2.5 py-1 rounded-full shadow-lg">
-                  Grátis
-                </div>
-              </div>
-            </div>
-          </div>
-        </AnimatedSection>
-      </Section>
-
-      {/* ============================================================
-          CTA FINAL — REDESENHADO
-          ============================================================ */}
-      <Section variant="dark">
-        <div className="relative overflow-hidden rounded-3xl">
-          {/* Glow decorativo */}
-          <div className="absolute inset-0 pointer-events-none">
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-64 opacity-25 blur-3xl rounded-full"
-              style={{ background: "radial-gradient(circle, hsl(336 100% 45%), transparent)" }}
-            />
-          </div>
-
-          <AnimatedSection className="relative z-10 text-center max-w-3xl mx-auto py-8">
-            {/* Ícone decorativo */}
-            <div className="flex items-center justify-center mb-6">
-              <div className="w-16 h-16 rounded-2xl flex items-center justify-center"
-                style={{ background: "linear-gradient(135deg, hsl(336 100% 45% / 0.2), hsl(336 100% 45% / 0.05))", border: "1px solid hsl(336 100% 45% / 0.3)" }}>
-                <Sparkles className="w-7 h-7 text-primary" />
-              </div>
-            </div>
-
-            <h2 className="text-3xl md:text-5xl font-bold text-mavi-white mb-5 leading-tight">
-              Quer ver o que{" "}
-              <span className="gradient-text">trava</span>{" "}
-              suas vendas hoje?
-            </h2>
-            <p className="text-lg text-mavi-white/60 mb-10 max-w-xl mx-auto">
-              Sessão de 30 minutos, gratuita. A gente olha seu funil, aponta o gargalo e mostra o que mudaria. Sem proposta enfiada no fim.
+      {/* ASSESSMENT: DIAGNÓSTICO E-COMMERCE */}
+      <section className="bg-background py-20 md:py-32">
+        <div className="container-mavi grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
+          <AnimatedSection animation="fadeInUp">
+            <span className="mb-4 inline-flex items-center gap-2 rounded-full bg-primary/10 px-3.5 py-1.5 text-sm font-semibold text-primary">
+              <BarChart3 className="h-4 w-4" aria-hidden="true" /> Diagnóstico gratuito
+            </span>
+            <h2 className={sectionTitle}>Descubra o que está travando as vendas do seu e-commerce</h2>
+            <p className={sectionSub}>
+              Em menos de 5 minutos, nosso assessment avalia seu negócio em 7 dimensões (produto, tráfego, marketplaces, SEO, redes sociais, design e investimento) e entrega um diagnóstico personalizado com os pontos exatos que impedem seu crescimento.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button asChild variant="hero" size="xl" className="btn-glow group">
-                <Link to="/contato">
-                  Quero uma consultoria gratuita
-                  <ArrowRight className="w-4 h-4 ml-1 transition-transform duration-300 group-hover:translate-x-1" />
-                </Link>
-              </Button>
-              <Button asChild variant="heroOutline" size="xl">
-                <Link to="/servicos/micro-saas">Quero meu próprio sistema</Link>
-              </Button>
-            </div>
+            <ul className="mb-8 mt-7 grid gap-3">
+              {[
+                "21 perguntas simples, sem jargão técnico",
+                "Score individual para cada área do negócio",
+                "Relatório com próximos passos e serviços indicados",
+                "100% gratuito e sem compromisso",
+              ].map((item) => (
+                <li key={item} className="flex items-center gap-3 font-medium text-foreground">
+                  <span className="grid h-[26px] w-[26px] shrink-0 place-items-center rounded-full bg-primary/10 text-primary">
+                    <Check className="h-3.5 w-3.5" strokeWidth={2.6} aria-hidden="true" />
+                  </span>
+                  {item}
+                </li>
+              ))}
+            </ul>
+            <Button asChild variant="hero" size="xl" className="group rounded-full">
+              <Link to="/assessment">
+                Fazer diagnóstico gratuito
+                <ArrowRight className="ml-1 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+              </Link>
+            </Button>
+            <p className="mt-3 text-[13px] text-muted-foreground">Mais de 200 e-commerces já fizeram o diagnóstico</p>
+          </AnimatedSection>
 
-            {/* Social proof abaixo dos botões */}
-            <div className="flex items-center justify-center gap-2 mt-8">
-              <div className="flex -space-x-2">
-                {[1,2,3,4,5].map((i) => (
-                  <div key={i} className="w-8 h-8 rounded-full border-2 border-mavi-black bg-gradient-to-br from-primary/40 to-primary/10" />
+          <AnimatedSection animation="fadeInUp" delay={100}>
+            <div className="overflow-hidden rounded-2xl border border-border bg-card shadow-[0_8px_8px_-6px_hsl(325_25%_9%/0.08)]">
+              <div className="flex items-center gap-2.5 border-b border-border px-4 py-3.5 text-[13px] font-semibold text-foreground">
+                <img src={camilaAvatar} alt="" className="h-7 w-7 rounded-full object-cover" />
+                Diagnóstico MAVI
+                {/* Selo dentro do fluxo do cabeçalho: não cobre o texto ao lado */}
+                <span className="ml-auto hidden text-xs font-medium text-muted-foreground sm:inline">Assessment E-commerce</span>
+                <span className="ml-auto rounded-full bg-primary px-2.5 py-1 text-[11px] font-bold text-white sm:ml-0">Grátis</span>
+              </div>
+              <div className="grid gap-2.5 bg-background p-4">
+                <div className="max-w-[88%] rounded-2xl rounded-bl-md border border-border bg-card px-3.5 py-2.5 text-sm text-foreground">Olá! Vou analisar seu e-commerce em 7 áreas. Pronto para descobrir onde estão os gargalos?</div>
+                <div className="max-w-[75%] justify-self-end rounded-2xl rounded-br-md bg-primary px-3.5 py-2.5 text-sm text-white">Vamos lá!</div>
+                <div className="max-w-[88%] rounded-2xl rounded-bl-md border border-border bg-card px-3.5 py-2.5 text-sm text-foreground">Como estão as fotos dos seus produtos? Elas mostram detalhes, vários ângulos e o produto em uso?</div>
+              </div>
+              <div className="grid gap-3 p-4">
+                <p className="text-xs font-medium text-muted-foreground">Preview do resultado</p>
+                {[
+                  { label: "Produto & Catálogo", pct: 82, color: "#15803d" },
+                  { label: "Tráfego Pago", pct: 54, color: "#b45309" },
+                  { label: "SEO Orgânico", pct: 31, color: "#dc2626" },
+                ].map((bar) => (
+                  <div key={bar.label} className="grid grid-cols-[110px,1fr,28px] items-center gap-3 text-[13px] text-muted-foreground sm:grid-cols-[128px,1fr,28px]">
+                    {bar.label}
+                    <span className="h-2 overflow-hidden rounded-full bg-border">
+                      <span className="block h-full rounded-full" style={{ width: `${bar.pct}%`, background: bar.color }} />
+                    </span>
+                    <b className="text-right tabular-nums" style={{ color: bar.color }}>{bar.pct}</b>
+                  </div>
                 ))}
               </div>
-              <div className="flex items-center gap-1">
-                {[1,2,3,4,5].map((i) => (
-                  <Star key={i} className="w-3.5 h-3.5 fill-yellow-400 text-yellow-400" />
-                ))}
-              </div>
-              <span className="text-mavi-white/50 text-sm">+500 negócios transformados</span>
             </div>
           </AnimatedSection>
         </div>
-      </Section>
+      </section>
+
+      {/* CTA FINAL */}
+      <section className="border-t border-primary/15 bg-primary/5 py-20 text-center md:py-32">
+        <AnimatedSection className="container-mavi">
+          <h2 className="text-4xl font-extrabold leading-[1.06] tracking-tight text-foreground text-balance md:text-6xl">
+            Quer ver o que{" "}
+            <span className="relative whitespace-nowrap text-primary">
+              trava
+              <svg viewBox="0 0 200 18" preserveAspectRatio="none" className="absolute -bottom-3 left-[-4%] h-[18px] w-[108%]" aria-hidden="true">
+                <path d="M3 12 C 50 4, 110 4, 197 10" className="fill-none stroke-primary [stroke-dasharray:260] [stroke-linecap:round] [stroke-width:4] motion-safe:animate-[draw_1.2s_0.3s_cubic-bezier(.22,1,.36,1)_both]" />
+              </svg>
+            </span>{" "}
+            suas vendas hoje?
+          </h2>
+          <p className="mx-auto mb-9 mt-6 max-w-[56ch] text-lg text-muted-foreground">
+            Sessão de 30 minutos, gratuita. A gente olha seu funil, aponta o gargalo e mostra o que mudaria. Sem proposta enfiada no fim.
+          </p>
+          <div className="flex flex-col justify-center gap-3 sm:flex-row">
+            <Button asChild variant="hero" size="xl" className="group rounded-full">
+              <Link to="/contato">
+                Quero uma consultoria gratuita
+                <ArrowRight className="ml-1 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+              </Link>
+            </Button>
+            <Button asChild variant="outline" size="xl" className="rounded-full">
+              <Link to="/servicos/micro-saas">Quero meu próprio sistema</Link>
+            </Button>
+          </div>
+          <div className="mt-8 flex items-center justify-center gap-2 text-sm text-muted-foreground">
+            <div className="flex items-center gap-0.5 text-amber-500">
+              {[1, 2, 3, 4, 5].map((i) => (
+                <Star key={i} className="h-3.5 w-3.5 fill-current" aria-hidden="true" />
+              ))}
+            </div>
+            +500 negócios transformados
+          </div>
+        </AnimatedSection>
+      </section>
     </Layout>
   );
 }

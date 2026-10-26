@@ -36,7 +36,7 @@ import {
   Loader2,
   Lock,
 } from "lucide-react";
-import logoMavi from "@/assets/logo-mavi-branca.png";
+import logoMavi from "@/assets/logo-mavi-colorida.png";
 
 const WHATSAPP_NUMBER = "5547999293541";
 
@@ -299,18 +299,14 @@ export default function AssessoriaEcommerce() {
       {/* ══════════════════════════════════════════════════════
           HERO
       ══════════════════════════════════════════════════════ */}
-      <section className="relative bg-gray-950 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-gray-950 via-[#0d0010] to-gray-950" />
-        <div
-          className="absolute inset-0 opacity-30"
-          style={{ backgroundImage: "radial-gradient(circle at 20% 40%, rgba(230,0,126,0.18) 0%, transparent 50%), radial-gradient(circle at 80% 10%, rgba(230,0,126,0.1) 0%, transparent 40%)" }}
-        />
+      <section className="relative bg-background overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-background" />
 
         <div className="relative z-10 flex items-center justify-between px-6 md:px-12 py-5">
           <img src={logoMavi} alt="MAVI" className="h-6" />
           <div className="flex items-center gap-1.5">
             <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-            <span className="text-white/50 text-xs">Diagnóstico gratuito</span>
+            <span className="text-muted-foreground text-xs">Diagnóstico gratuito</span>
           </div>
         </div>
 
@@ -328,7 +324,7 @@ export default function AssessoriaEcommerce() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="text-[32px] leading-[1.1] md:text-5xl lg:text-[54px] font-extrabold text-white tracking-tight mb-4"
+            className="text-[32px] leading-[1.1] md:text-5xl lg:text-[54px] font-extrabold text-foreground tracking-tight mb-4"
           >
             Sua loja pode vender muito mais
             <span className="block min-h-[1.1em] text-primary">
@@ -348,10 +344,10 @@ export default function AssessoriaEcommerce() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="text-white/60 text-base md:text-lg leading-relaxed max-w-2xl mx-auto mb-8"
+            className="text-muted-foreground text-base md:text-lg leading-relaxed max-w-2xl mx-auto mb-8"
           >
-            Em <strong className="text-white">30 minutos</strong>, um especialista da MAVI analisa seu e-commerce
-            e mostra exatamente onde estão as maiores oportunidades de crescimento. <strong className="text-white">De graça.</strong>
+            Em <strong className="text-foreground">30 minutos</strong>, um especialista da MAVI analisa seu e-commerce
+            e mostra exatamente onde estão as maiores oportunidades de crescimento. <strong className="text-foreground">De graça.</strong>
           </motion.p>
 
           <motion.div
@@ -375,7 +371,7 @@ export default function AssessoriaEcommerce() {
                 <Star key={i} className="w-3.5 h-3.5 fill-yellow-400 text-yellow-400" />
               ))}
             </div>
-            <p className="text-white/50 text-xs font-medium">+200 e-commerces já analisados pela MAVI</p>
+            <p className="text-muted-foreground text-xs font-medium">+200 e-commerces já analisados pela MAVI</p>
           </div>
         </div>
 
@@ -387,33 +383,33 @@ export default function AssessoriaEcommerce() {
       {/* ══════════════════════════════════════════════════════
           FORMULÁRIO
       ══════════════════════════════════════════════════════ */}
-      <section id="form-diagnostico" className="bg-gray-950 border-t border-white/5 py-12 md:py-24">
+      <section id="form-diagnostico" className="bg-background border-t border-border py-12 md:py-24">
         <div className="max-w-5xl mx-auto px-6 md:px-12 grid lg:grid-cols-2 gap-10 items-center">
           <div>
             <span className="inline-block text-[11px] font-semibold uppercase tracking-wider text-primary mb-3">
               Diagnóstico gratuito
             </span>
-            <h2 className="text-2xl md:text-3xl font-bold text-white leading-tight mb-4">
+            <h2 className="text-2xl md:text-3xl font-bold text-foreground leading-tight mb-4">
               Agende seu diagnóstico gratuito de 30 minutos
             </h2>
-            <p className="text-white/60 text-sm md:text-base leading-relaxed mb-8">
+            <p className="text-muted-foreground text-sm md:text-base leading-relaxed mb-8">
               Um especialista vai analisar seu e-commerce e te mostrar exatamente onde estão as maiores
               oportunidades de crescimento.
             </p>
 
             <div className="space-y-4">
-              <div className="flex items-start gap-3 bg-white/5 rounded-xl p-4">
+              <div className="flex items-start gap-3 bg-card rounded-xl p-4">
                 <span className="flex-shrink-0 w-6 h-6 rounded-full bg-primary/20 text-primary text-xs font-bold flex items-center justify-center">1</span>
                 <div>
-                  <p className="text-white text-sm font-semibold">Complete o formulário</p>
-                  <p className="text-white/50 text-xs mt-0.5">Leva menos de 1 minuto. Seus dados ficam protegidos.</p>
+                  <p className="text-foreground text-sm font-semibold">Complete o formulário</p>
+                  <p className="text-muted-foreground text-xs mt-0.5">Leva menos de 1 minuto. Seus dados ficam protegidos.</p>
                 </div>
               </div>
-              <div className="flex items-start gap-3 bg-white/5 rounded-xl p-4">
+              <div className="flex items-start gap-3 bg-card rounded-xl p-4">
                 <span className="flex-shrink-0 w-6 h-6 rounded-full bg-primary/20 text-primary text-xs font-bold flex items-center justify-center">2</span>
                 <div>
-                  <p className="text-white text-sm font-semibold">Agende seus 30 minutos de diagnóstico</p>
-                  <p className="text-white/50 text-xs mt-0.5">Um especialista da MAVI chama no WhatsApp pra marcar o melhor horário.</p>
+                  <p className="text-foreground text-sm font-semibold">Agende seus 30 minutos de diagnóstico</p>
+                  <p className="text-muted-foreground text-xs mt-0.5">Um especialista da MAVI chama no WhatsApp pra marcar o melhor horário.</p>
                 </div>
               </div>
             </div>
@@ -522,7 +518,7 @@ export default function AssessoriaEcommerce() {
                   <>Quero meu diagnóstico gratuito <ArrowRight className="w-4 h-4 ml-1.5" /></>
                 )}
               </Button>
-              <p className="flex items-center justify-center gap-1.5 text-[11px] text-gray-400"><Lock className="w-3 h-3" aria-hidden="true" /> Seus dados estão seguros e não serão compartilhados.</p>
+              <p className="flex items-center justify-center gap-1.5 text-[11px] text-muted-foreground"><Lock className="w-3 h-3" aria-hidden="true" /> Seus dados estão seguros e não serão compartilhados.</p>
             </form>
           </div>
         </div>
@@ -548,7 +544,7 @@ export default function AssessoriaEcommerce() {
                   <d.icon className="w-5 h-5 text-primary" />
                 </div>
                 <h3 className="font-bold text-gray-900 mb-1.5">{d.title}</h3>
-                <p className="text-sm text-gray-500 leading-relaxed">{d.desc}</p>
+                <p className="text-sm text-muted-foreground leading-relaxed">{d.desc}</p>
               </div>
             ))}
           </div>
@@ -586,15 +582,15 @@ export default function AssessoriaEcommerce() {
       {/* ══════════════════════════════════════════════════════
           QUEM SOMOS
       ══════════════════════════════════════════════════════ */}
-      <section className="py-12 md:py-24 px-6 md:px-12 bg-gray-950">
+      <section className="py-12 md:py-24 px-6 md:px-12 bg-background">
         <div className="max-w-4xl mx-auto text-center">
           <span className="inline-block text-[11px] font-semibold uppercase tracking-wider text-primary mb-3">
             Quem somos
           </span>
-          <h2 className="text-2xl md:text-3xl font-bold text-white mb-6 leading-tight">
+          <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-6 leading-tight">
             Especialistas em e-commerce, não uma agência genérica de anúncios
           </h2>
-          <p className="text-white/60 text-sm md:text-base leading-relaxed mb-12 max-w-2xl mx-auto">
+          <p className="text-muted-foreground text-sm md:text-base leading-relaxed mb-12 max-w-2xl mx-auto">
             Há mais de 5 anos ajudamos lojas virtuais a vender mais, do pequeno negócio que está começando
             até marcas que já faturam milhões por mês. Resultado não se promete, se constrói.
           </p>
@@ -607,7 +603,7 @@ export default function AssessoriaEcommerce() {
             ].map((s) => (
               <div key={s.label}>
                 <p className="text-3xl md:text-4xl font-extrabold text-primary mb-1">{s.n}</p>
-                <p className="text-white/50 text-xs md:text-sm">{s.label}</p>
+                <p className="text-muted-foreground text-xs md:text-sm">{s.label}</p>
               </div>
             ))}
           </div>
@@ -635,7 +631,7 @@ export default function AssessoriaEcommerce() {
                   <span className="text-xs font-semibold text-primary uppercase tracking-wide">Case de Sucesso</span>
                 </div>
                 <h3 className="font-bold text-gray-900 mb-2">{c.title}</h3>
-                <p className="text-xs text-gray-500 leading-relaxed mb-4">{c.challenge}</p>
+                <p className="text-xs text-muted-foreground leading-relaxed mb-4">{c.challenge}</p>
                 <div className="space-y-2 pt-3 border-t border-gray-100">
                   {c.results.map((r) => (
                     <div key={r} className="flex items-start gap-2">
@@ -668,7 +664,7 @@ export default function AssessoriaEcommerce() {
                 <AccordionTrigger className="text-sm font-semibold text-gray-900 hover:no-underline py-4">
                   {faq.question}
                 </AccordionTrigger>
-                <AccordionContent className="text-sm text-gray-500 leading-relaxed pb-4">
+                <AccordionContent className="text-sm text-muted-foreground leading-relaxed pb-4">
                   {faq.answer}
                 </AccordionContent>
               </AccordionItem>
@@ -680,12 +676,12 @@ export default function AssessoriaEcommerce() {
       {/* ══════════════════════════════════════════════════════
           CTA FINAL
       ══════════════════════════════════════════════════════ */}
-      <section className="py-12 md:py-20 px-6 md:px-12 bg-gray-950 text-center">
+      <section className="py-12 md:py-20 px-6 md:px-12 bg-background text-center">
         <div className="max-w-2xl mx-auto">
-          <h2 className="text-2xl md:text-3xl font-bold text-white mb-3">
+          <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-3">
             Pronto pra descobrir onde sua loja está perdendo venda?
           </h2>
-          <p className="text-white/60 text-sm md:text-base mb-8">
+          <p className="text-muted-foreground text-sm md:text-base mb-8">
             30 minutos, sem custo, sem compromisso. Só clareza sobre o que fazer agora.
           </p>
           <button
@@ -696,7 +692,7 @@ export default function AssessoriaEcommerce() {
           </button>
           <div className="flex items-center justify-center gap-2 mt-6">
             <CheckCircle2 className="w-3.5 h-3.5 text-green-500" />
-            <span className="text-white/40 text-xs">Sem compromisso · Resposta em horário comercial</span>
+            <span className="text-muted-foreground text-xs">Sem compromisso · Resposta em horário comercial</span>
           </div>
         </div>
       </section>

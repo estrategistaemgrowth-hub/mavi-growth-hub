@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Layout } from "@/components/Layout";
-import { Section, SectionHeader } from "@/components/Section";
 import { AnimatedCounter } from "@/components/AnimatedCounter";
+import { AnimatedSection } from "@/components/AnimatedSection";
+import { ServiceHero, ProblemPicker, DeliverablesBenefits, FaqBlock, FinalCta, BlockHead } from "@/components/service/ServiceBlocks";
+import { Check } from "lucide-react";
 import { SEO, generateBreadcrumbSchema, generateFAQSchema, generateServiceSchema } from "@/components/SEO";
-import { SplitText } from "@/components/SplitText";
-import { HeroBackground } from "@/components/HeroBackground";
 import { 
   TrendingUp, 
   CheckCircle2, 
@@ -20,14 +20,7 @@ import {
   LineChart,
   Clock,
   ShieldCheck,
-  ChevronDown
 } from "lucide-react";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
 
 const problems = [
   { icon: DollarSign, title: "Gasta em anúncios sem saber o retorno real?", description: "Investimento sem rastreamento é dinheiro jogado fora." },
@@ -120,240 +113,118 @@ export default function ServicoPerformance() {
         schemaMarkup={combinedSchema}
       />
 
-      {/* Hero Section */}
-      <section className="pt-32 pb-20 bg-mavi-black relative overflow-hidden">
-        <HeroBackground intensity="subtle" />
-        
-        <div className="container-mavi relative z-10">
-          <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/20 text-primary mb-6">
-              <TrendingUp className="w-4 h-4" />
-              <span className="text-sm font-medium">Marketing de Performance</span>
-            </div>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-mavi-white mb-2 leading-[1.05]"><SplitText stagger={45} duration={750}>Mídia paga cobrada por{" "}
-              <span className="text-primary">ROAS</span>, não por impressão.</SplitText></h1>
-            <p className="text-xl text-mavi-white/70 leading-relaxed mb-8 animate-fade-in-up animation-delay-200">
-              Meta Ads e Google Ads operados em rotina diária. Rastreamento de receita por campanha, criativo e público. Você vê o número de venda atribuído ao real investido.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 animate-fade-in-up animation-delay-300">
-              <Button asChild variant="hero" size="xl">
-                <Link to="/diagnostico-gratuito">Quero um diagnóstico gratuito</Link>
-              </Button>
-              <Button asChild variant="heroOutline" size="lg">
-                <Link to="/hubrs-crm">
-                  Conhecer o CRM HUBRS
-                  <ArrowRight className="w-4 h-4" />
-                </Link>
-              </Button>
-            </div>
-          </div>
-        </div>
-      </section>
+      <ServiceHero
+        icon={TrendingUp}
+        badge="Marketing de Performance"
+        title={<>Mídia paga cobrada por <span className="text-primary">ROAS</span>, não por impressão.</>}
+        lead="Meta Ads e Google Ads operados em rotina diária. Rastreamento de receita por campanha, criativo e público. Você vê o número de venda atribuído ao real investido."
+        primary={{ label: "Quero um diagnóstico gratuito", href: "/diagnostico-gratuito" }}
+        secondary={{ label: "Conhecer o CRM HUBRS", href: "/hubrs-crm" }}
+        stats={stats.map((s) => ({
+          value: <AnimatedCounter end={s.end} prefix={s.prefix} suffix={s.suffix} decimals={s.decimals ?? 0} decimalSeparator="." />,
+          label: s.label,
+        }))}
+      />
 
-      {/* Stats Bar */}
-      <section className="py-8 bg-primary">
+      <ProblemPicker
+        title="Isso soa familiar?"
+        subtitle="Se algum soa familiar, vale uma conversa."
+        problems={problems}
+      />
+
+      {/* Metodologia: sequência real de 4 etapas, numerada sobre uma linha */}
+      <section className="bg-background py-20 md:py-28">
         <div className="container-mavi">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {stats.map((stat, index) => (
-              <div key={index} className="text-center">
-                <AnimatedCounter 
-                  end={stat.end}
-                  prefix={stat.prefix}
-                  suffix={stat.suffix}
-                  className="text-3xl md:text-4xl font-bold text-primary-foreground" 
-                />
-                <p className="text-primary-foreground/80 text-sm">{stat.label}</p>
-              </div>
+          <BlockHead title="Nossa metodologia" subtitle="Processo estruturado para entregar resultados consistentes." />
+          <ol className="grid gap-x-8 border-t-2 border-foreground sm:grid-cols-2 lg:grid-cols-4">
+            {process.map((step, index) => (
+              <li key={step.title} className="relative border-b border-border py-7 lg:border-b-0">
+                {/* fora do AnimatedSection: o transform dele viraria a referência do absolute */}
+                <span className="absolute -top-[9px] left-0 h-4 w-4 rounded-full border-2 border-foreground bg-background" aria-hidden="true" />
+                <AnimatedSection>
+                  <div className="mb-4 flex items-center gap-3">
+                    <span className="text-sm font-bold tabular-nums text-primary">{String(index + 1).padStart(2, "0")}</span>
+                    <step.icon className="h-6 w-6 text-primary" strokeWidth={1.8} aria-hidden="true" />
+                  </div>
+                  <h3 className="mb-2 text-xl font-bold tracking-tight text-foreground">{step.title}</h3>
+                  <p className="text-[15px] leading-relaxed text-muted-foreground">{step.description}</p>
+                </AnimatedSection>
+              </li>
             ))}
-          </div>
+          </ol>
         </div>
       </section>
 
-      {/* Problems Section */}
-      <Section>
-        <SectionHeader
-          title="Isso soa familiar?"
-          subtitle="Se algum soa familiar, vale uma conversa."
-        />
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {problems.map((problem, index) => (
-            <div key={index} className="p-6 rounded-xl bg-destructive/5 border border-destructive/20 hover:border-destructive/40 transition-colors card-glow">
-              <problem.icon className="w-10 h-10 text-destructive mb-4 icon-hover" />
-              <h3 className="text-lg font-semibold text-foreground mb-2">{problem.title}</h3>
-              <p className="text-muted-foreground text-sm">{problem.description}</p>
-            </div>
-          ))}
-        </div>
-      </Section>
+      <DeliverablesBenefits
+        title="O que entregamos"
+        subtitle="O que entregamos mês a mês."
+        features={features}
+        cta={{ label: "Solicitar Proposta", href: "/contato" }}
+        benefitsTitle="Benefícios para o seu negócio"
+        benefits={benefits}
+      />
 
-      {/* Process Section */}
-      <Section variant="gray">
-        <SectionHeader
-          title="Nossa metodologia"
-          subtitle="Processo estruturado para entregar resultados consistentes."
-        />
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {process.map((step, index) => (
-            <div key={index} className="relative">
-              <div className="text-center">
-                <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4 relative icon-hover-glow">
-                  <step.icon className="w-8 h-8 text-primary icon-hover" />
-                  <span className="absolute -top-2 -right-2 w-6 h-6 rounded-full bg-primary text-primary-foreground text-sm font-bold flex items-center justify-center">
-                    {index + 1}
-                  </span>
-                </div>
-                <h3 className="text-lg font-semibold text-foreground mb-2">{step.title}</h3>
-                <p className="text-sm text-muted-foreground">{step.description}</p>
-              </div>
-              {index < process.length - 1 && (
-                <div className="hidden lg:block absolute top-8 left-[60%] w-[80%] h-0.5 bg-primary/20" />
-              )}
-            </div>
-          ))}
-        </div>
-      </Section>
-
-      {/* Features + Benefits */}
-      <Section>
-        <div className="grid lg:grid-cols-2 gap-12 items-start">
-          <div>
-            <SectionHeader
-              title="O que entregamos"
-              subtitle="O que entregamos mês a mês."
-              centered={false}
-            />
-            <div className="space-y-3 mb-8">
-              {features.map((feature, index) => (
-                <div key={index} className="flex items-center gap-3">
-                  <CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0" />
-                  <span className="text-foreground">{feature}</span>
-                </div>
-              ))}
-            </div>
-            <Button asChild size="lg">
-              <Link to="/contato">Solicitar Proposta</Link>
-            </Button>
-          </div>
-          <div className="space-y-4">
-            <h3 className="text-2xl font-bold text-foreground mb-6">Benefícios para o seu negócio</h3>
-            {benefits.map((benefit, index) => (
-              <div key={index} className="flex gap-4 p-4 rounded-xl bg-card border border-border hover:border-primary/30 transition-colors card-glow">
-                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
-                  <benefit.icon className="w-6 h-6 text-primary icon-hover" />
-                </div>
-                <div>
-                  <h4 className="font-semibold text-foreground mb-1">{benefit.title}</h4>
-                  <p className="text-sm text-muted-foreground">{benefit.description}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </Section>
-
-      {/* CRM Integration */}
-      <Section variant="dark">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          <div>
-            <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/20 text-primary text-sm font-medium mb-4">
+      {/* Integração CRM: texto à esquerda, números num painel magenta */}
+      <section className="border-y border-border bg-card py-20 md:py-28">
+        <div className="container-mavi grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
+          <AnimatedSection animation="fadeInUp">
+            <span className="mb-4 inline-flex items-center gap-2 rounded-full bg-primary/10 px-3.5 py-1.5 text-sm font-semibold text-primary">
               Integração exclusiva
             </span>
-            <h2 className="text-3xl md:text-4xl font-bold text-mavi-white mb-2 leading-[1.05]">
+            <h2 className="text-3xl font-extrabold leading-[1.06] tracking-tight text-foreground text-balance md:text-4xl lg:text-5xl">
               Conecte suas campanhas direto ao funil de vendas
             </h2>
-            <p className="text-mavi-white/70 mb-6 leading-relaxed">
-              Com a integração nativa do CRM HUBRS, seus leads de Meta Ads e Google Ads 
-              caem automaticamente no CRM, onde você pode acompanhar cada oportunidade 
-              do primeiro clique até a venda fechada.
+            <p className="mb-7 mt-4 max-w-[54ch] text-lg leading-relaxed text-muted-foreground">
+              Com a integração nativa do CRM HUBRS, seus leads de Meta Ads e Google Ads caem automaticamente no CRM, onde você pode acompanhar cada oportunidade do primeiro clique até a venda fechada.
             </p>
-            <ul className="space-y-3 mb-8">
+            <ul className="mb-8 grid gap-3">
               {[
                 "Leads de anúncios direto no CRM",
                 "Qualificação automática por IA",
                 "Histórico completo de interações",
-                "Automação de follow-up via WhatsApp"
-              ].map((item, index) => (
-                <li key={index} className="flex items-center gap-3 text-mavi-white/80">
-                  <CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0" />
+                "Automação de follow-up via WhatsApp",
+              ].map((item) => (
+                <li key={item} className="flex items-center gap-3 font-medium text-foreground">
+                  <span className="grid h-[26px] w-[26px] shrink-0 place-items-center rounded-full bg-primary/10 text-primary">
+                    <Check className="h-3.5 w-3.5" strokeWidth={2.6} aria-hidden="true" />
+                  </span>
                   {item}
                 </li>
               ))}
             </ul>
-            <Button asChild variant="hero" size="lg">
+            <Button asChild variant="hero" size="lg" className="group">
               <Link to="/hubrs-crm">
                 Conhecer o CRM HUBRS
-                <ArrowRight className="w-4 h-4" />
+                <ArrowRight className="ml-1 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
               </Link>
             </Button>
-          </div>
-          <div className="bg-mavi-white/5 rounded-2xl p-8 border border-mavi-white/10">
-            <div className="grid grid-cols-2 gap-6">
-              <div className="text-center p-4 rounded-xl bg-mavi-black/50">
-                <p className="text-4xl font-bold text-primary">100%</p>
-                <p className="text-mavi-white/60 text-sm">Leads rastreados</p>
-              </div>
-              <div className="text-center p-4 rounded-xl bg-mavi-black/50">
-                <p className="text-4xl font-bold text-primary">3x</p>
-                <p className="text-mavi-white/60 text-sm">Mais conversões</p>
-              </div>
-              <div className="text-center p-4 rounded-xl bg-mavi-black/50">
-                <p className="text-4xl font-bold text-primary">-40%</p>
-                <p className="text-mavi-white/60 text-sm">Leads perdidos</p>
-              </div>
-              <div className="text-center p-4 rounded-xl bg-mavi-black/50">
-                <p className="text-4xl font-bold text-primary">24/7</p>
-                <p className="text-mavi-white/60 text-sm">Atendimento IA</p>
-              </div>
+          </AnimatedSection>
+          <AnimatedSection animation="fadeInUp" delay={100}>
+            <div className="grid grid-cols-2 gap-px overflow-hidden rounded-2xl bg-white/25 text-white">
+              {[
+                { v: "100%", l: "Leads rastreados" },
+                { v: "3x", l: "Mais conversões" },
+                { v: "-40%", l: "Leads perdidos" },
+                { v: "24/7", l: "Atendimento IA" },
+              ].map((m) => (
+                <div key={m.l} className="bg-primary px-6 py-8 md:px-8 md:py-10">
+                  <p className="text-4xl font-extrabold tracking-tight md:text-5xl">{m.v}</p>
+                  <p className="mt-1 text-white/85">{m.l}</p>
+                </div>
+              ))}
             </div>
-          </div>
+          </AnimatedSection>
         </div>
-      </Section>
+      </section>
 
-      {/* FAQ Section */}
-      <Section>
-        <SectionHeader
-          title="Perguntas frequentes"
-          subtitle="Tire suas dúvidas sobre o serviço de Marketing de Performance."
-        />
-        <div className="max-w-3xl mx-auto">
-          <Accordion type="single" collapsible className="space-y-4">
-            {faqs.map((faq, index) => (
-              <AccordionItem 
-                key={index} 
-                value={`item-${index}`}
-                className="bg-card border border-border rounded-xl px-6 data-[state=open]:border-primary/50"
-              >
-                <AccordionTrigger className="text-left hover:no-underline py-4">
-                  <span className="font-semibold text-foreground">{faq.question}</span>
-                </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground pb-4">
-                  {faq.answer}
-                </AccordionContent>
-              </AccordionItem>
-            ))}
-          </Accordion>
-        </div>
-      </Section>
+      <FaqBlock title="Perguntas frequentes" subtitle="Tire suas dúvidas sobre o serviço de Marketing de Performance." faqs={faqs} />
 
-      {/* Final CTA */}
-      <Section variant="dark">
-        <div className="text-center max-w-3xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-bold text-mavi-white mb-4">
-            Quer ver quanto sua verba de mídia poderia render?
-          </h2>
-          <p className="text-lg text-mavi-white/70 mb-8">
-            Diagnóstico gratuito: a gente olha sua conta de Ads, seu funil e te diz onde está vazando dinheiro. Sem proposta de gaveta.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button asChild variant="hero" size="xl">
-              <Link to="/diagnostico-gratuito">Agendar Diagnóstico Gratuito</Link>
-            </Button>
-            <Button asChild variant="heroOutline" size="lg">
-              <Link to="/cases">Ver cases de sucesso</Link>
-            </Button>
-          </div>
-        </div>
-      </Section>
+      <FinalCta
+        title="Quer ver quanto sua verba de mídia poderia render?"
+        text="Diagnóstico gratuito: a gente olha sua conta de Ads, seu funil e te diz onde está vazando dinheiro. Sem proposta de gaveta."
+        primary={{ label: "Agendar Diagnóstico Gratuito", href: "/diagnostico-gratuito" }}
+        secondary={{ label: "Ver cases de sucesso", href: "/cases" }}
+      />
     </Layout>
   );
 }

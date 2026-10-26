@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
 import { Layout } from "@/components/Layout";
-import { Section, SectionHeader } from "@/components/Section";
 import { Button } from "@/components/ui/button";
+import { AnimatedSection } from "@/components/AnimatedSection";
+import { ServiceHero, BlockHead } from "@/components/service/ServiceBlocks";
+import { cn } from "@/lib/utils";
 import { SEO, generateBreadcrumbSchema } from "@/components/SEO";
-import { SplitText } from "@/components/SplitText";
-import { HeroBackground } from "@/components/HeroBackground";
 import {
   ShoppingCart,
   Building2,
@@ -117,202 +117,120 @@ const Segmentos = () => {
         schemaMarkup={breadcrumbSchema}
       />
 
-      {/* Hero Section */}
-      <section className="relative min-h-[60vh] flex items-center pt-20 overflow-hidden">
-        <HeroBackground intensity="subtle" tone="light" />
+      <ServiceHero
+        icon={Target}
+        badge="Segmentos que Atendemos"
+        title={<>Soluções de marketing <span className="text-primary">personalizadas</span> para o seu segmento</>}
+        lead="Não faz sentido aplicar a mesma estratégia de e-commerce numa imobiliária. Por isso cada segmento tem abordagem diferente, com métricas, canais e objetivos específicos."
+        primary={{ label: "Fale com um especialista", href: "/contato" }}
+        secondary={{ label: "Ver cases de sucesso", href: "/cases" }}
+        stats={stats}
+      />
 
-        <div className="container-mavi relative z-10 py-20">
-          <div className="max-w-4xl">
-            <span className="inline-block px-4 py-2 bg-primary/20 text-primary rounded-full text-sm font-medium mb-6">
-              Segmentos que Atendemos
-            </span>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-mavi-white mb-2 leading-[1.05]"><SplitText stagger={45} duration={750}>Soluções de marketing{" "}
-              <span className="text-primary">personalizadas</span> para o seu
-              segmento</SplitText></h1>
-            <p className="text-xl text-mavi-white/80 mb-8 max-w-2xl">
-              Não faz sentido aplicar a mesma estratégia de e-commerce numa imobiliária. Por isso cada segmento tem abordagem diferente — com métricas, canais e objetivos específicos.
-            </p>
-            <div className="flex flex-wrap gap-4">
-              <Button asChild variant="hero" size="lg">
-                <Link to="/contato">Fale com um especialista</Link>
-              </Button>
-              <Button asChild variant="heroOutline" size="lg">
-                <Link to="/cases">Ver cases de sucesso</Link>
-              </Button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Stats Bar */}
-      <section className="bg-primary py-8">
+      {/* Segmentos em linhas */}
+      <section className="border-y border-border bg-card py-20 md:py-28">
         <div className="container-mavi">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {stats.map((stat, index) => (
-              <div key={index} className="text-center">
-                <div className="text-3xl md:text-4xl font-bold text-mavi-white mb-1">
-                  {stat.value}
-                </div>
-                <div className="text-mavi-white/80 text-sm">{stat.label}</div>
-              </div>
+          <BlockHead
+            title="Encontre a solução ideal para o seu negócio"
+            subtitle="Conheça as estratégias que desenvolvemos para cada tipo de empresa"
+          />
+          <div className="border-t-2 border-foreground">
+            {segments.map((segment) => (
+              <AnimatedSection key={segment.title}>
+                <Link
+                  to={segment.href}
+                  className="group grid gap-5 border-b border-border py-8 transition-colors hover:bg-primary/[0.03] md:grid-cols-[auto,1fr,1fr] md:items-start md:gap-10 md:px-2"
+                >
+                  <span
+                    className={cn(
+                      "grid h-14 w-14 place-items-center rounded-2xl transition-colors",
+                      segment.featured ? "bg-primary text-primary-foreground" : "bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground",
+                    )}
+                  >
+                    <segment.icon className="h-7 w-7" strokeWidth={1.7} aria-hidden="true" />
+                  </span>
+                  <div>
+                    <div className="flex flex-wrap items-center gap-3">
+                      <h3 className="text-2xl font-extrabold tracking-tight text-foreground">{segment.title}</h3>
+                      {segment.featured && (
+                        <span className="rounded-full bg-primary px-3 py-1 text-xs font-semibold text-primary-foreground">Especialidade</span>
+                      )}
+                    </div>
+                    <p className="mt-2 max-w-[50ch] leading-relaxed text-muted-foreground">{segment.description}</p>
+                    <span className="mt-4 inline-flex items-center gap-2 font-semibold text-primary">
+                      {segment.cta}
+                      <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true" />
+                    </span>
+                  </div>
+                  <ul className="flex flex-wrap content-start gap-2">
+                    {segment.benefits.map((benefit) => (
+                      <li key={benefit} className="rounded-full border border-border bg-background px-3 py-1 text-sm text-muted-foreground">
+                        {benefit}
+                      </li>
+                    ))}
+                  </ul>
+                </Link>
+              </AnimatedSection>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Segments Grid */}
-      <Section>
-        <SectionHeader
-          title="Encontre a solução ideal para o seu negócio"
-          subtitle="Conheça as estratégias que desenvolvemos para cada tipo de empresa"
-        />
-
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {segments.map((segment, index) => (
-            <div
-              key={index}
-              className={`group relative bg-card rounded-2xl border transition-all duration-300 hover:shadow-lg hover:border-primary/30 overflow-hidden ${
-                segment.featured ? "md:col-span-2 lg:col-span-1" : ""
-              }`}
-            >
-              {segment.featured && (
-                <div className="absolute top-4 right-4 bg-primary text-mavi-white text-xs font-medium px-3 py-1 rounded-full">
-                  Especialidade
-                </div>
-              )}
-
-              <div className="p-8">
-                <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mb-6 group-hover:bg-primary/20 transition-colors">
-                  <segment.icon className="w-7 h-7 text-primary" />
-                </div>
-
-                <h3 className="text-xl font-bold text-foreground mb-3">
-                  {segment.title}
-                </h3>
-                <p className="text-muted-foreground mb-6">
-                  {segment.description}
-                </p>
-
-                <ul className="space-y-2 mb-6">
-                  {segment.benefits.map((benefit, i) => (
-                    <li
-                      key={i}
-                      className="flex items-start gap-2 text-sm text-muted-foreground"
-                    >
-                      <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2 flex-shrink-0" />
-                      {benefit}
-                    </li>
-                  ))}
-                </ul>
-
-                <Link
-                  to={segment.href}
-                  className="inline-flex items-center gap-2 text-primary font-medium hover:gap-3 transition-all"
-                >
-                  {segment.cta}
-                  <ArrowRight className="w-4 h-4" />
-                </Link>
-              </div>
-            </div>
-          ))}
-        </div>
-      </Section>
-
-      {/* Why Choose MAVI Section */}
-      <Section variant="muted">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          <div>
-            <span className="inline-block px-4 py-2 bg-primary/20 text-primary rounded-full text-sm font-medium mb-6">
-              Por que a MAVI?
-            </span>
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">
+      {/* Por que a MAVI */}
+      <section className="bg-background py-20 md:py-28">
+        <div className="container-mavi grid items-center gap-12 lg:grid-cols-2 lg:gap-20 [&>*]:min-w-0">
+          <AnimatedSection animation="fadeInUp">
+            <span className="mb-5 inline-flex rounded-full bg-primary/10 px-3.5 py-1.5 text-sm font-semibold text-primary">Por que a MAVI?</span>
+            <h2 className="text-3xl font-extrabold leading-[1.06] tracking-tight text-foreground text-balance md:text-4xl lg:text-5xl">
               Mais de 15 segmentos atendidos
             </h2>
-            <p className="text-muted-foreground text-lg mb-8">
+            <p className="mb-8 mt-4 max-w-[58ch] text-lg leading-relaxed text-muted-foreground">
               Com mais de 5 anos atendendo tipos de negócio bem diferentes, a gente aprendeu que o que funciona numa clínica raramente funciona numa loja virtual. Cada caso tem suas variáveis.
             </p>
-
-            <div className="space-y-6">
-              <div className="flex gap-4">
-                <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
-                  <Target className="w-6 h-6 text-primary" />
+            <div className="border-t-2 border-foreground">
+              {[
+                { icon: Target, title: "Estratégia Personalizada", text: "Nada de soluções genéricas. Desenvolvemos estratégias específicas para cada cliente." },
+                { icon: TrendingUp, title: "Foco em Resultados", text: "Métricas claras, relatórios transparentes e otimização contínua para maximizar ROI." },
+                { icon: Users, title: "Equipe Especializada", text: "Profissionais certificados em Google, Meta e RD Station dedicados ao seu projeto." },
+              ].map((item) => (
+                <div key={item.title} className="flex gap-4 border-b border-border py-5">
+                  <item.icon className="mt-0.5 h-6 w-6 shrink-0 text-primary" strokeWidth={1.8} aria-hidden="true" />
+                  <div>
+                    <h4 className="font-bold text-foreground">{item.title}</h4>
+                    <p className="mt-0.5 text-[15px] leading-relaxed text-muted-foreground">{item.text}</p>
+                  </div>
                 </div>
-                <div>
-                  <h4 className="font-semibold text-foreground mb-1">
-                    Estratégia Personalizada
-                  </h4>
-                  <p className="text-muted-foreground text-sm">
-                    Nada de soluções genéricas. Desenvolvemos estratégias
-                    específicas para cada cliente.
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex gap-4">
-                <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
-                  <TrendingUp className="w-6 h-6 text-primary" />
-                </div>
-                <div>
-                  <h4 className="font-semibold text-foreground mb-1">
-                    Foco em Resultados
-                  </h4>
-                  <p className="text-muted-foreground text-sm">
-                    Métricas claras, relatórios transparentes e otimização
-                    contínua para maximizar ROI.
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex gap-4">
-                <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
-                  <Users className="w-6 h-6 text-primary" />
-                </div>
-                <div>
-                  <h4 className="font-semibold text-foreground mb-1">
-                    Equipe Especializada
-                  </h4>
-                  <p className="text-muted-foreground text-sm">
-                    Profissionais certificados em Google, Meta e RD Station
-                    dedicados ao seu projeto.
-                  </p>
-                </div>
-              </div>
+              ))}
             </div>
-          </div>
+          </AnimatedSection>
 
-          <div className="relative">
-            <div className="bg-gradient-to-br from-primary/20 to-primary/5 rounded-3xl p-8 lg:p-12">
-              <div className="text-center">
-                <div className="text-6xl font-bold text-primary mb-4">500+</div>
-                <p className="text-xl text-foreground font-medium mb-2">
-                  Clientes satisfeitos
-                </p>
-                <p className="text-muted-foreground">
-                  Em mais de 15 segmentos diferentes
-                </p>
-              </div>
+          <AnimatedSection animation="fadeInUp" delay={100}>
+            <div className="rounded-2xl bg-primary p-10 text-white md:p-14">
+              <div className="text-7xl font-extrabold tracking-tight md:text-8xl">500+</div>
+              <p className="mt-4 text-xl font-semibold">Clientes satisfeitos</p>
+              <p className="mt-1 text-white/85">Em mais de 15 segmentos diferentes</p>
             </div>
-          </div>
+          </AnimatedSection>
         </div>
-      </Section>
+      </section>
 
-      {/* CTA Section */}
-      <section className="relative py-20 overflow-hidden">
-        <div className="absolute inset-0 bg-mavi-black" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(230,0,126,0.18),transparent_60%)]" />
-
-        <div className="container-mavi relative z-10 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-mavi-white mb-6">
+      {/* CTA */}
+      <section className="border-t border-primary/15 bg-primary/5 py-20 text-center md:py-28">
+        <AnimatedSection className="container-mavi">
+          <h2 className="text-4xl font-extrabold leading-[1.06] tracking-tight text-foreground text-balance md:text-5xl">
             Não encontrou seu segmento?
           </h2>
-          <p className="text-xl text-mavi-white/80 mb-8 max-w-2xl mx-auto">
+          <p className="mx-auto mb-9 mt-5 max-w-[56ch] text-lg text-muted-foreground">
             Atendemos tipos de negócio que não estão listados aqui. Manda mensagem e a gente avalia se faz sentido.
           </p>
-          <div className="flex flex-wrap justify-center gap-4">
-            <Button asChild variant="hero" size="lg">
-              <Link to="/diagnostico-gratuito">Solicitar diagnóstico gratuito</Link>
+          <div className="flex flex-col justify-center gap-3 sm:flex-row">
+            <Button asChild variant="hero" size="xl" className="group">
+              <Link to="/diagnostico-gratuito">
+                Solicitar diagnóstico gratuito
+                <ArrowRight className="ml-1 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+              </Link>
             </Button>
-            <Button asChild variant="heroOutline" size="lg">
+            <Button asChild variant="outline" size="xl">
               <a
                 href="https://wa.me/5547996810630?text=Olá! Gostaria de saber mais sobre os serviços da MAVI para meu segmento."
                 target="_blank"
@@ -322,7 +240,7 @@ const Segmentos = () => {
               </a>
             </Button>
           </div>
-        </div>
+        </AnimatedSection>
       </section>
     </Layout>
   );

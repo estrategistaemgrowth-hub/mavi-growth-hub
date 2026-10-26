@@ -18,23 +18,23 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 0 0% 0%;
+    --background: 330 25% 98%;
+    --foreground: 325 25% 9%;
 
     --card: 0 0% 100%;
-    --card-foreground: 0 0% 0%;
+    --card-foreground: 325 25% 9%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 0%;
+    --popover-foreground: 325 25% 9%;
 
     --primary: 336 100% 45%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 0 0% 96%;
-    --secondary-foreground: 0 0% 0%;
+    --secondary: 330 20% 95%;
+    --secondary-foreground: 325 25% 9%;
 
-    --muted: 0 0% 96%;
-    --muted-foreground: 0 0% 45%;
+    --muted: 330 20% 95%;
+    --muted-foreground: 325 9% 36%;
 
     --accent: 336 100% 45%;
     --accent-foreground: 0 0% 100%;
@@ -42,37 +42,37 @@
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 0 0% 90%;
-    --input: 0 0% 90%;
+    --border: 330 18% 90%;
+    --input: 330 18% 86%;
     --ring: 336 100% 45%;
 
     --radius: 0.5rem;
 
-    /* Custom MAVI colors */
+    /* Custom MAVI colors (tema claro: mavi-black = fundo, mavi-white = tinta; nomes mantidos pra não mexer em 300+ classes) */
     --mavi-magenta: 336 100% 45%;
     --mavi-magenta-light: 336 100% 55%;
     --mavi-magenta-dark: 336 100% 35%;
-    --mavi-black: 0 0% 0%;
-    --mavi-white: 0 0% 100%;
-    --mavi-gray: 0 0% 96%;
+    --mavi-black: 330 25% 98%;
+    --mavi-white: 325 25% 9%;
+    --mavi-gray: 0 0% 100%;
     --mavi-gray-dark: 0 0% 20%;
     --mavi-gray-light: 0 0% 70%;
     --mavi-text-gray: 0 0% 40%;
     --mavi-purple: 280 70% 55%;
     --mavi-purple-light: 280 70% 65%;
-    --mavi-surface: 0 0% 4%;
+    --mavi-surface: 0 0% 100%;
 
     /* Gradients */
-    --gradient-hero: linear-gradient(135deg, hsl(0 0% 0%) 0%, hsl(0 0% 10%) 100%);
+    --gradient-hero: linear-gradient(180deg, hsl(330 25% 98%) 0%, hsl(330 40% 96%) 100%);
     --gradient-magenta: linear-gradient(135deg, hsl(330 100% 40%) 0%, hsl(330 100% 50%) 100%);
-    --gradient-dark: linear-gradient(180deg, hsl(0 0% 0%) 0%, hsl(0 0% 8%) 100%);
+    --gradient-dark: linear-gradient(180deg, hsl(330 25% 98%) 0%, hsl(330 30% 96%) 100%);
 
     /* Shadows */
     --shadow-sm: 0 2px 8px -2px hsl(0 0% 0% / 0.1);
     --shadow-md: 0 4px 16px -4px hsl(0 0% 0% / 0.15);
     --shadow-lg: 0 8px 32px -8px hsl(0 0% 0% / 0.2);
-    --shadow-magenta: 0 4px 24px -4px hsl(336 100% 45% / 0.4);
-    --shadow-magenta-lg: 0 8px 40px -8px hsl(336 100% 45% / 0.5);
+    --shadow-magenta: 0 6px 8px -6px hsl(336 100% 45% / 0.55);
+    --shadow-magenta-lg: 0 8px 8px -6px hsl(336 100% 45% / 0.6);
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
@@ -150,10 +150,8 @@
   }
 
   .gradient-text {
-    @apply bg-clip-text text-transparent;
-    background-image: linear-gradient(135deg, hsl(336 100% 50%) 0%, hsl(310 100% 65%) 40%, hsl(280 100% 65%) 70%, hsl(336 100% 45%) 100%);
-    background-size: 300% auto;
-    animation: gradient-shift 6s ease infinite;
+    /* Destaque sólido na cor da marca (texto em gradiente saiu no redesign claro) */
+    color: hsl(var(--primary));
   }
 
   .card-hover {
@@ -221,29 +219,21 @@
 
   /* Glassmorphism card */
   .glass-card {
-    @apply backdrop-blur-md border border-white/10;
-    background: rgba(255, 255, 255, 0.08);
+    @apply border border-border bg-card;
   }
 
   /* Glass card light mode: higher opacity for visible contrast */
-  @media (prefers-color-scheme: light) {
-    .glass-card {
-      background: rgba(255, 255, 255, 0.75);
-      border-color: rgba(0, 0, 0, 0.08);
-    }
-  }
 
   .glass-card-dark {
-    @apply backdrop-blur-md border border-white/10;
-    background: rgba(0, 0, 0, 0.4);
+    @apply border border-border bg-card;
+    box-shadow: 0 2px 2px hsl(325 25% 9% / 0.03), 0 8px 8px -4px hsl(325 25% 9% / 0.06);
   }
 
   /* Badge pill para destaque */
   .badge-pill {
     @apply inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-semibold
            border border-primary/40 text-primary;
-    background: linear-gradient(135deg, hsl(336 100% 45% / 0.15), hsl(336 100% 45% / 0.05));
-    animation: badge-pulse 3s ease-in-out infinite;
+    background: hsl(336 100% 45% / 0.08);
     box-shadow: 0 0 0 0 hsl(336 100% 45% / 0);
   }
 
@@ -274,10 +264,7 @@
 
   /* Dot grid mesh background */
   .bg-mesh {
-    background-image:
-      radial-gradient(circle at 1px 1px, hsl(336 100% 45% / 0.07) 1px, transparent 0),
-      radial-gradient(circle at 14px 14px, hsl(280 100% 60% / 0.04) 1px, transparent 0);
-    background-size: 28px 28px;
+    /* grade decorativa removida no redesign claro */
   }
 
   /* Accent bar abaixo de títulos de seção */
@@ -329,8 +316,8 @@
   /* Stat box para o hero */
   .stat-box {
     @apply flex flex-col items-start px-5 py-3 rounded-xl;
-    background: rgba(255,255,255,0.04);
-    border: 1px solid rgba(255,255,255,0.08);
+    background: hsl(var(--card));
+    border: 1px solid hsl(var(--border));
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
   }
 
@@ -531,20 +518,8 @@
   /* Reescreve tokens dentro de seções escuras (Section default/gray/muted)
      para que text-foreground, text-muted-foreground, bg-card, bg-background,
      border-border etc. fiquem legíveis sobre fundo preto. */
-  .section-dark-scope {
-    --background: 0 0% 5%;
-    --foreground: 0 0% 98%;
-    --card: 0 0% 9%;
-    --card-foreground: 0 0% 98%;
-    --popover: 0 0% 9%;
-    --popover-foreground: 0 0% 98%;
-    --secondary: 0 0% 12%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 0 0% 10%;
-    --muted-foreground: 0 0% 70%;
-    --border: 0 0% 18%;
-    --input: 0 0% 18%;
-  }
+  /* Seções agora herdam os tokens claros do :root. */
+  .section-dark-scope {}
 
   .animate-fade-in {
     animation: fadeIn 0.5s ease-out forwards;

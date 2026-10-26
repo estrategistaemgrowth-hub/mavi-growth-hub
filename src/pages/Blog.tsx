@@ -107,81 +107,98 @@ export default function Blog() {
   return (
     <Layout>
       <SEO
-        title="Blog — Artigos sobre Marketing Digital"
+        title="Blog: Artigos sobre Marketing Digital"
         description="Leia artigos sobre marketing digital, e-commerce, performance, automação e inteligência artificial. Conteúdo da MAVI para impulsionar seu negócio."
         canonical="/blog"
         schemaMarkup={schemaMarkup}
       />
 
       {/* Hero */}
-      <section className="section-dark pt-32 pb-16">
-        <div className="container-mavi text-center">
-          <span className="badge-pill mb-4 inline-flex items-center gap-1.5"><Newspaper className="w-3.5 h-3.5" aria-hidden="true" /> Blog</span>
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">
-            Blog <span className="gradient-text">MAVI</span>
+      <section className="bg-background pb-10 pt-32 md:pt-40">
+        <div className="container-mavi">
+          <span className="inline-flex items-center gap-2 rounded-full border border-border bg-card py-1.5 pl-2.5 pr-3.5 text-[13px] font-semibold text-muted-foreground">
+            <span className="grid h-6 w-6 place-items-center rounded-full bg-primary/10 text-primary">
+              <Newspaper className="h-3.5 w-3.5" aria-hidden="true" />
+            </span>
+            Blog
+          </span>
+          <h1 className="mb-4 mt-6 text-[2.5rem] font-extrabold leading-[1.04] tracking-[-0.03em] text-foreground sm:text-5xl lg:text-6xl">
+            Blog <span className="text-primary">MAVI</span>
           </h1>
-          <p className="text-mavi-white/70 max-w-2xl mx-auto text-lg">
+          <p className="max-w-[58ch] text-lg leading-relaxed text-muted-foreground md:text-xl">
             Artigos, dicas e tendências sobre marketing digital, e-commerce, performance e inteligência artificial.
           </p>
         </div>
       </section>
 
-      {/* Filters */}
-      <section className="bg-background border-b border-border">
-        <div className="container-mavi py-4">
-          <div className="flex flex-wrap gap-2">
-            <Button
-              variant={!activeCategory ? "default" : "outline"}
-              size="sm"
-              onClick={() => setCategory("")}
-            >
-              Todos
-            </Button>
-            {categories.map((cat) => (
-              <Button
-                key={cat.id}
-                variant={activeCategory === cat.slug ? "default" : "outline"}
-                size="sm"
+      {/* Filtros */}
+      <div className="sticky top-24 z-20 border-y border-border bg-background/90 backdrop-blur">
+        <div className="container-mavi flex gap-2 overflow-x-auto py-3 [scrollbar-width:none]">
+          {[{ id: "", name: "Todos", slug: "" }, ...categories].map((cat) => {
+            const on = activeCategory === cat.slug;
+            return (
+              <button
+                key={cat.id || "todos"}
+                type="button"
+                aria-pressed={on}
                 onClick={() => setCategory(cat.slug)}
+                className={cn(
+                  "shrink-0 rounded-full border px-4 py-1.5 text-sm font-semibold transition-colors",
+                  on ? "border-primary bg-primary text-primary-foreground" : "border-input bg-card text-muted-foreground hover:border-primary hover:text-foreground",
+                )}
               >
                 {cat.name}
-              </Button>
-            ))}
-          </div>
+              </button>
+            );
+          })}
         </div>
-      </section>
+      </div>
 
-      {/* Posts Grid */}
-      <section className="bg-background py-16">
+      {/* Posts: o primeiro em destaque, os demais em grade */}
+      <section className="bg-background py-14 md:py-20">
         <div className="container-mavi">
           {loading ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-3">
               {[1, 2, 3].map((i) => (
-                <div key={i} className="bg-card rounded-xl border border-border animate-pulse">
-                  <div className="aspect-video bg-muted" />
-                  <div className="p-6 space-y-3">
-                    <div className="h-4 bg-muted rounded w-1/4" />
-                    <div className="h-6 bg-muted rounded w-3/4" />
-                    <div className="h-4 bg-muted rounded" />
-                  </div>
+                <div key={i} className="animate-pulse space-y-4">
+                  <div className="aspect-video rounded-2xl bg-muted" />
+                  <div className="h-4 w-1/4 rounded bg-muted" />
+                  <div className="h-6 w-3/4 rounded bg-muted" />
+                  <div className="h-4 rounded bg-muted" />
                 </div>
               ))}
             </div>
           ) : posts.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {posts.map((post) => (
+            <>
+              <div className="border-b border-border pb-14">
                 <BlogCard
-                  key={post.id}
-                  title={post.title}
-                  slug={post.slug}
-                  excerpt={post.excerpt}
-                  featuredImageUrl={post.featured_image_url}
-                  authorName={post.author_name}
-                  publishedAt={post.published_at}
-                  categoryName={post.blog_categories?.name}
+                  featured
+                  title={posts[0].title}
+                  slug={posts[0].slug}
+                  excerpt={posts[0].excerpt}
+                  featuredImageUrl={posts[0].featured_image_url}
+                  authorName={posts[0].author_name}
+                  publishedAt={posts[0].published_at}
+                  categoryName={posts[0].blog_categories?.name}
                 />
-              ))}
-            </div>
+              </div>
+              {posts.length > 1 && (
+                <div className="grid gap-x-8 gap-y-14 pt-14 md:grid-cols-2 lg:grid-cols-3">
+                  {posts.slice(1).map((post) => (
+                    <BlogCard
+                      key={post.id}
+                      title={post.title}
+                      slug={post.slug}
+                      excerpt={post.excerpt}
+                      featuredImageUrl={post.featured_image_url}
+                      authorName={post.author_name}
+                      publishedAt={post.published_at}
+                      categoryName={post.blog_categories?.name}
+                    />
+                  ))}
+                </div>
+              )}
+            </>
           ) : (
             <div className="text-center py-16">
               <p className="text-muted-foreground text-lg">

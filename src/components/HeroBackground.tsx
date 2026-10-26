@@ -19,9 +19,9 @@ interface HeroBackgroundProps {
  */
 export function HeroBackground({
   intensity = "medium",
-  grid = true,
+  grid = false,
   beam = false,
-  tone = "dark",
+  tone = "light",
 }: HeroBackgroundProps) {
   const wrapRef = useRef<HTMLDivElement>(null);
   const orb1 = useRef<HTMLDivElement>(null);
@@ -126,6 +126,17 @@ export function HeroBackground({
       ? "opacity-25 mix-blend-screen"
       : "opacity-35 mix-blend-screen";
 
+  // Tema claro: fundo limpo, só um véu quase imperceptível da cor da marca no topo.
+  if (isLight) {
+    return (
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{ background: "linear-gradient(180deg, hsl(336 100% 45% / 0.035) 0%, transparent 70%)" }}
+        aria-hidden="true"
+      />
+    );
+  }
+
   return (
     <div
       ref={wrapRef}
@@ -133,19 +144,23 @@ export function HeroBackground({
       style={rootStyle}
       aria-hidden="true"
     >
-      <InteractiveNeuralVortex
-        colorA={[0.92, 0.0, 0.4]}
-        colorB={[0.45, 0.05, 0.55]}
-        colorC={[1.0, 0.2, 0.55]}
-        className={vortexClass}
-      />
-
-      <TubesCursor
-        initialColors={["#ec0064", "#00e5ff", "#7c3aed"]}
-        lightColors={["#ec0064", "#00e5ff", "#ff3ea5", "#7c3aed"]}
-        lightIntensity={220}
-        className={tubesClass}
-      />
+      {/* WebGL (vortex/tubos) só no tema escuro: o canvas limpa em preto e escurece o hero claro */}
+      {!isLight && (
+        <>
+          <InteractiveNeuralVortex
+            colorA={[0.92, 0.0, 0.4]}
+            colorB={[0.45, 0.05, 0.55]}
+            colorC={[1.0, 0.2, 0.55]}
+            className={vortexClass}
+          />
+          <TubesCursor
+            initialColors={["#ec0064", "#00e5ff", "#7c3aed"]}
+            lightColors={["#ec0064", "#00e5ff", "#ff3ea5", "#7c3aed"]}
+            lightIntensity={220}
+            className={tubesClass}
+          />
+        </>
+      )}
 
       <div
         ref={aurora}

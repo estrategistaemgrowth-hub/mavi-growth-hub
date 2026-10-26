@@ -1,23 +1,22 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Layout } from "@/components/Layout";
-import { Section } from "@/components/Section";
+import { AnimatedSection } from "@/components/AnimatedSection";
 import { SEO, generateBreadcrumbSchema, generateLocalBusinessSchema, generateFAQSchema } from "@/components/SEO";
 import { useToast } from "@/hooks/use-toast";
 import { WhatsAppLink } from "@/components/WhatsAppLink";
-import { SplitText } from "@/components/SplitText";
-import { HeroBackground } from "@/components/HeroBackground";
+import { cn } from "@/lib/utils";
 import {
   Phone,
   Mail,
   MapPin,
   MessageSquare,
   Clock,
-  CheckCircle2,
+  Check,
   Loader2,
 } from "lucide-react";
 
@@ -45,7 +44,7 @@ const revenueOptions = [
 const contatoFaqs = [
   {
     question: "Como funciona o diagnóstico gratuito?",
-    answer: "Você preenche o formulário ou chama no WhatsApp. A gente analisa sua situação e diz o que faria — sem custo e sem compromisso.",
+    answer: "Você preenche o formulário ou chama no WhatsApp. A gente analisa sua situação e diz o que faria, sem custo e sem compromisso.",
   },
   {
     question: "Qual o tempo de resposta da MAVI?",
@@ -53,7 +52,7 @@ const contatoFaqs = [
   },
   {
     question: "Como a MAVI cobra pelos serviços?",
-    answer: "Contratos mensais ou por projeto, dependendo do serviço. Os valores só aparecem depois do diagnóstico — assim a gente já sabe o que faz sentido pro seu caso.",
+    answer: "Contratos mensais ou por projeto, dependendo do serviço. Os valores só aparecem depois do diagnóstico. Assim a gente já sabe o que faz sentido pro seu caso.",
   },
   {
     question: "A MAVI assina contrato de confidencialidade?",
@@ -64,6 +63,10 @@ const contatoFaqs = [
     answer: "Você pode contratar serviços avulsos (tráfego pago, e-commerce, Micro SaaS) ou o pacote completo de growth marketing. Montamos a proposta de acordo com sua necessidade.",
   },
 ];
+
+// Campos: 48px de altura, foco magenta; o vermelho só aparece depois que a pessoa mexeu no campo (:user-invalid)
+const field =
+  "h-12 rounded-xl border-input bg-background px-4 text-base transition-colors focus-visible:border-primary focus-visible:ring-2 focus-visible:ring-primary/25 focus-visible:ring-offset-0 [&:user-invalid]:border-destructive [&:user-invalid]:ring-2 [&:user-invalid]:ring-destructive/20";
 
 export default function Contato() {
   const { toast } = useToast();
@@ -168,6 +171,17 @@ export default function Contato() {
     "@graph": [breadcrumbSchema, localBusinessSchema, faqSchema],
   };
 
+  const channels = [
+    { icon: Phone, label: "Telefone", value: <a href="tel:+5547996810630" className="hover:text-primary transition-colors">(47) 99681-0630</a> },
+    {
+      icon: Mail,
+      label: "E-mail",
+      value: <a href="mailto:agenciamavi@agenciamavi.com.br" className="break-all hover:text-primary transition-colors">agenciamavi@agenciamavi.com.br</a>,
+    },
+    { icon: MapPin, label: "Localização", value: "Jaraguá do Sul – SC" },
+    { icon: Clock, label: "Horário", value: "Seg a Sex, 8h às 18h" },
+  ];
+
   return (
     <Layout>
       <SEO
@@ -176,90 +190,62 @@ export default function Contato() {
         canonical="/contato"
         schemaMarkup={combinedSchema}
       />
-      <section className="pt-32 pb-16 bg-mavi-black relative overflow-hidden">
-        <HeroBackground intensity="subtle" />
-        <div className="absolute inset-0">
-          <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl animate-pulse" />
-          <div className="absolute bottom-1/4 left-1/4 w-64 h-64 bg-primary/5 rounded-full blur-2xl animate-pulse animation-delay-500" />
-        </div>
-        <div className="container-mavi relative z-10">
-          <div className="max-w-3xl">
-            <h1 className="text-4xl md:text-5xl font-bold text-mavi-white mb-2 leading-[1.05]"><SplitText stagger={45} duration={750}>Fale com a <span className="text-primary">MAVI</span></SplitText></h1>
-            <p className="text-xl text-mavi-white/70 leading-relaxed animate-fade-in-up animation-delay-200">
-              Conta seu momento e a verba que você opera hoje. A gente responde em horário comercial com um diagnóstico, não com pitch.
-            </p>
-          </div>
-        </div>
+
+      {/* Hero curto: a página existe pro formulário */}
+      <section className="relative overflow-hidden bg-background pb-12 pt-32 md:pb-16 md:pt-40">
+        <div
+          className="pointer-events-none absolute inset-x-0 top-0 h-80"
+          style={{ background: "linear-gradient(180deg, hsl(336 100% 45% / 0.035), transparent)" }}
+          aria-hidden="true"
+        />
+        <AnimatedSection animation="fadeInUp" className="container-mavi relative max-w-3xl lg:max-w-7xl">
+          <h1 className="text-[2.75rem] font-extrabold leading-[1.04] tracking-[-0.03em] text-foreground text-balance sm:text-6xl lg:text-7xl">
+            Fale com a <span className="text-primary">MAVI</span>
+          </h1>
+          <p className="mt-5 max-w-[54ch] text-lg leading-relaxed text-muted-foreground md:text-xl">
+            Conta seu momento e a verba que você opera hoje. A gente responde em horário comercial com um diagnóstico, não com pitch.
+          </p>
+        </AnimatedSection>
       </section>
 
-      {/* Contact Form & Info */}
-      <Section>
-        <div className="grid lg:grid-cols-3 gap-12">
-          {/* Form */}
-          <div className="lg:col-span-2 animate-fade-in-up animation-delay-300">
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="grid sm:grid-cols-2 gap-6">
+      {/* Formulário + canais */}
+      <section className="bg-background pb-20 md:pb-28">
+        <div className="container-mavi grid items-start gap-8 lg:grid-cols-[1.6fr,1fr] lg:gap-12 [&>*]:min-w-0">
+          <AnimatedSection animation="fadeInUp" delay={100}>
+            <form
+              onSubmit={handleSubmit}
+              className="space-y-6 rounded-2xl border border-border bg-card p-6 shadow-[0_2px_2px_hsl(325_25%_9%/0.03),0_8px_8px_-4px_hsl(325_25%_9%/0.06)] md:p-10"
+            >
+              <div className="grid gap-6 sm:grid-cols-2">
                 <div className="space-y-2">
-                  <Label htmlFor="nome">Nome *</Label>
-                  <Input
-                    id="nome"
-                    name="nome"
-                    value={formData.nome}
-                    onChange={handleInputChange}
-                    placeholder="Seu nome completo"
-                    required
-                    className="transition-all duration-300 focus:scale-[1.02]"
-                  />
+                  <Label htmlFor="nome" className="font-semibold">Nome *</Label>
+                  <Input id="nome" name="nome" value={formData.nome} onChange={handleInputChange} placeholder="Seu nome completo" required className={field} />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="email">E-mail *</Label>
-                  <Input
-                    id="email"
-                    name="email"
-                    type="email"
-                    value={formData.email}
-                    onChange={handleInputChange}
-                    placeholder="seu@email.com"
-                    required
-                    className="transition-all duration-300 focus:scale-[1.02]"
-                  />
+                  <Label htmlFor="email" className="font-semibold">E-mail *</Label>
+                  <Input id="email" name="email" type="email" value={formData.email} onChange={handleInputChange} placeholder="seu@email.com" required className={field} />
                 </div>
               </div>
 
-              <div className="grid sm:grid-cols-2 gap-6">
+              <div className="grid gap-6 sm:grid-cols-2">
                 <div className="space-y-2">
-                  <Label htmlFor="whatsapp">WhatsApp *</Label>
-                  <Input
-                    id="whatsapp"
-                    name="whatsapp"
-                    value={formData.whatsapp}
-                    onChange={handleInputChange}
-                    placeholder="(47) 99999-9999"
-                    required
-                    className="transition-all duration-300 focus:scale-[1.02]"
-                  />
+                  <Label htmlFor="whatsapp" className="font-semibold">WhatsApp *</Label>
+                  <Input id="whatsapp" name="whatsapp" value={formData.whatsapp} onChange={handleInputChange} placeholder="(47) 99999-9999" required className={field} />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="empresa">Empresa</Label>
-                  <Input
-                    id="empresa"
-                    name="empresa"
-                    value={formData.empresa}
-                    onChange={handleInputChange}
-                    placeholder="Nome da sua empresa"
-                    className="transition-all duration-300 focus:scale-[1.02]"
-                  />
+                  <Label htmlFor="empresa" className="font-semibold">Empresa</Label>
+                  <Input id="empresa" name="empresa" value={formData.empresa} onChange={handleInputChange} placeholder="Nome da sua empresa" className={field} />
                 </div>
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="faturamento">Faturamento atual</Label>
+                <Label htmlFor="faturamento" className="font-semibold">Faturamento atual</Label>
                 <select
                   id="faturamento"
                   name="faturamento"
                   value={formData.faturamento}
                   onChange={handleInputChange}
-                  className="w-full h-10 px-3 rounded-md border border-input bg-background text-foreground transition-all duration-300 focus:scale-[1.02] focus:ring-2 focus:ring-primary"
+                  className={cn("w-full border text-foreground outline-none", field)}
                 >
                   <option value="">Selecione uma opção</option>
                   {revenueOptions.map((option) => (
@@ -270,44 +256,32 @@ export default function Contato() {
                 </select>
               </div>
 
-              <div className="space-y-3">
-                <Label>O que você quer melhorar? (selecione um ou mais)</Label>
-                <div className="grid sm:grid-cols-2 gap-2">
-                  {interestOptions.map((option, index) => (
-                    <label
-                      key={option}
-                      className={`flex items-center gap-3 p-3 rounded-lg border cursor-pointer transition-all duration-300 hover:scale-[1.02] ${
-                        formData.interesse.includes(option)
-                          ? "border-primary bg-primary/5 shadow-magenta"
-                          : "border-border hover:border-primary/50"
-                      }`}
-                      style={{ animationDelay: `${index * 50}ms` }}
-                    >
-                      <input
-                        type="checkbox"
-                        checked={formData.interesse.includes(option)}
-                        onChange={() => handleInterestChange(option)}
-                        className="sr-only"
-                      />
-                      <div
-                        className={`w-5 h-5 rounded flex items-center justify-center transition-all duration-300 ${
-                          formData.interesse.includes(option)
-                            ? "bg-primary scale-110"
-                            : "border-2 border-muted-foreground"
-                        }`}
-                      >
-                        {formData.interesse.includes(option) && (
-                          <CheckCircle2 className="w-4 h-4 text-primary-foreground" />
+              <fieldset className="space-y-3">
+                <legend className="mb-3 text-sm font-semibold leading-none">O que você quer melhorar? (selecione um ou mais)</legend>
+                <div className="flex flex-wrap gap-2">
+                  {interestOptions.map((option) => {
+                    const checked = formData.interesse.includes(option);
+                    return (
+                      <label
+                        key={option}
+                        className={cn(
+                          "inline-flex cursor-pointer items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium transition-[border-color,background-color,color] duration-300 has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-primary/40",
+                          checked ? "border-primary bg-primary text-primary-foreground" : "border-input bg-background text-foreground hover:border-primary/60",
                         )}
-                      </div>
-                      <span className="text-sm text-foreground">{option}</span>
-                    </label>
-                  ))}
+                      >
+                        <input type="checkbox" checked={checked} onChange={() => handleInterestChange(option)} className="sr-only" />
+                        <span className={cn("grid h-4 w-4 place-items-center rounded-[5px] border-[1.5px]", checked ? "border-white" : "border-current/40")}>
+                          <Check className={cn("h-3 w-3 transition-all duration-300", checked ? "scale-100 opacity-100" : "scale-50 opacity-0")} strokeWidth={3} aria-hidden="true" />
+                        </span>
+                        {option}
+                      </label>
+                    );
+                  })}
                 </div>
-              </div>
+              </fieldset>
 
               <div className="space-y-2">
-                <Label htmlFor="mensagem">Mensagem</Label>
+                <Label htmlFor="mensagem" className="font-semibold">Mensagem</Label>
                 <Textarea
                   id="mensagem"
                   name="mensagem"
@@ -315,16 +289,11 @@ export default function Contato() {
                   onChange={handleInputChange}
                   placeholder="Conte um pouco sobre seu negócio e seus objetivos..."
                   rows={4}
-                  className="transition-all duration-300 focus:scale-[1.01]"
+                  className={cn(field, "h-auto py-3")}
                 />
               </div>
 
-              <Button 
-                type="submit" 
-                size="lg" 
-                disabled={isSubmitting}
-                className="btn-glow transition-all duration-300 hover:scale-105"
-              >
+              <Button type="submit" size="lg" disabled={isSubmitting} className="w-full rounded-full sm:w-auto">
                 {isSubmitting ? (
                   <>
                     <Loader2 className="w-4 h-4 mr-2 animate-spin" />
@@ -335,85 +304,39 @@ export default function Contato() {
                 )}
               </Button>
             </form>
-          </div>
+          </AnimatedSection>
 
-          {/* Contact Info */}
-          <div className="space-y-8 animate-fade-in-right animation-delay-400">
-            <div className="bg-mavi-gray rounded-xl p-6 hover:shadow-lg transition-all duration-300">
-              <h3 className="text-lg font-semibold text-foreground mb-6">
-                Informações de contato
-              </h3>
-              <div className="space-y-4">
-                <div className="flex items-start gap-4 group">
-                  <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0 group-hover:bg-primary/20 transition-colors duration-300">
-                    <Phone className="w-5 h-5 text-primary" />
-                  </div>
-                  <div>
-                    <p className="text-sm text-muted-foreground">Telefone</p>
-                    <a
-                      href="tel:+5547996810630"
-                      className="text-foreground hover:text-primary transition-colors"
-                    >
-                      (47) 99681-0630
-                    </a>
-                  </div>
-                </div>
-                <div className="flex items-start gap-4 group">
-                  <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0 group-hover:bg-primary/20 transition-colors duration-300">
-                    <Mail className="w-5 h-5 text-primary" />
-                  </div>
-                  <div>
-                    <p className="text-sm text-muted-foreground">E-mail</p>
-                    <a
-                      href="mailto:agenciamavi@agenciamavi.com.br"
-                      className="text-foreground hover:text-primary transition-colors break-all"
-                    >
-                      agenciamavi@agenciamavi.com.br
-                    </a>
-                  </div>
-                </div>
-                <div className="flex items-start gap-4 group">
-                  <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0 group-hover:bg-primary/20 transition-colors duration-300">
-                    <MapPin className="w-5 h-5 text-primary" />
-                  </div>
-                  <div>
-                    <p className="text-sm text-muted-foreground">Localização</p>
-                    <p className="text-foreground">Jaraguá do Sul – SC</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-4 group">
-                  <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0 group-hover:bg-primary/20 transition-colors duration-300">
-                    <Clock className="w-5 h-5 text-primary" />
-                  </div>
-                  <div>
-                    <p className="text-sm text-muted-foreground">Horário</p>
-                    <p className="text-foreground">Seg a Sex, 8h às 18h</p>
-                  </div>
-                </div>
+          {/* Canais diretos */}
+          <AnimatedSection animation="fadeInUp" delay={200} className="space-y-5 lg:sticky lg:top-28">
+            <div className="rounded-2xl bg-primary p-7 text-primary-foreground">
+              <div className="mb-3 flex items-center gap-3">
+                <MessageSquare className="h-7 w-7" strokeWidth={1.8} aria-hidden="true" />
+                <h3 className="text-xl font-extrabold tracking-tight">Prefere WhatsApp?</h3>
               </div>
-            </div>
-
-            {/* WhatsApp CTA */}
-            <div className="bg-gradient-to-br from-primary/20 to-primary/5 rounded-xl p-6 border border-primary/30 hover:shadow-magenta transition-all duration-300 hover:scale-[1.02]">
-              <div className="flex items-center gap-3 mb-4">
-                <MessageSquare className="w-8 h-8 text-primary animate-pulse" />
-                <h3 className="text-lg font-semibold text-foreground">
-                  Prefere WhatsApp?
-                </h3>
-              </div>
-              <p className="text-muted-foreground text-sm mb-4">
+              <p className="mb-6 leading-relaxed text-white/90">
                 Fale diretamente com nossa equipe pelo WhatsApp para um atendimento mais rápido.
               </p>
-              <WhatsAppLink className="w-full">
-                <Button className="w-full btn-glow pointer-events-none">
-                  <MessageSquare className="w-4 h-4 mr-2" />
-                  Chamar no WhatsApp
-                </Button>
+              <WhatsAppLink className={cn(buttonVariants({ size: "lg" }), "w-full rounded-full bg-white text-primary hover:bg-foreground hover:text-white")}>
+                <MessageSquare className="w-4 h-4 mr-2" />
+                Chamar no WhatsApp
               </WhatsAppLink>
             </div>
-          </div>
+
+            <div className="rounded-2xl border border-border bg-card px-7 py-2">
+              <h3 className="border-b border-border py-5 text-lg font-bold text-foreground">Informações de contato</h3>
+              {channels.map((c) => (
+                <div key={c.label} className="flex items-start gap-4 border-b border-dashed border-input py-4 last:border-0">
+                  <c.icon className="mt-0.5 h-5 w-5 shrink-0 text-primary" aria-hidden="true" />
+                  <div className="min-w-0">
+                    <p className="text-sm text-muted-foreground">{c.label}</p>
+                    <div className="font-medium text-foreground">{c.value}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </AnimatedSection>
         </div>
-      </Section>
+      </section>
     </Layout>
   );
 }

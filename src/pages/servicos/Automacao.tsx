@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Layout } from "@/components/Layout";
-import { Section, SectionHeader } from "@/components/Section";
 import { AnimatedCounter } from "@/components/AnimatedCounter";
+import { AnimatedSection } from "@/components/AnimatedSection";
+import { ServiceHero, ProblemPicker, DeliverablesBenefits, FaqBlock, FinalCta, BlockHead } from "@/components/service/ServiceBlocks";
+import { Check } from "lucide-react";
 import { SEO, generateBreadcrumbSchema, generateFAQSchema, generateServiceSchema } from "@/components/SEO";
-import { SplitText } from "@/components/SplitText";
-import { HeroBackground } from "@/components/HeroBackground";
 import { 
   Bot, 
   CheckCircle2, 
@@ -22,12 +22,6 @@ import {
   TrendingUp,
   Target
 } from "lucide-react";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
 
 const problems = [
   { icon: Clock, title: "Time sobrecarregado?", description: "Equipe perdendo tempo com tarefas repetitivas." },
@@ -120,298 +114,168 @@ export default function ServicoAutomacao() {
         schemaMarkup={combinedSchema}
       />
 
-      {/* Hero Section */}
-      <section className="pt-32 pb-20 bg-mavi-black relative overflow-hidden">
-        <HeroBackground intensity="subtle" />
-        
-        <div className="container-mavi relative z-10">
-          <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/20 text-primary mb-6">
-              <Bot className="w-4 h-4" />
-              <span className="text-sm font-medium">Automação & IA</span>
-            </div>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-mavi-white mb-2 leading-[1.05]"><SplitText stagger={45} duration={750}>Escale vendas com{" "}
-              <span className="text-primary">inteligência artificial</span></SplitText></h1>
-            <p className="text-xl text-mavi-white/70 leading-relaxed mb-8 animate-fade-in-up animation-delay-200">
-              Implantamos chatbots, fluxos automatizados e integrações com CRM para escalar 
-              suas vendas e suporte sem aumentar a equipe.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 animate-fade-in-up animation-delay-300">
-              <Button asChild variant="hero" size="xl">
-                <Link to="/contato">Quero automatizar meu negócio</Link>
-              </Button>
-              <Button asChild variant="heroOutline" size="lg">
-                <Link to="/hubrs-crm">
-                  Conhecer o CRM HUBRS
-                  <ArrowRight className="w-4 h-4" />
-                </Link>
-              </Button>
-            </div>
-          </div>
-        </div>
-      </section>
+      <ServiceHero
+        icon={Bot}
+        badge="Automação & IA"
+        title={<>Escale vendas com <span className="text-primary">inteligência artificial</span></>}
+        lead="Implantamos chatbots, fluxos automatizados e integrações com CRM para escalar suas vendas e suporte sem aumentar a equipe."
+        primary={{ label: "Quero automatizar meu negócio", href: "/contato" }}
+        secondary={{ label: "Conhecer o CRM HUBRS", href: "/hubrs-crm" }}
+        stats={stats.map((s) => ({
+          label: s.label,
+          value: s.isZero ? "0" : <AnimatedCounter end={s.end} prefix={s.prefix} suffix={s.suffix} />,
+        }))}
+      />
 
-      {/* Stats Bar */}
-      <section className="py-8 bg-primary">
+      <ProblemPicker
+        title="Isso soa familiar?"
+        subtitle="Se você enfrenta algum desses problemas, podemos ajudar."
+        problems={problems}
+      />
+
+      {/* Tipos de automação */}
+      <section className="bg-background py-20 md:py-28">
         <div className="container-mavi">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {stats.map((stat, index) => (
-              <div key={index} className="text-center">
-                {stat.isZero ? (
-                  <p className="text-3xl md:text-4xl font-bold text-primary-foreground">0</p>
-                ) : (
-                  <AnimatedCounter 
-                    end={stat.end}
-                    prefix={stat.prefix}
-                    suffix={stat.suffix}
-                    className="text-3xl md:text-4xl font-bold text-primary-foreground" 
-                  />
-                )}
-                <p className="text-primary-foreground/80 text-sm">{stat.label}</p>
-              </div>
+          <BlockHead title="Tipos de automação" subtitle="Soluções para cada necessidade do seu negócio." />
+          <div className="grid gap-x-8 sm:grid-cols-2 lg:grid-cols-4">
+            {automations.map((a) => (
+              <AnimatedSection key={a.title} className="group border-t-2 border-foreground py-6">
+                <span className="grid h-12 w-12 place-items-center rounded-xl bg-primary/10 text-primary transition-colors duration-300 group-hover:bg-primary group-hover:text-primary-foreground">
+                  <a.icon className="h-6 w-6" aria-hidden="true" />
+                </span>
+                <h3 className="mb-2 mt-5 text-lg font-bold tracking-tight text-foreground">{a.title}</h3>
+                <p className="text-[15px] leading-relaxed text-muted-foreground">{a.description}</p>
+              </AnimatedSection>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Problems Section */}
-      <Section>
-        <SectionHeader
-          title="Isso soa familiar?"
-          subtitle="Se você enfrenta algum desses problemas, podemos ajudar."
-        />
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {problems.map((problem, index) => (
-            <div key={index} className="p-6 rounded-xl bg-destructive/5 border border-destructive/20 hover:border-destructive/40 transition-colors card-glow">
-              <problem.icon className="w-10 h-10 text-destructive mb-4 icon-hover" />
-              <h3 className="text-lg font-semibold text-foreground mb-2">{problem.title}</h3>
-              <p className="text-muted-foreground text-sm">{problem.description}</p>
-            </div>
-          ))}
-        </div>
-      </Section>
+      <DeliverablesBenefits
+        title="O que entregamos"
+        subtitle="Automação inteligente para atendimento e vendas."
+        features={features}
+        cta={{ label: "Solicitar Proposta", href: "/contato" }}
+        benefitsTitle="Benefícios para o seu negócio"
+        benefits={benefits}
+      />
 
-      {/* Automation Types */}
-      <Section variant="gray">
-        <SectionHeader
-          title="Tipos de automação"
-          subtitle="Soluções para cada necessidade do seu negócio."
-        />
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {automations.map((automation, index) => (
-            <div key={index} className="bg-card rounded-xl p-6 border border-border hover:border-primary/30 transition-colors text-center card-glow">
-              <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4 icon-hover-glow">
-                <automation.icon className="w-8 h-8 text-primary icon-hover" />
-              </div>
-              <h3 className="text-lg font-semibold text-foreground mb-2">{automation.title}</h3>
-              <p className="text-sm text-muted-foreground">{automation.description}</p>
-            </div>
-          ))}
-        </div>
-      </Section>
-
-      {/* Features + Benefits */}
-      <Section>
-        <div className="grid lg:grid-cols-2 gap-12 items-start">
-          <div>
-            <SectionHeader
-              title="O que entregamos"
-              subtitle="Automação inteligente para atendimento e vendas."
-              centered={false}
-            />
-            <div className="space-y-3 mb-8">
-              {features.map((feature, index) => (
-                <div key={index} className="flex items-center gap-3">
-                  <CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0" />
-                  <span className="text-foreground">{feature}</span>
-                </div>
-              ))}
-            </div>
-            <Button asChild size="lg">
-              <Link to="/contato">Solicitar Proposta</Link>
-            </Button>
-          </div>
-          <div className="space-y-4">
-            <h3 className="text-2xl font-bold text-foreground mb-6">Benefícios para o seu negócio</h3>
-            {benefits.map((benefit, index) => (
-              <div key={index} className="flex gap-4 p-4 rounded-xl bg-card border border-border hover:border-primary/30 transition-colors card-glow">
-                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
-                  <benefit.icon className="w-6 h-6 text-primary icon-hover" />
-                </div>
-                <div>
-                  <h4 className="font-semibold text-foreground mb-1">{benefit.title}</h4>
-                  <p className="text-sm text-muted-foreground">{benefit.description}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </Section>
-
-      {/* CRM Integration */}
-      <Section variant="dark">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          <div>
-            <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/20 text-primary text-sm font-medium mb-4">
+      {/* Integração com o HubRS CRM */}
+      <section className="border-y border-border bg-card py-20 md:py-28">
+        <div className="container-mavi grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
+          <AnimatedSection animation="fadeInUp">
+            <span className="mb-4 inline-flex items-center gap-2 rounded-full bg-primary/10 px-3.5 py-1.5 text-sm font-semibold text-primary">
               Integração nativa
             </span>
-            <h2 className="text-3xl md:text-4xl font-bold text-mavi-white mb-2 leading-[1.05]">
+            <h2 className="text-3xl font-extrabold leading-[1.06] tracking-tight text-foreground text-balance md:text-4xl lg:text-5xl">
               Potencialize com o HubRS CRM
             </h2>
-            <p className="text-mavi-white/70 mb-6 leading-relaxed">
-              Todas as nossas automações se integram nativamente com o HubRS CRM, 
-              garantindo rastreabilidade completa do funil de vendas. Cada lead que 
-              entra é acompanhado do primeiro contato até a venda fechada.
+            <p className="mb-7 mt-4 max-w-[54ch] text-lg leading-relaxed text-muted-foreground">
+              Todas as nossas automações se integram nativamente com o HubRS CRM, garantindo rastreabilidade completa do funil de vendas. Cada lead que entra é acompanhado do primeiro contato até a venda fechada.
             </p>
-            <ul className="space-y-3 mb-8">
+            <ul className="mb-8 grid gap-3">
               {[
                 "Chatbot conectado direto ao funil de vendas",
                 "Leads qualificados automaticamente por IA",
                 "Histórico completo de todas interações",
                 "Automação de follow-up via WhatsApp",
-                "Transcrição de áudios para texto"
-              ].map((item, index) => (
-                <li key={index} className="flex items-center gap-3 text-mavi-white/80">
-                  <CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0" />
+                "Transcrição de áudios para texto",
+              ].map((item) => (
+                <li key={item} className="flex items-center gap-3 font-medium text-foreground">
+                  <span className="grid h-[26px] w-[26px] shrink-0 place-items-center rounded-full bg-primary/10 text-primary">
+                    <Check className="h-3.5 w-3.5" strokeWidth={2.6} aria-hidden="true" />
+                  </span>
                   {item}
                 </li>
               ))}
             </ul>
-            <Button asChild variant="hero" size="lg">
+            <Button asChild variant="hero" size="lg" className="group">
               <Link to="/hubrs-crm">
                 Conhecer o HubRS CRM
-                <ArrowRight className="w-4 h-4" />
+                <ArrowRight className="ml-1 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
               </Link>
             </Button>
-          </div>
-          <div className="bg-gradient-to-br from-primary/20 to-primary/5 rounded-2xl p-8 border border-primary/30">
-            <div className="flex items-center gap-4 mb-6">
-              <MessageSquare className="w-12 h-12 text-primary" />
-              <div>
-                <h3 className="text-xl font-bold text-mavi-white">HubRS CRM</h3>
-                <p className="text-mavi-white/60">CRM desenvolvido pela MAVI</p>
+          </AnimatedSection>
+          <AnimatedSection animation="fadeInUp" delay={100}>
+            <div className="rounded-2xl bg-primary p-8 text-white md:p-10">
+              <div className="mb-8 flex items-center gap-4">
+                <span className="grid h-14 w-14 place-items-center rounded-2xl bg-white/15">
+                  <MessageSquare className="h-7 w-7" aria-hidden="true" />
+                </span>
+                <div>
+                  <h3 className="text-2xl font-extrabold tracking-tight">HubRS CRM</h3>
+                  <p className="text-white/85">CRM desenvolvido pela MAVI</p>
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-px overflow-hidden rounded-xl bg-white/25">
+                {[
+                  { v: "WhatsApp", l: "Integrado" },
+                  { v: "IA", l: "Nativa" },
+                  { v: "Meta Ads", l: "Conectado" },
+                  { v: "Kanban", l: "Visual" },
+                ].map((s) => (
+                  <div key={s.v} className="bg-primary px-5 py-5">
+                    <p className="text-2xl font-extrabold tracking-tight">{s.v}</p>
+                    <p className="text-sm text-white/85">{s.l}</p>
+                  </div>
+                ))}
               </div>
             </div>
-            <div className="grid grid-cols-2 gap-4">
-              <div className="bg-mavi-black/50 rounded-lg p-4 text-center">
-                <p className="text-2xl font-bold text-primary">WhatsApp</p>
-                <p className="text-sm text-mavi-white/60">Integrado</p>
-              </div>
-              <div className="bg-mavi-black/50 rounded-lg p-4 text-center">
-                <p className="text-2xl font-bold text-primary">IA</p>
-                <p className="text-sm text-mavi-white/60">Nativa</p>
-              </div>
-              <div className="bg-mavi-black/50 rounded-lg p-4 text-center">
-                <p className="text-2xl font-bold text-primary">Meta Ads</p>
-                <p className="text-sm text-mavi-white/60">Conectado</p>
-              </div>
-              <div className="bg-mavi-black/50 rounded-lg p-4 text-center">
-                <p className="text-2xl font-bold text-primary">Kanban</p>
-                <p className="text-sm text-mavi-white/60">Visual</p>
-              </div>
-            </div>
-          </div>
+          </AnimatedSection>
         </div>
-      </Section>
+      </section>
 
-      {/* Use Cases */}
-      <Section>
-        <SectionHeader
-          title="Casos de uso"
-          subtitle="Veja como a automação transforma diferentes operações."
-        />
-        <div className="grid md:grid-cols-3 gap-6">
-          <div className="bg-card rounded-xl p-6 border border-border">
-            <span className="inline-block px-3 py-1 rounded-full bg-primary/20 text-primary text-sm font-medium mb-4">
-              E-commerce
-            </span>
-            <h3 className="text-lg font-semibold text-foreground mb-3">Recuperação de carrinho</h3>
-            <p className="text-muted-foreground text-sm mb-4">
-              Chatbot que identifica abandonos de carrinho e envia mensagens personalizadas 
-              com incentivos para concluir a compra.
-            </p>
-            <div className="flex items-center gap-2 text-primary font-semibold">
-              <TrendingUp className="w-5 h-5" />
-              <span>+25% de recuperação</span>
-            </div>
-          </div>
-          <div className="bg-card rounded-xl p-6 border border-border">
-            <span className="inline-block px-3 py-1 rounded-full bg-primary/20 text-primary text-sm font-medium mb-4">
-              Serviços
-            </span>
-            <h3 className="text-lg font-semibold text-foreground mb-3">Qualificação de leads</h3>
-            <p className="text-muted-foreground text-sm mb-4">
-              IA que qualifica leads automaticamente, fazendo perguntas estratégicas 
-              e direcionando apenas os mais quentes para o time comercial.
-            </p>
-            <div className="flex items-center gap-2 text-primary font-semibold">
-              <TrendingUp className="w-5 h-5" />
-              <span>-60% de leads frios</span>
-            </div>
-          </div>
-          <div className="bg-card rounded-xl p-6 border border-border">
-            <span className="inline-block px-3 py-1 rounded-full bg-primary/20 text-primary text-sm font-medium mb-4">
-              Suporte
-            </span>
-            <h3 className="text-lg font-semibold text-foreground mb-3">Atendimento 24/7</h3>
-            <p className="text-muted-foreground text-sm mb-4">
-              Chatbot que responde dúvidas frequentes, rastreia pedidos e resolve 
-              problemas simples sem intervenção humana.
-            </p>
-            <div className="flex items-center gap-2 text-primary font-semibold">
-              <TrendingUp className="w-5 h-5" />
-              <span>-70% de tickets</span>
-            </div>
-          </div>
-        </div>
-      </Section>
-
-      {/* FAQ Section */}
-      <Section variant="gray">
-        <SectionHeader
-          title="Perguntas frequentes"
-          subtitle="Tire suas dúvidas sobre automação e IA."
-        />
-        <div className="max-w-3xl mx-auto">
-          <Accordion type="single" collapsible className="space-y-4">
-            {faqs.map((faq, index) => (
-              <AccordionItem 
-                key={index} 
-                value={`item-${index}`}
-                className="bg-card border border-border rounded-xl px-6 data-[state=open]:border-primary/50"
-              >
-                <AccordionTrigger className="text-left hover:no-underline py-4">
-                  <span className="font-semibold text-foreground">{faq.question}</span>
-                </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground pb-4">
-                  {faq.answer}
-                </AccordionContent>
-              </AccordionItem>
+      {/* Casos de uso: contexto, o que a automação faz, resultado */}
+      <section className="bg-background py-20 md:py-28">
+        <div className="container-mavi">
+          <BlockHead title="Casos de uso" subtitle="Veja como a automação transforma diferentes operações." />
+          <div className="border-t-2 border-foreground">
+            {[
+              {
+                tag: "E-commerce",
+                title: "Recuperação de carrinho",
+                text: "Chatbot que identifica abandonos de carrinho e envia mensagens personalizadas com incentivos para concluir a compra.",
+                result: "+25% de recuperação",
+              },
+              {
+                tag: "Serviços",
+                title: "Qualificação de leads",
+                text: "IA que qualifica leads automaticamente, fazendo perguntas estratégicas e direcionando apenas os mais quentes para o time comercial.",
+                result: "-60% de leads frios",
+              },
+              {
+                tag: "Suporte",
+                title: "Atendimento 24/7",
+                text: "Chatbot que responde dúvidas frequentes, rastreia pedidos e resolve problemas simples sem intervenção humana.",
+                result: "-70% de tickets",
+              },
+            ].map((c) => (
+              <AnimatedSection key={c.title}>
+                <div className="grid gap-3 border-b border-border py-7 md:grid-cols-[160px,1fr,220px] md:items-center md:gap-10">
+                  <span className="w-fit rounded-full bg-primary/10 px-3 py-1 text-sm font-semibold text-primary">{c.tag}</span>
+                  <div>
+                    <h3 className="text-lg font-bold tracking-tight text-foreground">{c.title}</h3>
+                    <p className="mt-1 text-[15px] leading-relaxed text-muted-foreground">{c.text}</p>
+                  </div>
+                  <p className="flex items-center gap-2 text-xl font-extrabold tracking-tight text-foreground md:justify-end">
+                    <TrendingUp className="h-5 w-5 shrink-0 text-primary" aria-hidden="true" />
+                    {c.result}
+                  </p>
+                </div>
+              </AnimatedSection>
             ))}
-          </Accordion>
-        </div>
-      </Section>
-
-      {/* Final CTA */}
-      <Section variant="dark">
-        <div className="text-center max-w-3xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-bold text-mavi-white mb-4">
-            Quer automatizar seu atendimento?
-          </h2>
-          <p className="text-lg text-mavi-white/70 mb-8">
-            Converse com nosso time e descubra como a automação com IA 
-            pode transformar seu negócio.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button asChild variant="hero" size="xl">
-              <Link to="/contato">Falar com especialista</Link>
-            </Button>
-            <Button asChild variant="heroOutline" size="lg">
-              <Link to="/hubrs-crm">Conhecer o CRM HUBRS</Link>
-            </Button>
           </div>
         </div>
-      </Section>
+      </section>
+
+      <FaqBlock title="Perguntas frequentes" subtitle="Tire suas dúvidas sobre automação e IA." faqs={faqs} />
+
+      <FinalCta
+        title="Quer automatizar seu atendimento?"
+        text="Converse com nosso time e descubra como a automação com IA pode transformar seu negócio."
+        primary={{ label: "Falar com especialista", href: "/contato" }}
+        secondary={{ label: "Conhecer o CRM HUBRS", href: "/hubrs-crm" }}
+      />
     </Layout>
   );
 }
